@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Persona logo">
+  <title>Persona</title>
+  <line x1="32" y1="30" x2="60" y2="60" stroke="#7C3AED" stroke-width="11" stroke-linecap="round"/>
+  <line x1="92" y1="42" x2="60" y2="60" stroke="#7C3AED" stroke-width="11" stroke-linecap="round"/>
+  <line x1="34" y1="92" x2="60" y2="60" stroke="#7C3AED" stroke-width="11" stroke-linecap="round"/>
+  <line x1="98" y1="88" x2="60" y2="60" stroke="#7C3AED" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="32" cy="30" r="14" fill="#A78BFA"/>
+  <circle cx="92" cy="42" r="14" fill="#A78BFA"/>
+  <circle cx="34" cy="92" r="14" fill="#A78BFA"/>
+  <circle cx="98" cy="88" r="14" fill="#A78BFA"/>
+  <circle cx="60" cy="60" r="22" fill="#7C3AED"/>
+</svg>

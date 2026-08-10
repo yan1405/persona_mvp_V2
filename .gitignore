@@ -1,0 +1,23 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Dependencies and framework output
+node_modules/
+.next/
+out/
+build/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local tools and deployment state
+.vercel/
+strix_runs/
+.claude/settings.local.json
+*.log
+
+# Operating-system files
+.DS_Store
+Thumbs.db

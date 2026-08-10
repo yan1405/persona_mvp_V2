@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "name": "App Design Tokens",
+    "version": "1.0.0",
+    "description": "Substitua os valores de exemplo pela identidade do projeto."
+  },
+  "primitive": {
+    "color": {
+      "neutral": {
+        "0": "#FFFFFF",
+        "50": "#FAFAF9",
+        "100": "#F5F5F4",
+        "200": "#E7E5E4",
+        "300": "#D6D3D1",
+        "500": "#78716C",
+        "700": "#44403C",
+        "900": "#1C1917",
+        "950": "#0C0A09"
+      },
+      "accent": {
+        "50": "<accent-50>",
+        "100": "<accent-100>",
+        "200": "<accent-200>",
+        "300": "<accent-300>",
+        "400": "<accent-400>",
+        "500": "<accent-500>",
+        "600": "<accent-600>",
+        "700": "<accent-700>",
+        "800": "<accent-800>",
+        "900": "<accent-900>"
+      },
+      "red": {
+        "50": "#FEF2F2",
+        "500": "#EF4444",
+        "700": "#B91C1C"
+      },
+      "amber": {
+        "50": "#FFFBEB",
+        "500": "#F59E0B",
+        "800": "#92400E"
+      },
+      "green": {
+        "50": "#F0FDF4",
+        "500": "#22C55E",
+        "800": "#166534"
+      }
+    },
+    "space": {
+      "0": 0,
+      "0.5": 2,
+      "1": 4,
+      "2": 8,
+      "3": 12,
+      "4": 16,
+      "5": 20,
+      "6": 24,
+      "8": 32,
+      "10": 40,
+      "12": 48,
+      "16": 64,
+      "20": 80,
+      "24": 96
+    },
+    "radius": {
+      "none": 0,
+      "xs": 4,
+      "sm": 6,
+      "md": 8,
+      "lg": 12,
+      "xl": 16,
+      "2xl": 24,
+      "full": 9999
+    },
+    "font": {
+      "family": {
+        "sans": "<primary-sans>",
+        "serif": "<optional-serif>",
+        "mono": "<mono>"
+      },
+      "size": {
+        "xs": 12,
+        "sm": 14,
+        "md": 16,
+        "lg": 18,
+        "xl": 20,
+        "2xl": 24,
+        "3xl": 30,
+        "4xl": 36,
+        "5xl": 48
+      },
+      "weight": {
+        "regular": 400,
+        "medium": 500,
+        "semibold": 600,
+        "bold": 700
+      }
+    },
+    "motion": {
+      "duration": {
+        "instant": 80,
+        "fast": 120,
+        "normal": 180,
+        "slow": 280
+      },
+      "easing": {
+        "enter": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "exit": "cubic-bezier(0.7, 0, 0.84, 0)",
+        "standard": "cubic-bezier(0.4, 0, 0.2, 1)"
+      }
+    }
+  },
+  "semantic": {
+    "light": {
+      "background": {
+        "canvas": "{primitive.color.neutral.50}",
+        "surface": "{primitive.color.neutral.0}",
+        "subtle": "{primitive.color.neutral.100}",
+        "selected": "{primitive.color.accent.50}"
+      },
+      "text": {
+        "primary": "{primitive.color.neutral.900}",
+        "secondary": "{primitive.color.neutral.700}",
+        "muted": "{primitive.color.neutral.500}",
+        "onAccent": "{primitive.color.neutral.0}"
+      },
+      "border": {
+        "subtle": "{primitive.color.neutral.200}",
+        "default": "{primitive.color.neutral.300}",
+        "focus": "{primitive.color.accent.500}"
+      },
+      "action": {
+        "primary": "{primitive.color.accent.500}",
+        "primaryHover": "{primitive.color.accent.600}",
+        "primaryPressed": "{primitive.color.accent.700}"
+      }
+    },
+    "dark": {
+      "background": {
+        "canvas": "{primitive.color.neutral.950}",
+        "surface": "{primitive.color.neutral.900}",
+        "subtle": "{primitive.color.neutral.700}",
+        "selected": "{primitive.color.accent.900}"
+      },
+      "text": {
+        "primary": "{primitive.color.neutral.50}",
+        "secondary": "{primitive.color.neutral.200}",
+        "muted": "{primitive.color.neutral.300}",
+        "onAccent": "{primitive.color.neutral.0}"
+      },
+      "border": {
+        "subtle": "{primitive.color.neutral.700}",
+        "default": "{primitive.color.neutral.500}",
+        "focus": "{primitive.color.accent.300}"
+      },
+      "action": {
+        "primary": "{primitive.color.accent.400}",
+        "primaryHover": "{primitive.color.accent.300}",
+        "primaryPressed": "{primitive.color.accent.200}"
+      }
+    }
+  }
+}

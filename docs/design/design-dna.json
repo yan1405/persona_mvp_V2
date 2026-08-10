@@ -1,0 +1,374 @@
+{
+  "meta": {
+    "name": "Persona MVP v2 Design DNA",
+    "description": "Persona v2 design profile: original Persona palette and constellation logos combined with the current Geist typography and the structural design language adapted from the approved CRM reference.",
+    "source_references": [
+      "docs/design/BRAND_FOUNDATION.md",
+      "docs/design/DESIGN_DNA_ADAPTATION.md",
+      "apps/web/app/globals.css",
+      "apps/web/public/brand/persona-logo-rica.svg",
+      "apps/web/public/brand/persona-logo-rica-dark.svg",
+      "C:/Users/yansi/Projetos/crm/docs/design-dna.json"
+    ],
+    "created_at": "2026-08-09"
+  },
+  "design_system": {
+    "color": {
+      "palette_type": "analogous indigo and violet-neutral palette with a restrained brand accent",
+      "primary": {
+        "hex": "#7C3AED",
+        "role": "Persona brand color, primary action fill, selection, and logo core"
+      },
+      "secondary": {
+        "hex": "#2E2A3D",
+        "role": "violet-neutral dark surface and secondary structural layer"
+      },
+      "accent": {
+        "hex": "#A78BFA",
+        "role": "dark-theme focus ring, visibility accent, and logo satellites; not a competing action color"
+      },
+      "neutral": {
+        "scale": {
+          "0": "#FFFFFF",
+          "50": "#FAFAFC",
+          "100": "#F2F1F7",
+          "200": "#E4E2EE",
+          "300": "#C9C5D8",
+          "400": "#888291",
+          "500": "#6D5BA6",
+          "600": "#4F4866",
+          "700": "#2E2A3D",
+          "900": "#1A1726"
+        },
+        "usage": "violet-tinted neutrals define surfaces, borders, secondary text, navigation, and dark-mode layers"
+      },
+      "semantic": {
+        "success": "#ECFDF5 background; #10B981 action; #064E3B text",
+        "warning": "#FFFBEB background; #F59E0B action; #78350F text",
+        "error": "#FEF2F2 background; #EF4444 action; #7F1D1D text",
+        "info": "#EFF6FF background; #3B82F6 action; #1E3A8A text"
+      },
+      "surface": {
+        "background": "#FAFAFC light; #1A1726 dark",
+        "card": "#FFFFFF light; #2E2A3D dark",
+        "elevated": "#F7F5FE light; #4F4866 dark with a subtle indigo ring or restrained shadow"
+      },
+      "contrast_strategy": "dark violet-neutral on light surfaces and near-white on dark violet-neutral surfaces, with saturated indigo reserved for primary action, focus, selection, and brand marks"
+    },
+    "typography": {
+      "type_scale": {
+        "display": {
+          "size": "72px desktop; 48px mobile",
+          "weight": "600",
+          "line_height": "76px desktop; 52px mobile",
+          "tracking": "tight, approximately -0.025em"
+        },
+        "heading_1": {
+          "size": "30px desktop; 24px mobile",
+          "weight": "500",
+          "line_height": "36px desktop; 32px mobile",
+          "tracking": "tight, approximately -0.025em"
+        },
+        "heading_2": {
+          "size": "44px landing; 16px application section heading",
+          "weight": "600 landing; 500 application",
+          "line_height": "50px landing; 24px application",
+          "tracking": "tight"
+        },
+        "heading_3": {
+          "size": "19px landing card; 14px application card",
+          "weight": "500",
+          "line_height": "26px landing; 20px application",
+          "tracking": "tight on landing; normal in application"
+        },
+        "body": {
+          "size": "14px",
+          "weight": "400",
+          "line_height": "23px landing prose; 20px application",
+          "tracking": "0em"
+        },
+        "body_small": {
+          "size": "13px",
+          "weight": "400 to 500",
+          "line_height": "18px to 21px",
+          "tracking": "0em"
+        },
+        "caption": {
+          "size": "12px",
+          "weight": "400 to 500",
+          "line_height": "16px to 20px",
+          "tracking": "0em"
+        },
+        "overline": {
+          "size": "11px",
+          "weight": "400",
+          "line_height": "16px",
+          "tracking": "0.1em"
+        }
+      },
+      "font_families": {
+        "heading": "Geist, sans-serif",
+        "body": "Geist, sans-serif",
+        "mono": "Geist Mono, monospace"
+      },
+      "font_style_notes": "neutral neo-grotesk sans, medium-weight hierarchy, compact application text, and monospace reserved for labels, domains, dates, and technical metadata"
+    },
+    "spacing": {
+      "base_unit": "4px",
+      "scale": ["4px", "8px", "12px", "16px", "20px", "24px", "28px", "32px", "48px", "72px", "80px", "120px"],
+      "content_density": "compact and information-dense in the application; spacious in marketing sections",
+      "section_rhythm": "24px application page rhythm; 48px to 72px landing section internals; 80px to 120px landing section separation"
+    },
+    "layout": {
+      "grid_system": "responsive CSS grid and flex layouts with container-query-driven dashboard composition",
+      "max_content_width": "1280px application; 1152px landing; 1183px product-shot frame",
+      "columns": "1 mobile, 2 medium, up to 4 dashboard columns; asymmetric 2:1 hero rows; mixed bento landing layout",
+      "gutter": "16px mobile and 24px desktop page gutters; 16px card-grid gap",
+      "breakpoints": ["sm 640px", "md 768px", "lg 1024px", "xl 1280px", "2xl 1536px", "component-specific container queries"],
+      "alignment_tendency": "strict grid in the application, centered editorial composition in the landing hero, and controlled asymmetric bento groups"
+    },
+    "shape": {
+      "border_radius": {
+        "small": "4px",
+        "medium": "5px",
+        "large": "8px",
+        "pill": "9999px"
+      },
+      "border_usage": "subtle 1px neutral borders define controls, tables, panels, separators, and grouped data",
+      "divider_style": "flat 1px solid neutral divider, frequently edge-to-edge in lists and tables"
+    },
+    "elevation": {
+      "shadow_style": "minimal soft diffused elevation",
+      "levels": {
+        "low": "0 1px 2px rgb(0 0 0 / 0.04 to 0.06)",
+        "medium": "0 2px 4px -1px rgb(0 0 0 / 0.08)",
+        "high": "0 8px 16px -4px rgb(0 0 0 / 0.08), with 16px/32px reserved for highest overlays"
+      },
+      "depth_cues": "borders and neutral surface changes first, restrained shadows on floating controls, rings on overlays, and blur only behind modal overlays"
+    },
+    "iconography": {
+      "style": "clean outlined functional symbols with occasional solid brand marks",
+      "stroke_weight": "approximately 1.5px to 2px",
+      "size_scale": ["12px", "14px", "16px", "20px", "24px"],
+      "preferred_set": "Carbon Icons for product actions, Lucide for utility states, and the official Persona constellation SVGs in apps/web/public/brand"
+    },
+    "motion": {
+      "easing": "ease-out for entry, ease-in for exit, ease-in-out for movement, with spring easing for async state swaps",
+      "duration_scale": {
+        "micro": "100ms to 150ms",
+        "normal": "200ms to 300ms",
+        "macro": "400ms"
+      },
+      "entrance_pattern": "subtle fade, 95% scale-in, short slide, blur-to-sharp, or 12px rise",
+      "exit_pattern": "faster fade, scale-out, or directional slide",
+      "philosophy": "minimal functional motion with reduced-motion support and restrained playful icon feedback"
+    },
+    "components": {
+      "button_style": "compact 32px default height, 5px radius, small medium-weight label, primary indigo or neutral outline/ghost variants, and a very soft shadow",
+      "input_style": "compact 32px height, violet-neutral 1px border, 5px radius, subtle hover border and lavender focus ring, with inset depth in dark mode",
+      "card_style": "mostly flat grouped surfaces; 8px radius and neutral border when the card contains controls, borderless dark bento cards on the landing page",
+      "navigation_pattern": "48px application header plus 56px icon rail on desktop, compact horizontal alternatives on mobile, and a centered max-width landing navigation",
+      "modal_style": "small centered popover surface with 8px radius, 1px ring, subtle shadow, dimmed backdrop, and 100ms fade/zoom",
+      "list_style": "dense 44px or 48px rows with hairline separators, quiet hover fills, compact metadata, and tabular alignment",
+      "component_notes": "shadcn/Radix primitives centralized in packages/ui; visual variants are defined at the shared component layer rather than at call sites"
+    }
+  },
+  "design_style": {
+    "aesthetic": {
+      "mood": ["focused", "calm", "precise", "trustworthy", "quietly technical"],
+      "visual_metaphor": "a disciplined operator console with editorial restraint",
+      "era_influence": "contemporary 2020s developer-tool and productivity software",
+      "genre": "professional narrative SaaS with minimalist editorial product design",
+      "personality_traits": ["competent", "restrained", "methodical", "direct", "modern"],
+      "adjectives": ["neutral", "compact", "flat", "structured", "agent-native", "unornamented"]
+    },
+    "visual_language": {
+      "complexity": "moderate information complexity expressed with minimal decoration",
+      "ornamentation": "subtle accents only",
+      "whitespace_usage": "functional and compact in workflows; generous and cinematic around landing-page statements",
+      "visual_weight_distribution": "content and evidence carry most weight; Persona indigo is used sparingly to establish action priority and traceability",
+      "focal_strategy": "typographic hierarchy and selective filled actions, followed by progressive disclosure of structured data",
+      "contrast_level": "high text contrast with low-contrast structural layers",
+      "texture_usage": "none; surfaces are intentionally flat and untinted"
+    },
+    "composition": {
+      "hierarchy_method": "typographic scale, weight, muted text, borders, and spatial grouping",
+      "balance_type": "strict modular balance with selective asymmetric dashboard and bento splits",
+      "flow_direction": "top-to-bottom, left-to-right scanning, with centered landing hero entry",
+      "grouping_strategy": "shared surfaces, edge-to-edge dividers, compact rows, bento blocks, and container-query sections",
+      "negative_space_role": "separates concepts and protects hierarchy without turning application screens into sparse showcases"
+    },
+    "imagery": {
+      "photo_treatment": "rare; small natural user avatars with no decorative photo treatment",
+      "illustration_style": "none; product UI demonstrations replace illustration",
+      "graphic_elements": "brand marks, product screenshots, charts, status dots, icons, and restrained mono labels",
+      "pattern_usage": "no decorative patterns; occasional dot matrices serve functional loading or status roles",
+      "image_shape": "small circular avatars and large rounded product frames with controlled clipping"
+    },
+    "interaction_feel": {
+      "feedback_style": "immediate, compact, stateful, and accessible",
+      "hover_behavior": "quiet neutral fill or border change, occasional underline drawing, and small icon transforms",
+      "transition_personality": "snappy and subtle, with smooth directional page changes",
+      "loading_style": "skeleton pulse, SVG spinner trace, shimmer text, and explicit pending-to-success/error state swaps",
+      "microinteraction_density": "moderate in controls and state changes, low in static content"
+    },
+    "brand_voice_in_ui": {
+      "tone": "direct, operational, and explanatory",
+      "formality": "professional but plain-spoken",
+      "cta_style": "direct imperative focused on setup, creation, and the next action",
+      "empty_state_approach": "brief explanation plus one clear path forward",
+      "error_tone": "concise, recoverable, and action-oriented"
+    }
+  },
+  "visual_effects": {
+    "overview": {
+      "effect_intensity": "subtle-accent",
+      "performance_tier": "lightweight",
+      "fallback_strategy": "honor prefers-reduced-motion, remove animated transforms and shimmer, and preserve static state clarity",
+      "primary_technology": "CSS animations and React View Transitions, with Motion for a few stateful microinteractions"
+    },
+    "background_effects": {
+      "type": "none",
+      "description": "flat neutral backgrounds with no generative or animated scene",
+      "technology": "CSS solid colors",
+      "params": {
+        "color_palette": ["#FAFAFC", "#1A1726", "#2E2A3D", "#7C3AED", "#A78BFA"],
+        "speed": "static",
+        "density": "none",
+        "opacity": "100%",
+        "blend_mode": "normal"
+      }
+    },
+    "particle_systems": {
+      "enabled": false,
+      "type": "none",
+      "description": "no particle system is present",
+      "technology": "none",
+      "params": {
+        "count": 0,
+        "shape": "none",
+        "size_range": "none",
+        "movement_pattern": "none",
+        "color_behavior": "none",
+        "interaction": "none",
+        "spawn_area": "none"
+      }
+    },
+    "3d_elements": {
+      "enabled": false,
+      "type": "none",
+      "description": "no 3D scene or rendered model is present",
+      "technology": "none",
+      "params": {
+        "renderer": "none",
+        "lighting": "none",
+        "camera": "none",
+        "materials": "none",
+        "geometry": "none",
+        "post_processing": [],
+        "interaction_model": "none"
+      }
+    },
+    "shader_effects": {
+      "enabled": false,
+      "type": "none",
+      "description": "no GLSL or shader-driven distortion is present",
+      "technology": "none",
+      "params": {
+        "uniforms": {},
+        "vertex_manipulation": "none",
+        "fragment_output": "none",
+        "noise_type": "none",
+        "distortion": "none"
+      }
+    },
+    "scroll_effects": {
+      "parallax": {
+        "enabled": false,
+        "layers": "0",
+        "depth_range": "none",
+        "speed_curve": "none"
+      },
+      "scroll_triggered_animations": {
+        "enabled": false,
+        "trigger_points": "none",
+        "animation_type": "none",
+        "scrub_behavior": "none"
+      },
+      "scroll_morphing": {
+        "enabled": false,
+        "description": "no scroll-driven morphing is present"
+      }
+    },
+    "text_effects": {
+      "type": "loading-shimmer and animated link underlines",
+      "description": "functional shimmer for active text states and several lightweight underline hover variants",
+      "technology": "Motion plus CSS gradients, pseudo-elements, and keyframes",
+      "params": {
+        "split_strategy": "none",
+        "animation_per_unit": "whole text label",
+        "stagger": "none",
+        "effect_style": "horizontal muted-to-background shimmer and restrained underline transforms"
+      }
+    },
+    "cursor_effects": {
+      "enabled": false,
+      "type": "none",
+      "description": "native cursor behavior only",
+      "params": {
+        "shape": "system default",
+        "size": "system default",
+        "blend_mode": "normal",
+        "trail": "none",
+        "interaction_zone": "standard interactive controls"
+      }
+    },
+    "image_effects": {
+      "type": "static clipping and overlay blur",
+      "description": "product-shot compositions use clipped rounded frames and selective blurred dimming to direct attention",
+      "technology": "CSS overflow clipping, translucent overlays, and backdrop-filter",
+      "params": {
+        "filter_pipeline": "3px to 4px backdrop blur on dimmed product-shot regions",
+        "hover_transform": "none",
+        "reveal_animation": "none",
+        "distortion_type": "none"
+      }
+    },
+    "glassmorphism_neumorphism": {
+      "enabled": true,
+      "style": "frosted overlay only",
+      "params": {
+        "blur_radius": "approximately 4px on modal overlays and 3px to 4px in product-shot focus masks",
+        "transparency": "18% black light overlay; 55% black dark overlay and product-shot mask",
+        "border_treatment": "no glass border; underlying dialogs use a subtle foreground ring",
+        "shadow_type": "minimal soft dialog shadow",
+        "light_source_angle": "not applicable"
+      }
+    },
+    "canvas_drawings": {
+      "enabled": false,
+      "type": "none",
+      "description": "no Canvas 2D drawing is present",
+      "technology": "none",
+      "params": {
+        "draw_method": "none",
+        "animation_loop": "none",
+        "color_scheme": "none",
+        "responsiveness": "none",
+        "interaction": "none"
+      }
+    },
+    "svg_animations": {
+      "enabled": true,
+      "type": "spinner stroke trace and icon transforms",
+      "description": "inline SVG spinners rotate or animate stroke dash offset, while shared icons receive small hover motions",
+      "params": {
+        "animation_method": "CSS keyframes and transforms",
+        "path_morphing": "none",
+        "stroke_animation": "spinner dash offset and rotation",
+        "filter_effects": "none"
+      }
+    },
+    "composite_notes": "The visual-effects layer is intentionally subordinate to product clarity. React View Transitions combine short blur/fade/rise or directional slide sequences for navigation; Motion swaps async and skeleton states with opacity, scale, and blur springs; CSS provides status pulses, icon gestures, loading spinners, link underlines, and small bloom cues. No heavy rendering stack, particles, shaders, WebGL, or scroll-scrubbing system was found. Reduced-motion fallbacks are implemented for the principal animated patterns."
+  }
+}

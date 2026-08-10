@@ -1,0 +1,3 @@
+id,type,name,route,platform,status,priority,owner,states,responsive,a11y,tested,notes
+SCR-001,screen,Example,/example,mobile,planned,high,,"loading|empty|data|error",yes,yes,no,
+CMP-001,component,ExampleButton,,all,planned,high,design-system,"default|hover|focus|pressed|loading|disabled",yes,yes,no,
