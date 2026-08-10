@@ -2,7 +2,7 @@
 
 > Snapshot: 10/08/2026  
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: aprovação explícita da Fase 3 por Yan
+> Próximo gate: implementação e avaliação da Fase 4
 
 ## 1. Resumo executivo
 
@@ -13,8 +13,8 @@ O projeto saiu da fundação e já possui autenticação Microsoft real, onboard
 | 0 — governança e arquitetura | aprovada | `AGENTS.md`, briefings e arquitetura |
 | 1 — fundação e entrada | aprovada | `docs/reviews/fase-1-fundacao.md` |
 | 2 — autenticação Microsoft | aprovada | `docs/reviews/fase-2-autenticacao.md` |
-| 3 — onboarding funcional | implementada; aprovação pendente | `docs/reviews/fase-3-onboarding.md` |
-| 4 — Diário e estruturação assistida | não iniciada | contrato proposto em `docs/handoff/PHASES.md` |
+| 3 — onboarding funcional | aprovada para avanço | `docs/reviews/fase-3-onboarding.md` |
+| 4 — Diário e estruturação assistida | autorizada; design registrado | `docs/plans/2026-08-10-fase-4-diario-estruturacao-design.md` |
 
 ## 2. Aplicação existente
 
@@ -115,7 +115,7 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 
 ## 8. Limitações e pendências reais
 
-- aprovação de Yan para a Fase 3 está pendente;
+- avaliação visual complementar da Fase 3 em 1024/1440/1920px não foi registrada;
 - o lembrete é persistido, mas não envia notificação;
 - `/app/inicio` ainda é o estado mínimo pós-onboarding, não o dashboard completo;
 - Diário, Evidências, Persona Live, Artefatos e Configurações ainda não existem;
@@ -123,7 +123,7 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 - não há chamada de IA;
 - Termos e Privacidade são provisórios e precisam de revisão jurídica antes de uso externo real;
 - o Xisto/mascote não tem linguagem final aprovada;
-- o repositório Git local existe na branch `main`, mas não há remoto configurado;
+- o repositório Git local acompanha `origin/main` no GitHub;
 
 ## 9. Diagnósticos já resolvidos
 
@@ -150,8 +150,8 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. mostrar a Fase 3 a Yan;
-2. registrar `aprovado`, `aprovado com ajustes` ou `reprovado` em `docs/reviews/fase-3-onboarding.md`;
-3. criar um commit para a decisão/correções;
-4. somente após aprovação, detalhar e executar a Fase 4;
-5. solicitar a chave da Groq apenas imediatamente antes de configurar a primeira chamada server-only da Fase 4.
+1. implementar a Fase 4 conforme o design técnico versionado;
+2. fechar a fronteira server-only e os testes sem incluir segredo;
+3. solicitar a chave da Groq apenas imediatamente antes de configurar a primeira chamada real;
+4. validar o ciclo `log → sugestão → revisão → evidência`;
+5. apresentar screenshots, testes e limitações a Yan antes da Fase 5.

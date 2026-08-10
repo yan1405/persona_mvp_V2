@@ -20,8 +20,8 @@ Fontes principais:
 
 - Fase 1 — fundação e entrada: aprovada;
 - Fase 2 — autenticação Microsoft: aprovada;
-- Fase 3 — onboarding funcional: implementada e validada, aguardando aprovação de Yan;
-- Fase 4 — Diário, estruturação assistida e revisão: não iniciada;
+- Fase 3 — onboarding funcional: implementada, validada e aprovada para avanço;
+- Fase 4 — Diário, estruturação assistida e revisão: autorizada; design técnico registrado;
 - Groq: ainda não configurada e não utilizada;
 - aplicação local: `http://localhost:3100`;
 - banco: Supabase Postgres com `profiles`, `daily_logs` e RLS aplicados.

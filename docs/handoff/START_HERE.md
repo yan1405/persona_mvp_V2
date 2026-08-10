@@ -17,15 +17,15 @@ C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2
 Em 10/08/2026:
 
 - Fases 1 e 2 estão aprovadas;
-- Fase 3 está implementada e tecnicamente validada;
-- a aprovação visual/funcional de Yan para a Fase 3 ainda está pendente;
-- a Fase 4 não começou;
+- Fase 3 está implementada, tecnicamente validada e aprovada para avanço;
+- Yan autorizou explicitamente o início da Fase 4;
+- o design técnico da Fase 4 está em `docs/plans/2026-08-10-fase-4-diario-estruturacao-design.md`;
 - a chave da Groq ainda não foi solicitada nem configurada;
 - o Supabase possui as tabelas e políticas da Fase 3;
 - o primeiro Daily Log da conta de teste foi persistido durante a validação;
 - o projeto usa a porta `3100`, nunca `3000`.
 
-Não avance para a Fase 4 sem a confirmação explícita de Yan.
+Não amplie a Fase 4 além do contrato aprovado sem nova confirmação de Yan.
 
 ## 3. Ordem obrigatória de leitura
 
@@ -126,4 +126,4 @@ Para uma fase não iniciada:
 
 ## 8. Condição atual para avançar
 
-Yan deve testar e aprovar a Fase 3. Depois disso, a próxima IA pode preparar o contrato da Fase 4 descrito em [`PHASES.md`](PHASES.md#fase-4--diário-estruturação-assistida-e-revisão).
+A Fase 4 está autorizada. A próxima IA deve seguir o contrato em [`PHASES.md`](PHASES.md#fase-4--diário-estruturação-assistida-e-revisão) e o design técnico versionado, pedir a chave Groq somente no ponto indicado e terminar no checkpoint de avaliação da Fase 4.

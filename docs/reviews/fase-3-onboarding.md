@@ -1,6 +1,6 @@
 # Revisão da Fase 3 — Onboarding funcional
 
-> Status: aguardando avaliação de Yan  
+> Status: aprovada para avanço  
 > Data: 2026-08-10
 
 ## Escopo entregue
@@ -90,4 +90,4 @@ fluxo no navegador     → Microsoft → onboarding → Supabase → /app/inicio
 
 ## Decisão
 
-Fase 3 implementada e validada tecnicamente. Decisão de Yan: **pendente**.
+Fase 3 implementada e validada tecnicamente. Decisão de Yan: **aprovada para avanço em 10/08/2026**, confirmada pela autorização explícita “pode iniciar a fase 4”. As larguras ainda não avaliadas permanecem como evidência complementar, sem reabrir o gate funcional.

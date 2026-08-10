@@ -202,11 +202,11 @@ Saída: `/app/inicio`.
 
 ### Gate pendente
 
-Yan precisa testar, validar 1024/1440/1920px e registrar a decisão. Não começar a Fase 4 antes disso.
+Gate encerrado em 10/08/2026: Yan autorizou explicitamente o início da Fase 4. A avaliação complementar em 1024/1440/1920px permanece registrada como limitação, sem bloquear o avanço funcional.
 
 ## Fase 4 — Diário, estruturação assistida e revisão
 
-**Estado:** planejada; não iniciada; depende da aprovação da Fase 3.
+**Estado:** autorizada em 10/08/2026; design técnico registrado; implementação em preparação.
 
 ### Objetivo
 

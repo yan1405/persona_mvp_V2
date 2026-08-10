@@ -494,3 +494,63 @@ O hash é informado na entrega e pode ser confirmado com `git log -1 --oneline`.
 ### Próximo gate
 
 A Fase 4 continua bloqueada. Yan ainda precisa aprovar a Fase 3 e autorizar explicitamente o avanço.
+
+---
+
+## EXEC-006 — Aprovação de avanço e design técnico da Fase 4
+
+**Data:** 10/08/2026  
+**Fase:** 4 — Diário, estruturação assistida e revisão  
+**Estado:** design registrado; implementação autorizada
+
+### Autorização
+
+Após a publicação do projeto no GitHub, Yan confirmou: “pode iniciar a fase 4”. A confirmação encerra o gate de avanço da Fase 3 e autoriza somente o contrato já documentado para a Fase 4.
+
+### Skills e referências aplicadas
+
+- brainstorming para comparar três abordagens;
+- `editorial-modular-app-design` para shell, lista–detalhe, estados, acessibilidade e contrato de IA;
+- `design-sem-cara-de-ia` para ancoragem, copy e restrições visuais;
+- Ponytail `full` para escolher Server Actions, HTML nativo e o menor conjunto de dependências;
+- documentação local do Next.js 16 para formulários, Server Actions, segurança, rotas dinâmicas, redirects e revalidação;
+- `PHASES.md`, `PRODUCT_SURFACE.md`, arquitetura de informação e arquitetura técnica.
+
+### Abordagem escolhida
+
+Server Components para leitura, Server Actions autenticadas para mutações e Supabase/RLS como fonte da verdade. Uma RPC será usada somente para a confirmação transacional que cria evidência e atualiza a sugestão.
+
+Foram rejeitados:
+
+- Route Handlers + cache cliente, por duplicarem contratos e estado;
+- camada RPC para todas as operações, por acoplamento desnecessário;
+- store global, Zod, shadcn, gateway de IA, fila e embeddings, por não resolverem necessidade atual.
+
+### Contrato registrado
+
+Arquivo: `docs/plans/2026-08-10-fase-4-diario-estruturacao-design.md`.
+
+O plano cobre:
+
+- rotas, shell, editor, lista, detalhe e abas;
+- schema `daily_logs`, `evidence_suggestions` e `evidences`;
+- RLS e confirmação transacional;
+- schema de saída e erros da Groq;
+- fallback manual;
+- estados, segurança, testes e itens fora de escopo.
+
+### Decisões Ponytail
+
+- `evidence_sources` adiada até existir fonte adicional ou anexo;
+- navegador automatizado externo substitui dependência Playwright local nesta fase;
+- testes continuam no runner nativo do Node;
+- dependências novas limitadas ao SDK oficial Groq e Carbon para navegação aprovada;
+- nenhuma chave solicitada antes da fronteira server-only estar pronta.
+
+### Commit
+
+Mensagem: `docs(fase-4): approve design and implementation contract`.
+
+### Próximo passo
+
+Implementar migração, validações e o modo manual; depois fechar a fronteira Groq e solicitar a chave imediatamente antes da configuração real.
