@@ -140,11 +140,13 @@ Evite reabrir esses problemas sem evidência atual.
 - branch: `main`;
 - autor usa a configuração Git global já existente de Yan;
 - primeiro snapshot inclui as Fases 1–3 e a rede de handoff;
-- mensagem do primeiro commit: `docs: establish project handoff and execution log`;
-- remoto: não configurado no momento deste registro;
-- push: não realizado. Não inventar URL nem publicar em outro repositório.
+- primeiro commit: `d47fde0 docs: establish project handoff and execution log`;
+- remoto `origin`: `https://github.com/yan1405/persona_mvp_V2.git`;
+- branch local `main` acompanha `origin/main`;
+- primeiro push concluído em 10/08/2026;
+- repositório de destino: `https://github.com/yan1405/persona_mvp_V2`.
 
-O hash do commit não é gravado dentro do próprio commit porque isso criaria autorreferência. Consulte `git log -1 --oneline` e registre o hash na comunicação de entrega.
+Para confirmar sincronização, execute `git status --short --branch` e `git log -1 --oneline`. Não trocar o remoto sem autorização explícita de Yan.
 
 ## 11. Próxima ação permitida
 

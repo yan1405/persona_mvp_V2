@@ -449,3 +449,48 @@ O commit é local. Nenhum remoto foi encontrado e nenhum push foi realizado.
 ### Próximo gate
 
 Apresentar a rede e o commit a Yan. A Fase 4 continua bloqueada até aprovação separada da Fase 3 e autorização de avanço.
+
+---
+
+## EXEC-005 — Publicação inicial no GitHub
+
+**Data:** 10/08/2026  
+**Tipo:** versionamento e publicação  
+**Estado:** concluído
+
+### Autorização
+
+Yan criou e informou o repositório `https://github.com/yan1405/persona_mvp_V2` e solicitou atualizar e enviar o projeto completo para esse destino.
+
+### Estado anterior
+
+- branch local: `main`;
+- commit raiz: `d47fde0 docs: establish project handoff and execution log`;
+- nenhum remoto configurado;
+- `.env.local`, `.next`, `node_modules` e configurações locais ignorados;
+- nenhuma assinatura de segredo detectada no snapshot.
+
+### Executado
+
+1. remoto `origin` configurado como `https://github.com/yan1405/persona_mvp_V2.git`;
+2. proteção `safe.directory` aplicada somente à pasta `persona_mvp_v2`, necessária porque o repositório local foi criado pelo ambiente seguro do Codex e o push usa a conta Windows de Yan;
+3. branch `main` enviada ao GitHub;
+4. acompanhamento configurado como `main` → `origin/main`;
+5. estado Git atualizado no handoff.
+
+### Segurança
+
+- nenhum segredo foi adicionado para realizar o push;
+- não foram exibidos tokens ou credenciais do GitHub;
+- arquivos locais e dependências permaneceram ignorados;
+- as capturas existentes continuam exigindo revisão de dados antes de compartilhamento público externo.
+
+### Commit desta entrada
+
+Mensagem: `docs: record GitHub publication`.
+
+O hash é informado na entrega e pode ser confirmado com `git log -1 --oneline`.
+
+### Próximo gate
+
+A Fase 4 continua bloqueada. Yan ainda precisa aprovar a Fase 3 e autorizar explicitamente o avanço.
