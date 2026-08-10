@@ -19,9 +19,10 @@ Em 10/08/2026:
 - Fases 1 e 2 estão aprovadas;
 - Fase 3 está implementada, tecnicamente validada e aprovada para avanço;
 - Yan autorizou explicitamente o início da Fase 4;
+- o núcleo manual da Fase 4 está implementado em `/app/diario` e `/app/diario/[id]`;
 - o design técnico da Fase 4 está em `docs/plans/2026-08-10-fase-4-diario-estruturacao-design.md`;
-- a chave da Groq ainda não foi solicitada nem configurada;
-- o Supabase possui as tabelas e políticas da Fase 3;
+- a fronteira Groq server-only e o schema estrito estão implementados; a chave ainda não foi configurada;
+- o Supabase possui `evidence_suggestions`, `evidences`, RLS e a RPC transacional da Fase 4;
 - o primeiro Daily Log da conta de teste foi persistido durante a validação;
 - o projeto usa a porta `3100`, nunca `3000`.
 
@@ -126,4 +127,4 @@ Para uma fase não iniciada:
 
 ## 8. Condição atual para avançar
 
-A Fase 4 está autorizada. A próxima IA deve seguir o contrato em [`PHASES.md`](PHASES.md#fase-4--diário-estruturação-assistida-e-revisão) e o design técnico versionado, pedir a chave Groq somente no ponto indicado e terminar no checkpoint de avaliação da Fase 4.
+A Fase 4 está em execução. A próxima IA deve confirmar o commit e o estado vivo, configurar a chave Groq sem lê-la ou registrá-la, validar a chamada real e terminar no checkpoint de avaliação da Fase 4.

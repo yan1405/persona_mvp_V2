@@ -67,9 +67,9 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 `lib/supabase/config.ts` usa publishable quando disponível e aceita anon como fallback.
 
-### Futuras e server-only
+### Fase 4 e server-only
 
-Quando a Fase 4 for aprovada:
+Variáveis previstas no código e documentadas em `.env.example`:
 
 ```text
 GROQ_API_KEY

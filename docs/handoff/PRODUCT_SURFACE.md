@@ -25,7 +25,7 @@ O shell desktop aprovado possui cabeçalho de 48px, trilho lateral de 56px e con
 | Ordem | Destino | Rota | Situação atual |
 |---|---|---|---|
 | 1 | Início | `/app/inicio` | estado mínimo implementado |
-| 2 | Diário | `/app/diario` | planejado para Fase 4 |
+| 2 | Diário | `/app/diario` | núcleo implementado na Fase 4 |
 | 3 | Evidências | `/app/evidencias` | planejado para Fase 5 |
 | 4 | Persona Live | `/app/live` | planejado para Fase 7 |
 | 5 | Artefatos | `/app/artefatos` | planejado para Fase 8 |
@@ -47,8 +47,8 @@ Narrative Score não é um destino principal; aparece no Início e abre `/app/sc
 | `/onboarding` | autenticado | fluxo | implementada | perfil, consentimento, rotina e primeiro log |
 | `/app/inicio` | autenticado | página | parcial | estado inicial; dashboard completo na Fase 6 |
 | `/app/score` | autenticado | painel/deep link | planejada | score, histórico e método |
-| `/app/diario` | autenticado | página | planejada | captura e histórico de logs |
-| `/app/diario/[id]` | autenticado | painel/deep link | planejada | registro original e sugestões |
+| `/app/diario` | autenticado | página | implementada | captura, busca, filtros e histórico de logs |
+| `/app/diario/[id]` | autenticado | painel/deep link | implementada | registro original, sugestões, revisão e confirmação |
 | `/app/evidencias` | autenticado | página | planejada | biblioteca, filtros e revisão |
 | `/app/evidencias/[id]` | autenticado | painel/deep link | planejada | resumo, provas e usos |
 | `/app/live` | autenticado | workspace | planejada | preparação e assistência em perguntas |

@@ -499,8 +499,8 @@ A Fase 4 continua bloqueada. Yan ainda precisa aprovar a Fase 3 e autorizar expl
 
 ## EXEC-006 — Aprovação de avanço e design técnico da Fase 4
 
-**Data:** 10/08/2026  
-**Fase:** 4 — Diário, estruturação assistida e revisão  
+**Data:** 10/08/2026
+**Fase:** 4 — Diário, estruturação assistida e revisão
 **Estado:** design registrado; implementação autorizada
 
 ### Autorização
@@ -554,3 +554,61 @@ Mensagem: `docs(fase-4): approve design and implementation contract`.
 ### Próximo passo
 
 Implementar migração, validações e o modo manual; depois fechar a fronteira Groq e solicitar a chave imediatamente antes da configuração real.
+
+---
+
+## EXEC-007 — Núcleo funcional da Fase 4
+
+**Data:** 10/08/2026
+**Fase:** 4 — Diário, estruturação assistida e revisão
+**Estado:** primeiro bloco concluído; configuração Groq pendente
+
+### Implementado
+
+- shell autenticado compartilhado e navegação com ícones Carbon;
+- `/app/diario` com captura, data, contexto, busca, filtros e histórico;
+- `/app/diario/[id]` com Registro e Sugestões;
+- Server Actions autenticadas para criar, editar e excluir logs;
+- sugestão manual, revisão de campos, rejeição e confirmação humana;
+- migração `20260810230000_phase_4_diary_evidences.sql` aplicada no Supabase;
+- tabelas `evidence_suggestions` e `evidences`, RLS e RPC atômica;
+- bloqueio estrutural da exclusão do Daily Log que já originou evidência;
+- integração Groq server-only com `openai/gpt-oss-20b` configurável, JSON Schema estrito, timeout de 12 s, um retry e erros classificados;
+- `.env.example` atualizado sem segredo;
+- fallback manual disponível independentemente da Groq.
+
+### Skills e referências aplicadas
+
+- brainstorming para fechar abordagem e escopo;
+- `editorial-modular-app-design` e suas referências de layout, navegação, componentes, estados, acessibilidade, arquitetura, conteúdo, segurança e QA;
+- `design-sem-cara-de-ia` para copy, hierarquia e restrições visuais;
+- Ponytail `full` para evitar store global, API duplicada, Zod, Playwright local e tabela prematura de fontes;
+- Browser in-app para Supabase e validação local, sem acessar cookies ou credenciais;
+- documentação oficial Groq para modelos, Structured Outputs e deprecações.
+
+### Banco e segurança
+
+A migração foi executada com sucesso no projeto Supabase `persona-mvp-v2`. Um teste transacional com rollback comprovou criação do log, sugestão manual, confirmação atômica, isolamento RLS e proteção da fonte. Nenhum registro sintético foi mantido.
+
+A chave Groq ainda não foi fornecida, lida, impressa ou salva. O segredo deverá entrar somente em `.env.local`, sem prefixo `NEXT_PUBLIC_`.
+
+### Validação
+
+```text
+npm.cmd run lint       aprovado
+npm.cmd run typecheck  aprovado
+npm.cmd test           11/11 aprovados
+npm.cmd run build      aprovado
+```
+
+### Limitação atual
+
+O navegador automatizado chegou ao login oficial da Microsoft, que depende da sessão interativa de Yan. A chamada real Groq e as capturas autenticadas ficam para o próximo bloco, após a configuração segura da chave e a autenticação.
+
+### Commit planejado
+
+Mensagem: `feat(fase-4): implement diary and evidence review core`.
+
+### Próximo gate
+
+Configurar Groq, validar o caminho real de IA e concluir QA visual. A Fase 5 permanece bloqueada até a apresentação e aprovação da Fase 4 por Yan.

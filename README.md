@@ -21,10 +21,10 @@ Fontes principais:
 - Fase 1 — fundação e entrada: aprovada;
 - Fase 2 — autenticação Microsoft: aprovada;
 - Fase 3 — onboarding funcional: implementada, validada e aprovada para avanço;
-- Fase 4 — Diário, estruturação assistida e revisão: autorizada; design técnico registrado;
-- Groq: ainda não configurada e não utilizada;
+- Fase 4 — Diário, estruturação assistida e revisão: núcleo manual implementado; integração Groq pronta para receber a chave;
+- Groq: SDK e fronteira server-only implementados, mas chave ainda não configurada e nenhuma chamada real realizada;
 - aplicação local: `http://localhost:3100`;
-- banco: Supabase Postgres com `profiles`, `daily_logs` e RLS aplicados.
+- banco: Supabase Postgres com `profiles`, `daily_logs`, `evidence_suggestions`, `evidences`, RLS e confirmação atômica aplicados.
 
 O estado acima é um snapshot. Antes de continuar, confirme o estado vivo conforme o checklist do handoff.
 

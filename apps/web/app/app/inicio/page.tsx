@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
@@ -30,23 +30,7 @@ export default async function StartPage() {
   const firstName = profile.display_name.split(" ")[0];
 
   return (
-    <main className="product-shell">
-      <header className="product-header">
-        <div className="wordmark" aria-label="Persona">
-          <Image
-            src="/brand/persona-logo-rica-dark.svg"
-            className="wordmark-logo"
-            width={24}
-            height={24}
-            alt=""
-            priority
-          />
-          Persona
-        </div>
-        <span className="phase-label">Início</span>
-      </header>
-
-      <div className="start-layout">
+    <main className="app-page start-layout">
         <section className="start-intro" aria-labelledby="start-title">
           <p className="eyebrow">Primeiro registro salvo</p>
           <h1 id="start-title">Olá, {firstName}.</h1>
@@ -75,9 +59,12 @@ export default async function StartPage() {
               <span className="metric-label">Objetivo atual</span>
               <strong>{profile.main_objective}</strong>
             </div>
+            <Link className="start-diary-link" href="/app/diario">
+              Abrir o Diário
+              <span aria-hidden>→</span>
+            </Link>
           </aside>
         </section>
-      </div>
     </main>
   );
 }

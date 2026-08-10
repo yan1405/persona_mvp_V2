@@ -206,7 +206,7 @@ Gate encerrado em 10/08/2026: Yan autorizou explicitamente o início da Fase 4. 
 
 ## Fase 4 — Diário, estruturação assistida e revisão
 
-**Estado:** autorizada em 10/08/2026; design técnico registrado; implementação em preparação.
+**Estado:** em execução; núcleo manual, banco e fronteira Groq implementados; chamada real e avaliação visual pendentes.
 
 ### Objetivo
 
