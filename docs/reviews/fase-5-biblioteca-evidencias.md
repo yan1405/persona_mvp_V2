@@ -1,7 +1,7 @@
 # Revisão da Fase 5 — Biblioteca de Evidências
 
 > Data: 11/08/2026
-> Estado: implementada e validada; pendente de avaliação e aprovação de Yan
+> Estado: aprovada por Yan em 11/08/2026
 > Contrato: `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.md`
 
 ## Entregue
@@ -100,6 +100,6 @@ Três sinais deliberadamente removidos ou evitados: cards repetidos, pills exces
 8. arquivar e restaurar pelo filtro Arquivadas;
 9. avaliar hierarquia, densidade, clareza e rastreabilidade.
 
-## Gate
+## Gate concluído
 
-A Fase 6 permanece bloqueada até Yan responder `aprovado`, `aprovado com ajustes` ou solicitar correções específicas para a Fase 5.
+Yan informou que validou a Biblioteca e autorizou explicitamente o avanço para a Fase 6 em 11/08/2026. Ajustes futuros da Biblioteca devem ser registrados como correções separadas.

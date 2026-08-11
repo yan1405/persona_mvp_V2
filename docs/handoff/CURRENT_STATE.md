@@ -2,11 +2,11 @@
 
 > Snapshot: 11/08/2026  
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: avaliação e aprovação de Yan para encerrar a Fase 5
+> Próximo gate: contrato de produto e UI da Fase 6 antes do código
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4 e 5. A Biblioteca de Evidências está implementada com lista densa, busca, filtros, registro manual, edição, arquivamento recuperável e provas por link. Arquivos e Supabase Storage continuam adiados. A implementação foi validada técnica e visualmente em 11/08/2026 e aguarda avaliação de Yan.
+O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4 e 5. Yan validou e aprovou a Biblioteca de Evidências em 11/08/2026 e autorizou o início da Fase 6. O trabalho ativo é contratar o novo Início e o Narrative Score explicável antes de gerar código.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -15,7 +15,8 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 | 2 — autenticação Microsoft | aprovada | `docs/reviews/fase-2-autenticacao.md` |
 | 3 — onboarding funcional | aprovada para avanço | `docs/reviews/fase-3-onboarding.md` |
 | 4 — Diário e estruturação assistida | aprovada em 11/08/2026 | `docs/reviews/fase-4-diario-evidencias.md` |
-| 5 — Biblioteca de Evidências | implementada e validada; pendente de aprovação | `docs/reviews/fase-5-biblioteca-evidencias.md` |
+| 5 — Biblioteca de Evidências | aprovada em 11/08/2026 | `docs/reviews/fase-5-biblioteca-evidencias.md` |
+| 6 — Início e Narrative Score | autorizada para design; sem código | `docs/handoff/PHASES.md` |
 
 ## 2. Aplicação existente
 
@@ -171,6 +172,7 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. Yan testa e avalia a hierarquia, filtros, detalhe, níveis e rastreabilidade da Fase 5;
-2. registrar aprovação ou ajustes na revisão da fase;
-3. somente após aprovação explícita, discutir e contratar a Fase 6 — Início e Narrative Score explicável.
+1. decidir quando Consistência e o total podem exibir número sem criar precisão artificial;
+2. fechar Coerência, Credibilidade, explicações, estados e hierarquia do novo Início;
+3. registrar e aprovar o contrato da Fase 6 em `docs/plans/`;
+4. somente então iniciar banco, cálculo e interface.

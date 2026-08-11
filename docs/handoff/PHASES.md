@@ -368,13 +368,13 @@ Abas:
 - matriz visual aprovada tecnicamente em 1024, 1280, 1440 e 1920px;
 - dados sintéticos removidos e verificados com contagem zero.
 
-### Gate pendente
+### Gate concluído
 
-Yan aprova hierarquia, filtros, detalhe, níveis e rastreabilidade.
+Yan validou a Biblioteca e autorizou explicitamente o avanço para a Fase 6 em 11/08/2026.
 
 ## Fase 6 — Início e Narrative Score explicável
 
-**Estado:** planejada.
+**Estado:** autorizada por Yan em 11/08/2026 para design e contratação; implementação ainda não iniciada.
 
 ### Objetivo
 

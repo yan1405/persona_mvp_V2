@@ -20,8 +20,8 @@ Em 11/08/2026:
 - Fase 3 está implementada, tecnicamente validada e aprovada para avanço;
 - Yan autorizou explicitamente o início da Fase 4;
 - a Fase 4 está implementada, tecnicamente validada e aprovada por Yan;
-- a Fase 5 está implementada e tecnicamente validada com provas por link; arquivos/Storage continuam adiados;
-- a avaliação e aprovação de Yan é o gate atual; a Fase 6 ainda não está autorizada;
+- a Fase 5 está implementada, validada e aprovada por Yan; arquivos/Storage continuam adiados;
+- a Fase 6 está autorizada para discussão e contratação, sem autorização para código antes da aprovação do design;
 - o contrato aprovado está em `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.md`;
 - o design técnico da Fase 4 está em `docs/plans/2026-08-10-fase-4-diario-estruturacao-design.md`;
 - a fronteira Groq server-only, o schema estrito e a chamada real foram validados; a chave existe somente no `.env.local` ignorado pelo Git;
@@ -130,4 +130,4 @@ Para uma fase não iniciada:
 
 ## 8. Condição atual para avançar
 
-A Fase 5 está implementada e validada. A próxima IA deve abrir `docs/reviews/fase-5-biblioteca-evidencias.md`, confirmar o estado vivo e tratar apenas ajustes solicitados por Yan. Não iniciar a Fase 6 nem criar Storage/upload antes da aprovação explícita da Fase 5 e de um novo contrato.
+A Fase 5 está aprovada. A Fase 6 está aberta para brainstorming e contrato de produto/UI. Não gerar código do Narrative Score antes de Yan aprovar fórmula, limiares de dados, estados, explicações e hierarquia; não criar Storage/upload dentro desta fase.

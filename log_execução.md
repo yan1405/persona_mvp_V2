@@ -811,3 +811,23 @@ Mensagem: `feat(fase-5): implement evidence library and link proofs`.
 ### Próximo gate
 
 Apresentar a Fase 5 a Yan. A Fase 6 permanece bloqueada até aprovação explícita ou conclusão dos ajustes solicitados.
+
+---
+
+## EXEC-011 — Aprovação da Fase 5 e abertura da Fase 6
+
+**Data:** 11/08/2026
+**Fase:** encerramento da 5 e abertura da 6
+**Estado:** Fase 5 aprovada; Fase 6 autorizada para design
+
+### Autorização
+
+Yan informou que validou a Biblioteca de Evidências e autorizou explicitamente o avanço para a Fase 6.
+
+### Limite vigente
+
+A autorização abre o brainstorming e a contratação do novo Início e do Narrative Score explicável. Fórmula, limiares de suficiência, estados, uso de IA e hierarquia precisam de aprovação antes do código, para não transformar poucos dados em precisão artificial.
+
+### Próximo gate
+
+Comparar abordagens de pontuação, apresentar a recomendação em seções curtas e registrar o contrato aprovado em `docs/plans/`.
