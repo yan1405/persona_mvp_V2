@@ -2,7 +2,7 @@
 
 > Fonte de governança para qualquer agente que trabalhe neste diretório.
 > Leia este arquivo integralmente antes de analisar, planejar ou modificar o projeto.
-> Estado: mapa, arquitetura e stack aprovados; protótipo legado arquivado em `../99_lixo/persona_v1/`; Fases 1–3 implementadas e aprovadas; Fase 4 de Diário e estruturação assistida autorizada em 10/08/2026.
+> Estado: mapa, arquitetura e stack aprovados; protótipo legado arquivado em `../99_lixo/persona_v1/`; Fases 1–3 implementadas e aprovadas; Fase 4 implementada e tecnicamente validada em 10/08/2026, aguardando avaliação de Yan.
 > Idioma de trabalho: português do Brasil.
 
 ## 1. O projeto

@@ -2,11 +2,11 @@
 
 > Snapshot: 10/08/2026  
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: configurar e validar Groq, concluir QA visual e avaliar a Fase 4
+> Próximo gate: avaliação de Yan e autorização explícita antes da Fase 5
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e o núcleo do Diário com revisão manual de evidências. A fronteira Groq está implementada no servidor, mas nenhuma chave foi configurada e nenhuma chamada real foi realizada.
+O projeto possui autenticação Microsoft real, onboarding persistente e o ciclo completo da Fase 4: Diário, estruturação Groq ou manual, revisão humana e evidência confirmada. A implementação e o QA técnico estão concluídos; falta a avaliação de Yan.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -14,7 +14,7 @@ O projeto possui autenticação Microsoft real, onboarding persistente e o núcl
 | 1 — fundação e entrada | aprovada | `docs/reviews/fase-1-fundacao.md` |
 | 2 — autenticação Microsoft | aprovada | `docs/reviews/fase-2-autenticacao.md` |
 | 3 — onboarding funcional | aprovada para avanço | `docs/reviews/fase-3-onboarding.md` |
-| 4 — Diário e estruturação assistida | em execução; núcleo manual validado | `docs/reviews/fase-4-diario-evidencias.md` |
+| 4 — Diário e estruturação assistida | implementada; aprovação pendente | `docs/reviews/fase-4-diario-evidencias.md` |
 
 ## 2. Aplicação existente
 
@@ -72,7 +72,8 @@ O fluxo real gravou um perfil e um primeiro Daily Log para a conta de teste. Nã
 - `.env.local` contém apenas configuração local e está ignorado pelo Git;
 - `service_role` não foi usada;
 - o SDK Groq e o schema estrito estão implementados somente no servidor;
-- Groq não foi configurada e nenhuma chamada real foi realizada.
+- `GROQ_API_KEY` está configurada somente no `.env.local` ignorado, sem ter sido exibida ou registrada;
+- uma chamada real com `openai/gpt-oss-20b` foi validada de ponta a ponta.
 
 Não presuma que credenciais continuam válidas: verifique o fluxo sem revelar valores.
 
@@ -95,12 +96,12 @@ Não há shadcn/ui, Vitest ou Playwright local. O projeto usa o runner nativo do
 
 ## 6. Validação mais recente
 
-Executada após o primeiro bloco da Fase 4:
+Executada após a conclusão técnica da Fase 4:
 
 ```text
 npm.cmd run lint       aprovado
 npm.cmd run typecheck  aprovado
-npm.cmd test           11/11 testes aprovados
+npm.cmd test           12/12 testes aprovados
 npm.cmd run build      aprovado
 ```
 
@@ -109,6 +110,7 @@ Fluxos validados:
 ```text
 Microsoft → /onboarding → função transacional no Supabase → /app/inicio
 SQL transacional com rollback → log → sugestão manual → confirmação → evidência → isolamento RLS
+Navegador autenticado → novo log → falha preservada → Groq → revisão → rejeição → regeneração → confirmação → exclusão bloqueada
 ```
 
 O servidor foi reiniciado em `http://localhost:3100`. Esse processo é efêmero; uma IA futura deve verificar a porta antes de afirmar que o app está rodando.
@@ -130,7 +132,7 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 - `/app/inicio` ainda é o estado mínimo pós-onboarding, não o dashboard completo;
 - Biblioteca de Evidências, Persona Live, Artefatos e Configurações ainda não existem;
 - Narrative Score ainda não é calculado;
-- não há chamada real de IA até a configuração da chave Groq;
+- a Biblioteca de Evidências ainda não existe; a confirmação da Fase 4 apenas cria o registro que será listado na Fase 5;
 - Termos e Privacidade são provisórios e precisam de revisão jurídica antes de uso externo real;
 - o Xisto/mascote não tem linguagem final aprovada;
 - o repositório Git local acompanha `origin/main` no GitHub;
@@ -160,8 +162,7 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. solicitar que Yan configure `GROQ_API_KEY` diretamente em `apps/web/.env.local`, sem enviar a chave no chat;
-2. reiniciar o servidor e validar uma chamada real com schema estrito;
-3. concluir o fluxo autenticado `log → sugestão → revisão → evidência` no navegador;
-4. capturar as larguras obrigatórias e executar as revisões visual e Ponytail;
-5. atualizar o log, criar o commit final da Fase 4, enviar ao GitHub e apresentar o gate a Yan.
+1. apresentar a Fase 4, os testes e as capturas a Yan;
+2. Yan testa o Diário, a revisão e a confirmação com um relato próprio;
+3. registrar correções solicitadas em commit separado, se houver;
+4. iniciar a Fase 5 somente após aprovação explícita de Yan.

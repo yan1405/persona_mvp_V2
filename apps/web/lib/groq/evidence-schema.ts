@@ -35,7 +35,6 @@ export const EVIDENCE_RESPONSE_SCHEMA = {
           learning: { type: ["string", "null"], maxLength: 600 },
           unsupported_fields: {
             type: "array",
-            uniqueItems: true,
             items: {
               type: "string",
               enum: ["context", "challenge", "action", "result", "competencies", "learning"],

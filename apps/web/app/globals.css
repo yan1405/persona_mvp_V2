@@ -948,7 +948,8 @@ select.text-field {
 }
 
 .app-page {
-  width: min(100%, 1280px);
+  width: 100%;
+  max-width: 1280px;
   margin-inline: auto;
 }
 
@@ -991,6 +992,8 @@ select.text-field {
 
 .diary-heading > div:first-child,
 .detail-heading > div:first-child {
+  width: 100%;
+  min-width: 0;
   max-width: 720px;
 }
 
@@ -1001,7 +1004,13 @@ select.text-field {
   font-weight: 600;
   line-height: 1.05;
   letter-spacing: -0.045em;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   text-wrap: balance;
+}
+
+.detail-heading h1 {
+  width: 18ch;
 }
 
 .diary-heading > div:first-child > p:last-child,
@@ -1394,7 +1403,12 @@ select.text-field {
 
 .suggestion-tool-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+}
+
+.suggestion-tools {
+  display: grid;
 }
 
 .suggestion-layout {
@@ -1536,6 +1550,18 @@ select.text-field {
 
 .error-panel strong {
   color: #fca5a5;
+}
+
+@media (max-width: 1120px) {
+  .detail-heading {
+    display: grid;
+  }
+
+  .trace-detail {
+    width: 100%;
+    min-width: 0;
+  }
+
 }
 
 @media (max-width: 1023px) {

@@ -612,3 +612,80 @@ Mensagem: `feat(fase-4): implement diary and evidence review core`.
 ### Próximo gate
 
 Configurar Groq, validar o caminho real de IA e concluir QA visual. A Fase 5 permanece bloqueada até a apresentação e aprovação da Fase 4 por Yan.
+
+---
+
+## EXEC-008 — Integração Groq e fechamento técnico da Fase 4
+
+**Data:** 10/08/2026
+**Fase:** 4 — Diário, estruturação assistida e revisão
+**Estado:** implementação e QA concluídos; aprovação de Yan pendente
+
+### Configuração segura
+
+Yan confirmou que configurou `GROQ_API_KEY` e `GROQ_MODEL` diretamente em `apps/web/.env.local`. A automação verificou somente que as variáveis estavam preenchidas. Nenhum valor de segredo foi exibido, copiado ou versionado.
+
+O servidor foi reiniciado na porta oficial `3100` com acesso de rede para testar Supabase e Groq. A porta `3000` não foi usada.
+
+### Diagnóstico e correção Groq
+
+1. a listagem segura de modelos confirmou chave válida e disponibilidade de `openai/gpt-oss-20b`;
+2. a primeira chamada estruturada retornou HTTP 400 porque `uniqueItems` não é aceito no subconjunto de JSON Schema da Groq;
+3. `uniqueItems` foi removido; a deduplicação existente no parser foi preservada;
+4. um teste automatizado impede reintroduzir essa palavra-chave;
+5. a chamada direta passou com `finish_reason = stop` e conteúdo estruturado;
+6. o fluxo real do navegador gerou uma sugestão revisável.
+
+### Revisão sem invenção
+
+A primeira resposta real inferiu desafio e aprendizado não declarados. A sugestão foi rejeitada. O prompt server-only passou a exigir:
+
+- desafio somente quando houver obstáculo explícito;
+- resultado somente quando houver consequência narrada;
+- aprendizado somente quando a pessoa declarar o aprendizado;
+- proibição de transformar ação em desafio ou resultado em aprendizado;
+- `null` e `unsupported_fields` quando faltar suporte direto.
+
+A regeneração deixou desafio e aprendizado vazios, preservou ação e resultado narrados e permitiu revisão antes da confirmação.
+
+### Fluxo real validado
+
+```text
+Microsoft → Diário → novo log → falha preservada → retry Groq
+→ sugestão → rejeição → regeneração → revisão → evidência confirmada
+→ exclusão da fonte bloqueada
+```
+
+O teste usou somente conteúdo sintético. Depois das capturas, a evidência foi removida primeiro e o Daily Log exato foi removido em seguida, levando junto apenas suas sugestões. A consulta final retornou `synthetic_records_remaining = 0`. O registro real existente não foi alterado.
+
+### QA visual e skills
+
+- `editorial-modular-app-design`: hierarquia, estados, responsividade, acessibilidade e validação visual;
+- `design-sem-cara-de-ia`: script executado em 35 arquivos e checklist manual;
+- Ponytail `full`: remoção de redundâncias e manutenção do menor caminho funcional;
+- Browser in-app: fluxo autenticado, Supabase, Groq e screenshots;
+- `agent-browser`: CLI não instalada; não foi adicionada ao projeto porque o navegador interno cobria o QA.
+
+O QA visual identificou overflow horizontal no detalhe. A correção aplicou container fluido, máximo de `1280px`, cabeçalho adaptativo, título controlado e ações previsíveis. Foram salvas capturas sintéticas em 1024, 1280, 1440 e 1920 px.
+
+A auditoria automática apontou somente:
+
+- `#7C3AED`, mantido por ser a paleta original aprovada do Persona;
+- centralização nas páginas legais, mantida por limitar a linha de leitura.
+
+### Validação final
+
+```text
+npm.cmd run lint       aprovado
+npm.cmd run typecheck  aprovado
+npm.cmd test           12/12 aprovados
+npm.cmd run build      aprovado
+```
+
+### Commit planejado
+
+Mensagem: `feat(fase-4): validate Groq flow and complete QA`.
+
+### Próximo gate
+
+Apresentar a Fase 4 a Yan com checklist de teste e capturas. A Fase 5 só pode começar após aprovação explícita.

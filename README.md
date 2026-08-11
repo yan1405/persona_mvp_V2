@@ -21,8 +21,8 @@ Fontes principais:
 - Fase 1 — fundação e entrada: aprovada;
 - Fase 2 — autenticação Microsoft: aprovada;
 - Fase 3 — onboarding funcional: implementada, validada e aprovada para avanço;
-- Fase 4 — Diário, estruturação assistida e revisão: núcleo manual implementado; integração Groq pronta para receber a chave;
-- Groq: SDK e fronteira server-only implementados, mas chave ainda não configurada e nenhuma chamada real realizada;
+- Fase 4 — Diário, estruturação assistida e revisão: implementada e tecnicamente validada; aprovação de Yan pendente;
+- Groq: integração real validada com `openai/gpt-oss-20b`; chave somente no `.env.local`, nunca no Git;
 - aplicação local: `http://localhost:3100`;
 - banco: Supabase Postgres com `profiles`, `daily_logs`, `evidence_suggestions`, `evidences`, RLS e confirmação atômica aplicados.
 

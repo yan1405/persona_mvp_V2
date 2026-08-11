@@ -139,7 +139,7 @@ Login Microsoft real chegou ao onboarding e permaneceu autenticado após recarre
 
 ## Fase 3 — Onboarding funcional
 
-**Estado:** implementada e tecnicamente validada; aprovação de Yan pendente.
+**Estado:** aprovada para avanço em 10/08/2026.
 
 ### Objetivo
 
@@ -206,7 +206,7 @@ Gate encerrado em 10/08/2026: Yan autorizou explicitamente o início da Fase 4. 
 
 ## Fase 4 — Diário, estruturação assistida e revisão
 
-**Estado:** em execução; núcleo manual, banco e fronteira Groq implementados; chamada real e avaliação visual pendentes.
+**Estado:** implementada e tecnicamente validada; aprovação de Yan pendente.
 
 ### Objetivo
 
