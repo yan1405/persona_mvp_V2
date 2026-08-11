@@ -14,12 +14,14 @@ C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2
 
 ## 2. Ponto exato de parada
 
-Em 10/08/2026:
+Em 11/08/2026:
 
 - Fases 1 e 2 estão aprovadas;
 - Fase 3 está implementada, tecnicamente validada e aprovada para avanço;
 - Yan autorizou explicitamente o início da Fase 4;
-- a Fase 4 está implementada e tecnicamente validada em `/app/diario` e `/app/diario/[id]`;
+- a Fase 4 está implementada, tecnicamente validada e aprovada por Yan;
+- a Fase 5 foi autorizada com provas por link e arquivos/Storage adiados;
+- o contrato aprovado está em `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.md`;
 - o design técnico da Fase 4 está em `docs/plans/2026-08-10-fase-4-diario-estruturacao-design.md`;
 - a fronteira Groq server-only, o schema estrito e a chamada real foram validados; a chave existe somente no `.env.local` ignorado pelo Git;
 - o Supabase possui `evidence_suggestions`, `evidences`, RLS e a RPC transacional da Fase 4;
@@ -127,4 +129,4 @@ Para uma fase não iniciada:
 
 ## 8. Condição atual para avançar
 
-A Fase 4 está pronta para avaliação de Yan. A próxima IA deve confirmar o commit e o estado vivo, não repetir chamadas pagas sem necessidade e aguardar aprovação explícita antes de iniciar a Fase 5.
+A Fase 5 está autorizada para implementação conforme o contrato aprovado. A próxima IA deve confirmar o estado vivo, implementar somente provas por link, não criar Storage/upload e encerrar a fase com validação e nova avaliação visual de Yan.

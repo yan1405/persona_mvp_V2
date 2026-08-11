@@ -1,12 +1,12 @@
 # Estado atual verificável
 
-> Snapshot: 10/08/2026  
+> Snapshot: 11/08/2026  
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: avaliação de Yan e autorização explícita antes da Fase 5
+> Próximo gate: implementação, validação e avaliação visual da Fase 5
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e o ciclo completo da Fase 4: Diário, estruturação Groq ou manual, revisão humana e evidência confirmada. A implementação e o QA técnico estão concluídos; falta a avaliação de Yan.
+O projeto possui autenticação Microsoft real, onboarding persistente e o ciclo completo da Fase 4: Diário, estruturação Groq ou manual, revisão humana e evidência confirmada. Yan aprovou o avanço e o contrato da Fase 5 em 11/08/2026. A Biblioteca de Evidências será implementada com provas por link; arquivos e Supabase Storage ficam adiados.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -14,7 +14,8 @@ O projeto possui autenticação Microsoft real, onboarding persistente e o ciclo
 | 1 — fundação e entrada | aprovada | `docs/reviews/fase-1-fundacao.md` |
 | 2 — autenticação Microsoft | aprovada | `docs/reviews/fase-2-autenticacao.md` |
 | 3 — onboarding funcional | aprovada para avanço | `docs/reviews/fase-3-onboarding.md` |
-| 4 — Diário e estruturação assistida | implementada; aprovação pendente | `docs/reviews/fase-4-diario-evidencias.md` |
+| 4 — Diário e estruturação assistida | aprovada em 11/08/2026 | `docs/reviews/fase-4-diario-evidencias.md` |
+| 5 — Biblioteca de Evidências | contrato aprovado; implementação autorizada | `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.md` |
 
 ## 2. Aplicação existente
 
@@ -162,7 +163,7 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. apresentar a Fase 4, os testes e as capturas a Yan;
-2. Yan testa o Diário, a revisão e a confirmação com um relato próprio;
-3. registrar correções solicitadas em commit separado, se houver;
-4. iniciar a Fase 5 somente após aprovação explícita de Yan.
+1. fechar com Yan o contrato da Biblioteca de Evidências, especialmente o escopo de provas por link e arquivo;
+2. registrar o design aprovado em `docs/plans/`;
+3. implementar a Fase 5 em incrementos pequenos;
+4. encerrar a fase com validação técnica, segurança, screenshots e nova aprovação visual de Yan.

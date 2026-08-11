@@ -206,7 +206,7 @@ Gate encerrado em 10/08/2026: Yan autorizou explicitamente o início da Fase 4. 
 
 ## Fase 4 — Diário, estruturação assistida e revisão
 
-**Estado:** implementada e tecnicamente validada; aprovação de Yan pendente.
+**Estado:** aprovada por Yan em 11/08/2026.
 
 ### Objetivo
 
@@ -295,17 +295,19 @@ Procedimento obrigatório:
 - auditoria `design-sem-cara-de-ia`;
 - revisão Ponytail.
 
-### Gate
+### Gate concluído
 
-Yan precisa aprovar o Diário, o painel de revisão, o nível de automação e um exemplo real antes da Fase 5.
+Yan autorizou explicitamente o avanço para a Fase 5 em 11/08/2026, após receber a recapitulação da implementação, das validações e do fluxo disponível para teste.
 
 ## Fase 5 — Biblioteca de Evidências
 
-**Estado:** planejada.
+**Estado:** contrato aprovado por Yan em 11/08/2026; implementação autorizada.
 
 ### Objetivo
 
 Transformar evidências confirmadas em uma biblioteca consultável, rastreável e editável.
+
+Contrato detalhado: `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.md`. A decisão aprovada é aceitar provas por link nesta fase e adiar arquivos/Supabase Storage.
 
 ### Rotas e áreas
 

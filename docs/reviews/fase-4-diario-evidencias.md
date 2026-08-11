@@ -1,7 +1,7 @@
 # Revisão da Fase 4 — Diário e evidências
 
 > Data: 10/08/2026
-> Estado: implementada e tecnicamente validada; aprovação de Yan pendente
+> Estado: aprovada por Yan em 11/08/2026
 
 ## Entregue neste bloco
 
@@ -84,9 +84,9 @@ Não há gradiente decorativo, glassmorphism, cards uniformes com sombra, copy g
 - sem store global, fila, gateway, Zod, Playwright local ou tabela prematura de fontes;
 - testes continuam no runner nativo do Node.
 
-## Gate pendente
+## Gate encerrado
 
-Yan precisa testar e aprovar o Diário, o nível de automação e um exemplo próprio. A Fase 5 permanece bloqueada.
+Em 11/08/2026, após receber a recapitulação das entregas, testes, limitações e do fluxo disponível para avaliação, Yan autorizou explicitamente o avanço para a Fase 5. A aprovação encerra o gate da Fase 4; observações futuras sobre o Diário devem ser registradas como correções separadas.
 
 ## O que Yan pode testar
 

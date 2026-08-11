@@ -689,3 +689,62 @@ Mensagem: `feat(fase-4): validate Groq flow and complete QA`.
 ### Próximo gate
 
 Apresentar a Fase 4 a Yan com checklist de teste e capturas. A Fase 5 só pode começar após aprovação explícita.
+
+---
+
+## EXEC-009 — Aprovação da Fase 4 e contrato da Fase 5
+
+**Data:** 11/08/2026
+**Fase:** encerramento da 4 e design da 5
+**Estado:** contrato aprovado; implementação autorizada
+
+### Autorização
+
+Após receber a recapitulação das fases, validações, limitações e do ponto exato de parada, Yan autorizou explicitamente o avanço para a Fase 5. No brainstorming obrigatório, escolheu “Links agora e arquivos depois” e confirmou o contrato completo da Biblioteca de Evidências.
+
+### Abordagens comparadas
+
+1. links agora e arquivos depois — escolhida;
+2. links e Supabase Storage nesta fase — adiada pelo custo de segurança e QA;
+3. biblioteca sem provas — rejeitada porque não entrega o nível Documentada.
+
+### Contrato aprovado
+
+- `/app/evidencias` com lista densa, busca e filtros;
+- `/app/evidencias/[id]` com Resumo, Provas e Uso;
+- registro manual, edição e arquivamento;
+- evidências confirmadas na Fase 4 aparecem automaticamente;
+- `evidence_sources` guarda apenas links HTTP/HTTPS nesta fase;
+- Registrada sem link e Documentada com link;
+- Validada e Certificada continuam indisponíveis sem mecanismo externo;
+- exclusão definitiva, upload, Storage e ações em lote ficam fora do escopo.
+
+### Skills e referências
+
+- brainstorming para comparar abordagens e obter confirmação incremental;
+- `design-dna` para preservar tokens, densidade e assinatura de rastreabilidade;
+- `editorial-modular-app-design` para lista, detalhe, estados e acessibilidade;
+- `design-sem-cara-de-ia` para auditoria prévia e restrições visuais;
+- Ponytail `full` para evitar Storage, dependências, nível duplicado e abstrações preventivas.
+
+### Auditoria prévia
+
+O script `auditar_tells_ia.py` varreu 35 arquivos antes do código. Os únicos achados foram `#7C3AED`, cor oficial aprovada, e centralização deliberada das páginas legais para limitar a linha de leitura.
+
+### Arquivos alterados
+
+- `AGENTS.md`;
+- `docs/handoff/START_HERE.md`;
+- `docs/handoff/CURRENT_STATE.md`;
+- `docs/handoff/PHASES.md`;
+- `docs/reviews/fase-4-diario-evidencias.md`;
+- `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.md`;
+- `log_execução.md`.
+
+### Commit planejado
+
+Mensagem: `docs(fase-5): approve evidence library contract`.
+
+### Próximo gate
+
+Implementar banco/RLS, Biblioteca, detalhe, links e arquivamento; depois executar validação técnica, visual e apresentar a Fase 5 a Yan.
