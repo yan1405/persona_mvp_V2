@@ -119,10 +119,12 @@ Regras:
 
 ## 6. Banco atual
 
-Migração aplicada:
+Migrações aplicadas:
 
 ```text
 supabase/migrations/20260810190000_phase_3_onboarding.sql
+supabase/migrations/20260810230000_phase_4_diary_evidences.sql
+supabase/migrations/20260811120000_phase_5_evidence_library.sql
 ```
 
 ### `profiles`
@@ -165,6 +167,29 @@ Campos:
 - `created_at`, `updated_at`;
 - unique `(user_id, entry_key)`.
 
+### `evidence_suggestions`
+
+- estrutura sugerida pela Groq ou criada manualmente;
+- permanece separada da evidência até confirmação humana;
+- estados de geração, revisão, confirmação, rejeição e falha;
+- vínculo obrigatório com proprietário e Daily Log.
+
+### `evidences`
+
+- pode nascer da confirmação atômica de sugestão ou de registro manual;
+- `source_log_id` e `suggestion_id` são nulos somente no registro manual;
+- estrutura confirmada: título, contexto, desafio, ação, resultado, competências e aprendizado;
+- estado `confirmed` ou `archived`;
+- atualização limitada ao proprietário e a referências pertencentes ao mesmo usuário.
+
+### `evidence_sources`
+
+- uma linha por link HTTP/HTTPS;
+- URL única por evidência;
+- sem arquivos, upload ou Storage nesta fase;
+- `on delete cascade` com evidência/usuário;
+- RLS e privilégios mínimos de CRUD para o proprietário.
+
 ### Função transacional
 
 ```text
@@ -176,6 +201,8 @@ public.complete_onboarding(
 ```
 
 É `security invoker`, usa `auth.uid()`, valida fronteiras novamente e grava perfil + primeiro log na mesma transação.
+
+Também existe `public.confirm_evidence_suggestion(uuid)`, que confirma a sugestão e cria a evidência vinculada ao Daily Log em uma única transação.
 
 ### RLS
 
@@ -191,6 +218,22 @@ public.complete_onboarding(
 - insert próprio;
 - update próprio;
 - delete próprio.
+
+`evidence_suggestions`:
+
+- select, insert e update próprios;
+- confirmação final ocorre pela RPC validada.
+
+`evidences`:
+
+- select próprio;
+- insert próprio somente para registro manual confirmado;
+- update próprio com referências restritas ao mesmo usuário.
+
+`evidence_sources`:
+
+- select, insert, update e delete próprios;
+- inserção/alteração exige evidência ativa do mesmo proprietário.
 
 Qualquer nova tabela privada precisa de RLS antes da feature ser considerada funcional.
 
@@ -234,6 +277,9 @@ Script:
 node --experimental-strip-types --test
   lib/auth/redirect.test.ts
   lib/onboarding/validation.test.ts
+  lib/diary/validation.test.ts
+  lib/groq/evidence-schema.test.ts
+  lib/evidence/validation.test.ts
 ```
 
 Cobertura real:
@@ -242,6 +288,12 @@ Cobertura real:
 - onboarding válido sem lembrete;
 - consentimento e tamanho do Daily Log;
 - horário quando lembrete está ativo.
+- validação e normalização do Daily Log;
+- estrutura de evidência e compatibilidade do schema Groq;
+- níveis Registrada/Documentada;
+- URLs HTTP/HTTPS normalizadas e rejeição de esquemas perigosos ou credenciais embutidas.
+
+Estado atual: 15/15 testes aprovados.
 
 O plano técnico cita Vitest e Playwright, mas eles não estão instalados. Só adicionar quando um fluxo exigir ganho real e após `package.json`/plano aprovados.
 

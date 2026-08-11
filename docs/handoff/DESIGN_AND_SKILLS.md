@@ -157,7 +157,7 @@ Se uma fase produzir PDF, DOCX, PPTX ou planilha, usar a skill específica e cum
 - Lucide apenas para utilidades sem equivalente conveniente;
 - não misturar famílias no mesmo grupo.
 
-No estado atual, shadcn, Carbon e Lucide ainda não estão instalados.
+No estado atual, Carbon Icons React está instalado e é usado no shell e nas ações de domínio. shadcn/ui e Lucide não estão instalados.
 
 ## 7. Tells proibidos por padrão
 
@@ -214,6 +214,21 @@ Diretório `docs/reviews/fase-3-onboarding/`:
 - `inicio-primeiro-registro.png`.
 
 Fase 3 tem captura automatizada em 1280×720. As larguras restantes são item de avaliação manual pendente.
+
+### Fase 4
+
+Diretório `docs/reviews/fase-4-diario-evidencias/`:
+
+- evidência confirmada em 1024, 1280, 1440 e 1920px;
+- dados sintéticos removidos após a captura.
+
+### Fase 5
+
+Diretório `docs/reviews/fase-5-biblioteca-evidencias/`:
+
+- Biblioteca preenchida em 1024, 1280, 1440 e 1920px;
+- detalhe Provas em 1440px;
+- somente dados sintéticos, removidos e verificados no Supabase após a captura.
 
 ## 10. Sessão visual obrigatória
 

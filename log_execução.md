@@ -748,3 +748,66 @@ Mensagem: `docs(fase-5): approve evidence library contract`.
 ### Próximo gate
 
 Implementar banco/RLS, Biblioteca, detalhe, links e arquivamento; depois executar validação técnica, visual e apresentar a Fase 5 a Yan.
+
+---
+
+## EXEC-010 — Implementação e QA da Biblioteca de Evidências
+
+**Data:** 11/08/2026
+**Fase:** 5
+**Estado:** implementada e validada; pendente de avaliação de Yan
+
+### Implementação
+
+- Biblioteca densa com busca e filtros combinados;
+- detalhe com Resumo, Provas e Uso;
+- registro manual, edição, arquivamento e restauração;
+- links HTTP/HTTPS e nível derivado Registrada/Documentada;
+- migração `20260811120000_phase_5_evidence_library.sql` aplicada;
+- RLS por proprietário em evidências e fontes;
+- navegação Evidências habilitada;
+- sem upload, Storage ou dependências novas.
+
+### Validação
+
+```text
+npm.cmd run lint       aprovado
+npm.cmd run typecheck  aprovado
+npm.cmd test           15/15 aprovados
+npm.cmd run build      aprovado com acesso de rede autorizado para next/font
+```
+
+O teste SQL autenticado concluiu `phase5_rls_passed_and_rolled_back`. O navegador validou criação, edição, link, arquivamento e restauração. Dois registros e dois links sintéticos foram removidos por IDs exatos; a verificação separada retornou zero fontes e zero evidências residuais.
+
+### QA visual
+
+- capturas em 1024, 1280, 1440 e 1920px;
+- detalhe Provas capturado em 1440px;
+- overflow intermediário dos filtros encontrado e corrigido;
+- `scrollWidth = innerWidth` confirmado nas quatro larguras;
+- dados reais e credenciais ausentes das capturas.
+
+### Skills
+
+- `design-dna`: tokens e assinatura de rastreabilidade preservados;
+- `editorial-modular-app-design`: lista editorial, detalhe modular, estados e QA responsivo;
+- `design-sem-cara-de-ia`: cards repetidos, pills excessivas e selos inventados evitados;
+- Ponytail `full`: plataforma existente, sem dependência, nível derivado e Storage adiado.
+
+### Arquivos centrais
+
+- `apps/web/app/app/evidencias/`;
+- `apps/web/lib/evidence/`;
+- `apps/web/app/globals.css`;
+- `supabase/migrations/20260811120000_phase_5_evidence_library.sql`;
+- `docs/reviews/fase-5-biblioteca-evidencias.md`;
+- `docs/reviews/fase-5-biblioteca-evidencias/`;
+- handoff e governança atualizados.
+
+### Commit planejado
+
+Mensagem: `feat(fase-5): implement evidence library and link proofs`.
+
+### Próximo gate
+
+Apresentar a Fase 5 a Yan. A Fase 6 permanece bloqueada até aprovação explícita ou conclusão dos ajustes solicitados.

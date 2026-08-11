@@ -301,7 +301,7 @@ Yan autorizou explicitamente o avanço para a Fase 5 em 11/08/2026, após recebe
 
 ## Fase 5 — Biblioteca de Evidências
 
-**Estado:** contrato aprovado por Yan em 11/08/2026; implementação autorizada.
+**Estado:** implementada e validada em 11/08/2026; pendente de avaliação e aprovação de Yan.
 
 ### Objetivo
 
@@ -325,7 +325,7 @@ Contrato detalhado: `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.m
 Abas:
 
 - **Resumo:** contexto, desafio, ação, resultado, aprendizado e competências;
-- **Provas:** arquivos, links, origem e nível;
+- **Provas:** links, origem e nível;
 - **Uso:** sessões Live e Artefatos que consumiram a evidência.
 
 ### Funções mínimas
@@ -334,7 +334,7 @@ Abas:
 - confirmar sugestão vinda de log;
 - editar e arquivar;
 - buscar e filtrar;
-- documentar com link ou arquivo quando Storage for habilitado;
+- documentar com link HTTP/HTTPS;
 - distinguir Registrada de Documentada;
 - não oferecer Validada/Certificada sem mecanismo real;
 - indicar fonte e alterações;
@@ -343,23 +343,32 @@ Abas:
 ### Dados esperados
 
 - `evidences` consolidada;
-- `evidence_sources` para log, link ou anexo;
-- metadados de origem e confiança;
+- `evidence_sources` para links vinculados pelo proprietário;
+- origem preservada em `source_log_id` ou registro manual;
 - Storage somente após contrato de tipo, tamanho, autorização e exclusão;
-- RLS e políticas de Storage por usuário.
+- RLS por usuário; políticas de Storage ficam para a fase que habilitar arquivos.
 
 ### Estados e testes
 
-- vazio inicial, sem resultados, carregando, parcial e erro;
+- vazio inicial, sem resultados e erro;
 - evidência registrada/documentada;
 - fonte removida ou indisponível;
 - busca e filtros combinados;
 - edição não perde origem;
-- RLS e upload seguro;
+- RLS e validação segura de URL;
 - navegação por teclado, painel e tabs acessíveis;
 - screenshots e gate visual.
 
-### Gate
+### Validação concluída
+
+- lint, TypeScript e build aprovados;
+- 15/15 testes unitários aprovados;
+- fluxo autenticado de criação, edição, link, arquivamento e restauração aprovado;
+- isolamento RLS aprovado com transação e rollback;
+- matriz visual aprovada tecnicamente em 1024, 1280, 1440 e 1920px;
+- dados sintéticos removidos e verificados com contagem zero.
+
+### Gate pendente
 
 Yan aprova hierarquia, filtros, detalhe, níveis e rastreabilidade.
 

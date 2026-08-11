@@ -14,10 +14,10 @@ import { usePathname } from "next/navigation";
 const available = [
   { href: "/app/inicio", label: "Início", icon: Home },
   { href: "/app/diario", label: "Diário", icon: Notebook },
+  { href: "/app/evidencias", label: "Evidências", icon: DataBase },
 ];
 
 const upcoming = [
-  { label: "Evidências", icon: DataBase },
   { label: "Persona Live", icon: Flash },
   { label: "Artefatos", icon: Document },
 ];

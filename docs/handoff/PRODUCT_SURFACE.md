@@ -26,7 +26,7 @@ O shell desktop aprovado possui cabeçalho de 48px, trilho lateral de 56px e con
 |---|---|---|---|
 | 1 | Início | `/app/inicio` | estado mínimo implementado |
 | 2 | Diário | `/app/diario` | núcleo implementado na Fase 4 |
-| 3 | Evidências | `/app/evidencias` | planejado para Fase 5 |
+| 3 | Evidências | `/app/evidencias` | implementado na Fase 5 |
 | 4 | Persona Live | `/app/live` | planejado para Fase 7 |
 | 5 | Artefatos | `/app/artefatos` | planejado para Fase 8 |
 | rodapé | Configurações | `/app/configuracoes` | planejado para Fase 9 |
@@ -49,8 +49,8 @@ Narrative Score não é um destino principal; aparece no Início e abre `/app/sc
 | `/app/score` | autenticado | painel/deep link | planejada | score, histórico e método |
 | `/app/diario` | autenticado | página | implementada | captura, busca, filtros e histórico de logs |
 | `/app/diario/[id]` | autenticado | painel/deep link | implementada | registro original, sugestões, revisão e confirmação |
-| `/app/evidencias` | autenticado | página | planejada | biblioteca, filtros e revisão |
-| `/app/evidencias/[id]` | autenticado | painel/deep link | planejada | resumo, provas e usos |
+| `/app/evidencias` | autenticado | página | implementada | biblioteca, registro manual, busca e filtros |
+| `/app/evidencias/[id]` | autenticado | painel/deep link | implementada | resumo editável, provas por link e usos futuros |
 | `/app/live` | autenticado | workspace | planejada | preparação e assistência em perguntas |
 | `/app/artefatos` | autenticado | página | planejada | biblioteca de materiais profissionais |
 | `/app/artefatos/novo` | autenticado | workspace | planejada | criação por tipo |
@@ -142,6 +142,13 @@ Níveis conceituais:
 4. Certificada.
 
 Somente os dois primeiros podem entrar sem mecanismo externo real.
+
+Estado implementado na Fase 5:
+
+- `Registrada`: evidência confirmada sem link;
+- `Documentada`: ao menos um link HTTP/HTTPS vinculado;
+- arquivos, Storage, `Validada` e `Certificada` permanecem fora do escopo atual;
+- Uso informa as integrações futuras sem inventar sessões ou Artefatos.
 
 ### Persona Live
 

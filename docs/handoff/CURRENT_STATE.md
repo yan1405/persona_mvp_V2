@@ -2,11 +2,11 @@
 
 > Snapshot: 11/08/2026  
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: implementação, validação e avaliação visual da Fase 5
+> Próximo gate: avaliação e aprovação de Yan para encerrar a Fase 5
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e o ciclo completo da Fase 4: Diário, estruturação Groq ou manual, revisão humana e evidência confirmada. Yan aprovou o avanço e o contrato da Fase 5 em 11/08/2026. A Biblioteca de Evidências será implementada com provas por link; arquivos e Supabase Storage ficam adiados.
+O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4 e 5. A Biblioteca de Evidências está implementada com lista densa, busca, filtros, registro manual, edição, arquivamento recuperável e provas por link. Arquivos e Supabase Storage continuam adiados. A implementação foi validada técnica e visualmente em 11/08/2026 e aguarda avaliação de Yan.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -15,7 +15,7 @@ O projeto possui autenticação Microsoft real, onboarding persistente e o ciclo
 | 2 — autenticação Microsoft | aprovada | `docs/reviews/fase-2-autenticacao.md` |
 | 3 — onboarding funcional | aprovada para avanço | `docs/reviews/fase-3-onboarding.md` |
 | 4 — Diário e estruturação assistida | aprovada em 11/08/2026 | `docs/reviews/fase-4-diario-evidencias.md` |
-| 5 — Biblioteca de Evidências | contrato aprovado; implementação autorizada | `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.md` |
+| 5 — Biblioteca de Evidências | implementada e validada; pendente de aprovação | `docs/reviews/fase-5-biblioteca-evidencias.md` |
 
 ## 2. Aplicação existente
 
@@ -35,6 +35,8 @@ O projeto possui autenticação Microsoft real, onboarding persistente e o ciclo
 - `/app/inicio` — entrada autenticada e acesso ao Diário;
 - `/app/diario` — captura, busca, filtros e histórico;
 - `/app/diario/[id]` — registro, sugestões, revisão e confirmação.
+- `/app/evidencias` — biblioteca, registro manual, busca e filtros combinados;
+- `/app/evidencias/[id]` — Resumo editável, Provas por link e Uso futuro.
 
 As outras rotas presentes no mapa de informação ainda são planejamento e não existem no código.
 
@@ -47,6 +49,7 @@ Migrações aplicadas:
 ```text
 supabase/migrations/20260810190000_phase_3_onboarding.sql
 supabase/migrations/20260810230000_phase_4_diary_evidences.sql
+supabase/migrations/20260811120000_phase_5_evidence_library.sql
 ```
 
 Objetos criados:
@@ -55,11 +58,11 @@ Objetos criados:
 - `public.daily_logs`;
 - `public.evidence_suggestions`;
 - `public.evidences`;
+- `public.evidence_sources`;
 - função `public.complete_onboarding(...)`;
 - função `public.confirm_evidence_suggestion(uuid)`;
-- políticas de seleção, inserção e atualização do próprio perfil;
-- políticas de seleção, inserção, atualização e exclusão dos próprios logs;
-- RLS habilitada nas duas tabelas.
+- políticas por proprietário para perfil, logs, sugestões, evidências e fontes;
+- RLS habilitada em todas as tabelas privadas.
 
 O fluxo real gravou um perfil e um primeiro Daily Log para a conta de teste. Não apagar, exportar ou alterar esse dado por SQL sem autorização de Yan. O produto pode sobrescrever o primeiro log de onboarding de forma idempotente pelo `entry_key = 'onboarding-first'`.
 
@@ -97,12 +100,12 @@ Não há shadcn/ui, Vitest ou Playwright local. O projeto usa o runner nativo do
 
 ## 6. Validação mais recente
 
-Executada após a conclusão técnica da Fase 4:
+Executada após a conclusão técnica da Fase 5:
 
 ```text
 npm.cmd run lint       aprovado
 npm.cmd run typecheck  aprovado
-npm.cmd test           12/12 testes aprovados
+npm.cmd test           15/15 testes aprovados
 npm.cmd run build      aprovado
 ```
 
@@ -112,6 +115,8 @@ Fluxos validados:
 Microsoft → /onboarding → função transacional no Supabase → /app/inicio
 SQL transacional com rollback → log → sugestão manual → confirmação → evidência → isolamento RLS
 Navegador autenticado → novo log → falha preservada → Groq → revisão → rejeição → regeneração → confirmação → exclusão bloqueada
+Navegador autenticado → registro manual → edição → link → Documentada → arquivamento → restauração
+SQL autenticado → insert próprio → leitura própria → identidade alheia sem acesso → rollback
 ```
 
 O servidor foi reiniciado em `http://localhost:3100`. Esse processo é efêmero; uma IA futura deve verificar a porta antes de afirmar que o app está rodando.
@@ -121,6 +126,8 @@ O servidor foi reiniciado em `http://localhost:3100`. Esse processo é efêmero;
 - Fase 1: quatro larguras em `docs/reviews/fase-1-fundacao/`;
 - Fase 2: configuração e estado autenticado em `docs/reviews/fase-2-autenticacao/`;
 - Fase 3: contexto, primeiro Daily Log e Início em `docs/reviews/fase-3-onboarding/`.
+- Fase 4: Diário, sugestão e evidência confirmada em `docs/reviews/fase-4-diario-evidencias/`.
+- Fase 5: Biblioteca em 1024/1280/1440/1920 e detalhe Provas em `docs/reviews/fase-5-biblioteca-evidencias/`.
 
 Na Fase 3, 1280×720 foi capturado de forma automatizada. Yan ainda precisa avaliar manualmente 1024, 1440 e 1920px.
 
@@ -131,9 +138,10 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 - avaliação visual complementar da Fase 3 em 1024/1440/1920px não foi registrada;
 - o lembrete é persistido, mas não envia notificação;
 - `/app/inicio` ainda é o estado mínimo pós-onboarding, não o dashboard completo;
-- Biblioteca de Evidências, Persona Live, Artefatos e Configurações ainda não existem;
+- Persona Live, Artefatos e Configurações ainda não existem;
 - Narrative Score ainda não é calculado;
-- a Biblioteca de Evidências ainda não existe; a confirmação da Fase 4 apenas cria o registro que será listado na Fase 5;
+- provas por arquivo e Supabase Storage foram deliberadamente adiadas; a Fase 5 aceita somente links HTTP/HTTPS;
+- o nível Validada/Certificada permanece indisponível sem mecanismo externo real;
 - Termos e Privacidade são provisórios e precisam de revisão jurídica antes de uso externo real;
 - o Xisto/mascote não tem linguagem final aprovada;
 - o repositório Git local acompanha `origin/main` no GitHub;
@@ -163,7 +171,6 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. fechar com Yan o contrato da Biblioteca de Evidências, especialmente o escopo de provas por link e arquivo;
-2. registrar o design aprovado em `docs/plans/`;
-3. implementar a Fase 5 em incrementos pequenos;
-4. encerrar a fase com validação técnica, segurança, screenshots e nova aprovação visual de Yan.
+1. Yan testa e avalia a hierarquia, filtros, detalhe, níveis e rastreabilidade da Fase 5;
+2. registrar aprovação ou ajustes na revisão da fase;
+3. somente após aprovação explícita, discutir e contratar a Fase 6 — Início e Narrative Score explicável.
