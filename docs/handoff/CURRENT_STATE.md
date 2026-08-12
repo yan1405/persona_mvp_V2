@@ -2,11 +2,11 @@
 
 > Snapshot: 12/08/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: deploy autorizado da Fase 7 na Vercel e validação autenticada no endereço publicado
+> Próximo gate: corrigir o callback OAuth de produção no Supabase, rotacionar a chave Groq exposta durante a configuração e repetir a validação autenticada
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. Yan autorizou o deploy da Fase 7 na Vercel em 12/08/2026. Persona Live é manual, baseado em evidências autorizadas, com argumentos e rascunho separados.
+O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. A Fase 7 foi publicada na Vercel em 12/08/2026 no domínio `https://persona-mvp-v2.vercel.app`. Persona Live é manual, baseado em evidências autorizadas, com argumentos e rascunho separados. O build e a rota pública foram validados; o fluxo autenticado ainda depende da correção do callback OAuth no Supabase.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -17,7 +17,7 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 | 4 — Diário e estruturação assistida | aprovada em 11/08/2026 | `docs/reviews/fase-4-diario-evidencias.md` |
 | 5 — Biblioteca de Evidências | aprovada em 11/08/2026 | `docs/reviews/fase-5-biblioteca-evidencias.md` |
 | 6 — Início e Narrative Score | aprovada por Yan em 12/08/2026 | `docs/reviews/fase-6-narrative-score.md` |
-| 7 — Persona Live manual | implementada e tecnicamente validada; deploy autorizado | `docs/reviews/fase-7-persona-live.md` |
+| 7 — Persona Live manual | implementada, tecnicamente validada e publicada; validação autenticada pendente | `docs/reviews/fase-7-persona-live.md` |
 
 ## 2. Aplicação existente
 
@@ -189,7 +189,7 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. publicar a Fase 7 na Vercel com as variáveis server-only corretas;
-2. registrar o endereço em Supabase Auth e validar Microsoft OAuth;
-3. repetir o fluxo autenticado completo no endereço publicado;
-4. registrar URL, resultado e limitações no handoff.
+1. corrigir no Supabase o Site URL e o redirect OAuth para `https://persona-mvp-v2.vercel.app`;
+2. rotacionar a chave Groq que apareceu na saída da ferramenta durante a configuração da Vercel e atualizar o segredo no projeto;
+3. repetir no endereço publicado o login Microsoft e o fluxo completo da Persona Live;
+4. registrar o resultado autenticado e as limitações remanescentes no handoff.

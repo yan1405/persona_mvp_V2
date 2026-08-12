@@ -1003,4 +1003,10 @@ O auditor visual sinalizou apenas tokens e tratamentos deliberados já aprovados
 
 ### Próximo gate
 
-Commit, push, configuração da Vercel, redirect OAuth e validação autenticada no endereço publicado.
+Commit, push e publicação na Vercel foram concluídos a partir de `23e7fa0`. O deployment `dpl_H1zaw1dMAdrDfhCZ4J6KkacoyheE` ficou Ready no domínio `https://persona-mvp-v2.vercel.app`, e a rota pública `/entrar` foi validada.
+
+Durante o teste de login Microsoft, o Supabase redirecionou para `localhost:3000`, confirmando que o callback de produção ainda não estava ativo. A reautenticação do painel do Supabase foi bloqueada pela política de segurança do navegador automatizado, portanto esse ajuste não foi contornado nem declarado como concluído.
+
+Durante a configuração das variáveis na Vercel, a chave Groq apareceu na saída interna da ferramenta. O valor não foi versionado, mas deve ser tratado como exposto: sua revogação/rotação exige confirmação explícita de Yan antes da ação irreversível.
+
+Próximos passos: corrigir Site URL e callback OAuth no Supabase, rotacionar a chave Groq na origem e na Vercel e repetir o fluxo autenticado completo da Persona Live.
