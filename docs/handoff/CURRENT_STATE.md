@@ -2,11 +2,11 @@
 
 > Snapshot: 12/08/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: validação de Yan da Fase 6
+> Próximo gate: confirmação de Yan para implementar o contrato aprovado da Fase 7
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4 e 5. A Fase 6 implementa diagnóstico versionado, base declarada, substituição por dimensão, Consistência determinística, Coerência assistida sob demanda e Score rastreável. O fluxo real foi validado e aguarda avaliação de Yan.
+O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–6. Yan aprovou a Fase 6 e o contrato da Fase 7 em 12/08/2026. Persona Live será manual, baseado em evidências autorizadas, com argumentos e rascunho separados; nenhum código da Fase 7 foi criado.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -16,7 +16,8 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 | 3 — onboarding funcional | aprovada para avanço | `docs/reviews/fase-3-onboarding.md` |
 | 4 — Diário e estruturação assistida | aprovada em 11/08/2026 | `docs/reviews/fase-4-diario-evidencias.md` |
 | 5 — Biblioteca de Evidências | aprovada em 11/08/2026 | `docs/reviews/fase-5-biblioteca-evidencias.md` |
-| 6 — Início e Narrative Score | implementada; aguardando aprovação de Yan | `docs/reviews/fase-6-narrative-score.md` |
+| 6 — Início e Narrative Score | aprovada por Yan em 12/08/2026 | `docs/reviews/fase-6-narrative-score.md` |
+| 7 — Persona Live manual | contrato aprovado; implementação não iniciada | `docs/plans/2026-08-12-fase-7-persona-live-manual-design.md` |
 
 ## 2. Aplicação existente
 
@@ -181,6 +182,7 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. Yan avaliar Diagnóstico, Início e `/app/score`;
-2. corrigir somente problemas encontrados na Fase 6;
-3. iniciar a Fase 7 apenas após aprovação explícita de Yan.
+1. obter confirmação final de Yan para implementar o contrato aprovado da Fase 7;
+2. implementar banco, recomendação determinística e validações;
+3. implementar preparação, sessão manual, versões e histórico;
+4. encerrar com RLS, testes, fluxo autenticado e QA visual.

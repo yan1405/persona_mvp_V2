@@ -926,3 +926,42 @@ Nenhuma dependência, cron, fila, embedding, Storage, upload ou store global foi
 ### Próximo gate
 
 Yan deve avaliar a Fase 6. A Fase 7 permanece bloqueada até aprovação explícita.
+
+---
+
+## EXEC-014 — Aprovação da Fase 6 e contrato da Fase 7
+
+**Data:** 12/08/2026
+**Fase:** encerramento da 6 e design da 7
+**Estado:** Fase 6 aprovada; contrato da Fase 7 aprovado; implementação não iniciada
+
+### Autorizações
+
+Yan autorizou o avanço após o handoff da Fase 6 e aprovou, em seções, o fluxo, os dados, os estados, os controles, a interface, os testes e os limites do Persona Live manual.
+
+### Decisões aprovadas
+
+- preparação com vaga/objetivo, empresa e descrição opcional;
+- recomendação determinística e confirmação de 1 a 8 evidências;
+- várias perguntas por sessão;
+- argumentos reais e rascunho sugerido separados;
+- histórico persistido e versões append-only;
+- Encurtar, Aprofundar e Outra experiência por nova geração controlada;
+- Copiar somente o rascunho;
+- pausa para revisar evidências;
+- encerramento somente leitura e duplicação sem histórico;
+- Server Actions, Supabase e Groq sob demanda;
+- ausência de evidência produz lacuna, não resposta genérica;
+- áudio, embeddings, filas e Artefatos fora da fase.
+
+### Skills e simplicidade
+
+O brainstorming obrigatório consolidou o contrato antes do código. Ponytail permanece aplicado: nenhuma dependência, busca determinística antes de embeddings e nenhuma infraestrutura assíncrona preventiva.
+
+### Documento
+
+`docs/plans/2026-08-12-fase-7-persona-live-manual-design.md`.
+
+### Próximo gate
+
+Obter confirmação final de Yan para iniciar a implementação. Nenhum código da Fase 7 foi criado neste ciclo.

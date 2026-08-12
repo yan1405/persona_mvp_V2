@@ -374,7 +374,7 @@ Yan validou a Biblioteca e autorizou explicitamente o avanço para a Fase 6 em 1
 
 ## Fase 6 — Início e Narrative Score explicável
 
-**Estado:** implementada em 12/08/2026; aguardando aprovação visual e funcional de Yan.
+**Estado:** implementada e aprovada por Yan em 12/08/2026.
 
 Contrato detalhado: `docs/plans/2026-08-11-fase-6-inicio-narrative-score-design.md`.
 
@@ -450,7 +450,9 @@ Revisão: `docs/reviews/fase-6-narrative-score.md`.
 
 ## Fase 7 — Persona Live manual
 
-**Estado:** planejada; design conceitual existente em `docs/plans/2026-08-05-persona-live-design.md`.
+**Estado:** contrato funcional e técnico aprovado por Yan em 12/08/2026; implementação não iniciada.
+
+Contrato aprovado: `docs/plans/2026-08-12-fase-7-persona-live-manual-design.md`.
 
 ### Objetivo
 
