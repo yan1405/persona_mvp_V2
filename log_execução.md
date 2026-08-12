@@ -831,3 +831,40 @@ A autorização abre o brainstorming e a contratação do novo Início e do Narr
 ### Próximo gate
 
 Comparar abordagens de pontuação, apresentar a recomendação em seções curtas e registrar o contrato aprovado em `docs/plans/`.
+
+---
+
+## EXEC-012 — Contrato da Fase 6 aprovado
+
+**Data:** 11/08/2026
+**Fase:** 6 — design
+**Estado:** contrato aprovado; implementação não iniciada
+
+### Decisões aprovadas
+
+- diagnóstico separado do onboarding em três etapas e 10 perguntas;
+- Score inicial declarativo de 0 a 100;
+- Coerência 60% e Consistência 40%; Credibilidade fora do cálculo;
+- substituição por dimensão, sem mistura permanente da autoavaliação;
+- Consistência observada após 21 dias, 6 logs e 3 semanas;
+- fórmula 70% continuidade e 30% frequência;
+- Coerência elegível com 5 evidências, 2 contextos e 3 competências;
+- Groq sob demanda com rubrica fixa, validação e IDs rastreáveis;
+- `narrative_diagnostics` e `narrative_score_snapshots` com RLS;
+- Início editorial e `/app/score` com Resumo, Histórico e Como é calculado;
+- falha parcial preserva o último valor válido.
+
+### Influência das skills
+
+- Design DNA preserva tokens, densidade, Geist, Carbon e a assinatura de rastreabilidade;
+- editorial modular prioriza hierarquia, fluxo sequencial, estados e acessibilidade;
+- `design-sem-cara-de-ia` elimina cards repetidos, velocímetros, medalhas e gamificação genérica;
+- Ponytail `full` remove cron, fila, embeddings, store global e dependências novas.
+
+### Documento
+
+`docs/plans/2026-08-11-fase-6-inicio-narrative-score-design.md`.
+
+### Próximo gate
+
+Obter confirmação final de Yan para iniciar a implementação do contrato aprovado.

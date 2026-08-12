@@ -374,7 +374,9 @@ Yan validou a Biblioteca e autorizou explicitamente o avanço para a Fase 6 em 1
 
 ## Fase 6 — Início e Narrative Score explicável
 
-**Estado:** autorizada por Yan em 11/08/2026 para design e contratação; implementação ainda não iniciada.
+**Estado:** contrato aprovado por Yan em 11/08/2026; implementação ainda não iniciada.
+
+Contrato detalhado: `docs/plans/2026-08-11-fase-6-inicio-narrative-score-design.md`.
 
 ### Objetivo
 

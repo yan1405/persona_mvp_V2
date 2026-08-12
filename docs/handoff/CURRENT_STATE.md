@@ -2,11 +2,11 @@
 
 > Snapshot: 11/08/2026  
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: contrato de produto e UI da Fase 6 antes do código
+> Próximo gate: confirmação de Yan para iniciar a implementação do contrato da Fase 6
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4 e 5. Yan validou e aprovou a Biblioteca de Evidências em 11/08/2026 e autorizou o início da Fase 6. O trabalho ativo é contratar o novo Início e o Narrative Score explicável antes de gerar código.
+O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4 e 5. Yan aprovou o contrato completo da Fase 6 em 11/08/2026: diagnóstico declarativo, substituição por dimensão, Consistência determinística, Coerência assistida e Score rastreável. Nenhum código da fase foi criado ainda.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -16,7 +16,7 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 | 3 — onboarding funcional | aprovada para avanço | `docs/reviews/fase-3-onboarding.md` |
 | 4 — Diário e estruturação assistida | aprovada em 11/08/2026 | `docs/reviews/fase-4-diario-evidencias.md` |
 | 5 — Biblioteca de Evidências | aprovada em 11/08/2026 | `docs/reviews/fase-5-biblioteca-evidencias.md` |
-| 6 — Início e Narrative Score | autorizada para design; sem código | `docs/handoff/PHASES.md` |
+| 6 — Início e Narrative Score | contrato aprovado; implementação não iniciada | `docs/plans/2026-08-11-fase-6-inicio-narrative-score-design.md` |
 
 ## 2. Aplicação existente
 
@@ -172,7 +172,7 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. decidir quando Consistência e o total podem exibir número sem criar precisão artificial;
-2. fechar Coerência, Credibilidade, explicações, estados e hierarquia do novo Início;
-3. registrar e aprovar o contrato da Fase 6 em `docs/plans/`;
-4. somente então iniciar banco, cálculo e interface.
+1. obter confirmação de Yan para iniciar a implementação do contrato aprovado;
+2. implementar primeiro diagnóstico, fórmulas e banco/RLS;
+3. implementar novo Início, `/app/score` e atualização de Coerência;
+4. encerrar com testes, segurança, screenshots e avaliação visual de Yan.
