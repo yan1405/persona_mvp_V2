@@ -293,7 +293,7 @@ Cobertura real:
 - níveis Registrada/Documentada;
 - URLs HTTP/HTTPS normalizadas e rejeição de esquemas perigosos ou credenciais embutidas.
 
-Estado atual: 15/15 testes aprovados.
+Estado atual: 20/20 testes aprovados, incluindo diagnóstico, Consistência observada e validação da Coerência assistida.
 
 O plano técnico cita Vitest e Playwright, mas eles não estão instalados. Só adicionar quando um fluxo exigir ganho real e após `package.json`/plano aprovados.
 

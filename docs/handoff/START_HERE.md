@@ -21,7 +21,7 @@ Em 11/08/2026:
 - Yan autorizou explicitamente o início da Fase 4;
 - a Fase 4 está implementada, tecnicamente validada e aprovada por Yan;
 - a Fase 5 está implementada, validada e aprovada por Yan; arquivos/Storage continuam adiados;
-- o contrato da Fase 6 está aprovado; a implementação aguarda confirmação explícita de Yan;
+- a Fase 6 está implementada e aguarda validação explícita de Yan;
 - o plano completo está em `docs/plans/2026-08-11-fase-6-inicio-narrative-score-design.md`;
 - o contrato aprovado está em `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.md`;
 - o design técnico da Fase 4 está em `docs/plans/2026-08-10-fase-4-diario-estruturacao-design.md`;
@@ -131,4 +131,4 @@ Para uma fase não iniciada:
 
 ## 8. Condição atual para avançar
 
-A Fase 5 está aprovada e o contrato da Fase 6 também. Antes do código, obter a confirmação final de Yan para implementação. Depois, seguir somente `docs/plans/2026-08-11-fase-6-inicio-narrative-score-design.md`; não criar Storage/upload, Credibilidade numérica, cron ou atualização automática da Groq.
+A Fase 5 está aprovada e a Fase 6 está implementada. Antes da Fase 7, obter a validação explícita de Yan sobre `docs/reviews/fase-6-narrative-score.md`; não criar Storage/upload, Credibilidade numérica, cron ou atualização automática da Groq.

@@ -374,7 +374,7 @@ Yan validou a Biblioteca e autorizou explicitamente o avanço para a Fase 6 em 1
 
 ## Fase 6 — Início e Narrative Score explicável
 
-**Estado:** contrato aprovado por Yan em 11/08/2026; implementação ainda não iniciada.
+**Estado:** implementada em 12/08/2026; aguardando aprovação visual e funcional de Yan.
 
 Contrato detalhado: `docs/plans/2026-08-11-fase-6-inicio-narrative-score-design.md`.
 
@@ -434,6 +434,19 @@ Painel com abas:
 ### Gate
 
 Yan deve entender por que cada valor existe sem precisar confiar cegamente na IA.
+
+### Implementação e QA
+
+- diagnóstico de três etapas com rascunho e versão;
+- Score inicial 60% Coerência e 40% Consistência;
+- snapshots com origem declarada, parcialmente observada ou observada;
+- Consistência observada em janela de até quatro semanas;
+- Coerência assistida somente sob demanda e após elegibilidade;
+- RLS e funções atômicas aplicadas no Supabase real;
+- 20 testes, lint, TypeScript e build aprovados;
+- QA autenticado e matriz visual 1024/1280/1440/1920 concluídos.
+
+Revisão: `docs/reviews/fase-6-narrative-score.md`.
 
 ## Fase 7 — Persona Live manual
 

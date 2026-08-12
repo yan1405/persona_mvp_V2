@@ -24,7 +24,7 @@ O shell desktop aprovado possui cabeçalho de 48px, trilho lateral de 56px e con
 
 | Ordem | Destino | Rota | Situação atual |
 |---|---|---|---|
-| 1 | Início | `/app/inicio` | estado mínimo implementado |
+| 1 | Início | `/app/inicio` | visão operacional implementada na Fase 6 |
 | 2 | Diário | `/app/diario` | núcleo implementado na Fase 4 |
 | 3 | Evidências | `/app/evidencias` | implementado na Fase 5 |
 | 4 | Persona Live | `/app/live` | planejado para Fase 7 |
@@ -45,8 +45,9 @@ Narrative Score não é um destino principal; aparece no Início e abre `/app/sc
 | `/privacidade` | público | documento | implementada/provisória | política da fase de testes |
 | `/termos` | público | documento | implementada/provisória | termos da fase de testes |
 | `/onboarding` | autenticado | fluxo | implementada | perfil, consentimento, rotina e primeiro log |
-| `/app/inicio` | autenticado | página | parcial | estado inicial; dashboard completo na Fase 6 |
-| `/app/score` | autenticado | painel/deep link | planejada | score, histórico e método |
+| `/app/inicio` | autenticado | página | implementada | Score, origem, dimensões, rastreabilidade e próxima ação |
+| `/app/diagnostico` | autenticado | fluxo | implementada | base declarada versionada em três etapas |
+| `/app/score` | autenticado | painel/deep link | implementada | resumo, histórico e método |
 | `/app/diario` | autenticado | página | implementada | captura, busca, filtros e histórico de logs |
 | `/app/diario/[id]` | autenticado | painel/deep link | implementada | registro original, sugestões, revisão e confirmação |
 | `/app/evidencias` | autenticado | página | implementada | biblioteca, registro manual, busca e filtros |
@@ -85,7 +86,7 @@ Comunicação opcional nunca pode estar agregada ao consentimento necessário. L
 
 ### Início
 
-Estado completo planejado:
+Estado completo implementado:
 
 - cabeçalho e próxima ação;
 - KPIs total, Consistência, Coerência e Credibilidade;

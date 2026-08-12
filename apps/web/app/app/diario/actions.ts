@@ -9,6 +9,7 @@ import {
   type SuggestionInput,
 } from "@/lib/diary/validation";
 import { StructureEvidenceError, structureEvidence } from "@/lib/groq/structure-evidence";
+import { recordConsistencyIfChanged } from "@/lib/score/record-consistency";
 import { createClient } from "@/lib/supabase/server";
 
 export type DiaryActionState = {
@@ -78,6 +79,7 @@ export async function createDailyLog(
     };
   }
 
+  await recordConsistencyIfChanged(supabase);
   revalidatePath("/app/diario");
   redirect(`/app/diario/${data.id}?tab=registro&notice=created`);
 }
@@ -111,6 +113,7 @@ export async function updateDailyLog(
     return { status: "error", message: "Não foi possível salvar as alterações." };
   }
 
+  await recordConsistencyIfChanged(supabase);
   revalidatePath("/app/diario");
   revalidatePath(`/app/diario/${logId}`);
   return { status: "success", message: "Alterações salvas." };
@@ -141,6 +144,7 @@ export async function deleteDailyLog(logId: string, formData: FormData) {
     redirect(`/app/diario/${logId}?tab=registro&notice=delete-failed`);
   }
 
+  await recordConsistencyIfChanged(supabase);
   revalidatePath("/app/diario");
   redirect("/app/diario?notice=deleted");
 }

@@ -1,12 +1,12 @@
 # Estado atual verificável
 
-> Snapshot: 11/08/2026  
+> Snapshot: 12/08/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: confirmação de Yan para iniciar a implementação do contrato da Fase 6
+> Próximo gate: validação de Yan da Fase 6
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4 e 5. Yan aprovou o contrato completo da Fase 6 em 11/08/2026: diagnóstico declarativo, substituição por dimensão, Consistência determinística, Coerência assistida e Score rastreável. Nenhum código da fase foi criado ainda.
+O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4 e 5. A Fase 6 implementa diagnóstico versionado, base declarada, substituição por dimensão, Consistência determinística, Coerência assistida sob demanda e Score rastreável. O fluxo real foi validado e aguarda avaliação de Yan.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -16,7 +16,7 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 | 3 — onboarding funcional | aprovada para avanço | `docs/reviews/fase-3-onboarding.md` |
 | 4 — Diário e estruturação assistida | aprovada em 11/08/2026 | `docs/reviews/fase-4-diario-evidencias.md` |
 | 5 — Biblioteca de Evidências | aprovada em 11/08/2026 | `docs/reviews/fase-5-biblioteca-evidencias.md` |
-| 6 — Início e Narrative Score | contrato aprovado; implementação não iniciada | `docs/plans/2026-08-11-fase-6-inicio-narrative-score-design.md` |
+| 6 — Início e Narrative Score | implementada; aguardando aprovação de Yan | `docs/reviews/fase-6-narrative-score.md` |
 
 ## 2. Aplicação existente
 
@@ -33,11 +33,13 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 ### Rotas autenticadas implementadas
 
 - `/onboarding` — quatro etapas e persistência final;
-- `/app/inicio` — entrada autenticada e acesso ao Diário;
+- `/app/inicio` — visão operacional, Score, origem, dimensões e próximo movimento;
 - `/app/diario` — captura, busca, filtros e histórico;
 - `/app/diario/[id]` — registro, sugestões, revisão e confirmação.
 - `/app/evidencias` — biblioteca, registro manual, busca e filtros combinados;
 - `/app/evidencias/[id]` — Resumo editável, Provas por link e Uso futuro.
+- `/app/diagnostico` — diagnóstico versionado de três etapas com rascunho;
+- `/app/score` — Resumo, Histórico e Como é calculado.
 
 As outras rotas presentes no mapa de informação ainda são planejamento e não existem no código.
 
@@ -51,6 +53,7 @@ Migrações aplicadas:
 supabase/migrations/20260810190000_phase_3_onboarding.sql
 supabase/migrations/20260810230000_phase_4_diary_evidences.sql
 supabase/migrations/20260811120000_phase_5_evidence_library.sql
+supabase/migrations/20260811180000_phase_6_narrative_score.sql
 ```
 
 Objetos criados:
@@ -60,8 +63,11 @@ Objetos criados:
 - `public.evidence_suggestions`;
 - `public.evidences`;
 - `public.evidence_sources`;
+- `public.narrative_diagnostics`;
+- `public.narrative_score_snapshots`;
 - função `public.complete_onboarding(...)`;
 - função `public.confirm_evidence_suggestion(uuid)`;
+- funções `public.complete_narrative_diagnostic(...)` e `public.record_narrative_score_snapshot(...)`;
 - políticas por proprietário para perfil, logs, sugestões, evidências e fontes;
 - RLS habilitada em todas as tabelas privadas.
 
@@ -106,7 +112,7 @@ Executada após a conclusão técnica da Fase 5:
 ```text
 npm.cmd run lint       aprovado
 npm.cmd run typecheck  aprovado
-npm.cmd test           15/15 testes aprovados
+npm.cmd test           20/20 testes aprovados
 npm.cmd run build      aprovado
 ```
 
@@ -118,6 +124,8 @@ SQL transacional com rollback → log → sugestão manual → confirmação →
 Navegador autenticado → novo log → falha preservada → Groq → revisão → rejeição → regeneração → confirmação → exclusão bloqueada
 Navegador autenticado → registro manual → edição → link → Documentada → arquivamento → restauração
 SQL autenticado → insert próprio → leitura própria → identidade alheia sem acesso → rollback
+Navegador autenticado → rascunho do diagnóstico → conclusão → Score 65 → histórico e método
+Supabase real → tabelas da Fase 6 presentes → RLS habilitada → quatro políticas mínimas verificadas
 ```
 
 O servidor foi reiniciado em `http://localhost:3100`. Esse processo é efêmero; uma IA futura deve verificar a porta antes de afirmar que o app está rodando.
@@ -129,6 +137,7 @@ O servidor foi reiniciado em `http://localhost:3100`. Esse processo é efêmero;
 - Fase 3: contexto, primeiro Daily Log e Início em `docs/reviews/fase-3-onboarding/`.
 - Fase 4: Diário, sugestão e evidência confirmada em `docs/reviews/fase-4-diario-evidencias/`.
 - Fase 5: Biblioteca em 1024/1280/1440/1920 e detalhe Provas em `docs/reviews/fase-5-biblioteca-evidencias/`.
+- Fase 6: Início em 1024/1280/1440/1920 e Score em `docs/qa/fase-6/`.
 
 Na Fase 3, 1280×720 foi capturado de forma automatizada. Yan ainda precisa avaliar manualmente 1024, 1440 e 1920px.
 
@@ -138,9 +147,9 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 
 - avaliação visual complementar da Fase 3 em 1024/1440/1920px não foi registrada;
 - o lembrete é persistido, mas não envia notificação;
-- `/app/inicio` ainda é o estado mínimo pós-onboarding, não o dashboard completo;
 - Persona Live, Artefatos e Configurações ainda não existem;
-- Narrative Score ainda não é calculado;
+- Credibilidade permanece indisponível e fora do Score;
+- Coerência assistida exige 5 evidências, 2 contextos e 3 competências e só roda sob demanda;
 - provas por arquivo e Supabase Storage foram deliberadamente adiadas; a Fase 5 aceita somente links HTTP/HTTPS;
 - o nível Validada/Certificada permanece indisponível sem mecanismo externo real;
 - Termos e Privacidade são provisórios e precisam de revisão jurídica antes de uso externo real;
@@ -172,7 +181,6 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. obter confirmação de Yan para iniciar a implementação do contrato aprovado;
-2. implementar primeiro diagnóstico, fórmulas e banco/RLS;
-3. implementar novo Início, `/app/score` e atualização de Coerência;
-4. encerrar com testes, segurança, screenshots e avaliação visual de Yan.
+1. Yan avaliar Diagnóstico, Início e `/app/score`;
+2. corrigir somente problemas encontrados na Fase 6;
+3. iniciar a Fase 7 apenas após aprovação explícita de Yan.

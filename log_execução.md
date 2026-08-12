@@ -868,3 +868,61 @@ Comparar abordagens de pontuação, apresentar a recomendação em seções curt
 ### Próximo gate
 
 Obter confirmação final de Yan para iniciar a implementação do contrato aprovado.
+
+---
+
+## EXEC-013 — Implementação e QA da Fase 6
+
+**Data:** 12/08/2026
+**Fase:** 6 — Início e Narrative Score
+**Estado:** implementada; aguardando aprovação de Yan
+
+### Autorização
+
+Yan confirmou a implementação após aprovar integralmente o contrato da Fase 6.
+
+### Ações executadas
+
+- criadas regras determinísticas do diagnóstico e da Consistência;
+- criado schema estrito e análise Groq server-only para Coerência;
+- implementados diagnóstico de três etapas, nova Início e `/app/score`;
+- adicionada atualização da Consistência após mutações do Diário;
+- criada e aplicada a migração de diagnósticos e snapshots;
+- verificados RLS e quatro políticas mínimas no Supabase real;
+- executado fluxo autenticado de rascunho até snapshot inicial;
+- corrigida a mesclagem das respostas entre etapas encontrada pelo QA;
+- capturadas as larguras 1024, 1280, 1440 e 1920px;
+- executadas auditorias obrigatórias e Ponytail `full`.
+
+### Arquivos centrais
+
+- `apps/web/app/app/diagnostico/`;
+- `apps/web/app/app/inicio/page.tsx`;
+- `apps/web/app/app/score/`;
+- `apps/web/lib/score/`;
+- `supabase/migrations/20260811180000_phase_6_narrative_score.sql`;
+- `docs/reviews/fase-6-narrative-score.md`;
+- `docs/qa/fase-6/`.
+
+### Mutação externa
+
+A migração foi aplicada ao projeto Supabase `persona-mvp-v2`. O ensaio autenticado concluiu um diagnóstico real na conta de Yan e criou um snapshot inicial 65/100. Nenhum dado foi removido ou modificado diretamente por SQL.
+
+### Validações
+
+- testes: 20/20;
+- TypeScript: aprovado;
+- lint: aprovado;
+- build: aprovado com `exit code 0`;
+- fluxo autenticado: aprovado;
+- RLS/tabelas/políticas: verificadas;
+- matriz visual: sem overflow horizontal;
+- auditor visual: somente tokens aprovados/preexistentes sinalizados.
+
+### Simplificações
+
+Nenhuma dependência, cron, fila, embedding, Storage, upload ou store global foi adicionado. Credibilidade continua indisponível e Coerência só roda sob demanda depois da elegibilidade.
+
+### Próximo gate
+
+Yan deve avaliar a Fase 6. A Fase 7 permanece bloqueada até aprovação explícita.
