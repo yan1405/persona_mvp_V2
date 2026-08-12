@@ -450,7 +450,7 @@ Revisão: `docs/reviews/fase-6-narrative-score.md`.
 
 ## Fase 7 — Persona Live manual
 
-**Estado:** contrato funcional e técnico aprovado por Yan em 12/08/2026; implementação não iniciada.
+**Estado:** implementada e tecnicamente validada em 12/08/2026; deploy autorizado por Yan.
 
 Contrato aprovado: `docs/plans/2026-08-12-fase-7-persona-live-manual-design.md`.
 
@@ -500,7 +500,19 @@ Responder a uma pergunta digitada pelo usuário com argumentos rastreáveis e um
 
 ### Gate
 
-Yan aprova utilidade real em preparação/entrevista e separação entre fatos e redação.
+Yan autorizou o deploy na Vercel. O gate restante é repetir no endereço publicado o login Microsoft e o fluxo completo de preparação, evidências, pergunta, geração, versões e encerramento.
+
+### Implementação e QA
+
+- recomendação determinística e confirmação de 1 a 8 evidências;
+- sessões, perguntas e versões append-only com RLS;
+- Groq server-only com schema estrito e validação literal de fontes;
+- lacuna segura sem rascunho quando não há sustentação;
+- 26 testes, lint, TypeScript e build aprovados;
+- migração aplicada ao Supabase real;
+- auditoria editorial, `design-sem-cara-de-ia` e Ponytail `full` concluídas.
+
+Revisão: `docs/reviews/fase-7-persona-live.md`.
 
 ## Fase 8 — Artefatos profissionais
 

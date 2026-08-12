@@ -2,11 +2,11 @@
 
 > Snapshot: 12/08/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: confirmação de Yan para implementar o contrato aprovado da Fase 7
+> Próximo gate: deploy autorizado da Fase 7 na Vercel e validação autenticada no endereço publicado
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–6. Yan aprovou a Fase 6 e o contrato da Fase 7 em 12/08/2026. Persona Live será manual, baseado em evidências autorizadas, com argumentos e rascunho separados; nenhum código da Fase 7 foi criado.
+O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. Yan autorizou o deploy da Fase 7 na Vercel em 12/08/2026. Persona Live é manual, baseado em evidências autorizadas, com argumentos e rascunho separados.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -17,7 +17,7 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 | 4 — Diário e estruturação assistida | aprovada em 11/08/2026 | `docs/reviews/fase-4-diario-evidencias.md` |
 | 5 — Biblioteca de Evidências | aprovada em 11/08/2026 | `docs/reviews/fase-5-biblioteca-evidencias.md` |
 | 6 — Início e Narrative Score | aprovada por Yan em 12/08/2026 | `docs/reviews/fase-6-narrative-score.md` |
-| 7 — Persona Live manual | contrato aprovado; implementação não iniciada | `docs/plans/2026-08-12-fase-7-persona-live-manual-design.md` |
+| 7 — Persona Live manual | implementada e tecnicamente validada; deploy autorizado | `docs/reviews/fase-7-persona-live.md` |
 
 ## 2. Aplicação existente
 
@@ -41,6 +41,8 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 - `/app/evidencias/[id]` — Resumo editável, Provas por link e Uso futuro.
 - `/app/diagnostico` — diagnóstico versionado de três etapas com rascunho;
 - `/app/score` — Resumo, Histórico e Como é calculado.
+- `/app/live` — preparação, recomendação de evidências e histórico de sessões;
+- `/app/live/[id]` — autorização, perguntas, argumentos, rascunhos, versões e encerramento.
 
 As outras rotas presentes no mapa de informação ainda são planejamento e não existem no código.
 
@@ -55,6 +57,7 @@ supabase/migrations/20260810190000_phase_3_onboarding.sql
 supabase/migrations/20260810230000_phase_4_diary_evidences.sql
 supabase/migrations/20260811120000_phase_5_evidence_library.sql
 supabase/migrations/20260811180000_phase_6_narrative_score.sql
+supabase/migrations/20260812150000_phase_7_persona_live.sql
 ```
 
 Objetos criados:
@@ -66,6 +69,10 @@ Objetos criados:
 - `public.evidence_sources`;
 - `public.narrative_diagnostics`;
 - `public.narrative_score_snapshots`;
+- `public.live_sessions`;
+- `public.live_session_evidences`;
+- `public.live_questions`;
+- `public.live_draft_versions`;
 - função `public.complete_onboarding(...)`;
 - função `public.confirm_evidence_suggestion(uuid)`;
 - funções `public.complete_narrative_diagnostic(...)` e `public.record_narrative_score_snapshot(...)`;
@@ -108,12 +115,12 @@ Não há shadcn/ui, Vitest ou Playwright local. O projeto usa o runner nativo do
 
 ## 6. Validação mais recente
 
-Executada após a conclusão técnica da Fase 5:
+Executada após a conclusão técnica da Fase 7:
 
 ```text
 npm.cmd run lint       aprovado
 npm.cmd run typecheck  aprovado
-npm.cmd test           20/20 testes aprovados
+npm.cmd test           26/26 testes aprovados
 npm.cmd run build      aprovado
 ```
 
@@ -148,7 +155,7 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 
 - avaliação visual complementar da Fase 3 em 1024/1440/1920px não foi registrada;
 - o lembrete é persistido, mas não envia notificação;
-- Persona Live, Artefatos e Configurações ainda não existem;
+- Artefatos e Configurações ainda não existem;
 - Credibilidade permanece indisponível e fora do Score;
 - Coerência assistida exige 5 evidências, 2 contextos e 3 competências e só roda sob demanda;
 - provas por arquivo e Supabase Storage foram deliberadamente adiadas; a Fase 5 aceita somente links HTTP/HTTPS;
@@ -182,7 +189,7 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. obter confirmação final de Yan para implementar o contrato aprovado da Fase 7;
-2. implementar banco, recomendação determinística e validações;
-3. implementar preparação, sessão manual, versões e histórico;
-4. encerrar com RLS, testes, fluxo autenticado e QA visual.
+1. publicar a Fase 7 na Vercel com as variáveis server-only corretas;
+2. registrar o endereço em Supabase Auth e validar Microsoft OAuth;
+3. repetir o fluxo autenticado completo no endereço publicado;
+4. registrar URL, resultado e limitações no handoff.

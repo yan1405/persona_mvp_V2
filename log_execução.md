@@ -965,3 +965,42 @@ O brainstorming obrigatório consolidou o contrato antes do código. Ponytail pe
 ### Próximo gate
 
 Obter confirmação final de Yan para iniciar a implementação. Nenhum código da Fase 7 foi criado neste ciclo.
+
+---
+
+## EXEC-015 — Implementação técnica e autorização de deploy da Fase 7
+
+**Data:** 12/08/2026
+**Fase:** 7 — Persona Live manual
+**Estado:** implementada e tecnicamente validada; deploy autorizado por Yan
+
+### Autorização
+
+Yan solicitou verificar a Fase 7 e realizar o deploy na Vercel. A autorização inclui aplicar a migração versionada necessária, publicar o código no remoto correto e configurar o projeto Vercel sem criar recurso pago.
+
+### Executado
+
+- preparação de oportunidade e empresa;
+- recomendação determinística e autorização de 1 a 8 evidências;
+- sessões manuais com várias perguntas;
+- argumentos reais e rascunho sugerido separados;
+- versões `initial`, `shorter`, `deeper` e `alternative`;
+- pausa, encerramento, histórico somente leitura e duplicação sem perguntas;
+- migração `20260812150000_phase_7_persona_live.sql` aplicada ao Supabase `persona-mvp-v2`;
+- API confirmou tabela existente e leitura anônima negada;
+- auditorias editorial, `design-sem-cara-de-ia` e Ponytail `full` concluídas.
+
+### Validações
+
+```text
+npm.cmd run lint       aprovado
+npm.cmd run typecheck  aprovado
+npm.cmd test           26/26 aprovados
+npm.cmd run build      aprovado
+```
+
+O auditor visual sinalizou apenas tokens e tratamentos deliberados já aprovados. O navegador automatizado local não concluiu a navegação por `localhost`; o fluxo autenticado será repetido na URL da Vercel antes do encerramento do deploy.
+
+### Próximo gate
+
+Commit, push, configuração da Vercel, redirect OAuth e validação autenticada no endereço publicado.

@@ -15,10 +15,10 @@ const available = [
   { href: "/app/inicio", label: "Início", icon: Home },
   { href: "/app/diario", label: "Diário", icon: Notebook },
   { href: "/app/evidencias", label: "Evidências", icon: DataBase },
+  { href: "/app/live", label: "Persona Live", icon: Flash },
 ];
 
 const upcoming = [
-  { label: "Persona Live", icon: Flash },
   { label: "Artefatos", icon: Document },
 ];
 
