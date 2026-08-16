@@ -500,7 +500,7 @@ Responder a uma pergunta digitada pelo usuário com argumentos rastreáveis e um
 
 ### Gate
 
-Deploy publicado em `https://persona-mvp-v2.vercel.app` a partir do commit `23e7fa0`. O gate restante é corrigir o callback OAuth no Supabase, rotacionar o segredo Groq exposto durante a configuração e repetir no endereço publicado o login Microsoft e o fluxo completo de preparação, evidências, pergunta, geração, versões e encerramento.
+Deploy publicado em `https://persona-mvp-v2.vercel.app` a partir do commit `23e7fa0`. Em 16/08/2026, o painel do Supabase confirmou o Site URL de produção e os callbacks local e publicado na lista permitida. O gate restante é rotacionar o segredo Groq exposto durante a configuração e repetir no endereço publicado o login Microsoft e o fluxo completo de preparação, evidências, pergunta, geração, versões e encerramento.
 
 ### Implementação e QA
 
@@ -508,7 +508,7 @@ Deploy publicado em `https://persona-mvp-v2.vercel.app` a partir do commit `23e7
 - sessões, perguntas e versões append-only com RLS;
 - Groq server-only com schema estrito e validação literal de fontes;
 - lacuna segura sem rascunho quando não há sustentação;
-- 26 testes, lint, TypeScript e build aprovados;
+- 27 testes, lint, TypeScript e build aprovados após o hardening de 16/08/2026;
 - migração aplicada ao Supabase real;
 - auditoria editorial, `design-sem-cara-de-ia` e Ponytail `full` concluídas.
 

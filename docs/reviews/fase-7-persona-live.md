@@ -66,3 +66,12 @@ Nenhum achado exige correção. As capturas finais e o exercício autenticado co
 ## Gate
 
 Após o deploy, validar no endereço publicado: login Microsoft, criação de sessão, seleção de evidências, pergunta real, geração Groq, versões, pausa, encerramento e duplicação.
+
+## Hardening de 16/08/2026
+
+- `parseLiveResponse` passou a persistir argumentos somente como trechos literais validados das evidências autorizadas;
+- o rascunho persistido é reconstruído no servidor exclusivamente a partir desses trechos, sem aceitar afirmações livres do modelo;
+- um teste de regressão prova que texto e rascunho inventados pela Groq são substituídos pela fonte autorizada;
+- 27/27 testes, lint, TypeScript e build foram aprovados;
+- o painel do Supabase confirmou o Site URL `https://persona-mvp-v2.vercel.app` e o callback publicado na lista permitida;
+- a rotação da chave Groq e a validação autenticada de produção continuam pendentes.

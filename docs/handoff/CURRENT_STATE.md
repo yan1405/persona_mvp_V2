@@ -1,12 +1,12 @@
 # Estado atual verificável
 
-> Snapshot: 12/08/2026
+> Snapshot: 16/08/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: corrigir o callback OAuth de produção no Supabase, rotacionar a chave Groq exposta durante a configuração e repetir a validação autenticada
+> Próximo gate: rotacionar a chave Groq exposta durante a configuração e repetir a validação autenticada em produção
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. A Fase 7 foi publicada na Vercel em 12/08/2026 no domínio `https://persona-mvp-v2.vercel.app`. Persona Live é manual, baseado em evidências autorizadas, com argumentos e rascunho separados. O build e a rota pública foram validados; o fluxo autenticado ainda depende da correção do callback OAuth no Supabase.
+O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. A Fase 7 foi publicada na Vercel em 12/08/2026 no domínio `https://persona-mvp-v2.vercel.app`. Persona Live é manual, baseado em evidências autorizadas, com argumentos e rascunho separados. Em 16/08/2026, o painel do Supabase confirmou o Site URL de produção e os callbacks local e publicado na lista permitida. A validação autenticada continua pendente até a rotação da chave Groq exposta.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -115,12 +115,12 @@ Não há shadcn/ui, Vitest ou Playwright local. O projeto usa o runner nativo do
 
 ## 6. Validação mais recente
 
-Executada após a conclusão técnica da Fase 7:
+Executada após o hardening de fontes da Fase 7 em 16/08/2026:
 
 ```text
 npm.cmd run lint       aprovado
 npm.cmd run typecheck  aprovado
-npm.cmd test           26/26 testes aprovados
+npm.cmd test           27/27 testes aprovados
 npm.cmd run build      aprovado
 ```
 
@@ -189,7 +189,7 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. corrigir no Supabase o Site URL e o redirect OAuth para `https://persona-mvp-v2.vercel.app`;
-2. rotacionar a chave Groq que apareceu na saída da ferramenta durante a configuração da Vercel e atualizar o segredo no projeto;
+1. obter confirmação explícita de Yan imediatamente antes de revogar e rotacionar a chave Groq exposta;
+2. atualizar o segredo rotacionado na origem e na Vercel sem exibir seu valor;
 3. repetir no endereço publicado o login Microsoft e o fluxo completo da Persona Live;
 4. registrar o resultado autenticado e as limitações remanescentes no handoff.

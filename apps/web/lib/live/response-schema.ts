@@ -54,16 +54,18 @@ export function parseLiveResponse(raw: string, evidences: LiveEvidenceInput[]): 
     if (!evidence) throw new Error("invalid_output");
     const source = argument.source_field === "competencies" ? evidence.competencies.join(" ") : evidence[argument.source_field as keyof Omit<LiveEvidenceInput, "id" | "competencies">];
     if (!source || !source.toLocaleLowerCase("pt-BR").includes(argument.source_excerpt.trim().toLocaleLowerCase("pt-BR"))) throw new Error("invalid_output");
-    return { text: argument.text.trim(), evidence_id: argument.evidence_id, source_field: argument.source_field as LiveArgument["source_field"], source_excerpt: argument.source_excerpt.trim() };
+    const excerpt = argument.source_excerpt.trim();
+    return { text: excerpt, evidence_id: argument.evidence_id, source_field: argument.source_field as LiveArgument["source_field"], source_excerpt: excerpt };
   });
   const primary = typeof value.primary_evidence_id === "string" ? value.primary_evidence_id : null;
   if (primary && !byId.has(primary)) throw new Error("invalid_output");
-  const draft = typeof value.draft === "string" && value.draft.trim() ? value.draft.trim() : null;
+  const requestedDraft = typeof value.draft === "string" && value.draft.trim() ? value.draft.trim() : null;
   const sourceNumbers = new Set(evidences.flatMap((evidence) => [evidence.title, evidence.context, evidence.action, evidence.result ?? "", evidence.learning ?? "", ...evidence.competencies].flatMap((field) => field.match(/\d+(?:[.,]\d+)?%?/g) ?? [])));
-  if (draft && (draft.match(/\d+(?:[.,]\d+)?%?/g) ?? []).some((number) => !sourceNumbers.has(number))) throw new Error("invalid_output");
+  if (requestedDraft && (requestedDraft.match(/\d+(?:[.,]\d+)?%?/g) ?? []).some((number) => !sourceNumbers.has(number))) throw new Error("invalid_output");
   const gap = record(value.gap) && Array.isArray(value.gap.missing_facts) && typeof value.gap.registration_suggestion === "string"
     ? { missing_facts: value.gap.missing_facts.filter((item): item is string => typeof item === "string"), registration_suggestion: value.gap.registration_suggestion.trim() }
     : null;
-  if (value.supported ? (!draft || gap || !args.length || !primary) : (draft || !gap || args.length > 0 || primary)) throw new Error("invalid_output");
+  if (value.supported ? (!requestedDraft || gap || !args.length || !primary) : (requestedDraft || !gap || args.length > 0 || primary)) throw new Error("invalid_output");
+  const draft = value.supported ? `Na minha experiência: ${[...new Set(args.map((argument) => argument.source_excerpt.replace(/[.]+$/, "")))].join(". ")}.` : null;
   return { intent: value.intent as LiveResponse["intent"], supported: value.supported, primary_evidence_id: primary, arguments: args, draft, target_duration_seconds: Number(value.target_duration_seconds), gap };
 }

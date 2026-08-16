@@ -39,3 +39,10 @@ test("lacuna válida não cria rascunho genérico", () => {
   const raw = JSON.stringify({ intent: "behavioral", supported: false, primary_evidence_id: null, arguments: [], draft: null, target_duration_seconds: 40, gap: { missing_facts: ["Um conflito real e sua ação"], registration_suggestion: "Registre uma situação de conflito no Diário." } });
   assert.equal(parseLiveResponse(raw, evidences).draft, null);
 });
+
+test("resposta persistida usa somente trechos literais das fontes", () => {
+  const raw = JSON.stringify({ intent: "objective", supported: true, primary_evidence_id: evidences[0].id, arguments: [{ text: "Implementei uma solução completa", evidence_id: evidences[0].id, source_field: "action", source_excerpt: "Estruturei um fluxo de IA" }], draft: "Implementei uma solução completa sem falhas.", target_duration_seconds: 20, gap: null });
+  const response = parseLiveResponse(raw, evidences);
+  assert.equal(response.arguments[0].text, "Estruturei um fluxo de IA");
+  assert.equal(response.draft, "Na minha experiência: Estruturei um fluxo de IA.");
+});

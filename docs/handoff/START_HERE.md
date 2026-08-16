@@ -131,4 +131,4 @@ Para uma fase não iniciada:
 
 ## 8. Condição atual para avançar
 
-As Fases 1–6 estão aprovadas e a Fase 7 está publicada na Vercel. O próximo gate é corrigir a URL de OAuth no Supabase, rotacionar a chave Groq exposta durante a configuração e repetir o fluxo autenticado completo no endereço publicado.
+As Fases 1–6 estão aprovadas e a Fase 7 está publicada na Vercel. Em 16/08/2026, o painel do Supabase confirmou o Site URL de produção e o callback publicado na lista permitida. O próximo gate é rotacionar a chave Groq exposta, com confirmação explícita de Yan imediatamente antes da revogação, e repetir o fluxo autenticado completo no endereço publicado.

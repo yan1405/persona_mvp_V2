@@ -1010,3 +1010,39 @@ Durante o teste de login Microsoft, o Supabase redirecionou para `localhost:3000
 Durante a configuração das variáveis na Vercel, a chave Groq apareceu na saída interna da ferramenta. O valor não foi versionado, mas deve ser tratado como exposto: sua revogação/rotação exige confirmação explícita de Yan antes da ação irreversível.
 
 Próximos passos: corrigir Site URL e callback OAuth no Supabase, rotacionar a chave Groq na origem e na Vercel e repetir o fluxo autenticado completo da Persona Live.
+
+---
+
+## EXEC-016 — Hardening de fontes e verificação do OAuth da Fase 7
+
+**Data:** 16/08/2026
+**Fase:** 7 — Persona Live manual
+**Estado:** correção local validada; OAuth de produção configurado; rotação Groq e fluxo autenticado pendentes
+
+### Executado
+
+- centralizada em `parseLiveResponse` a persistência de argumentos literais das evidências autorizadas;
+- reconstruído no servidor o rascunho persistido somente a partir desses trechos;
+- adicionado teste de regressão contra afirmações livres do modelo;
+- confirmado no painel do Supabase o Site URL de produção e os callbacks local e publicado;
+- nenhuma configuração remota foi alterada, pois os valores corretos já estavam salvos;
+- nenhuma chave foi exibida, revogada ou rotacionada.
+
+### Validações
+
+```text
+npm.cmd test           27/27 aprovados
+npm.cmd run lint       aprovado
+npm.cmd run typecheck  aprovado
+npm.cmd run build      aprovado
+```
+
+O primeiro build foi bloqueado apenas pelo acesso restrito ao Google Fonts; a repetição com acesso de rede concluiu com sucesso.
+
+### Ponytail `full`
+
+A correção ficou no parser compartilhado já usado por toda geração do Persona Live. Nenhuma dependência, abstração ou caminho paralelo foi adicionado.
+
+### Próximo gate
+
+Obter confirmação explícita de Yan imediatamente antes de revogar e rotacionar a chave Groq, atualizar o segredo na Vercel sem exibir seu valor e repetir o fluxo autenticado completo na produção.
