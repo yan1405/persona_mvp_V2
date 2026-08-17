@@ -1046,3 +1046,33 @@ A correção ficou no parser compartilhado já usado por toda geração do Perso
 ### Próximo gate
 
 Obter confirmação explícita de Yan imediatamente antes de revogar e rotacionar a chave Groq, atualizar o segredo na Vercel sem exibir seu valor e repetir o fluxo autenticado completo na produção.
+
+---
+
+## EXEC-017 — Rotação Groq e validação autenticada da Fase 7
+
+**Data:** 16/08/2026
+**Fase:** 7 — Persona Live manual
+**Estado:** correção publicada e validada de ponta a ponta em produção
+
+### Executado
+
+- revogadas as chaves Groq tratadas como expostas ou sem valor recuperável durante a rotação;
+- criada por Yan a chave final `persona_mvp`, sem registrar seu valor em arquivo, commit ou documentação;
+- rotacionada `GROQ_API_KEY` para Production e Preview no projeto Vercel `persona-mvp-v2`;
+- publicado no GitHub o commit `e09aa37` e confirmado o deployment `Ready`;
+- validado o retorno OAuth Microsoft para `https://persona-mvp-v2.vercel.app/app/inicio`;
+- criada a sessão `Validação interna da Fase 7` com uma evidência autorizada;
+- enviada uma pergunta de validação e confirmada resposta `Sustentada`;
+- verificada a separação entre `Argumentos reais` e `Rascunho sugerido`, sem falha de geração;
+- sessão de validação deixada pausada para não apagar a evidência do teste.
+
+### Segurança
+
+- nenhum valor de segredo foi adicionado ao Git ou aos documentos;
+- o valor local anterior de `apps/web/.env.local` foi revogado e precisa ser substituído manualmente antes de futuros testes locais com Groq;
+- a chave final foi transmitida por Yan diretamente ao campo sensível da Vercel.
+
+### Próximo gate
+
+Discutir e aprovar o contrato da Fase 8 — Artefatos profissionais — antes de qualquer implementação.

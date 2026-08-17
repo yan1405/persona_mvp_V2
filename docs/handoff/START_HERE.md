@@ -131,4 +131,4 @@ Para uma fase não iniciada:
 
 ## 8. Condição atual para avançar
 
-As Fases 1–6 estão aprovadas e a Fase 7 está publicada na Vercel. Em 16/08/2026, o painel do Supabase confirmou o Site URL de produção e o callback publicado na lista permitida. O próximo gate é rotacionar a chave Groq exposta, com confirmação explícita de Yan imediatamente antes da revogação, e repetir o fluxo autenticado completo no endereço publicado.
+As Fases 1–6 estão aprovadas e a Fase 7 está publicada e validada de ponta a ponta na Vercel. Em 16/08/2026, o OAuth Microsoft retornou corretamente ao domínio publicado, o segredo Groq foi rotacionado, o commit `e09aa37` chegou à produção e uma sessão real do Persona Live produziu resposta sustentada com argumentos e rascunho separados. O próximo gate é discutir e aprovar o contrato da Fase 8 — Artefatos profissionais.

@@ -74,4 +74,7 @@ Após o deploy, validar no endereço publicado: login Microsoft, criação de se
 - um teste de regressão prova que texto e rascunho inventados pela Groq são substituídos pela fonte autorizada;
 - 27/27 testes, lint, TypeScript e build foram aprovados;
 - o painel do Supabase confirmou o Site URL `https://persona-mvp-v2.vercel.app` e o callback publicado na lista permitida;
-- a rotação da chave Groq e a validação autenticada de produção continuam pendentes.
+- o segredo Groq foi rotacionado na origem e na Vercel sem entrar no repositório;
+- o commit `e09aa37` ficou `Ready` em produção;
+- OAuth Microsoft, sessão autenticada, autorização de evidência e geração sustentada do Persona Live foram validados no domínio publicado;
+- a sessão `Validação interna da Fase 7` foi deixada pausada para preservar a evidência do teste.

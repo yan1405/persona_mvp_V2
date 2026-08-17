@@ -450,7 +450,7 @@ Revisão: `docs/reviews/fase-6-narrative-score.md`.
 
 ## Fase 7 — Persona Live manual
 
-**Estado:** implementada, tecnicamente validada e publicada na Vercel em 12/08/2026; validação autenticada pendente.
+**Estado:** implementada, publicada e validada de ponta a ponta na Vercel em 16/08/2026.
 
 Contrato aprovado: `docs/plans/2026-08-12-fase-7-persona-live-manual-design.md`.
 
@@ -500,7 +500,7 @@ Responder a uma pergunta digitada pelo usuário com argumentos rastreáveis e um
 
 ### Gate
 
-Deploy publicado em `https://persona-mvp-v2.vercel.app` a partir do commit `23e7fa0`. Em 16/08/2026, o painel do Supabase confirmou o Site URL de produção e os callbacks local e publicado na lista permitida. O gate restante é rotacionar o segredo Groq exposto durante a configuração e repetir no endereço publicado o login Microsoft e o fluxo completo de preparação, evidências, pergunta, geração, versões e encerramento.
+Deploy publicado em `https://persona-mvp-v2.vercel.app`. Em 16/08/2026, o segredo Groq foi rotacionado, o hardening `e09aa37` foi publicado e o fluxo autenticado confirmou Microsoft → Início → preparação → evidência autorizada → pergunta → geração sustentada. Argumentos reais, rascunho sugerido e rastreabilidade apareceram separados conforme o contrato. A sessão de validação ficou pausada e identificada como teste interno.
 
 ### Implementação e QA
 

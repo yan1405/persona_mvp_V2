@@ -2,11 +2,11 @@
 
 > Snapshot: 16/08/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: rotacionar a chave Groq exposta durante a configuração e repetir a validação autenticada em produção
+> Próximo gate: decidir e aprovar o contrato da Fase 8 — Artefatos profissionais
 
 ## 1. Resumo executivo
 
-O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. A Fase 7 foi publicada na Vercel em 12/08/2026 no domínio `https://persona-mvp-v2.vercel.app`. Persona Live é manual, baseado em evidências autorizadas, com argumentos e rascunho separados. Em 16/08/2026, o painel do Supabase confirmou o Site URL de produção e os callbacks local e publicado na lista permitida. A validação autenticada continua pendente até a rotação da chave Groq exposta.
+O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. A Fase 7 está publicada na Vercel em `https://persona-mvp-v2.vercel.app`. Em 16/08/2026, o segredo Groq foi rotacionado na origem e na Vercel, o hardening `e09aa37` foi publicado e o fluxo autenticado de produção foi validado: Microsoft → `/app/inicio` → sessão Live → evidência autorizada → pergunta → resposta sustentada com argumentos e rascunho separados.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -17,7 +17,7 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 | 4 — Diário e estruturação assistida | aprovada em 11/08/2026 | `docs/reviews/fase-4-diario-evidencias.md` |
 | 5 — Biblioteca de Evidências | aprovada em 11/08/2026 | `docs/reviews/fase-5-biblioteca-evidencias.md` |
 | 6 — Início e Narrative Score | aprovada por Yan em 12/08/2026 | `docs/reviews/fase-6-narrative-score.md` |
-| 7 — Persona Live manual | implementada, tecnicamente validada e publicada; validação autenticada pendente | `docs/reviews/fase-7-persona-live.md` |
+| 7 — Persona Live manual | implementada, publicada e validada de ponta a ponta em produção | `docs/reviews/fase-7-persona-live.md` |
 
 ## 2. Aplicação existente
 
@@ -189,7 +189,6 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. obter confirmação explícita de Yan imediatamente antes de revogar e rotacionar a chave Groq exposta;
-2. atualizar o segredo rotacionado na origem e na Vercel sem exibir seu valor;
-3. repetir no endereço publicado o login Microsoft e o fluxo completo da Persona Live;
-4. registrar o resultado autenticado e as limitações remanescentes no handoff.
+1. manter a Fase 7 estável e não ampliar o modo Manual sem novo contrato;
+2. atualizar `apps/web/.env.local` com uma chave Groq válida antes do próximo teste local que dependa de IA, pois o valor anterior foi revogado;
+3. discutir e aprovar o contrato da Fase 8 antes de implementar Artefatos profissionais.
