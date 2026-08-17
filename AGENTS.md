@@ -2,7 +2,7 @@
 
 > Fonte de governança para qualquer agente que trabalhe neste diretório.
 > Leia este arquivo integralmente antes de analisar, planejar ou modificar o projeto.
-> Estado: mapa, arquitetura e stack aprovados; protótipo legado arquivado em `../99_lixo/persona_v1/`; Fases 1–6 aprovadas; contrato da Fase 7 aprovado, aguardando confirmação para implementação.
+> Estado: mapa, arquitetura e stack aprovados; protótipo legado arquivado em `../99_lixo/persona_v1/`; Fases 1–7 concluídas; contrato da Fase 8 aprovado, implementação ainda não iniciada.
 > Idioma de trabalho: português do Brasil.
 
 ## 1. O projeto
@@ -38,11 +38,11 @@ Contrato funcional aprovado:
 - priorizar respostas curtas e adaptar automaticamente a extensão à pergunta;
 - oferecer `Encurtar`, `Aprofundar` e `Outra experiência`;
 - sinalizar fatos incertos, ausência de evidência e afirmações que o usuário não deve fazer;
-- operar em modo **Manual**, sem captura da conversa, e **Automático**, somente após autorização apropriada;
+- operar no MVP funcional em modo **Manual**, sem captura da conversa; modo Automático permanece futuro e depende de consentimento, privacidade e validação técnica;
 - descartar a transcrição temporária ao final por padrão;
 - nunca prometer respostas perfeitas, funcionamento indetectável ou aprovação em processos seletivos.
 
-No MVP do Empreenda Senac, o modo Manual será funcional. O modo Automático será uma demonstração controlada. Captura completa e confiável em Google Meet, Zoom e Microsoft Teams pertence a uma versão posterior e dependerá de validação do produto, privacidade e viabilidade técnica.
+No MVP do Empreenda Senac, somente o modo Manual é funcional. Uma demonstração futura do modo Automático não pode escutar, gravar ou responder sem consentimento e validação específicos. Captura completa e confiável em Google Meet, Zoom e Microsoft Teams pertence a uma versão posterior e dependerá de validação do produto, privacidade e viabilidade técnica.
 
 O projeto atende dois objetivos conectados:
 

@@ -81,8 +81,9 @@ Client secret do Azure fica no painel do Supabase. Chaves privadas e `service_ro
 | `narrative_score_snapshots` | Histórico explicável de consistência, coerência, credibilidade e total. |
 | `live_sessions` | Contexto e modo de uma interação no Persona Live. |
 | `live_questions` | Pergunta, evidências usadas, argumentos e resposta gerada. |
-| `artifacts` | STAR, resposta Live, pitch, carta, currículo ou portfólio, com tipo, estado e versões. |
+| `artifacts` | STAR, pitch, currículo ou portfólio, com conteúdo de trabalho e estado. |
 | `artifact_sources` | Evidências autorizadas utilizadas na geração de cada Artefato. |
+| `artifact_versions` | Snapshots recuperáveis da geração, ações de IA, revisão e restauração. |
 
 Todos os registros privados carregam `user_id`. Competências começam como valores simples associados à evidência; não será criado um catálogo complexo antes de a taxonomia precisar de governança própria.
 
@@ -96,7 +97,7 @@ Consistência do Narrative Score começa como cálculo determinístico de regula
 
 Para o Persona Live, a primeira implementação usa recuperação determinística no Postgres por texto, competências, contexto, recência e qualidade. Um conjunto pequeno de evidências é enviado ao modelo para formular argumentos e texto. Embeddings e banco vetorial só serão considerados quando testes reais mostrarem que a busca determinística é insuficiente.
 
-Artefatos usam a mesma recuperação e o mesmo princípio de rastreabilidade. Tipos diferentes compartilham o fluxo `contexto → evidências → geração → revisão → exportação`; não criar um backend independente para cada tipo sem necessidade concreta.
+Artefatos usam a mesma recuperação e o mesmo princípio de rastreabilidade. Tipos diferentes compartilham o fluxo `contexto → evidências → geração → revisão → exportação`; não criar um backend independente para cada tipo sem necessidade concreta. O conteúdo de trabalho recebe autosave, enquanto snapshots são criados somente em gerações, revisão e restauração. Currículo e Portfólio usam HTML semântico e CSS de impressão para PDF no MVP, sem renderizador adicional.
 
 Respostas estruturadas devem ser validadas no servidor. Falha da Groq não pode impedir leitura, edição ou exportação de dados já existentes.
 

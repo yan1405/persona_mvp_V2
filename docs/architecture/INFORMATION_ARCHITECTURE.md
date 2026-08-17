@@ -185,19 +185,14 @@ O Persona Live é um workspace, não uma sequência de páginas pequenas.
 
 Estados do workspace:
 
-1. **Preparação:** oportunidade, empresa/vaga, evidências autorizadas, modo e privacidade.
-2. **Pronto:** pergunta manual em foco ou demonstração automática preparada.
+1. **Preparação:** oportunidade, empresa/vaga, evidências autorizadas e privacidade.
+2. **Pronto:** pergunta manual em foco.
 3. **Processando:** intenção e busca de evidências.
 4. **Resposta:** Argumentos reais e Rascunho sugerido simultâneos.
 5. **Recuperação:** nenhuma evidência, baixa confiança, falha da IA ou interrupção.
-6. **Encerramento:** salvar resposta como Artefato e descartar transcrição temporária.
+6. **Encerramento:** manter histórico e oferecer salvamento opcional como Artefato.
 
-Controles de modo:
-
-- `Manual`;
-- `Automático — demonstração`.
-
-São modos de operação, não abas de navegação.
+O MVP opera somente no modo Manual, sem escuta, gravação ou transcrição. Automação de chamadas permanece futura.
 
 Composição expandida:
 
@@ -219,17 +214,16 @@ Seções:
 - biblioteca com busca e filtros por tipo, estado e data;
 - lista densa com tipo, objetivo, atualização, estado e principais fontes;
 - rascunhos recentes;
-- exportados/copiados recentemente;
 - estados vazio, falha e fonte indisponível.
 
 Tipos obrigatórios no mapa:
 
 1. Resposta STAR;
-2. Resposta salva do Persona Live;
-3. Pitch pessoal;
-4. Carta de apresentação;
-5. Currículo;
-6. Portfólio profissional.
+2. Pitch pessoal em 30, 60 e 90 segundos;
+3. Currículo ATS;
+4. Portfólio profissional por casos.
+
+A resposta salva do Persona Live entra como Resposta STAR em rascunho, não como tipo separado.
 
 #### Novo Artefato — `/app/artefatos/novo`
 
@@ -250,9 +244,9 @@ Abas:
 
 - **Conteúdo:** editor e estado de revisão.
 - **Evidências:** fontes usadas e correspondência dos fatos.
-- **Versões:** histórico mínimo de alterações e exportações.
+- **Versões:** snapshots de geração, revisão e restauração.
 
-Estados: Rascunho, Revisado e Exportado/Copiado.
+Estados: Rascunho e Revisado. Copiar e exportar são eventos.
 
 ### 4.8 Configurações
 

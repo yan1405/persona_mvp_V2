@@ -124,14 +124,14 @@ Controles: **Encurtar**, **Aprofundar** e **Outra experiência**.
 
 Artefatos são entregáveis de carreira criados a partir das evidências autorizadas do usuário. Eles formam uma área principal própria e não devem ser reduzidos a um histórico genérico de textos.
 
-Tipos previstos no sistema completo:
+Tipos obrigatórios no MVP:
 
 - resposta STAR;
-- resposta salva do Persona Live;
 - pitch pessoal;
-- carta de apresentação;
 - currículo;
 - portfólio profissional.
+
+`Salvar nos Artefatos` no Persona Live cria uma Resposta STAR em rascunho; não constitui um tipo separado.
 
 Contrato comum:
 
@@ -143,7 +143,7 @@ Contrato comum:
 6. consultar as fontes utilizadas;
 7. copiar ou exportar no formato autorizado para o tipo.
 
-Todo Artefato nasce como rascunho. Os estados mínimos são `Rascunho`, `Revisado` e `Exportado/Copiado`. Formatos como PDF ou DOCX serão especificados por tipo antes de serem prometidos.
+Todo Artefato nasce como rascunho. Os estados são `Rascunho` e `Revisado`; copiar e exportar são eventos. STAR e Pitch permitem salvar e copiar. Currículo e Portfólio usam um modelo oficial por tipo, pré-visualização e exportação por PDF. DOCX, carta de apresentação, galeria de modelos e site público de portfólio ficam fora da Fase 8.
 
 ## 8. Modos de uso
 
@@ -153,7 +153,7 @@ O usuário digita, cola ou seleciona o tipo de pergunta. Não há captura da voz
 
 ### Automático
 
-O Persona transcreve temporariamente a conversa, identifica uma possível pergunta e prepara a assistência. Exige autorização apropriada e deve permitir que o usuário confirme a abertura do cartão. No MVP da competição, será uma demonstração controlada; integração completa com Meet, Zoom e Teams fica para uma versão posterior.
+Permanece como direção futura. Qualquer transcrição, identificação automática de perguntas ou integração com chamadas exige consentimento, privacidade e validação técnica próprios. Não faz parte do MVP funcional atual.
 
 ## 9. Limites éticos e de privacidade
 
@@ -166,8 +166,8 @@ O Persona:
 - sinaliza ausência ou baixa confiança das evidências;
 - informa que processos seletivos podem restringir assistência externa;
 - não grava nem persiste áudio de terceiros por padrão;
-- descarta transcrições temporárias ao final por padrão;
-- oferece modo Manual como alternativa sem captura da conversa;
+- não captura nem mantém transcrição no MVP Manual;
+- mantém o modo Manual disponível sem captura da conversa;
 - mantém o usuário no controle sobre o que pode ser usado e compartilhado.
 
 ## 10. Escopo do MVP demonstrável
@@ -183,14 +183,14 @@ Deve existir:
 - rastreabilidade entre recomendações e registros de origem;
 - respostas curtas adaptadas automaticamente;
 - estados de ausência de evidência, baixa confiança e falha de geração;
-- demonstração controlada do modo Automático.
 - área de Artefatos com biblioteca, revisão e fontes;
-- resposta STAR e salvamento de resposta do Persona Live como Artefatos funcionais;
-- pitch pessoal, carta de apresentação, currículo e portfólio presentes no mapa completo e implementados por fases sem desaparecer do escopo.
+- resposta STAR e salvamento opcional de resposta do Persona Live como STAR funcional;
+- Pitch pessoal, Currículo e Portfólio profissional implementados na Fase 8.
 
 Não faz parte do MVP:
 
 - integração produtiva com Meet, Zoom e Teams;
+- escuta, gravação, transcrição ou resposta automática em chamadas;
 - aplicativo desktop ou extensão definitiva;
 - gravação de entrevistas;
 - marketplace de vagas;

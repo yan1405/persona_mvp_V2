@@ -516,7 +516,7 @@ Revisão: `docs/reviews/fase-7-persona-live.md`.
 
 ## Fase 8 — Artefatos profissionais
 
-**Estado:** planejada.
+**Estado:** contrato aprovado em 17/08/2026; implementação não iniciada.
 
 ### Objetivo
 
@@ -553,25 +553,28 @@ Abas:
 ### Tipos obrigatórios
 
 1. Resposta STAR;
-2. resposta salva do Persona Live;
-3. pitch pessoal;
-4. carta de apresentação;
-5. currículo;
-6. portfólio profissional.
+2. Pitch pessoal em 30, 60 e 90 segundos;
+3. Currículo ATS em modelo oficial;
+4. Portfólio profissional por casos em modelo oficial.
+
+`Salvar nos Artefatos` no Persona Live cria uma Resposta STAR em rascunho, sem nova geração.
 
 ### Regras
 
 - todos nascem como Rascunho;
-- estados: Rascunho, Revisado e Exportado/Copiado;
+- estados: Rascunho e Revisado; copiar/exportar são eventos;
 - fontes sempre consultáveis;
 - alteração/remoção de fonte gera aviso;
-- um workspace configurável atende os tipos;
-- PDF/DOCX só entram após especificação e teste por tipo;
+- editor textual para STAR/Pitch e por seções para Currículo/Portfólio;
+- geração inicial completa; ações posteriores somente na seção selecionada;
+- autosave sem criar versão por tecla;
+- versões na geração inicial, ações de IA, revisão e restauração;
+- Currículo e Portfólio com pré-visualização e PDF por impressão nativa;
 - falha de geração não perde contexto nem seleção.
 
 ### Dados e testes
 
-- `artifacts` e `artifact_sources`;
+- `artifacts`, `artifact_sources` e `artifact_versions`;
 - histórico mínimo de versão/exportação;
 - validação de fatos contra evidências;
 - cada tipo testado com conteúdo realista;
@@ -581,7 +584,7 @@ Abas:
 
 ### Gate
 
-Yan aprova a biblioteca, o fluxo comum e os formatos realmente suportados.
+Contrato aprovado por Yan em 17/08/2026. Próximo gate: autorizar o início da implementação descrita em `docs/plans/2026-08-17-fase-8-artefatos-profissionais-design.md`.
 
 ## Fase 9 — Configurações, privacidade e controle de dados
 
@@ -622,9 +625,9 @@ Dar ao usuário controle explícito sobre perfil, preferências, conta e ciclo d
 
 Yan aprova controle, clareza dos impactos e fluxo destrutivo antes de qualquer publicação externa.
 
-## Fase 10 — Demonstração automática, hardening e entrega
+## Fase 10 — Hardening e entrega
 
-**Estado:** planejada; não confundir demonstração com integração produtiva.
+**Estado:** planejada.
 
 ### Objetivo
 
@@ -632,7 +635,7 @@ Preparar o MVP para banca e testes controlados, consolidando qualidade, seguran�
 
 ### Escopo possível
 
-- modo `Automático — demonstração` no Persona Live, com cenário controlado;
+- eventual protótipo do modo Automático somente após contrato, consentimento, privacidade e validação técnica próprios; não é requisito do MVP funcional;
 - nenhum acesso produtivo a Meet, Zoom ou Teams;
 - nenhum áudio de terceiros persistido;
 - dados fictícios ou autorizados para demonstração pública;

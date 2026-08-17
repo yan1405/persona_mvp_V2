@@ -1,12 +1,14 @@
 # Estado atual verificável
 
-> Snapshot: 16/08/2026
+> Snapshot: 17/08/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: decidir e aprovar o contrato da Fase 8 — Artefatos profissionais
+> Próximo gate: obter autorização explícita para iniciar a implementação da Fase 8
 
 ## 1. Resumo executivo
 
 O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. A Fase 7 está publicada na Vercel em `https://persona-mvp-v2.vercel.app`. Em 16/08/2026, o segredo Groq foi rotacionado na origem e na Vercel, o hardening `e09aa37` foi publicado e o fluxo autenticado de produção foi validado: Microsoft → `/app/inicio` → sessão Live → evidência autorizada → pergunta → resposta sustentada com argumentos e rascunho separados.
+
+Em 17/08/2026, Yan aprovou o contrato funcional e técnico da Fase 8. Os quatro tipos obrigatórios são Resposta STAR, Pitch pessoal, Currículo e Portfólio profissional. Nenhum código da fase foi iniciado.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -18,6 +20,7 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 | 5 — Biblioteca de Evidências | aprovada em 11/08/2026 | `docs/reviews/fase-5-biblioteca-evidencias.md` |
 | 6 — Início e Narrative Score | aprovada por Yan em 12/08/2026 | `docs/reviews/fase-6-narrative-score.md` |
 | 7 — Persona Live manual | implementada, publicada e validada de ponta a ponta em produção | `docs/reviews/fase-7-persona-live.md` |
+| 8 — Artefatos profissionais | contrato aprovado; implementação não iniciada | `docs/plans/2026-08-17-fase-8-artefatos-profissionais-design.md` |
 
 ## 2. Aplicação existente
 
@@ -155,7 +158,7 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 
 - avaliação visual complementar da Fase 3 em 1024/1440/1920px não foi registrada;
 - o lembrete é persistido, mas não envia notificação;
-- Artefatos e Configurações ainda não existem;
+- Artefatos possui contrato aprovado, mas ainda não existe no código; Configurações também não existe;
 - Credibilidade permanece indisponível e fora do Score;
 - Coerência assistida exige 5 evidências, 2 contextos e 3 competências e só roda sob demanda;
 - provas por arquivo e Supabase Storage foram deliberadamente adiadas; a Fase 5 aceita somente links HTTP/HTTPS;
@@ -191,4 +194,5 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 1. manter a Fase 7 estável e não ampliar o modo Manual sem novo contrato;
 2. atualizar `apps/web/.env.local` com uma chave Groq válida antes do próximo teste local que dependa de IA, pois o valor anterior foi revogado;
-3. discutir e aprovar o contrato da Fase 8 antes de implementar Artefatos profissionais.
+3. obter confirmação explícita de Yan para iniciar a implementação do contrato da Fase 8;
+4. quando autorizada, executar a sequência definida em `docs/plans/2026-08-17-fase-8-artefatos-profissionais-design.md`, começando pelo motor comum, banco, RLS e Resposta STAR.

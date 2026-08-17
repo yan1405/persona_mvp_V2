@@ -27,8 +27,8 @@ O shell desktop aprovado possui cabeçalho de 48px, trilho lateral de 56px e con
 | 1 | Início | `/app/inicio` | visão operacional implementada na Fase 6 |
 | 2 | Diário | `/app/diario` | núcleo implementado na Fase 4 |
 | 3 | Evidências | `/app/evidencias` | implementado na Fase 5 |
-| 4 | Persona Live | `/app/live` | planejado para Fase 7 |
-| 5 | Artefatos | `/app/artefatos` | planejado para Fase 8 |
+| 4 | Persona Live | `/app/live` | implementado e validado na Fase 7 |
+| 5 | Artefatos | `/app/artefatos` | contrato aprovado; implementação da Fase 8 não iniciada |
 | rodapé | Configurações | `/app/configuracoes` | planejado para Fase 9 |
 
 Narrative Score não é um destino principal; aparece no Início e abre `/app/score` como painel/deep link.
@@ -52,10 +52,11 @@ Narrative Score não é um destino principal; aparece no Início e abre `/app/sc
 | `/app/diario/[id]` | autenticado | painel/deep link | implementada | registro original, sugestões, revisão e confirmação |
 | `/app/evidencias` | autenticado | página | implementada | biblioteca, registro manual, busca e filtros |
 | `/app/evidencias/[id]` | autenticado | painel/deep link | implementada | resumo editável, provas por link e usos futuros |
-| `/app/live` | autenticado | workspace | planejada | preparação e assistência em perguntas |
-| `/app/artefatos` | autenticado | página | planejada | biblioteca de materiais profissionais |
-| `/app/artefatos/novo` | autenticado | workspace | planejada | criação por tipo |
-| `/app/artefatos/[id]` | autenticado | painel/deep link | planejada | conteúdo, fontes e versões |
+| `/app/live` | autenticado | workspace | implementada | preparação e assistência manual em perguntas |
+| `/app/live/[id]` | autenticado | workspace | implementada | sessão, argumentos, rascunhos, fontes e versões |
+| `/app/artefatos` | autenticado | página | contrato aprovado | biblioteca de materiais profissionais |
+| `/app/artefatos/novo` | autenticado | workspace | contrato aprovado | criação por tipo |
+| `/app/artefatos/[id]` | autenticado | painel/deep link | contrato aprovado | conteúdo, fontes e versões |
 | `/app/configuracoes` | autenticado | página | planejada | perfil e preferências |
 | `/app/configuracoes/dados` | autenticado | subárea | planejada | consentimento, exportar e excluir |
 | `/app/configuracoes/conta` | autenticado | subárea | planejada | Microsoft e encerrar sessão |
@@ -168,7 +169,7 @@ Regiões simultâneas:
 - Rascunho sugerido;
 - fontes e alertas.
 
-Modos `Manual` e `Automático — demonstração` são controles, não abas.
+O MVP opera somente no modo Manual, sem escuta, gravação ou transcrição. O modo Automático permanece futuro.
 
 ### Artefatos
 
@@ -179,14 +180,14 @@ Biblioteca:
 - Novo Artefato;
 - rascunhos e recentes.
 
-Tipos obrigatórios:
+Tipos obrigatórios da Fase 8:
 
 - STAR;
-- resposta do Live;
-- pitch;
-- carta;
-- currículo;
-- portfólio.
+- Pitch em 30, 60 e 90 segundos;
+- Currículo ATS;
+- Portfólio profissional por casos.
+
+Salvar uma resposta do Live cria um STAR em rascunho. Carta de apresentação fica fora da fase.
 
 Novo Artefato usa etapas. Detalhe usa abas Conteúdo, Evidências e Versões.
 

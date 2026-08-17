@@ -23,6 +23,8 @@ Em 11/08/2026:
 - a Fase 5 está implementada, validada e aprovada por Yan; arquivos/Storage continuam adiados;
 - a Fase 6 está aprovada e a Fase 7 está implementada, tecnicamente validada e publicada em `https://persona-mvp-v2.vercel.app`;
 - a revisão vigente da Fase 7 está em `docs/reviews/fase-7-persona-live.md`;
+- o contrato funcional e técnico da Fase 8 foi aprovado por Yan em 17/08/2026 e está em `docs/plans/2026-08-17-fase-8-artefatos-profissionais-design.md`;
+- nenhum código da Fase 8 foi iniciado; o próximo gate é autorização explícita para implementar;
 - os contratos anteriores permanecem em `docs/plans/2026-08-11-fase-6-inicio-narrative-score-design.md` e `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.md`;
 - o design técnico da Fase 4 está em `docs/plans/2026-08-10-fase-4-diario-estruturacao-design.md`;
 - a fronteira Groq server-only, o schema estrito e a chamada real foram validados; a chave existe somente no `.env.local` ignorado pelo Git;
@@ -131,4 +133,4 @@ Para uma fase não iniciada:
 
 ## 8. Condição atual para avançar
 
-As Fases 1–6 estão aprovadas e a Fase 7 está publicada e validada de ponta a ponta na Vercel. Em 16/08/2026, o OAuth Microsoft retornou corretamente ao domínio publicado, o segredo Groq foi rotacionado, o commit `e09aa37` chegou à produção e uma sessão real do Persona Live produziu resposta sustentada com argumentos e rascunho separados. O próximo gate é discutir e aprovar o contrato da Fase 8 — Artefatos profissionais.
+As Fases 1–7 estão concluídas, e a Fase 7 está publicada e validada de ponta a ponta na Vercel. Em 17/08/2026, Yan aprovou o contrato da Fase 8 — Artefatos profissionais. O plano fixa STAR, Pitch, Currículo e Portfólio como tipos obrigatórios, com fontes rastreáveis, edição, versões e PDF para os dois documentos estruturados. Nenhum código da Fase 8 foi iniciado; o próximo gate é autorização explícita para implementar.

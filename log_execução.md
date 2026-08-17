@@ -1076,3 +1076,40 @@ Obter confirmação explícita de Yan imediatamente antes de revogar e rotaciona
 ### Próximo gate
 
 Discutir e aprovar o contrato da Fase 8 — Artefatos profissionais — antes de qualquer implementação.
+
+---
+
+## EXEC-018 — Contrato funcional e técnico da Fase 8
+
+**Data:** 17/08/2026
+**Fase:** 8 — Artefatos profissionais
+**Estado:** contrato aprovado; implementação não iniciada
+
+### Decisões aprovadas
+
+- quatro tipos obrigatórios: Resposta STAR, Pitch pessoal, Currículo e Portfólio profissional;
+- resposta salva do Persona Live cria um STAR em rascunho e não é um quinto tipo;
+- Carta de apresentação, DOCX, galeria de modelos e site público ficam fora da fase;
+- STAR segue Situação, Tarefa, Ação, Resultado e aprendizado opcional;
+- Pitch possui versões de 30, 60 e 90 segundos;
+- Currículo usa um modelo oficial ATS, sem foto por padrão e com uma ou duas páginas;
+- Portfólio usa um modelo editorial em PDF organizado por casos;
+- dados profissionais vêm de evidências autorizadas; dados cadastrais complementares exigem confirmação manual;
+- geração inicial completa e ações posteriores limitadas à seção selecionada;
+- ações de IA: Encurtar, Aprofundar, Adaptar ao objetivo e Gerar alternativa;
+- autosave do conteúdo de trabalho e versões recuperáveis em checkpoints;
+- estados Rascunho e Revisado; copiar e exportar são ações sem estado ou tabela próprios;
+- biblioteca com busca e filtros por tipo, estado e data;
+- PDF de Currículo e Portfólio por HTML/CSS de impressão nativa no MVP.
+
+### Skills e simplicidade
+
+O brainstorming consolidou as decisões uma por vez antes do plano. `editorial-modular-app-design`, `design-sem-cara-de-ia` e `design-dna` governam a experiência. Ponytail `full` manteve um motor comum, um modelo por documento e PDF nativo, sem chat, galeria, renderizador ou dependência preventiva.
+
+### Documento
+
+`docs/plans/2026-08-17-fase-8-artefatos-profissionais-design.md`.
+
+### Próximo gate
+
+Obter confirmação explícita de Yan para iniciar a implementação. Nenhum arquivo de código ou migração foi criado neste ciclo.
