@@ -1,14 +1,14 @@
 # Estado atual verificável
 
-> Snapshot: 17/08/2026
+> Snapshot: 18/08/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: obter autorização explícita para iniciar a implementação da Fase 8
+> Próximo gate: obter a aprovação visual explícita de Yan para encerrar a Fase 8
 
 ## 1. Resumo executivo
 
 O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. A Fase 7 está publicada na Vercel em `https://persona-mvp-v2.vercel.app`. Em 16/08/2026, o segredo Groq foi rotacionado na origem e na Vercel, o hardening `e09aa37` foi publicado e o fluxo autenticado de produção foi validado: Microsoft → `/app/inicio` → sessão Live → evidência autorizada → pergunta → resposta sustentada com argumentos e rascunho separados.
 
-Em 17/08/2026, Yan aprovou o contrato funcional e técnico da Fase 8. Os quatro tipos obrigatórios são Resposta STAR, Pitch pessoal, Currículo e Portfólio profissional. Nenhum código da fase foi iniciado.
+Em 18/08/2026, a Fase 8 foi implementada, publicada e validada tecnicamente em produção. STAR, Pitch pessoal, Currículo ATS e Portfólio por casos foram gerados com uma evidência fictícia; autosave, fontes, IA por seção, versões, restauração, filtros, PDF e a ação opcional do Persona Live foram exercitados. A fase aguarda apenas a aprovação visual explícita de Yan.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -20,7 +20,7 @@ Em 17/08/2026, Yan aprovou o contrato funcional e técnico da Fase 8. Os quatro 
 | 5 — Biblioteca de Evidências | aprovada em 11/08/2026 | `docs/reviews/fase-5-biblioteca-evidencias.md` |
 | 6 — Início e Narrative Score | aprovada por Yan em 12/08/2026 | `docs/reviews/fase-6-narrative-score.md` |
 | 7 — Persona Live manual | implementada, publicada e validada de ponta a ponta em produção | `docs/reviews/fase-7-persona-live.md` |
-| 8 — Artefatos profissionais | contrato aprovado; implementação não iniciada | `docs/plans/2026-08-17-fase-8-artefatos-profissionais-design.md` |
+| 8 — Artefatos profissionais | implementada, publicada e tecnicamente validada; aprovação visual pendente | `docs/reviews/fase-8-artefatos-profissionais.md` |
 
 ## 2. Aplicação existente
 
@@ -46,6 +46,9 @@ Em 17/08/2026, Yan aprovou o contrato funcional e técnico da Fase 8. Os quatro 
 - `/app/score` — Resumo, Histórico e Como é calculado.
 - `/app/live` — preparação, recomendação de evidências e histórico de sessões;
 - `/app/live/[id]` — autorização, perguntas, argumentos, rascunhos, versões e encerramento.
+- `/app/artefatos` — biblioteca, busca e filtros;
+- `/app/artefatos/novo` — criação dos quatro tipos obrigatórios;
+- `/app/artefatos/[id]` — conteúdo, evidências, versões, revisão, cópia e PDF.
 
 As outras rotas presentes no mapa de informação ainda são planejamento e não existem no código.
 
@@ -61,6 +64,7 @@ supabase/migrations/20260810230000_phase_4_diary_evidences.sql
 supabase/migrations/20260811120000_phase_5_evidence_library.sql
 supabase/migrations/20260811180000_phase_6_narrative_score.sql
 supabase/migrations/20260812150000_phase_7_persona_live.sql
+supabase/migrations/20260817120000_phase_8_artifacts.sql
 ```
 
 Objetos criados:
@@ -76,6 +80,9 @@ Objetos criados:
 - `public.live_session_evidences`;
 - `public.live_questions`;
 - `public.live_draft_versions`;
+- `public.artifacts`;
+- `public.artifact_sources`;
+- `public.artifact_versions`;
 - função `public.complete_onboarding(...)`;
 - função `public.confirm_evidence_suggestion(uuid)`;
 - funções `public.complete_narrative_diagnostic(...)` e `public.record_narrative_score_snapshot(...)`;
@@ -118,12 +125,12 @@ Não há shadcn/ui, Vitest ou Playwright local. O projeto usa o runner nativo do
 
 ## 6. Validação mais recente
 
-Executada após o hardening de fontes da Fase 7 em 16/08/2026:
+Executada após a publicação da Fase 8 em 18/08/2026:
 
 ```text
 npm.cmd run lint       aprovado
 npm.cmd run typecheck  aprovado
-npm.cmd test           27/27 testes aprovados
+npm.cmd test           30/30 testes aprovados
 npm.cmd run build      aprovado
 ```
 
@@ -149,6 +156,7 @@ O servidor foi reiniciado em `http://localhost:3100`. Esse processo é efêmero;
 - Fase 4: Diário, sugestão e evidência confirmada em `docs/reviews/fase-4-diario-evidencias/`.
 - Fase 5: Biblioteca em 1024/1280/1440/1920 e detalhe Provas em `docs/reviews/fase-5-biblioteca-evidencias/`.
 - Fase 6: Início em 1024/1280/1440/1920 e Score em `docs/qa/fase-6/`.
+- Fase 8: Biblioteca e Currículo em produção em `docs/qa/fase-8/`.
 
 Na Fase 3, 1280×720 foi capturado de forma automatizada. Yan ainda precisa avaliar manualmente 1024, 1440 e 1920px.
 
@@ -158,7 +166,7 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 
 - avaliação visual complementar da Fase 3 em 1024/1440/1920px não foi registrada;
 - o lembrete é persistido, mas não envia notificação;
-- Artefatos possui contrato aprovado, mas ainda não existe no código; Configurações também não existe;
+- Artefatos está publicado e aguarda aprovação visual; Configurações ainda não existe;
 - Credibilidade permanece indisponível e fora do Score;
 - Coerência assistida exige 5 evidências, 2 contextos e 3 competências e só roda sob demanda;
 - provas por arquivo e Supabase Storage foram deliberadamente adiadas; a Fase 5 aceita somente links HTTP/HTTPS;
@@ -192,7 +200,7 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. manter a Fase 7 estável e não ampliar o modo Manual sem novo contrato;
-2. atualizar `apps/web/.env.local` com uma chave Groq válida antes do próximo teste local que dependa de IA, pois o valor anterior foi revogado;
-3. obter confirmação explícita de Yan para iniciar a implementação do contrato da Fase 8;
-4. quando autorizada, executar a sequência definida em `docs/plans/2026-08-17-fase-8-artefatos-profissionais-design.md`, começando pelo motor comum, banco, RLS e Resposta STAR.
+1. apresentar a Biblioteca e o editor de Currículo para aprovação visual de Yan;
+2. não remover os registros fictícios `QA Fase 8` sem confirmação explícita;
+3. atualizar `apps/web/.env.local` manualmente antes de testes locais que dependam da Groq; a produção está configurada;
+4. não iniciar a Fase 9 antes do encerramento explícito do gate da Fase 8.

@@ -516,7 +516,7 @@ Revisão: `docs/reviews/fase-7-persona-live.md`.
 
 ## Fase 8 — Artefatos profissionais
 
-**Estado:** contrato aprovado em 17/08/2026; implementação não iniciada.
+**Estado:** implementada, publicada e tecnicamente validada em 18/08/2026; aprovação visual de Yan pendente.
 
 ### Objetivo
 
@@ -582,9 +582,20 @@ Abas:
 - cópia/exportação verificadas;
 - screenshots e aprovação por tipo ou lote aprovado.
 
+### Implementação e QA
+
+- motor comum com reconstrução server-side a partir de trechos literais;
+- banco, RLS, autosave otimista e versões recuperáveis aplicados no Supabase real;
+- quatro tipos obrigatórios gerados e exercitados em produção;
+- integração opcional do Persona Live validada sem nova chamada de IA ao salvar;
+- 30 testes, lint, TypeScript e build aprovados;
+- revisão responsiva em 1024, 1440 e 1920 px e auditorias obrigatórias concluídas.
+
+Revisão: `docs/reviews/fase-8-artefatos-profissionais.md`.
+
 ### Gate
 
-Contrato aprovado por Yan em 17/08/2026. Próximo gate: autorizar o início da implementação descrita em `docs/plans/2026-08-17-fase-8-artefatos-profissionais-design.md`.
+A implementação está em `https://persona-mvp-v2.vercel.app`. Yan precisa aprovar explicitamente a revisão visual antes de a fase ser encerrada e antes do início da Fase 9.
 
 ## Fase 9 — Configurações, privacidade e controle de dados
 

@@ -1113,3 +1113,44 @@ O brainstorming consolidou as decisões uma por vez antes do plano. `editorial-m
 ### Próximo gate
 
 Obter confirmação explícita de Yan para iniciar a implementação. Nenhum arquivo de código ou migração foi criado neste ciclo.
+
+---
+
+## EXEC-019 — Implementação e validação técnica da Fase 8
+
+**Data:** 18/08/2026
+**Fase:** 8 — Artefatos profissionais
+**Estado:** publicada e tecnicamente validada; aprovação visual de Yan pendente
+
+### Executado
+
+- criadas as tabelas `artifacts`, `artifact_sources` e `artifact_versions`, com RLS e RPCs autenticadas;
+- implementado motor único para STAR, Pitch, Currículo e Portfólio;
+- reconstruído no servidor todo texto gerado a partir de trechos literais das evidências autorizadas;
+- implementadas biblioteca, filtros, criação, editores, autosave, revisão, fontes, versões e restauração;
+- implementado PDF nativo de Currículo e Portfólio;
+- integrada a ação opcional `Salvar nos Artefatos` no Persona Live, sem nova chamada de IA;
+- simplificado o contrato estruturado do Groq para citações planas;
+- adicionado retry único apenas quando o provedor retorna `json_validate_failed` em Artefatos ou Live;
+- publicados os commits `286c94b`, `cee6ee7`, `6858fd2`, `72a125f` e `cae8ce8` em `origin/main`;
+- confirmado o deployment final `Ready` na Vercel.
+
+### Validações
+
+```text
+npm.cmd test           30/30 aprovados
+npm.cmd run lint       aprovado
+npm.cmd run typecheck  aprovado
+npm.cmd run build      aprovado
+git diff --check       aprovado
+```
+
+Em produção foram exercitados os quatro tipos obrigatórios, uma ação de IA limitada à seção do Pitch, autosave, revisão, restauração, filtros, PDF e Persona Live → STAR. Todos os dados de QA são explicitamente fictícios; nenhuma evidência profissional real foi enviada ao Groq durante esta validação.
+
+### Design e simplicidade
+
+`editorial-modular-app-design`, `design-sem-cara-de-ia`, `design-dna` e Ponytail `full` foram reaplicadas. O motor comum, o PDF do navegador e o retry restrito evitaram novos serviços, dependências ou abstrações preventivas. A interface foi revisada em 1024, 1440 e 1920 px.
+
+### Próximo gate
+
+Apresentar `docs/qa/fase-8/biblioteca-1440.png` e `docs/qa/fase-8/curriculo-1440.png` para Yan. Não marcar a fase como aprovada nem iniciar a Fase 9 antes de sua confirmação visual explícita.
