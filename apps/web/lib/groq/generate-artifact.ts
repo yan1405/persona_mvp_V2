@@ -50,7 +50,10 @@ export async function generateArtifactSelection(input: {
     if (error instanceof ArtifactGenerationError) throw error;
     if (error instanceof RateLimitError) throw new ArtifactGenerationError("rate_limit");
     if (error instanceof APIConnectionTimeoutError) throw new ArtifactGenerationError("timeout");
-    if (error instanceof APIError) throw new ArtifactGenerationError("provider_error");
+    if (error instanceof APIError) {
+      console.error("Artifact provider request failed", { status: error.status, message: error.message });
+      throw new ArtifactGenerationError("provider_error");
+    }
     if (error instanceof Error && error.message === "invalid_output") throw new ArtifactGenerationError("invalid_output");
     throw new ArtifactGenerationError("provider_error");
   }
