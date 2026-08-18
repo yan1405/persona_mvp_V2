@@ -16,17 +16,17 @@ const evidence = {
 };
 
 test("seleção rejeita trecho ausente da evidência", () => {
-  const raw = JSON.stringify({ supported: true, blocks: [{ key: "star", claims: [{ evidence_id: evidence.id, source_field: "result", source_excerpt: "Aumentei 80%" }] }], gap: null });
+  const raw = JSON.stringify({ supported: true, claims: [{ block_key: "star", evidence_id: evidence.id, source_field: "result", source_excerpt: "Aumentei 80%" }], gap: null });
   assert.throws(() => parseArtifactSelection(raw, [evidence], "star"), /invalid_output/);
 });
 
 test("STAR persistido usa trechos literais com estrutura explícita", () => {
-  const raw = JSON.stringify({ supported: true, blocks: [{ key: "star", claims: [
-    { evidence_id: evidence.id, source_field: "context", source_excerpt: evidence.context },
-    { evidence_id: evidence.id, source_field: "challenge", source_excerpt: evidence.challenge },
-    { evidence_id: evidence.id, source_field: "action", source_excerpt: evidence.action },
-    { evidence_id: evidence.id, source_field: "result", source_excerpt: evidence.result },
-  ] }], gap: null });
+  const raw = JSON.stringify({ supported: true, claims: [
+    { block_key: "star", evidence_id: evidence.id, source_field: "context", source_excerpt: evidence.context },
+    { block_key: "star", evidence_id: evidence.id, source_field: "challenge", source_excerpt: evidence.challenge },
+    { block_key: "star", evidence_id: evidence.id, source_field: "action", source_excerpt: evidence.action },
+    { block_key: "star", evidence_id: evidence.id, source_field: "result", source_excerpt: evidence.result },
+  ], gap: null });
   const selection = parseArtifactSelection(raw, [evidence], "star");
   const content = buildArtifactContent({ type: "star", title: "Resposta", objective: "Entrevista", supplementary: { contact: "", education: "", languages: "", links: "" }, sourceMap: selection.sourceMap, evidences: [evidence] });
   assert.match(content.blocks[0].body, /Situação: Projeto em consultoria\./);
