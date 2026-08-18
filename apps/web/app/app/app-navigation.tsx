@@ -16,11 +16,10 @@ const available = [
   { href: "/app/diario", label: "Diário", icon: Notebook },
   { href: "/app/evidencias", label: "Evidências", icon: DataBase },
   { href: "/app/live", label: "Persona Live", icon: Flash },
+  { href: "/app/artefatos", label: "Artefatos", icon: Document },
 ];
 
-const upcoming = [
-  { label: "Artefatos", icon: Document },
-];
+const upcoming: { label: string; icon: typeof Document }[] = [];
 
 export function AppNavigation() {
   const pathname = usePathname();
