@@ -516,7 +516,7 @@ Revisão: `docs/reviews/fase-7-persona-live.md`.
 
 ## Fase 8 — Artefatos profissionais
 
-**Estado:** implementada, publicada e tecnicamente validada em 18/08/2026; aprovação visual de Yan pendente.
+**Estado:** implementada, publicada, tecnicamente validada e aprovada visualmente por Yan em 30/08/2026.
 
 ### Objetivo
 
@@ -595,11 +595,11 @@ Revisão: `docs/reviews/fase-8-artefatos-profissionais.md`.
 
 ### Gate
 
-A implementação está em `https://persona-mvp-v2.vercel.app`. Yan precisa aprovar explicitamente a revisão visual antes de a fase ser encerrada e antes do início da Fase 9.
+A implementação está em `https://persona-mvp-v2.vercel.app`. Yan aprovou explicitamente a revisão visual em 30/08/2026 e autorizou o início da Fase 9.
 
 ## Fase 9 — Configurações, privacidade e controle de dados
 
-**Estado:** planejada.
+**Estado:** início autorizado em 30/08/2026; contrato e rascunho local em auditoria.
 
 ### Objetivo
 

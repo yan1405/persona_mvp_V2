@@ -1,14 +1,14 @@
 # Estado atual verificável
 
-> Snapshot: 18/08/2026
+> Snapshot: 30/08/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: obter a aprovação visual explícita de Yan para encerrar a Fase 8
+> Próximo gate: aprovar o contrato da Fase 9 antes de consolidar a implementação
 
 ## 1. Resumo executivo
 
 O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. A Fase 7 está publicada na Vercel em `https://persona-mvp-v2.vercel.app`. Em 16/08/2026, o segredo Groq foi rotacionado na origem e na Vercel, o hardening `e09aa37` foi publicado e o fluxo autenticado de produção foi validado: Microsoft → `/app/inicio` → sessão Live → evidência autorizada → pergunta → resposta sustentada com argumentos e rascunho separados.
 
-Em 18/08/2026, a Fase 8 foi implementada, publicada e validada tecnicamente em produção. STAR, Pitch pessoal, Currículo ATS e Portfólio por casos foram gerados com uma evidência fictícia; autosave, fontes, IA por seção, versões, restauração, filtros, PDF e a ação opcional do Persona Live foram exercitados. A fase aguarda apenas a aprovação visual explícita de Yan.
+Em 18/08/2026, a Fase 8 foi implementada, publicada e validada tecnicamente em produção. STAR, Pitch pessoal, Currículo ATS e Portfólio por casos foram gerados com uma evidência fictícia; autosave, fontes, IA por seção, versões, restauração, filtros, PDF e a ação opcional do Persona Live foram exercitados. Em 30/08/2026, Yan aprovou visualmente a fase e autorizou o início da Fase 9.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -20,7 +20,8 @@ Em 18/08/2026, a Fase 8 foi implementada, publicada e validada tecnicamente em p
 | 5 — Biblioteca de Evidências | aprovada em 11/08/2026 | `docs/reviews/fase-5-biblioteca-evidencias.md` |
 | 6 — Início e Narrative Score | aprovada por Yan em 12/08/2026 | `docs/reviews/fase-6-narrative-score.md` |
 | 7 — Persona Live manual | implementada, publicada e validada de ponta a ponta em produção | `docs/reviews/fase-7-persona-live.md` |
-| 8 — Artefatos profissionais | implementada, publicada e tecnicamente validada; aprovação visual pendente | `docs/reviews/fase-8-artefatos-profissionais.md` |
+| 8 — Artefatos profissionais | aprovada visualmente por Yan em 30/08/2026 | `docs/reviews/fase-8-artefatos-profissionais.md` |
+| 9 — Configurações, privacidade e controle de dados | início autorizado; contrato e rascunho local em auditoria | `docs/handoff/PHASES.md` |
 
 ## 2. Aplicação existente
 
@@ -166,7 +167,7 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 
 - avaliação visual complementar da Fase 3 em 1024/1440/1920px não foi registrada;
 - o lembrete é persistido, mas não envia notificação;
-- Artefatos está publicado e aguarda aprovação visual; Configurações ainda não existe;
+- Artefatos está publicado e aprovado; existe um rascunho local não validado de Configurações que ainda não representa uma fase concluída;
 - Credibilidade permanece indisponível e fora do Score;
 - Coerência assistida exige 5 evidências, 2 contextos e 3 competências e só roda sob demanda;
 - provas por arquivo e Supabase Storage foram deliberadamente adiadas; a Fase 5 aceita somente links HTTP/HTTPS;
@@ -200,7 +201,7 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. apresentar a Biblioteca e o editor de Currículo para aprovação visual de Yan;
+1. auditar o rascunho local da Fase 9 e aprovar o contrato de perfil, preferências, exportação, exclusão e conta;
 2. não remover os registros fictícios `QA Fase 8` sem confirmação explícita;
 3. atualizar `apps/web/.env.local` manualmente antes de testes locais que dependam da Groq; a produção está configurada;
-4. não iniciar a Fase 9 antes do encerramento explícito do gate da Fase 8.
+4. não aplicar migração, excluir dados reais nem publicar a Fase 9 antes das validações e autorizações específicas.

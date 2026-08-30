@@ -1154,3 +1154,26 @@ Em produção foram exercitados os quatro tipos obrigatórios, uma ação de IA 
 ### Próximo gate
 
 Apresentar `docs/qa/fase-8/biblioteca-1440.png` e `docs/qa/fase-8/curriculo-1440.png` para Yan. Não marcar a fase como aprovada nem iniciar a Fase 9 antes de sua confirmação visual explícita.
+
+---
+
+## EXEC-020 — Aprovação visual da Fase 8 e abertura da Fase 9
+
+**Data:** 30/08/2026  
+**Fase:** encerramento da 8 e abertura da 9  
+**Estado:** Fase 8 aprovada; Fase 9 autorizada para definição do contrato
+
+### Decisão de Yan
+
+Yan confirmou que a Fase 8 está validada visualmente e autorizou o início da Fase 9.
+
+### Estado encontrado
+
+- existe um rascunho local e ainda não validado de Configurações, exportação e exclusão de conta;
+- o rascunho não possui commit, revisão, testes ou registro de aplicação da migração;
+- a exportação ainda omite entidades relacionadas, a atualização de perfil precisa de validação server-side e a exclusão permanente ainda não exige reautenticação;
+- nenhum dado foi excluído, nenhuma migração foi aplicada e nenhuma publicação da Fase 9 foi realizada neste registro.
+
+### Próximo gate
+
+Aprovar o contrato de produto, segurança, dados, estados e interface da Fase 9 antes de consolidar o código existente. A decisão central pendente é o nível de confirmação para exclusão permanente da conta.

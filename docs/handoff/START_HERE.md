@@ -23,8 +23,8 @@ Em 11/08/2026:
 - a Fase 5 está implementada, validada e aprovada por Yan; arquivos/Storage continuam adiados;
 - a Fase 6 está aprovada e a Fase 7 está implementada, tecnicamente validada e publicada em `https://persona-mvp-v2.vercel.app`;
 - a revisão vigente da Fase 7 está em `docs/reviews/fase-7-persona-live.md`;
-- a Fase 8 foi implementada, publicada e tecnicamente validada em 18/08/2026; a revisão está em `docs/reviews/fase-8-artefatos-profissionais.md`;
-- o próximo gate é a aprovação visual explícita de Yan; não iniciar a Fase 9 antes dela;
+- a Fase 8 foi implementada, publicada, tecnicamente validada e aprovada visualmente por Yan em 30/08/2026; a revisão está em `docs/reviews/fase-8-artefatos-profissionais.md`;
+- Yan autorizou o início da Fase 9 em 30/08/2026; o próximo gate é aprovar o contrato de Configurações, privacidade e controle de dados antes de consolidar a implementação;
 - os contratos anteriores permanecem em `docs/plans/2026-08-11-fase-6-inicio-narrative-score-design.md` e `docs/plans/2026-08-11-fase-5-biblioteca-evidencias-design.md`;
 - o design técnico da Fase 4 está em `docs/plans/2026-08-10-fase-4-diario-estruturacao-design.md`;
 - a fronteira Groq server-only, o schema estrito e a chamada real foram validados; a chave existe somente no `.env.local` ignorado pelo Git;
@@ -133,4 +133,4 @@ Para uma fase não iniciada:
 
 ## 8. Condição atual para avançar
 
-As Fases 1–7 estão concluídas. A Fase 8 está publicada e tecnicamente validada na Vercel com STAR, Pitch, Currículo e Portfólio, fontes rastreáveis, edição, versões, PDF e salvamento opcional vindo do Persona Live. O próximo gate é a aprovação visual explícita de Yan; a Fase 9 não pode começar antes dela.
+As Fases 1–8 estão concluídas. A Fase 8 está publicada e aprovada com STAR, Pitch, Currículo e Portfólio, fontes rastreáveis, edição, versões, PDF e salvamento opcional vindo do Persona Live. A Fase 9 está autorizada para definição do contrato; um rascunho local não validado deve ser auditado antes de qualquer consolidação, migração ou publicação.
