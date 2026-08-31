@@ -1221,3 +1221,27 @@ Auditoria `design-sem-cara-de-ia` (`auditar_tells_ia.py`) sobre `app/app/configu
 ### Próximo gate
 
 Yan precisa: (1) autenticar localmente em `http://localhost:3100` e revisar as três telas de Configurações nas quatro larguras; (2) autorizar, imediatamente antes da ação, a aplicação da migração e a execução do teste RLS com dois usuários; (3) aprovar explicitamente antes de qualquer publicação da Fase 9 ou início da Fase 10.
+
+---
+
+## EXEC-022 — Validação visual da Fase 9 e contrato da Fase 10
+
+**Data:** 31/08/2026
+**Fase:** encerramento técnico da 9; abertura da 10
+**Estado:** Fase 9 validada visualmente por Yan, migração e teste RLS pendentes; contrato da Fase 10 aprovado
+
+### Decisão de Yan
+
+Yan validou visualmente a Fase 9 em `http://localhost:3100/app/configuracoes` e respondeu às cinco decisões pendentes da Fase 10: prazo-alvo 09/09/2026; modo Automático fora por enquanto; dados de demonstração usando as duas contas (pessoal de Yan + conta descartável de QA); manter `persona-mvp-v2` como está; hardening só manual, sem Strix.
+
+### Executado
+
+- atualizada a revisão da Fase 9 (`docs/reviews/fase-9-configuracoes-privacidade.md`) com a validação visual registrada;
+- constatado que esta sessão não tem credenciais de banco (`apps/web/.env.local` só tem a chave `anon` pública) — migração e teste RLS exigem execução direta de Yan;
+- criado `docs/qa/fase-9/teste-rls-dois-usuarios.sql`: script transacional com `rollback`, roda inteiro no SQL Editor do Supabase, cobre finalidade incorreta, ausência de autorização prévia, confirmação incorreta, autorização expirada, isolamento entre dois usuários e exclusão com limpeza em cascata; não persiste nada mesmo se tudo passar;
+- finalizado `docs/plans/2026-08-31-fase-10-hardening-entrega-design.md` com as cinco decisões resolvidas e uma sequência de 9 itens até o prazo;
+- sincronizados `CURRENT_STATE.md` e `PHASES.md`.
+
+### Próximo gate
+
+Yan aplica a migração e roda o script RLS no Supabase; cola o resultado para eu registrar. Em paralelo, inicio os itens 2–5 da Fase 10 (auditoria de dependências/segredos, revisão de RLS tabela por tabela, limites/recuperação de falhas, acessibilidade por teclado), que não dependem da migração da Fase 9.

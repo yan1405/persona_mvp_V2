@@ -599,7 +599,7 @@ A implementação está em `https://persona-mvp-v2.vercel.app`. Yan aprovou expl
 
 ## Fase 9 — Configurações, privacidade e controle de dados
 
-**Estado:** contrato aprovado por Yan em 30/08/2026 (`docs/plans/2026-08-30-fase-9-configuracoes-privacidade-design.md`); implementada e tecnicamente validada em local em 31/08/2026. Migração não aplicada ao Supabase real; teste RLS com dois usuários e Sessão de Avaliação Visual pendentes.
+**Estado:** contrato aprovado por Yan em 30/08/2026 (`docs/plans/2026-08-30-fase-9-configuracoes-privacidade-design.md`); implementada, tecnicamente validada e validada visualmente por Yan em 31/08/2026. Falta Yan aplicar a migração e rodar o teste RLS com dois usuários diretamente no Supabase (esta sessão não tem credenciais de banco).
 
 ### Objetivo
 
@@ -644,7 +644,7 @@ Revisão técnica: `docs/reviews/fase-9-configuracoes-privacidade.md`.
 
 ### Gate
 
-Yan aprova controle, clareza dos impactos e fluxo destrutivo antes de qualquer publicação externa. Antes disso, faltam: teste SQL com dois usuários, aplicação da migração `20260818200000_phase_9_settings.sql` ao Supabase real e a Sessão de Avaliação Visual em 1024/1280/1440/1920px — todas exigem ação direta de Yan (autenticação Microsoft real e autorização imediatamente antes da migração).
+Yan validou visualmente a Fase 9 em ambiente local em 31/08/2026. Antes de aprovar controle, clareza dos impactos e fluxo destrutivo para publicação externa, faltam: teste SQL com dois usuários e aplicação da migração `20260818200000_phase_9_settings.sql` ao Supabase real — ambos exigem execução direta de Yan no SQL Editor do Supabase, pois esta sessão só tem a chave `anon` pública, sem acesso de banco.
 
 ## Fase 10 — Hardening e entrega
 

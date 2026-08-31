@@ -1,7 +1,8 @@
 # Fase 10 — Hardening e entrega
 
-> Estado: **rascunho para aprovação de Yan**. Nada aqui está implementado nem autorizado.
-> Pré-condição: Fase 9 aprovada (migração aplicada, teste RLS com dois usuários e Sessão de Avaliação Visual concluídos).
+> Estado: contrato aprovado por Yan em 31/08/2026, com as cinco decisões da seção 2 respondidas. Implementação ainda não iniciada.
+> Pré-condição: Fase 9 totalmente encerrada (migração aplicada e teste RLS com dois usuários rodado no Supabase — ver `docs/qa/fase-9/teste-rls-dois-usuarios.sql`). A revisão visual local já foi feita por Yan em 31/08/2026.
+> Prazo-alvo: **09/09/2026**.
 
 ## 1. Objetivo e critério de sucesso
 
@@ -16,43 +17,22 @@ A fase está correta quando:
 5. screenshots finais em 1024/1280/1440/1920px cobrem o ciclo principal;
 6. Yan aprovou explicitamente escopo público, dados de demonstração, custo e narrativa da banca antes de qualquer deploy final.
 
-## 2. Decisões que só Yan pode tomar (bloqueiam o início real da fase)
+## 2. Decisões confirmadas por Yan em 31/08/2026
 
-Não vou inferir nenhuma destas. Preciso da resposta antes de aprofundar o plano:
+1. **Data-limite:** 09/09/2026. A partir de hoje (31/08) restam 9 dias corridos — o escopo abaixo é dimensionado para caber nesse prazo, priorizando hardening real sobre polimento.
+2. **Modo Automático:** fora do MVP por enquanto, confirmado. Nenhum código, contrato de consentimento ou protótipo nesta fase.
+3. **Dados de demonstração:** as duas — a conta pessoal de Yan com o histórico real das Fases 1–9 continua existindo, e uma conta de demonstração separada (reaproveitando a linha de contas descartáveis já usada nas Fases 7–9 para QA) é povoada pelo fluxo real do produto para a banca testar ao vivo e para as capturas finais, sem misturar os dois.
+4. **Deploy final:** manter o projeto atual (`persona-mvp-v2` na Vercel/Supabase) como está. Nenhum ambiente novo, nenhum recurso pago adicional.
+5. **Hardening de segurança:** só revisão manual dirigida por risco. Strix fica fora desta fase — não há orçamento/tempo confirmado para configurá-lo dentro do prazo.
 
-1. **Data-limite da banca/entrega.** Não encontrei uma data registrada em `docs/PRODUCT_BRIEF.md` nem nos planos anteriores. Sem ela não dá para calibrar o que é essencial versus o que é polimento.
-2. **Modo Automático:** confirmar que continua fora do MVP (é o que `PHASES.md` já registra) ou que vale um protótipo isolado — o que exigiria um contrato de consentimento e privacidade próprio antes de qualquer código.
-3. **Dados de demonstração:** usar a conta real de Yan com dados já existentes (Fases 1–9), criar uma conta de demonstração separada com dados fictícios, ou as duas — uma para a banca testar ao vivo e outra só para screenshots.
-4. **Deploy final:** manter o projeto Vercel/Supabase atual (`persona-mvp-v2`) como o ambiente da banca, ou criar um ambiente isolado de apresentação. Qualquer recurso pago novo precisa de aprovação de custo explícita antes de existir.
-5. **Uso do Strix:** só é permitido em alvo autorizado, efêmero/staging, com regras de engajamento aprovadas por Yan antes da execução (`AGENTS.md` §5). Preciso saber se há orçamento/tempo para isso nesta fase ou se o hardening fica só com revisão manual.
+## 3. Abordagem de hardening de segurança (decidida: manual dirigido por risco)
 
-## 3. Abordagens avaliadas para o hardening de segurança
+Checklist cobre 100% das tabelas/RLS e das rotas autenticadas manualmente, tabela por tabela e rota por rota — é o mesmo padrão que as Fases 4–9 já aplicaram fase a fase, só que revisitando o projeto inteiro de uma vez. Sem Strix nesta fase: menor cobertura automatizada de superfícies inesperadas, mas cabe no prazo e não depende de orçamento, Docker ou expor código a um provedor de LLM externo. Fica registrado como possível item futuro do hardening (Fase 10 seguinte ou pós-banca), não como pendência desta fase.
 
-### Só revisão manual (checklist)
+## 4. Abordagem de dados de demonstração (decidida: as duas contas)
 
-Menor custo e mais rápida, mas depende inteiramente de não esquecer nada; sem ferramenta que force cobertura sistemática de RLS/dependências.
-
-### Strix completo em todas as rotas
-
-Cobertura ampla, mas exige Docker, um provedor de LLM externo recebendo estrutura do código, orçamento e tempo — desproporcional para um MVP que ainda não processa dados de terceiros nem pagamento.
-
-### Checklist manual dirigido por risco + Strix pontual (recomendada)
-
-Checklist cobre 100% das tabelas/RLS e das rotas autenticadas manualmente (é o que as Fases 4–9 já fizeram fase a fase); Strix entra só nas superfícies de maior risco novo desta fase — exclusão de conta, exportação de dados e as Route Handlers de autenticação — em ambiente staging isolado, com dados de teste, após autorização explícita de escopo e regras de engajamento. Reproduz o padrão já usado no projeto sem herdar o custo de uma varredura total.
-
-## 4. Abordagens avaliadas para dados de demonstração
-
-### Reaproveitar só a conta real de Yan
-
-Não exige nenhum trabalho novo, mas mistura dado de uso real do fundador com material de demonstração pública — arriscado se a banca ou gravações forem compartilhadas externamente.
-
-### Seed determinístico completo (script) para uma conta de demonstração
-
-Cobre o ciclo inteiro com dados sempre consistentes e reproduzíveis, mas é mais trabalho de implementação e ainda depende de alguém logar de fato com uma conta Microsoft de teste — o produto não tem cadastro local.
-
-### Conta de demonstração populada manualmente pelo fluxo real (recomendada)
-
-Usa uma conta Microsoft descartável (a mesma linha já usada nas Fases 7–9 para QA) e povoa Diário, evidências, Score, Live e Artefatos pelo fluxo real da aplicação — sem SQL manual, sem dado inventado por script. Mais lento que um seed automático, mas gera evidência de que o ciclo funciona de ponta a ponta com dados reais do próprio produto, sem risco de vazar histórico pessoal de Yan.
+- **Conta pessoal de Yan:** continua com o histórico real das Fases 1–9. Não é tocada, resetada nem usada para gravações públicas.
+- **Conta de demonstração:** reaproveita a mesma conta Microsoft descartável já usada nas Fases 7–9 para QA (nenhuma conta nova a criar). É povoada pelo fluxo real do produto — Diário, evidências, Score, Live, Artefatos — sem SQL manual e sem dado inventado por script, gerando evidência de que o ciclo funciona de ponta a ponta. É essa conta que a banca testa ao vivo e que aparece nas capturas finais.
 
 ## 5. Escopo obrigatório de hardening (`PHASES.md`, já aprovado)
 
@@ -65,7 +45,7 @@ Usa uma conta Microsoft descartável (a mesma linha já usada nas Fases 7–9 pa
 - build limpo (`lint`, `typecheck`, `test`, `build`) na íntegra do repositório;
 - achados de segurança reproduzidos e corrigidos manualmente antes de fechar qualquer item.
 
-## 6. Fora do escopo (a menos que Yan decida o contrário em §2)
+## 6. Fora do escopo
 
 - modo Automático do Persona Live;
 - integração real com Meet, Zoom ou Teams;
@@ -73,8 +53,23 @@ Usa uma conta Microsoft descartável (a mesma linha já usada nas Fases 7–9 pa
 - billing, paywall ou checkout;
 - PWA/mobile dedicado;
 - painel administrativo, filas, microsserviços;
-- login local ou outro provedor além da Microsoft.
+- login local ou outro provedor além da Microsoft;
+- Strix (adiado, ver §3).
 
-## 7. Próximo passo
+## 7. Sequência até 09/09/2026
 
-Este documento fica como rascunho. Antes de aprofundar (arquitetura de scripts, checklist linha a linha por tabela, formato exato da narrativa da banca), preciso das respostas de §2 — em especial a data-limite e a estratégia de dados de demonstração, porque mudam o tamanho real do trabalho.
+Ordem, não calendário fixo por dia — cada item só começa depois do anterior fechar, e a fase não avança para o item seguinte sem o gate correspondente:
+
+1. **Fechar a Fase 9** — Yan aplica `supabase/migrations/20260818200000_phase_9_settings.sql` e roda `docs/qa/fase-9/teste-rls-dois-usuarios.sql` no SQL Editor; resultado registrado em `docs/reviews/fase-9-configuracoes-privacidade.md`.
+2. **Auditoria de dependências e segredos** — `npm audit`, revisão de `.env.local`/`.gitignore`, checagem de que nenhum segredo entrou em commits, logs ou Markdown.
+3. **Revisão de RLS tabela por tabela** — reler todas as migrações das Fases 3–9 e confirmar política por tabela contra o padrão "por proprietário"; qualquer tabela sem RLS ou com política larga demais vira achado corrigido antes de seguir.
+4. **Limites e recuperação de falhas** — conferir limites de entrada/timeout/retry da Groq já implementados nas Fases 4/6/7/8/9, e os estados de falha (Groq indisponível, Supabase indisponível, sessão expirada) em cada rota autenticada.
+5. **Acessibilidade e teclado** — passar pelo ciclo principal completo só com teclado, focando nos fluxos mais novos (Artefatos, Configurações).
+6. **Popular a conta de demonstração** pelo fluxo real (onboarding → Diário → evidências → Score → Live → Artefatos → Configurações), conforme §4.
+7. **Screenshots finais** 1024/1280/1440/1920px do ciclo principal com a conta de demonstração.
+8. **Build limpo final** — `lint`, `typecheck`, `test`, `build` na íntegra do repositório.
+9. **Sessão de Avaliação Visual e gate final** — Yan aprova escopo público, dados de demonstração e narrativa da banca antes de qualquer ajuste em produção.
+
+## 8. Próximo passo
+
+Plano pronto para começar assim que a Fase 9 fechar (item 1). Vou iniciar os itens 2–5 (auditoria, RLS, limites, acessibilidade) em paralelo à sua execução do item 1, já que não dependem da migração aplicada.

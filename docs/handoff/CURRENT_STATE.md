@@ -2,7 +2,7 @@
 
 > Snapshot: 31/08/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: teste RLS com dois usuários, aplicação da migração `20260818200000_phase_9_settings.sql` e Sessão de Avaliação Visual da Fase 9 — todos exigem ação direta de Yan
+> Próximo gate: Fase 9 validada visualmente por Yan em 31/08/2026; falta ele aplicar a migração `20260818200000_phase_9_settings.sql` e rodar o teste RLS com dois usuários diretamente no Supabase (esta sessão não tem credenciais de banco)
 
 ## 1. Resumo executivo
 
@@ -21,7 +21,7 @@ Em 18/08/2026, a Fase 8 foi implementada, publicada e validada tecnicamente em p
 | 6 — Início e Narrative Score | aprovada por Yan em 12/08/2026 | `docs/reviews/fase-6-narrative-score.md` |
 | 7 — Persona Live manual | implementada, publicada e validada de ponta a ponta em produção | `docs/reviews/fase-7-persona-live.md` |
 | 8 — Artefatos profissionais | aprovada visualmente por Yan em 30/08/2026 | `docs/reviews/fase-8-artefatos-profissionais.md` |
-| 9 — Configurações, privacidade e controle de dados | contrato aprovado e implementada localmente; migração, teste RLS e aprovação visual pendentes | `docs/reviews/fase-9-configuracoes-privacidade.md` |
+| 9 — Configurações, privacidade e controle de dados | implementada e validada visualmente por Yan em 31/08/2026; migração e teste RLS pendentes (exigem Yan no Supabase) | `docs/reviews/fase-9-configuracoes-privacidade.md` |
 
 ## 2. Aplicação existente
 
@@ -214,9 +214,8 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. Yan autentica localmente (`http://localhost:3100`, porta `3100`) e percorre `/app/configuracoes`, `/app/configuracoes/dados` e `/app/configuracoes/conta` para a Sessão de Avaliação Visual em 1024/1280/1440/1920px;
-2. com autorização explícita e imediatamente antes da ação, aplicar `supabase/migrations/20260818200000_phase_9_settings.sql` ao projeto `persona-mvp-v2` e executar o teste SQL com dois usuários exigido pelo contrato (seção 7 de `docs/plans/2026-08-30-fase-9-configuracoes-privacidade-design.md`);
-3. só depois da migração aplicada é possível testar a exclusão permanente ponta a ponta — usar exclusivamente uma conta descartável explicitamente autorizada, nunca a conta principal de Yan nem os registros `QA Fase 8`;
-4. não remover os registros fictícios `QA Fase 8` sem confirmação explícita;
-5. atualizar `apps/web/.env.local` manualmente antes de testes locais que dependam da Groq; a produção está configurada;
-6. não publicar a Fase 9 em produção nem iniciar a Fase 10 antes da aprovação visual explícita de Yan.
+1. Fase 9 já foi validada visualmente por Yan localmente em 31/08/2026. Falta ele aplicar `supabase/migrations/20260818200000_phase_9_settings.sql` no SQL Editor do projeto `persona-mvp-v2` e rodar `docs/qa/fase-9/teste-rls-dois-usuarios.sql` (script pronto, roda em uma transação com `rollback`, não persiste nada) — nenhuma credencial de banco existe nesta sessão para fazer isso por ele;
+2. o contrato da Fase 10 (`docs/plans/2026-08-31-fase-10-hardening-entrega-design.md`) já está aprovado, com prazo-alvo **09/09/2026**; os itens de auditoria/RLS/limites/acessibilidade dessa fase podem começar em paralelo, sem esperar a migração da Fase 9;
+3. não remover os registros fictícios `QA Fase 8` sem confirmação explícita;
+4. atualizar `apps/web/.env.local` manualmente antes de testes locais que dependam da Groq; a produção está configurada;
+5. não publicar a Fase 9 em produção nem fechar o gate final da Fase 10 antes da aprovação explícita de Yan sobre migração, teste RLS e narrativa da banca.

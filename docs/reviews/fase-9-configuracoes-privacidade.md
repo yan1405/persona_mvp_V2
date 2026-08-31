@@ -1,7 +1,7 @@
 # Revisão da Fase 9 — Configurações, privacidade e controle de dados
 
 > Data: 31/08/2026
-> Estado: implementada e tecnicamente validada em ambiente local; migração não aplicada, aprovação visual e teste RLS com dois usuários pendentes
+> Estado: implementada, tecnicamente validada e **validada visualmente por Yan em ambiente local**; migração e teste RLS com dois usuários pendentes de execução direta por Yan no Supabase
 
 ## Entrega
 
@@ -31,13 +31,16 @@ npm.cmd run build      aprovado
 
 Auditoria `design-sem-cara-de-ia` (`auditar_tells_ia.py`) sobre `app/app/configuracoes`: nenhum dos nove sinais monitorados encontrado. O CSS novo reaproveita os tokens e o padrão de cor de sucesso/erro já usados no restante de `globals.css` (mesmos `#6ee7b7`/`#fca5a5` sobre `var(--color-success)`/`var(--color-error)` das telas de Diário, Evidências, Score, Live e Artefatos); nenhuma dependência, abstração ou componente novo foi adicionado.
 
+## Revisão visual
+
+Yan validou a interface localmente em `http://localhost:3100/app/configuracoes` em 31/08/2026 (perfil e preferências, dados e privacidade, conta e acesso).
+
 ## O que ainda não foi feito nesta rodada
 
-- **Sessão de Avaliação Visual com Yan**: não há screenshots reais das três telas em 1024/1280/1440/1920px. A autenticação exige login Microsoft real (MFA incluso), que só Yan pode concluir interativamente; a tentativa de abrir um navegador automatizado nesta sessão não teve uma forma segura de autenticar como o usuário.
-- **Teste SQL com dois usuários** para RLS, autorização expirada, finalidade incorreta e confirmação incorreta (exigido pelo contrato, seção 7): requer acesso direto ao Supabase real e ainda não foi executado.
-- **Migração `20260818200000_phase_9_settings.sql` não foi aplicada** ao Supabase do projeto `persona-mvp-v2`. Nenhuma tabela ou função desta fase existe hoje no banco real.
+- **Teste SQL com dois usuários** para RLS, autorização expirada, finalidade incorreta e confirmação incorreta (exigido pelo contrato, seção 7): requer acesso direto ao banco Postgres do Supabase (SQL Editor ou `service_role`), que esta sessão não possui — `apps/web/.env.local` só tem a chave `anon` pública. Script pronto para colar entregue a Yan.
+- **Migração `20260818200000_phase_9_settings.sql` não foi aplicada** ao Supabase do projeto `persona-mvp-v2` pelo mesmo motivo: exige acesso ao SQL Editor ou à CLI vinculada, que só Yan tem. Nenhuma tabela ou função desta fase existe hoje no banco real.
 - Revisão Ponytail `full` automatizada não está disponível neste ambiente; a revisão de código foi feita manualmente linha a linha (reuso de validação do onboarding, sem serviço, store ou abstração nova) seguindo os mesmos princípios.
 
 ## Gate
 
-Fluxo principal, validação e segurança de servidor estão prontos e passam nas quatro checagens técnicas. Faltam, na ordem do contrato (seção 9): teste RLS com dois usuários, aplicação da migração e a Sessão de Avaliação Visual — todas exigem uma ação direta de Yan (autenticar no app, autorizar a aplicação da migração e/ou fornecer acesso à execução SQL). A Fase 9 não deve ser marcada como aprovada nem a Fase 10 deve começar antes dessas confirmações.
+Fluxo principal, validação, segurança de servidor e revisão visual estão concluídos. Falta, na ordem do contrato (seção 9): Yan aplicar a migração e rodar o teste RLS com dois usuários diretamente no Supabase (esta sessão não tem credenciais de banco). A Fase 9 só é encerrada como aprovada depois dessa confirmação.
