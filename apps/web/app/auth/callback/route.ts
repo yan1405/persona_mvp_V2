@@ -34,7 +34,35 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  return applyAuthCookies(
-    NextResponse.redirect(new URL(next, requestUrl.origin)),
-  );
+  const reauth = requestUrl.searchParams.get("reauth");
+  if (reauth === "delete_account") {
+    const nonce = requestUrl.searchParams.get("nonce");
+    const storedNonce = request.cookies.get("persona_reauth_nonce")?.value;
+    const destination = new URL(next, requestUrl.origin);
+
+    if (!nonce || !storedNonce || nonce !== storedNonce) {
+      destination.searchParams.set("notice", "reauth_failed");
+    } else {
+      const { error: authorizationError } = await supabase.rpc(
+        "authorize_sensitive_action",
+        { p_purpose: "delete_account" },
+      );
+      destination.searchParams.set(
+        "notice",
+        authorizationError ? "reauth_failed" : "reauthenticated",
+      );
+    }
+
+    const response = applyAuthCookies(NextResponse.redirect(destination));
+    response.cookies.set("persona_reauth_nonce", "", {
+      httpOnly: true,
+      maxAge: 0,
+      path: "/auth/callback",
+      sameSite: "lax",
+      secure: requestUrl.protocol === "https:",
+    });
+    return response;
+  }
+
+  return applyAuthCookies(NextResponse.redirect(new URL(next, requestUrl.origin)));
 }

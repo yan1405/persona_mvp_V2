@@ -1177,3 +1177,47 @@ Yan confirmou que a Fase 8 está validada visualmente e autorizou o início da F
 ### Próximo gate
 
 Aprovar o contrato de produto, segurança, dados, estados e interface da Fase 9 antes de consolidar o código existente. A decisão central pendente é o nível de confirmação para exclusão permanente da conta.
+
+---
+
+## EXEC-021 — Implementação técnica da Fase 9
+
+**Data:** 31/08/2026
+**Fase:** 9 — Configurações, privacidade e controle de dados
+**Estado:** implementada e tecnicamente validada em ambiente local; migração não aplicada, teste RLS e aprovação visual pendentes
+
+### Contexto encontrado
+
+O contrato da Fase 9 já estava aprovado e commitado (`78db42e`), mas `CURRENT_STATE.md`, `PHASES.md` e este log ainda não haviam sido sincronizados com essa aprovação. Havia também um rascunho local avançado e não commitado (perfil, exportação, exclusão, migração e navegação) criado antes do contrato final.
+
+### Executado
+
+- auditado o rascunho local linha a linha contra `docs/plans/2026-08-30-fase-9-configuracoes-privacidade-design.md`; nenhuma divergência de escopo encontrada;
+- confirmado que a exportação cobre as 14 entidades exigidas e falha fechada quando qualquer consulta retorna erro;
+- confirmado o fluxo de exclusão: reautenticação Microsoft `prompt=login` → nonce validado por cookie `httpOnly` de uso único → `authorize_sensitive_action` (5 minutos, uso único) → confirmação textual `EXCLUIR` → `delete_own_account` (RPC transacional, `security definer`, `search_path` restrito) → `on delete cascade` em `auth.users`;
+- verificado que todas as tabelas privadas das Fases 3–8 têm `user_id`/`id` com `on delete cascade` para `auth.users`, garantindo que a exclusão remove todos os dados relacionados;
+- executadas as quatro validações técnicas e a auditoria `design-sem-cara-de-ia`;
+- criada a revisão técnica `docs/reviews/fase-9-configuracoes-privacidade.md`;
+- atualizados `CURRENT_STATE.md` e `PHASES.md` para refletir o estado real da Fase 9.
+
+### Validações
+
+```text
+npm.cmd test           32/32 aprovados
+npm.cmd run lint       aprovado
+npm.cmd run typecheck  aprovado
+npm.cmd run build      aprovado
+```
+
+Auditoria `design-sem-cara-de-ia` (`auditar_tells_ia.py`) sobre `app/app/configuracoes`: nenhum dos nove sinais monitorados encontrado.
+
+### Não executado nesta rodada
+
+- Sessão de Avaliação Visual (exige login Microsoft real, que só Yan pode concluir; a tentativa de abrir um navegador automatizado nesta sessão não teve como autenticar como o usuário real);
+- teste SQL com dois usuários para RLS, autorização expirada, finalidade incorreta e confirmação incorreta;
+- aplicação da migração `supabase/migrations/20260818200000_phase_9_settings.sql` ao Supabase real;
+- revisão Ponytail automatizada (plugin não disponível neste ambiente; revisão manual equivalente foi feita).
+
+### Próximo gate
+
+Yan precisa: (1) autenticar localmente em `http://localhost:3100` e revisar as três telas de Configurações nas quatro larguras; (2) autorizar, imediatamente antes da ação, a aplicação da migração e a execução do teste RLS com dois usuários; (3) aprovar explicitamente antes de qualquer publicação da Fase 9 ou início da Fase 10.

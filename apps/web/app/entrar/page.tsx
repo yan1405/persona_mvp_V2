@@ -12,7 +12,13 @@ function MicrosoftMark() {
   );
 }
 
-export default function SignInPage() {
+export default async function SignInPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ conta?: string }>;
+}) {
+  const { conta } = await searchParams;
+
   return (
     <main className="login-shell">
       <header className="login-header">
@@ -69,6 +75,11 @@ export default function SignInPage() {
         <section className="auth-panel" aria-labelledby="signin-title">
           <div className="auth-card">
             <h2 id="signin-title">Entre no Persona</h2>
+            {conta === "excluida" && (
+              <p className="settings-success" role="status">
+                Sua conta e os dados vinculados foram excluídos.
+              </p>
+            )}
             <p className="auth-intro">
               Use sua conta pessoal, profissional ou educacional da Microsoft.
             </p>

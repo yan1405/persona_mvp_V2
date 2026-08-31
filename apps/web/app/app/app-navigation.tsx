@@ -43,10 +43,16 @@ export function AppNavigation() {
           </span>
         ))}
       </div>
-      <span className="rail-item rail-item-disabled" aria-disabled="true" title="Configurações — próxima fase">
+      <Link
+        className="rail-item"
+        data-active={pathname === "/app/configuracoes" || pathname.startsWith("/app/configuracoes/")}
+        href="/app/configuracoes"
+        aria-current={pathname === "/app/configuracoes" || pathname.startsWith("/app/configuracoes/") ? "page" : undefined}
+        title="Configurações"
+      >
         <Settings aria-hidden size={18} />
-        <span className="sr-only">Configurações — ainda indisponível</span>
-      </span>
+        <span className="sr-only">Configurações</span>
+      </Link>
     </nav>
   );
 }

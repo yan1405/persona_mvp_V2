@@ -599,7 +599,7 @@ A implementação está em `https://persona-mvp-v2.vercel.app`. Yan aprovou expl
 
 ## Fase 9 — Configurações, privacidade e controle de dados
 
-**Estado:** início autorizado em 30/08/2026; contrato e rascunho local em auditoria.
+**Estado:** contrato aprovado por Yan em 30/08/2026 (`docs/plans/2026-08-30-fase-9-configuracoes-privacidade-design.md`); implementada e tecnicamente validada em local em 31/08/2026. Migração não aplicada ao Supabase real; teste RLS com dois usuários e Sessão de Avaliação Visual pendentes.
 
 ### Objetivo
 
@@ -632,9 +632,19 @@ Dar ao usuário controle explícito sobre perfil, preferências, conta e ciclo d
 - revisão jurídica de Termos e Privacidade antes de uso externo;
 - screenshots dos estados e aprovação.
 
+### Implementação e QA
+
+- perfil e preferências reutilizam as regras de validação do onboarding, com revalidação idêntica no servidor;
+- exportação em `/api/export` consulta as 14 tabelas/entidades do usuário e falha fechada (nenhuma consulta com erro entrega arquivo parcial);
+- exclusão permanente usa reautenticação Microsoft com `prompt=login`, nonce de estado em cookie `httpOnly` de uso único, autorização curta de 5 minutos (`authorize_sensitive_action`) e RPC transacional `delete_own_account`, ambas `security definer` com `search_path` restrito;
+- `on delete cascade` em todas as tabelas privadas garante a remoção dos dados relacionados ao apagar `auth.users`;
+- 32 testes, lint, TypeScript e build aprovados; auditoria `design-sem-cara-de-ia` sem sinais genéricos encontrados.
+
+Revisão técnica: `docs/reviews/fase-9-configuracoes-privacidade.md`.
+
 ### Gate
 
-Yan aprova controle, clareza dos impactos e fluxo destrutivo antes de qualquer publicação externa.
+Yan aprova controle, clareza dos impactos e fluxo destrutivo antes de qualquer publicação externa. Antes disso, faltam: teste SQL com dois usuários, aplicação da migração `20260818200000_phase_9_settings.sql` ao Supabase real e a Sessão de Avaliação Visual em 1024/1280/1440/1920px — todas exigem ação direta de Yan (autenticação Microsoft real e autorização imediatamente antes da migração).
 
 ## Fase 10 — Hardening e entrega
 
