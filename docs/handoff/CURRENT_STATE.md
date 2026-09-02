@@ -1,8 +1,8 @@
 # Estado atual verificável
 
-> Snapshot: 01/09/2026
+> Snapshot: 02/09/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: publicar e medir em produção a correção local de performance somente após autorização de Yan; a migração e o teste RLS da Fase 9 também continuam pendentes
+> Próximo gate: a recuperação de performance foi validada em produção; a migração e o teste RLS da Fase 9 continuam pendentes antes do gate final da Fase 10
 
 ## 1. Resumo executivo
 
@@ -10,7 +10,7 @@ O projeto possui autenticação Microsoft real, onboarding persistente e os cicl
 
 Em 18/08/2026, a Fase 8 foi implementada, publicada e validada tecnicamente em produção. STAR, Pitch pessoal, Currículo ATS e Portfólio por casos foram gerados com uma evidência fictícia; autosave, fontes, IA por seção, versões, restauração, filtros, PDF e a ação opcional do Persona Live foram exercitados. Em 30/08/2026, Yan aprovou visualmente a Fase 8, autorizou o início da Fase 9 e aprovou o contrato da Fase 9 (commit `78db42e`). Em 31/08/2026, o rascunho local de Configurações foi auditado e completado conforme esse contrato: perfil e preferências, exportação completa e fail-closed, e exclusão permanente com reautenticação Microsoft, autorização curta de uso único e RPC transacional. Lint, TypeScript, 32/32 testes e build passam localmente; a migração ainda não foi aplicada ao Supabase real e faltam o teste RLS com dois usuários e a Sessão de Avaliação Visual, todos pendentes de ação direta de Yan. Revisão técnica: `docs/reviews/fase-9-configuracoes-privacidade.md`.
 
-Em 01/09/2026, a indisponibilidade do produto foi isolada ao projeto Supabase `pnztzmobiwlblzxcqjna`, que estava pausado e retornava `NXDOMAIN`. Yan entrou no Dashboard e o projeto foi reativado sem upgrade; DNS público, Auth/REST, OAuth Microsoft e `/app/inicio` voltaram a funcionar. A mediana de cinco navegações internas aquecidas em produção ainda ficou em 2.942 ms. Uma correção local reduz o Proxy às rotas protegidas, deduplica a leitura de perfil entre layout e Início com `React.cache` e troca `next/font/google` pelos arquivos Geist já presentes no Next versionado. A correção passa lint, TypeScript, 32/32 testes e build restrito, mas ainda não foi publicada nem medida em produção.
+Em 01/09/2026, a indisponibilidade do produto foi isolada ao projeto Supabase `pnztzmobiwlblzxcqjna`, que estava pausado e retornava `NXDOMAIN`. Yan entrou no Dashboard e o projeto foi reativado sem upgrade; DNS público, Auth/REST, OAuth Microsoft e `/app/inicio` voltaram a funcionar. A linha de base de cinco navegações internas aquecidas tinha mediana de 2.942 ms. Em 02/09/2026, o commit `0e9fe30` foi publicado pelo deployment `dpl_6L8uSVgFBncunkpMyDT6tXeJviT2`: o Proxy ficou restrito às rotas protegidas, layout e Início passaram a compartilhar a leitura de perfil com `React.cache`, e o build deixou de baixar fontes. As cinco rotas medidas ficaram entre 528 e 1.030 ms, com mediana de **780 ms** e nenhum erro de runtime na hora posterior ao deploy.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -189,7 +189,7 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 - o nível Validada/Certificada permanece indisponível sem mecanismo externo real;
 - Termos e Privacidade são provisórios e precisam de revisão jurídica antes de uso externo real;
 - o Xisto/mascote não tem linguagem final aprovada;
-- a correção local de performance ainda não foi publicada; a linha de base autenticada em produção tem mediana de 2.942 ms e não atende ao alvo abaixo de 2 s;
+- a recuperação de performance foi publicada e reduziu a mediana autenticada de 2.942 ms para 780 ms; ações Groq de 12–15 s continuam sendo operações longas deliberadas e não foram disparadas nesta validação para evitar mutação dos dados reais;
 - o repositório Git local acompanha `origin/main` no GitHub;
 
 ## 9. Diagnósticos já resolvidos
@@ -217,8 +217,8 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. revisar e autorizar a publicação da correção de performance; depois repetir o trace autenticado em produção e só aceitar a mudança se a mediana aquecida ficar abaixo de 2 s ou se o trace revelar o próximo gargalo mensurável;
-2. Fase 9 já foi validada visualmente por Yan localmente em 31/08/2026. Falta ele aplicar `supabase/migrations/20260818200000_phase_9_settings.sql` no SQL Editor do projeto `persona-mvp-v2` e rodar `docs/qa/fase-9/teste-rls-dois-usuarios.sql` (script pronto, roda em uma transação com `rollback`, não persiste nada) — nenhuma credencial de banco existe nesta sessão para fazer isso por ele;
+1. Fase 9 já foi validada visualmente por Yan localmente em 31/08/2026. Falta ele aplicar `supabase/migrations/20260818200000_phase_9_settings.sql` no SQL Editor do projeto `persona-mvp-v2` e rodar `docs/qa/fase-9/teste-rls-dois-usuarios.sql` (script pronto, roda em uma transação com `rollback`, não persiste nada) — nenhuma credencial de banco existe nesta sessão para fazer isso por ele;
+2. manter o trace de operações Groq separado da navegação comum quando houver uma ação real autorizada; nenhuma RPC de agregação deve ser criada sem esse dado;
 3. não remover os registros fictícios `QA Fase 8` sem confirmação explícita;
 4. atualizar `apps/web/.env.local` manualmente antes de testes locais que dependam da Groq; a produção está configurada;
 5. não publicar a Fase 9 em produção nem fechar o gate final da Fase 10 antes da aprovação explícita de Yan sobre migração, teste RLS e narrativa da banca.

@@ -1252,7 +1252,7 @@ Yan aplica a migração e roda o script RLS no Supabase; cola o resultado para e
 
 **Data:** 01/09/2026
 **Fase:** 10 — hardening e entrega
-**Estado:** infraestrutura recuperada; correção local validada; publicação e medição final pendentes
+**Estado:** infraestrutura e performance recuperadas e validadas em produção
 
 ### Evidência do incidente
 
@@ -1288,4 +1288,17 @@ Revisões aplicadas: `mattpocock-skills:diagnosing-bugs`, Next.js local docs, `v
 
 ### Próximo gate
 
-Publicar somente após autorização explícita de Yan, repetir as cinco navegações no mesmo ambiente e aceitar a mudança apenas com mediana aquecida abaixo de 2 s ou com um novo gargalo reproduzido e medido. Screenshots e gate final da Fase 10 continuam depois dessa validação.
+Yan autorizou a publicação em 02/09/2026. O commit `0e9fe30` foi enviado para `origin/main`; a Vercel confirmou o deployment de produção `dpl_6L8uSVgFBncunkpMyDT6tXeJviT2` como `READY`, com esse mesmo SHA.
+
+Após uma passagem de aquecimento, as cinco navegações autenticadas foram repetidas com a mesma conta e os mesmos títulos de chegada:
+
+```text
+Evidências      640 ms
+Persona Live    528 ms
+Artefatos       780 ms
+Início        1.030 ms
+Diário          824 ms
+mediana         780 ms
+```
+
+Não houve timeout; todas ficaram abaixo de 2 s e a mediana caiu 73,5% em relação aos 2.942 ms da linha de base. A Vercel não registrou erro de runtime na hora posterior ao deploy. Isso fecha o incidente de disponibilidade e o gate de navegação comum, mas não fecha a Fase 10: migração/teste RLS, screenshots e aprovação final continuam pendentes. Operações Groq não foram disparadas nesta medição para não criar ou alterar dados reais.

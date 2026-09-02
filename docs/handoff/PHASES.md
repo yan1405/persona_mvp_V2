@@ -648,7 +648,7 @@ Yan validou visualmente a Fase 9 em ambiente local em 31/08/2026. Antes de aprov
 
 ## Fase 10 — Hardening e entrega
 
-**Estado:** em andamento; infraestrutura recuperada e correção local de performance validada, com publicação, trace de produção e gate final pendentes.
+**Estado:** em andamento; infraestrutura e performance recuperadas e validadas em produção, com migração/teste RLS, screenshots e gate final pendentes.
 
 ### Objetivo
 
