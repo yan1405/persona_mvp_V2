@@ -1,14 +1,16 @@
 # Estado atual verificável
 
-> Snapshot: 31/08/2026
+> Snapshot: 01/09/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
-> Próximo gate: Fase 9 validada visualmente por Yan em 31/08/2026; falta ele aplicar a migração `20260818200000_phase_9_settings.sql` e rodar o teste RLS com dois usuários diretamente no Supabase (esta sessão não tem credenciais de banco)
+> Próximo gate: publicar e medir em produção a correção local de performance somente após autorização de Yan; a migração e o teste RLS da Fase 9 também continuam pendentes
 
 ## 1. Resumo executivo
 
 O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. A Fase 7 está publicada na Vercel em `https://persona-mvp-v2.vercel.app`. Em 16/08/2026, o segredo Groq foi rotacionado na origem e na Vercel, o hardening `e09aa37` foi publicado e o fluxo autenticado de produção foi validado: Microsoft → `/app/inicio` → sessão Live → evidência autorizada → pergunta → resposta sustentada com argumentos e rascunho separados.
 
 Em 18/08/2026, a Fase 8 foi implementada, publicada e validada tecnicamente em produção. STAR, Pitch pessoal, Currículo ATS e Portfólio por casos foram gerados com uma evidência fictícia; autosave, fontes, IA por seção, versões, restauração, filtros, PDF e a ação opcional do Persona Live foram exercitados. Em 30/08/2026, Yan aprovou visualmente a Fase 8, autorizou o início da Fase 9 e aprovou o contrato da Fase 9 (commit `78db42e`). Em 31/08/2026, o rascunho local de Configurações foi auditado e completado conforme esse contrato: perfil e preferências, exportação completa e fail-closed, e exclusão permanente com reautenticação Microsoft, autorização curta de uso único e RPC transacional. Lint, TypeScript, 32/32 testes e build passam localmente; a migração ainda não foi aplicada ao Supabase real e faltam o teste RLS com dois usuários e a Sessão de Avaliação Visual, todos pendentes de ação direta de Yan. Revisão técnica: `docs/reviews/fase-9-configuracoes-privacidade.md`.
+
+Em 01/09/2026, a indisponibilidade do produto foi isolada ao projeto Supabase `pnztzmobiwlblzxcqjna`, que estava pausado e retornava `NXDOMAIN`. Yan entrou no Dashboard e o projeto foi reativado sem upgrade; DNS público, Auth/REST, OAuth Microsoft e `/app/inicio` voltaram a funcionar. A mediana de cinco navegações internas aquecidas em produção ainda ficou em 2.942 ms. Uma correção local reduz o Proxy às rotas protegidas, deduplica a leitura de perfil entre layout e Início com `React.cache` e troca `next/font/google` pelos arquivos Geist já presentes no Next versionado. A correção passa lint, TypeScript, 32/32 testes e build restrito, mas ainda não foi publicada nem medida em produção.
 
 | Fase | Estado | Evidência |
 |---|---|---|
@@ -138,7 +140,7 @@ Não há shadcn/ui, Vitest ou Playwright local. O projeto usa o runner nativo do
 
 ## 6. Validação mais recente
 
-Executada localmente em 31/08/2026 sobre a implementação da Fase 9:
+Executada localmente em 01/09/2026 sobre a recuperação de performance:
 
 ```text
 npm.cmd run lint       aprovado
@@ -187,6 +189,7 @@ As capturas podem conter o e-mail profissional usado no teste e texto do Daily L
 - o nível Validada/Certificada permanece indisponível sem mecanismo externo real;
 - Termos e Privacidade são provisórios e precisam de revisão jurídica antes de uso externo real;
 - o Xisto/mascote não tem linguagem final aprovada;
+- a correção local de performance ainda não foi publicada; a linha de base autenticada em produção tem mediana de 2.942 ms e não atende ao alvo abaixo de 2 s;
 - o repositório Git local acompanha `origin/main` no GitHub;
 
 ## 9. Diagnósticos já resolvidos
@@ -214,8 +217,8 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 
 ## 11. Próxima ação permitida
 
-1. Fase 9 já foi validada visualmente por Yan localmente em 31/08/2026. Falta ele aplicar `supabase/migrations/20260818200000_phase_9_settings.sql` no SQL Editor do projeto `persona-mvp-v2` e rodar `docs/qa/fase-9/teste-rls-dois-usuarios.sql` (script pronto, roda em uma transação com `rollback`, não persiste nada) — nenhuma credencial de banco existe nesta sessão para fazer isso por ele;
-2. o contrato da Fase 10 (`docs/plans/2026-08-31-fase-10-hardening-entrega-design.md`) já está aprovado, com prazo-alvo **09/09/2026**; os itens de auditoria/RLS/limites/acessibilidade dessa fase podem começar em paralelo, sem esperar a migração da Fase 9;
+1. revisar e autorizar a publicação da correção de performance; depois repetir o trace autenticado em produção e só aceitar a mudança se a mediana aquecida ficar abaixo de 2 s ou se o trace revelar o próximo gargalo mensurável;
+2. Fase 9 já foi validada visualmente por Yan localmente em 31/08/2026. Falta ele aplicar `supabase/migrations/20260818200000_phase_9_settings.sql` no SQL Editor do projeto `persona-mvp-v2` e rodar `docs/qa/fase-9/teste-rls-dois-usuarios.sql` (script pronto, roda em uma transação com `rollback`, não persiste nada) — nenhuma credencial de banco existe nesta sessão para fazer isso por ele;
 3. não remover os registros fictícios `QA Fase 8` sem confirmação explícita;
 4. atualizar `apps/web/.env.local` manualmente antes de testes locais que dependam da Groq; a produção está configurada;
 5. não publicar a Fase 9 em produção nem fechar o gate final da Fase 10 antes da aprovação explícita de Yan sobre migração, teste RLS e narrativa da banca.

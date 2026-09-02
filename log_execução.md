@@ -1245,3 +1245,47 @@ Yan validou visualmente a Fase 9 em `http://localhost:3100/app/configuracoes` e 
 ### Próximo gate
 
 Yan aplica a migração e roda o script RLS no Supabase; cola o resultado para eu registrar. Em paralelo, inicio os itens 2–5 da Fase 10 (auditoria de dependências/segredos, revisão de RLS tabela por tabela, limites/recuperação de falhas, acessibilidade por teclado), que não dependem da migração da Fase 9.
+
+---
+
+## EXEC-023 — Recuperação do Supabase e correção local de performance
+
+**Data:** 01/09/2026
+**Fase:** 10 — hardening e entrega
+**Estado:** infraestrutura recuperada; correção local validada; publicação e medição final pendentes
+
+### Evidência do incidente
+
+- o domínio `pnztzmobiwlblzxcqjna.supabase.co` retornava `NXDOMAIN` no resolvedor local, Cloudflare e Google;
+- no Dashboard, o projeto aparecia como pausado; após login de Yan, foi executado `Resume project`, sem upgrade ou recurso pago;
+- depois da recuperação, Cloudflare e Google voltaram a resolver o domínio, e os endpoints Auth/REST responderam sem atraso de DNS;
+- OAuth Microsoft completou o callback e abriu `/app/inicio` com a conta e os dados existentes;
+- nenhuma conta, dado fictício, migração ou RPC foi criada ou apagada.
+
+### Linha de base autenticada
+
+Cinco transições aquecidas em produção: Evidências 1.156 ms, Persona Live 3.808 ms, Artefatos 2.942 ms, Início 3.320 ms e Diário 2.934 ms. Mediana: **2.942 ms**, acima do aceite de 2 s.
+
+### Correção local
+
+- restringido o Proxy às rotas `/app/:path*`, `/onboarding` e `/api/export`, eliminando `getClaims()` das páginas públicas;
+- criada uma leitura de perfil deduplicada por requisição com `React.cache`, compartilhada pelo layout autenticado e por `/app/inicio`;
+- mantida a autenticação independente em Server Actions e exportação;
+- substituído `next/font/google` por `next/font/local` usando os arquivos Geist já incluídos no Next 16.3.0 versionado, removendo o download de fonte no build;
+- não criada RPC de Score ou Live sem trace que demonstre ganho, e não duplicados os estados pendentes de IA que já existem.
+
+### Validações
+
+```text
+npm.cmd run lint       aprovado
+npm.cmd run typecheck  aprovado
+npm.cmd test           32/32 aprovados
+npm.cmd run build      aprovado em ambiente restrito, sem download de fontes
+git diff --check       aprovado
+```
+
+Revisões aplicadas: `mattpocock-skills:diagnosing-bugs`, Next.js local docs, `vercel:react-best-practices` e Ponytail `full`. A revisão Ponytail não encontrou abstração, dependência ou serviço preventivo para remover.
+
+### Próximo gate
+
+Publicar somente após autorização explícita de Yan, repetir as cinco navegações no mesmo ambiente e aceitar a mudança apenas com mediana aquecida abaixo de 2 s ou com um novo gargalo reproduzido e medido. Screenshots e gate final da Fase 10 continuam depois dessa validação.

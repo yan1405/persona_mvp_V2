@@ -1,6 +1,6 @@
 # Fase 10 — Hardening e entrega
 
-> Estado: contrato aprovado por Yan em 31/08/2026, com as cinco decisões da seção 2 respondidas. Implementação ainda não iniciada.
+> Estado: em andamento. Infraestrutura recuperada e correção local de performance validada em 01/09/2026; publicação e medição final pendentes.
 > Pré-condição: Fase 9 totalmente encerrada (migração aplicada e teste RLS com dois usuários rodado no Supabase — ver `docs/qa/fase-9/teste-rls-dois-usuarios.sql`). A revisão visual local já foi feita por Yan em 31/08/2026.
 > Prazo-alvo: **09/09/2026**.
 
@@ -72,6 +72,7 @@ Ordem, não calendário fixo por dia — cada item só começa depois do anterio
 
 ## 8. Progresso
 
+- **Incidente de infraestrutura e performance (01/09/2026):** o projeto Supabase estava pausado e o domínio específico retornava `NXDOMAIN`; foi reativado sem upgrade e voltou a responder em dois resolvedores públicos. Auth/REST, OAuth Microsoft e uma leitura real em `/app/inicio` foram validados. A linha de base de cinco navegações autenticadas aquecidas teve mediana de 2.942 ms. Localmente, o Proxy passou a cobrir apenas `/app`, `/onboarding` e `/api/export`, layout e Início compartilham a leitura de perfil por requisição, e as fontes Geist usam os arquivos do Next local. Lint, TypeScript, 32/32 testes e build passaram. Publicação e novo trace em produção continuam pendentes; nenhuma RPC foi criada sem evidência.
 - **Item 2 (dependências e segredos):** `npm audit` sem dependências de produção ou desenvolvimento — 0 vulnerabilidades; nenhum arquivo `.env*` (exceto `.env.example`, que não existe ainda) nunca foi commitado; busca por padrões de chave Groq/JWT no histórico completo do Git sem nenhum resultado real. Sem achados.
 - **Item 3 (RLS tabela por tabela):** reli as nove migrações (Fases 3–9). Todas as tabelas privadas têm RLS habilitada; toda política de `insert`/`update` tem `with check` correspondente, sempre `(select auth.uid()) = user_id` (ou `= id` em `profiles`); tabelas sem coluna própria de dono (`live_session_evidences`, `live_questions`, `live_draft_versions`, `artifact_sources`, `artifact_versions`) foram desnormalizadas com `user_id` direto em vez de depender de join, evitando a classe mais comum de bug de RLS; escrita sensível é sempre por RPC `security definer`, nunca INSERT/UPDATE direto do cliente nas tabelas mais críticas. Sem achados.
 - **Item 4 (limites e recuperação de falhas da Groq):** os três pontos de chamada (`structure-evidence.ts`, `generate-live-response.ts`, `generate-artifact.ts`) usam `maxRetries: 1` e timeout de 12–15s, com erros tipados `timeout`/`rate_limit`/`provider_error` que já acionam o modo Manual no fluxo, conforme validado nas Fases 4/7/8. Entrada já é limitada no banco (Daily Log 40–2000 caracteres, pergunta do Live 8–500). Sem achados.

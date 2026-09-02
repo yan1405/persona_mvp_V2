@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { getCurrentProfile } from "@/lib/auth/current-profile";
 import { getNarrativeScoreData } from "@/lib/score/data";
 import { createClient } from "@/lib/supabase/server";
 
@@ -9,8 +10,8 @@ const originLabel = { declared: "Base declarada", partially_observed: "Parcialme
 export default async function StartPage({ searchParams }: { searchParams: Promise<{ notice?: string }> }) {
   const { notice } = await searchParams;
   const supabase = await createClient();
-  const [{ data: profile }, { data: logs }, score] = await Promise.all([
-    supabase.from("profiles").select("display_name, main_objective").maybeSingle(),
+  const [profile, { data: logs }, score] = await Promise.all([
+    getCurrentProfile(),
     supabase.from("daily_logs").select("id, content, occurred_on, status").neq("status", "archived").order("occurred_on", { ascending: false }).limit(4),
     getNarrativeScoreData(supabase),
   ]);
