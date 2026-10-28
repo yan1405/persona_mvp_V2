@@ -11,9 +11,13 @@ Escopo operacional: `persona_mvp_v2` (`apps/web`) e projeto Vercel `persona-mvp-
 - O Claude Design fornecido abre em `T4.1 — Início`. É uma referência de interface; o próprio protótipo identifica o Agente Persona como “em protótipo”.
 - O domínio `https://persona-mvp-v2.vercel.app` responde e a rota pública `/entrar` entrega a tela de autenticação Microsoft.
 - O deployment de produção consultado está `READY`, mas usa o commit `06de045` (`docs: record production performance recovery`).
-- O checkout local contém o commit `45379b8` (`feat(fase-7): usar NVIDIA no Persona Live`), ainda um commit à frente de `origin/main`.
+- O checkout `main` contém `45379b8` (`feat(fase-7): usar NVIDIA no Persona Live`) e este plano em `78cb904`; ambos foram publicados na branch remota de Preview `codex/persona-preview-20261028`, sem alterar `origin/main`.
 - No checkout, lint, typecheck, build de produção e 32 testes automatizados passaram nesta data.
-- A integração local de Persona Live usa `NVIDIA_API_KEY` e o modelo `z-ai/glm-5.3-flash`; a Vercel ainda não lista `NVIDIA_API_KEY` no inventário consultado.
+- O Preview `dpl_EdXaf2aMTzqwkCmbjkYLF88MjE3N` terminou `READY` no commit `78cb904`; o build confirmou `apps/web` como diretório de aplicação.
+- No Preview, `/` e `/entrar` responderam 200; `/app/live` redirecionou para a entrada; `/auth/iniciar` respondeu 307 para o fluxo Azure do Supabase. Isso não valida login completo nem callback.
+- O scan de erros de runtime da Vercel nas últimas 24h e o log de erros do Preview consultado não mostraram eventos.
+- A integração local de Persona Live usa `NVIDIA_API_KEY` e o modelo `z-ai/glm-5.3-flash`; a Vercel não lista `NVIDIA_API_KEY` no inventário consultado.
+- A listagem NVIDIA `/v1/models` respondeu 200 e incluiu o modelo configurado. Chamadas POST de inferência, inclusive streaming com raciocínio reduzido, não receberam resposta em 45s/90s e foram encerradas por timeout.
 - A Fase 9 tem migração preparada no repositório, mas a documentação do projeto registra que ela ainda não foi aplicada ao Supabase real e que o teste RLS com duas contas está pendente.
 - A API do GitHub identifica `MarcBuzatto/persona-contexto` como público, embora seu README diga que não deve ser público. Não copiar ou publicar dados desse cofre como parte do deploy.
 
@@ -28,16 +32,17 @@ Escopo operacional: `persona_mvp_v2` (`apps/web`) e projeto Vercel `persona-mvp-
 
 ### PENDING
 
-- Validar a chamada real à NVIDIA a partir do checkout sem expor a chave.
-- Confirmar, sem revelar valores, as variáveis de produção e o root directory/build settings da Vercel.
+- Obter resposta de inferência do modelo NVIDIA e medir latência compatível com a execução da função Vercel.
+- Confirmar as variáveis necessárias de Production e Preview sem revelar valores; provisionar chave rotacionada como segredo só após a inferência passar.
 - Executar autenticação Microsoft com conta sintética autorizada e percorrer os fluxos críticos contra as dependências reais.
+- Confirmar que a URL de callback do Preview está permitida no Supabase e completar OAuth com conta sintética.
 - Confirmar a migração Fase 9 e suas políticas RLS em ambiente apropriado.
 - Fazer revisão visual da implementação da aplicação contra T4.1 nos tamanhos priorizados.
 
 ### BLOCKERS
 
-- O commit com a integração NVIDIA ainda não foi publicado no GitHub nem implantado na Vercel.
-- O inventário Vercel não mostra a variável `NVIDIA_API_KEY`; não se deve publicar o caminho NVIDIA em produção antes de provisioná-la como segredo e validar uma chamada real.
+- A inferência NVIDIA está inconclusiva/indisponível neste teste: o endpoint de catálogo respondeu, mas o chat não respondeu em até 90s. O Preview não possui `NVIDIA_API_KEY` no inventário e o agente não pode ser validado nele.
+- O deployment testado é Preview; Production continua no commit `06de045`. Não promover enquanto o agente, OAuth ponta a ponta, persistência e gates RLS não forem validados.
 - Migração e teste RLS da Fase 9 são pendências explícitas do projeto. Não aplicar uma migração que inclui operações sensíveis de privacidade sem checkpoint próprio e validação de rollback.
 - `persona-contexto` contradiz sua própria instrução de privacidade ao estar publicamente visível. O usuário deve decidir se quer alterar a visibilidade; este plano não altera esse repositório.
 
