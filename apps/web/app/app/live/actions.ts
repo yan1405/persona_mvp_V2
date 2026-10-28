@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { generateLiveResponse, LIVE_PROMPT_VERSION, LiveGenerationError } from "@/lib/groq/generate-live-response";
+import { generateLiveResponse, LIVE_PROMPT_VERSION, LiveGenerationError } from "@/lib/live/generate-live-response";
 import { recommendEvidences, type RecommendableEvidence } from "@/lib/live/recommendation";
 import { validateEvidenceSelection, validateLiveContext, validateLiveQuestion } from "@/lib/live/validation";
 import { createClient } from "@/lib/supabase/server";
