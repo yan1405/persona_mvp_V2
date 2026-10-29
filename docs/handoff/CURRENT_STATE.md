@@ -222,3 +222,12 @@ Para confirmar sincronização, execute `git status --short --branch` e `git log
 3. não remover os registros fictícios `QA Fase 8` sem confirmação explícita;
 4. atualizar `apps/web/.env.local` manualmente antes de testes locais que dependam da Groq; a produção está configurada;
 5. não publicar a Fase 9 em produção nem fechar o gate final da Fase 10 antes da aprovação explícita de Yan sobre migração, teste RLS e narrativa da banca.
+
+## Atualização operacional — 28/10/2026
+
+- [FATO] Yan autenticou no Dashboard Supabase e confirmou que `persona-mvp-v2` estava pausado; a ação `Resume project` foi executada sem selecionar `Upgrade to Pro`. O Dashboard mostrou “Restoration complete”.
+- [FATO] Após a restauração, `pnztzmobiwlblzxcqjna.supabase.co` voltou a resolver e `/auth/v1/health` respondeu HTTP 200 com a chave pública de projeto, sem expor seu valor.
+- [FATO] `/auth/iniciar` respondeu HTTP 307 para o fluxo Azure tanto no Preview quanto na Production. Isso prova apenas o início do OAuth, não callback nem sessão autenticada.
+- [FATO] Preview `dpl_tNJ3zRMqXesT6Kn9YsBLgbXKNWHn`, commit `9c5ce5c`, está `READY`; Production permanece no commit `06de045`.
+- [PENDENTE] A integração NVIDIA não teve inferência bem-sucedida em chamadas que expiraram após até 90 s; `NVIDIA_API_KEY` não está configurada na Vercel. A chave enviada anteriormente precisa ser rotacionada pelo titular.
+- [PENDENTE] Continuam pendentes OAuth ponta a ponta com conta sintética, fluxos autenticados, migração/teste RLS da Fase 9 e revisão visual. Nenhuma migração ou promoção foi feita nesta rodada.

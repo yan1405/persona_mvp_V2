@@ -13,8 +13,9 @@ Escopo operacional: `persona_mvp_v2` (`apps/web`) e projeto Vercel `persona-mvp-
 - O deployment de produção consultado está `READY`, mas usa o commit `06de045` (`docs: record production performance recovery`).
 - O checkout `main` contém `45379b8` (`feat(fase-7): usar NVIDIA no Persona Live`) e este plano em `78cb904`; ambos foram publicados na branch remota de Preview `codex/persona-preview-20261028`, sem alterar `origin/main`.
 - No checkout, lint, typecheck, build de produção e 32 testes automatizados passaram nesta data.
-- O Preview `dpl_EdXaf2aMTzqwkCmbjkYLF88MjE3N` terminou `READY` no commit `78cb904`; o build confirmou `apps/web` como diretório de aplicação.
-- No Preview, `/` e `/entrar` responderam 200; `/app/live` redirecionou para a entrada; `/auth/iniciar` respondeu 307 para o fluxo Azure do Supabase. Isso não valida login completo nem callback.
+- O Preview mais recente `dpl_tNJ3zRMqXesT6Kn9YsBLgbXKNWHn` terminou `READY` no commit `9c5ce5c`; o build confirmou `apps/web` como diretório de aplicação.
+- No Preview, `/` e `/entrar` responderam 200; `/app/live` redirecionou para a entrada; `/auth/iniciar` respondeu 307 para o fluxo Azure do Supabase. Em Production, `/auth/iniciar` também respondeu 307. Isso não valida login completo nem callback.
+- Em 28/10, Yan entrou no Dashboard; o projeto Supabase `pnztzmobiwlblzxcqjna` aparecia pausado. A retomada foi iniciada sem selecionar Upgrade to Pro; o Dashboard confirmou “Restoration complete”. Depois, o DNS resolveu e `/auth/v1/health` respondeu HTTP 200. Nenhuma migração ou operação em dados foi executada.
 - O scan de erros de runtime da Vercel nas últimas 24h e o log de erros do Preview consultado não mostraram eventos.
 - A integração local de Persona Live usa `NVIDIA_API_KEY` e o modelo `z-ai/glm-5.3-flash`; a Vercel não lista `NVIDIA_API_KEY` no inventário consultado.
 - A listagem NVIDIA `/v1/models` respondeu 200 e incluiu o modelo configurado. Chamadas POST de inferência, inclusive streaming com raciocínio reduzido, não receberam resposta em 45s/90s e foram encerradas por timeout.
@@ -34,14 +35,14 @@ Escopo operacional: `persona_mvp_v2` (`apps/web`) e projeto Vercel `persona-mvp-
 
 - Obter resposta de inferência do modelo NVIDIA e medir latência compatível com a execução da função Vercel.
 - Confirmar as variáveis necessárias de Production e Preview sem revelar valores; provisionar chave rotacionada como segredo só após a inferência passar.
-- Executar autenticação Microsoft com conta sintética autorizada e percorrer os fluxos críticos contra as dependências reais.
+- Executar autenticação Microsoft com conta sintética autorizada e percorrer os fluxos críticos contra as dependências reais; somente a inicialização OAuth foi confirmada.
 - Confirmar que a URL de callback do Preview está permitida no Supabase e completar OAuth com conta sintética.
 - Confirmar a migração Fase 9 e suas políticas RLS em ambiente apropriado.
 - Fazer revisão visual da implementação da aplicação contra T4.1 nos tamanhos priorizados.
 
 ### BLOCKERS
 
-- A inferência NVIDIA está inconclusiva/indisponível neste teste: o endpoint de catálogo respondeu, mas o chat não respondeu em até 90s. O Preview não possui `NVIDIA_API_KEY` no inventário e o agente não pode ser validado nele.
+- A inferência NVIDIA está inconclusiva/indisponível neste teste: o endpoint de catálogo respondeu, mas o chat não respondeu em até 90s. O Preview não possui `NVIDIA_API_KEY` no inventário e o agente não pode ser validado nele. A chave compartilhada na conversa ainda precisa ser rotacionada pelo titular.
 - O deployment testado é Preview; Production continua no commit `06de045`. Não promover enquanto o agente, OAuth ponta a ponta, persistência e gates RLS não forem validados.
 - Migração e teste RLS da Fase 9 são pendências explícitas do projeto. Não aplicar uma migração que inclui operações sensíveis de privacidade sem checkpoint próprio e validação de rollback.
 - `persona-contexto` contradiz sua própria instrução de privacidade ao estar publicamente visível. O usuário deve decidir se quer alterar a visibilidade; este plano não altera esse repositório.
@@ -95,4 +96,4 @@ O Persona será considerado operacionalmente publicado quando um deployment de p
 
 ## Próximo checkpoint
 
-Resolver primeiro a chamada real da NVIDIA e revisar o diff local. Se a chamada continuar indisponível, manter a integração fora de Production e decidir entre corrigir o acesso ao provedor ou usar o provedor já configurado na Vercel até que a NVIDIA seja validada.
+Resolver primeiro a chamada real da NVIDIA com chave rotacionada e revisar o diff local. O Supabase foi restaurado e seu endpoint Auth respondeu 200, mas o fluxo OAuth completo ainda precisa de conta sintética autorizada. Manter a integração NVIDIA fora de Production até validar o agente e os demais gates.
