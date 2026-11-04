@@ -17,6 +17,8 @@ As quatro camadas do produto são:
 
 ## 2. Shell desktop inspirado no CRM
 
+> **Nota de 19/10/2026:** a linguagem visual do shell (CRM, trilho de 56px, densidade) foi substituída pelo redesign em `C:\Users\yansi\OneDrive\ref_redisgn_persona` (repositório `yan1405/persona_redign`). Destinos, rotas, fluxos e anatomia funcional deste documento continuam valendo.
+
 - cabeçalho global de 48px com marca, contexto e menu de conta;
 - trilho lateral de 56px com cinco destinos principais;
 - Configurações isolada no rodapé do trilho;
@@ -294,7 +296,7 @@ Não há planos, preços ou billing nesta fase gratuita.
 
 - Daily Log, Evidências, Narrative Score, Persona Live e Artefatos formam um único ciclo compreensível.
 - Narrative Score está visível no Início sem ocupar navegação própria.
-- todos os seis tipos de Artefato permanecem rastreáveis no mapa.
+- todos os quatro tipos de Artefato permanecem rastreáveis no mapa.
 - nenhuma tela da Persona v1 orienta a composição visual.
 - estrutura e densidade seguem CRM + Design DNA.
 - cada fase de implementação termina com a Sessão de Avaliação Visual obrigatória.

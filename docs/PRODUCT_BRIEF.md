@@ -1,18 +1,20 @@
 # Persona — Briefing central do produto
 
-> Status: aprovado para orientar o planejamento do MVP v2 — decisão cruzada `X-001`  
-> Atualizado em: 05/08/2026  
+> Status: base funcional aprovada em `X-001`; evolução do agente aprovada em `LD-026`<br>
+> Atualizado em: 16/09/2026<br>
 > Decisor: Yan Guilherme Oliveira da Silva
 
 ## 1. Definição
 
-O Persona é um **sistema de evidências profissionais**. Ele registra experiências reais, identifica o que elas demonstram e recupera os melhores fatos para o usuário comunicar sua competência em oportunidades de carreira.
+O Persona é uma **plataforma de inteligência profissional**. Sua base registra experiências reais, identifica o que elas demonstram e organiza uma memória profissional rastreável. Sobre essa memória, a próxima evolução é um agente colaborativo de IA que ajuda o usuário a compreender, organizar, ativar e acompanhar sua trajetória.
 
-Proposta institucional: **“O sistema operacional da sua identidade profissional.”**
+Proposta institucional: **“Sua história profissional, organizada para trabalhar a seu favor.”**
 
 Promessa funcional: **“Registre uma vez. Prove sempre.”**
 
 Frase de diferenciação: **“O Persona não começa pela resposta. Começa pela evidência.”**
+
+O agente, importações e integrações ainda não fazem parte do estado funcional comprovado. O usuário deve revisar, confirmar e decidir antes de usos importantes.
 
 ## 2. Problema
 
@@ -224,3 +226,20 @@ Após registrar uma experiência, o usuário deve conseguir perceber:
 - preferem a recomendação do Persona a procurar manualmente em anotações;
 - relatam aumento de clareza ou confiança;
 - compreendem a diferença entre informação registrada, documentada e validada.
+
+## 14. Próxima evolução — agente colaborativo
+
+O agente trabalha sobre a memória profissional existente, sem criar uma base paralela. Seu ciclo proposto é:
+
+1. **Compreender:** fazer perguntas e interpretar o contexto informado.
+2. **Organizar:** relacionar experiências, evidências, competências e objetivos.
+3. **Ativar:** recuperar o conteúdo pertinente para entrevistas e Artefatos.
+4. **Acompanhar:** indicar lacunas e evolução, com origem e incertezas visíveis.
+
+Horizontes de dados:
+
+- **Hoje:** registro manual confirmado pelo usuário.
+- **Próxima etapa:** importação voluntária de documentos selecionados.
+- **Futuro:** integrações autorizadas, com consentimento granular, finalidade e revogação.
+
+Antes da implementação ampla, um protótipo deve testar compreensão, redução de esforço, fidelidade às fontes, confiança, retorno ao produto e limites de compartilhamento. Fonte completa: `../../Persona Empreenda/00_documentacao/PERSONA_VISAO_PRODUTO_AGENTE_2026-09-16.md`.

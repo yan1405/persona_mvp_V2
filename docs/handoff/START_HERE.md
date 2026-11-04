@@ -2,6 +2,8 @@
 
 Este é o ponto de entrada para qualquer IA ou pessoa que precise auditar, corrigir ou continuar o Persona a partir de qualquer fase.
 
+> Atualização de visão — 16/09/2026: `LD-026` aprovou o Persona como plataforma de inteligência profissional com agente colaborativo. A base atual continua funcional e verificável; o agente é uma próxima evolução que exige protótipo, validação e nova autorização de construção. Leia `../PRODUCT_BRIEF.md` e `../../../Persona Empreenda/00_documentacao/PERSONA_VISAO_PRODUTO_AGENTE_2026-09-16.md`.
+
 ## 1. Local oficial
 
 Trabalhe somente em:

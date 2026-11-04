@@ -28,8 +28,8 @@ O shell desktop aprovado possui cabeçalho de 48px, trilho lateral de 56px e con
 | 2 | Diário | `/app/diario` | núcleo implementado na Fase 4 |
 | 3 | Evidências | `/app/evidencias` | implementado na Fase 5 |
 | 4 | Persona Live | `/app/live` | implementado e validado na Fase 7 |
-| 5 | Artefatos | `/app/artefatos` | implementado e tecnicamente validado na Fase 8; aprovação visual pendente |
-| rodapé | Configurações | `/app/configuracoes` | planejado para Fase 9 |
+| 5 | Artefatos | `/app/artefatos` | implementado na Fase 8 e aprovado visualmente por Yan em 30/08/2026 |
+| rodapé | Configurações | `/app/configuracoes` | implementado na Fase 9 e validado visualmente em 31/08/2026; migração e teste RLS pendentes no Supabase |
 
 Narrative Score não é um destino principal; aparece no Início e abre `/app/score` como painel/deep link.
 
@@ -57,9 +57,9 @@ Narrative Score não é um destino principal; aparece no Início e abre `/app/sc
 | `/app/artefatos` | autenticado | página | implementada | biblioteca de materiais profissionais |
 | `/app/artefatos/novo` | autenticado | workspace | implementada | criação por tipo |
 | `/app/artefatos/[id]` | autenticado | painel/deep link | implementada | conteúdo, fontes e versões |
-| `/app/configuracoes` | autenticado | página | planejada | perfil e preferências |
-| `/app/configuracoes/dados` | autenticado | subárea | planejada | consentimento, exportar e excluir |
-| `/app/configuracoes/conta` | autenticado | subárea | planejada | Microsoft e encerrar sessão |
+| `/app/configuracoes` | autenticado | página | implementada | perfil e preferências |
+| `/app/configuracoes/dados` | autenticado | subárea | implementada (migração pendente) | consentimento, exportar e excluir |
+| `/app/configuracoes/conta` | autenticado | subárea | implementada | Microsoft e encerrar sessão |
 
 ## 4. Anatomia por área
 

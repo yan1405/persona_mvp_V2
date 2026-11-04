@@ -1302,3 +1302,34 @@ mediana         780 ms
 ```
 
 Não houve timeout; todas ficaram abaixo de 2 s e a mediana caiu 73,5% em relação aos 2.942 ms da linha de base. A Vercel não registrou erro de runtime na hora posterior ao deploy. Isso fecha o incidente de disponibilidade e o gate de navegação comum, mas não fecha a Fase 10: migração/teste RLS, screenshots e aprovação final continuam pendentes. Operações Groq não foram disparadas nesta medição para não criar ou alterar dados reais.
+
+# 16/09/2026 — visão do agente colaborativo sincronizada
+
+- Yan aprovou `LD-026`: Persona como plataforma de inteligência profissional com agente colaborativo de IA.
+- A base funcional existente permanece inalterada e comprovada no escopo registrado.
+- `AGENTS.md`, `README.md`, `docs/PRODUCT_BRIEF.md` e os handoffs `START_HERE.md`, `CURRENT_STATE.md` e `PHASES.md` foram atualizados.
+- Agente, importações voluntárias e integrações autorizadas foram classificados como evolução a prototipar e validar, não como funcionalidades existentes.
+- Nenhum código, banco, deploy ou configuração de produção foi alterado.
+
+## EXEC-024 — Restauração do Supabase e retomada da validação
+
+**Data:** 28/10/2026
+**Fase:** operação do deployment / P-08
+**Autorização:** Yan solicitou deixar o Persona online e entrou no Dashboard para a checagem pedida.
+
+### Executado
+
+- O Dashboard confirmou que `persona-mvp-v2` estava pausado e informou que dados e backups permaneciam seguros. A retomada foi confirmada no painel; não foi selecionado `Upgrade to Pro`.
+- O Dashboard confirmou “Restoration complete”. O DNS público passou a resolver e o endpoint `/auth/v1/health` respondeu HTTP 200.
+- `/auth/iniciar` do Preview e da Production respondeu HTTP 307 para o início do OAuth Azure/Supabase. Nenhum callback, login Microsoft ou sessão autenticada foi concluído.
+- Captura visual do Dashboard após a restauração foi apresentada nesta conversa. Nenhum dado, migração, política RLS ou conta foi criado, apagado ou alterado.
+
+### Estado e limites
+
+- O Preview continua `READY` no commit `9c5ce5c`; Production continua no commit `06de045`.
+- As chamadas NVIDIA continuam bloqueadas por timeout de inferência de até 90 s; a chave não está na Vercel e a chave compartilhada deve ser rotacionada pelo titular.
+- Lint, typecheck, 32 testes e build passaram na validação local anterior, sem mudanças de código nesta ação de restauração.
+
+### Próximo gate
+
+Rotacionar a chave NVIDIA, confirmar uma inferência bem-sucedida, e então configurar o novo segredo no Preview. Completar OAuth com conta sintética autorizada e exercitar os fluxos de dados antes de considerar qualquer promoção. Não aplicar a migração da Fase 9 sem o checkpoint de banco documentado.

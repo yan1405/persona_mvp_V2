@@ -1,10 +1,13 @@
 # Estado atual verificável
 
-> Snapshot: 02/09/2026
+> Snapshot técnico: 02/09/2026<br>
+> Atualização de produto: 16/09/2026
 > Pasta: `C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2`  
 > Próximo gate: a recuperação de performance foi validada em produção; a migração e o teste RLS da Fase 9 continuam pendentes antes do gate final da Fase 10
 
 ## 1. Resumo executivo
+
+Em 16/09/2026, Yan aprovou `LD-026`: evoluir o Persona para uma plataforma de inteligência profissional com agente colaborativo de IA. Essa decisão altera posicionamento e roadmap, mas não o estado técnico comprovado abaixo. O agente, importações e integrações ainda não estão construídos nem validados; o próximo passo é prototipar e testar o fluxo antes de autorizar implementação ampla.
 
 O projeto possui autenticação Microsoft real, onboarding persistente e os ciclos completos das Fases 4–7. A Fase 7 está publicada na Vercel em `https://persona-mvp-v2.vercel.app`. Em 16/08/2026, o segredo Groq foi rotacionado na origem e na Vercel, o hardening `e09aa37` foi publicado e o fluxo autenticado de produção foi validado: Microsoft → `/app/inicio` → sessão Live → evidência autorizada → pergunta → resposta sustentada com argumentos e rascunho separados.
 
@@ -117,6 +120,7 @@ O fluxo real gravou um perfil e um primeiro Daily Log para a conta de teste. Nã
 - `service_role` não foi usada;
 - o SDK Groq e o schema estrito estão implementados somente no servidor;
 - `GROQ_API_KEY` está configurada somente no `.env.local` ignorado, sem ter sido exibida ou registrada;
+- desde `45379b8` (28/10/2026) o Persona Live usa `NVIDIA_API_KEY`/`NVIDIA_MODEL` no servidor (`apps/web/lib/live/generate-live-response.ts`); Diário, Score e Artefatos seguem na Groq; nenhuma chamada NVIDIA real foi concluída;
 - uma chamada real com `openai/gpt-oss-20b` foi validada de ponta a ponta.
 
 Não presuma que credenciais continuam válidas: verifique o fluxo sem revelar valores.

@@ -685,6 +685,28 @@ Yan aprova escopo público, dados de demonstração, custos, deploy e narrativa 
 
 ## Fora das fases atuais
 
+## Próxima frente proposta — descoberta do agente colaborativo
+
+**Estado:** direção aprovada em 16/09/2026; construção não autorizada.
+
+### Objetivo
+
+Testar se uma camada de agente sobre a memória profissional reduz esforço e aumenta a capacidade de recuperar e reutilizar experiências reais, sem retirar o controle do usuário.
+
+### Menor experimento antes de construir
+
+- protótipo de um fluxo completo: pergunta do agente → evidências recuperadas → sugestão → origem visível → correção e confirmação;
+- teste observado com participantes reais e tarefa de carreira definida;
+- registro de compreensão, tempo/esforço, correções, confiança e intenção de retorno;
+- teste separado sobre quais documentos o usuário aceitaria importar e para qual finalidade;
+- nenhuma integração externa real nessa etapa.
+
+### Gate de autorização
+
+Somente planejar implementação ampla após demonstrar que usuários compreendem o papel do agente, reconhecem as fontes, corrigem interpretações, percebem benefício frente ao fluxo manual e aceitam os limites de dados. Segurança, privacidade, custo e mensuração devem integrar o contrato da fase.
+
+---
+
 Não construir sem nova decisão explícita:
 
 - login local por senha ou outros provedores;

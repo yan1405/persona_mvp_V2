@@ -1,6 +1,6 @@
 # Persona MVP v2
 
-O Persona é um sistema de evidências profissionais: registra experiências reais, ajuda o usuário a estruturá-las e recupera os fatos certos para entrevistas e materiais de carreira sem inventar trajetória, resultado ou número.
+O Persona é uma plataforma de inteligência profissional. A base funcional registra experiências reais, estrutura evidências e recupera fatos para entrevistas e materiais de carreira. A próxima evolução aprovada é um agente colaborativo sobre essa memória, ainda não construído nem validado.
 
 ## Continuidade para outra IA
 

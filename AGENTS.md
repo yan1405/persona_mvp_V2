@@ -2,18 +2,18 @@
 
 > Fonte de governança para qualquer agente que trabalhe neste diretório.
 > Leia este arquivo integralmente antes de analisar, planejar ou modificar o projeto.
-> Estado: mapa, arquitetura e stack aprovados; protótipo legado arquivado em `../99_lixo/persona_v1/`; Fases 1–7 concluídas; contrato da Fase 8 aprovado, implementação ainda não iniciada.
+> Estado: mapa, arquitetura e stack aprovados; protótipo legado arquivado em `../99_lixo/persona_v1/`; Fases 1–8 concluídas; Fase 9 implementada, com migração e teste RLS pendentes no Supabase real.
 > Idioma de trabalho: português do Brasil.
 
 ## 1. O projeto
 
-**Persona** é um software de evidências e desenvolvimento narrativo profissional. Ele ajuda estudantes e profissionais a registrar experiências reais, transformá-las em evidências organizadas e usar esse histórico para comunicar competências com clareza em oportunidades de carreira.
+**Persona** é uma plataforma de inteligência profissional. Sua base ajuda estudantes e profissionais a registrar experiências reais, transformá-las em evidências organizadas e usar esse histórico para comunicar competências com clareza. A evolução aprovada adiciona um agente colaborativo de IA sobre essa memória, sempre sob revisão, confirmação e decisão do usuário.
 
-Categoria do produto: **sistema de evidências profissionais**.
+Categoria do produto: **plataforma web B2C com IA e memória profissional baseada em evidências**.
 
-Proposta institucional: **“O sistema operacional da sua identidade profissional.”**
+Proposta institucional vigente: **“Sua história profissional, organizada para trabalhar a seu favor.”**
 
-Promessa funcional: **“Registre uma vez. Prove sempre.”**
+Promessa funcional da base: **“Registre uma vez. Prove sempre.”**
 
 Diferencial central: **o Persona transforma experiências profissionais em argumentos verdadeiros e recupera as evidências mais relevantes quando o usuário precisa demonstrar competência.**
 
@@ -27,7 +27,19 @@ O ciclo conceitual do produto é:
 6. **Ativação:** recuperar evidências no Persona Live e produzir Artefatos profissionais.
 7. **Validação:** futuramente, permitir que outras pessoas confirmem competências e evidências.
 
-### 1.1 Persona Live
+### 1.1 Visão aprovada do agente colaborativo
+
+Decisão `LD-026`, aprovada por Yan em 16/09/2026:
+
+- a base funcional atual permanece o sistema de evidências, Persona Live Manual e Artefatos;
+- a próxima evolução é um agente que compreende, organiza, ativa e acompanha a memória profissional;
+- o usuário revisa, confirma e decide antes de qualquer uso importante;
+- as fontes evoluem de registro manual para importações voluntárias e, futuramente, integrações autorizadas;
+- agente, importações e integrações não são funcionalidades atuais comprovadas.
+
+Fonte canônica de posicionamento: `../Persona Empreenda/00_documentacao/PERSONA_VISAO_PRODUTO_AGENTE_2026-09-16.md`.
+
+### 1.2 Persona Live
 
 **Persona Live** é o diferencial demonstrável do produto. Durante uma entrevista, ele ajuda o usuário a recordar e organizar o que realmente viveu. O recurso não responde pelo usuário nem deve ser apresentado como ferramenta invisível para enganar recrutadores.
 
@@ -82,9 +94,10 @@ Restrições desta fase:
 Use esta ordem quando houver divergência:
 
 1. Instrução explícita e atual de Yan Guilherme Oliveira da Silva.
-2. Este `AGENTS.md` e documentos aprovados dentro de `persona_mvp_v2/`, especialmente `docs/PRODUCT_BRIEF.md`, `docs/audits/2026-08-10-product-scope-audit.md`, `docs/architecture/INFORMATION_ARCHITECTURE.md`, `docs/architecture/TECHNICAL_ARCHITECTURE.md`, `docs/design/DESIGN_DNA_ADAPTATION.md`, `docs/design/VISUAL_REVIEW_PROTOCOL.md`, `docs/design/design-dna.json` e `docs/plans/2026-08-05-persona-live-design.md`.
-3. Documentação viva em `../Persona Empreenda/00_documentacao/`.
-4. Código e documentos arquivados em `../99_lixo/persona_v1/`, somente como referência histórica e funcional. A interface, as telas, as imagens e os assets visuais da v1 não são referência para a v2.
+2. `../Persona Empreenda/00_documentacao/PERSONA_VISAO_PRODUTO_AGENTE_2026-09-16.md` para posicionamento e horizontes do produto.
+3. Este `AGENTS.md` e documentos aprovados dentro de `persona_mvp_v2/`, especialmente `docs/PRODUCT_BRIEF.md`, `docs/audits/2026-08-10-product-scope-audit.md`, `docs/architecture/INFORMATION_ARCHITECTURE.md`, `docs/architecture/TECHNICAL_ARCHITECTURE.md`, `docs/design/DESIGN_DNA_ADAPTATION.md`, `docs/design/VISUAL_REVIEW_PROTOCOL.md`, `docs/design/design-dna.json` e `docs/plans/2026-08-05-persona-live-design.md`.
+4. Demais documentos vivos em `../Persona Empreenda/00_documentacao/`.
+5. Código e documentos arquivados em `../99_lixo/persona_v1/`, somente como referência histórica e funcional. A interface, as telas, as imagens e os assets visuais da v1 não são referência para a v2.
 
 Não copie automaticamente a arquitetura, o design, a dívida técnica ou o escopo da v1. Reaproveite apenas o que for confirmado como válido para a v2.
 
@@ -112,7 +125,7 @@ A stack aprovada está detalhada em `docs/architecture/TECHNICAL_ARCHITECTURE.md
 - Tailwind CSS, tokens CSS próprios e componentes shadcn/ui adicionados seletivamente;
 - Supabase Postgres, Auth, Storage e Row Level Security, sem Prisma;
 - autenticação Microsoft Azure por meio do Supabase Auth;
-- SDK oficial da Groq somente no servidor, com modelo configurável e integração direta;
+- SDK oficial da Groq somente no servidor para Diário, Narrative Score e Artefatos; o Persona Live usa a API NVIDIA (`z-ai/glm-5.3-flash`, commit `45379b8`) também só no servidor, sem inferência real comprovada ainda; a decisão sobre os demais recursos está pendente de ADR;
 - Vercel AI Gateway fora da arquitetura inicial; reavaliar apenas se testes demonstrarem necessidade real de fallback, roteamento, observabilidade centralizada ou múltiplos provedores;
 - Vitest para regras e Playwright para fluxos críticos;
 - Vercel e Supabase como destino de hospedagem futuro, sem criar recursos pagos sem autorização.
