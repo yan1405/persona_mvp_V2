@@ -204,6 +204,17 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 | Aviso do CLI | `.claude/settings.local.json` (ignorado, fora do Git) tem regra `Bash(grep -oE … *)` com curinga antes do fim do comando; o CLI avisa que aprova opções inseridas sem prompt. Legado v1; recomendo Yan limpar o arquivo |
 | Fonte oficial T4/DS | **PENDING Yan** — aguardando `claude\exports6-11-03-oficial\{t4,design-system}` (ainda inexistente em 03/11) |
 
+## Fonte visual e push do baseline (04/11/2026)
+
+| Item | Estado |
+|---|---|
+| Export oficial pela interface como fonte canônica (supera `_tmp_oficial_pos.json`) | **APPROVED** por Yan; 27/27 hashes do pacote v2 idênticos; normalização do bloco injetado reproduzida (7/8 HTML de T4 e 40/40 cards do DS); T4.6 do `_tmp` é versão anterior |
+| Pacote congelado `docs/design/approved/2026-11-03-t4/` | **VERIFIED** commit `8da08c6`: 268 incluídos, 41 excluídos, 243 retidos fora do Git por decisão de Yan (terceiros, telas da v1, capturas de trabalho); 285/285 hashes conferem no disco e nos blobs do Git |
+| Validações antes do push | **VERIFIED** lint 0, typecheck 0, 32/32 testes, build 0, `git diff --check` sem achados |
+| Push | **VERIFIED** `8da08c698a74aeb4d95c70123eba61fc921a591c` → `refs/heads/baseline/2026-11-03`, sem `--force`; `main` segue em `06de045`; sem tag, merge ou promoção |
+| Vercel | **VERIFIED** `dpl_3EWRGAS7vxoC2FY9uaaJFffjKmq3`, `target: null` (Preview), alias de branch `…git-basel-6ee432…`, origem git; estado `BUILDING` na última leitura; nenhum alias de Production |
+| Preview READY e conteúdo | **PENDING** — não verificado; o Preview não prova o fluxo real (sem `NVIDIA_API_KEY`, migração da Fase 9 pendente) |
+
 ## Proposta de baseline limpo (aguarda aprovação de Yan; nada foi executado)
 
 Princípio: a base de worktrees deve ser um commit identificável que contenha apenas documentação reconciliada e o código de `45379b8`. Nenhuma mudança de produto é adicionada.
