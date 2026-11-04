@@ -59,7 +59,7 @@ Nenhum item é candidato a descarte. Descartar qualquer coisa exigiria decisão 
 ## HYPOTHESIS
 
 - Os commits de 28–29/10 e os arquivos de 16/09 foram produzidos por sessões de IA operando com a identidade Git de Yan; a autoria humana vs. IA não pode ser provada pelo Git.
-- **A fonte do Preview não está no remoto.** O Preview `dpl_tNJ3zRMqXesT6Kn9YsBLgbXKNWHn` está no commit `9c5ce5c`, que não existe em `origin/main`; provavelmente foi publicado por CLI a partir do checkout local. Não verificado na Vercel nesta auditoria.
+- ~~A fonte do Preview não está no remoto~~ **REFUTADA em 03/11/2026:** `origin/codex/persona-preview-20261028` aponta para `96e5028` (`git ls-remote`), e os três deployments Preview da Vercel têm `githubCommitRef` = essa branch. Os 4 commits à frente de `origin/main` já existem no GitHub, só não em `main`.
 - A marcação de 16/09 (“Fase 8 aprovada, Fase 9 pendente de migração”) continua refletindo a realidade em 03/11; o Supabase foi restaurado em 28/10, mas a migração e o teste RLS da Fase 9 seguem sem confirmação.
 
 ## Inconsistências documentais a corrigir (somente com atribuição)
@@ -170,6 +170,26 @@ Em conflito entre 3 e 4 (ex.: Geist × Plus Jakarta Sans), vale o item 4 só se 
 | Novo download Claude Design (T4 + DS), comparação com `_tmp_oficial_pos.json` e pacote v2, normalização de T4.3/T4.6 | **BLOCKER** — a ferramenta disponível (`DesignSync`) é restrita à skill `/design-sync` e a projetos de design system; não há caminho autorizado para baixar o T4. Pacote congelado **não criado** |
 | 9 PNG + capturas canônicas T4.1–T4.8 | **PENDING** — dependem do pacote congelado; auditoria de privacidade das 9 PNG em andamento |
 | Baseline: 3 commits locais, `docs/research/` em commit próprio, correções documentais | commits 1 e 2 executados; commit 3 (`docs/research/`) a seguir; sem push |
+
+## Auditoria de privacidade das 9 capturas PNG (03/11/2026)
+
+Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloqueio**, com ressalvas:
+
+- Todos os dados são sintéticos e rotulados (“dados sintéticos”, “Pessoa Exemplo”, `contato@exemplo.invalid`, “data sintética”); T4.8 declara “não são conversa real de Yan”.
+- Sem e-mail real, token, URL de projeto, dado de Supabase/Microsoft nem metadado de conta visível.
+- Sem imagem de terceiros (nada do iStudio/Behance); somente a marca Persona e ícones próprios.
+- Ressalva 1: a saudação “Bom dia, Yan.” aparece em T4.1, T4.6 e T4.8 (primeiro nome do dono, no protótipo). Aceitável internamente; para uso externo, decidir se troca por nome neutro.
+- Ressalva 2: o cabeçalho da página de teste (seletores de estado) aparece em 6 das 9; é do artefato, não do produto. Capturas canônicas devem recortar o app.
+- **Capturas canônicas T4.1–T4.8 em largura desktop oficial: NÃO geradas.** Dependem do pacote congelado e de uma fonte validada; capturar agora fixaria uma versão que o novo download pode alterar. Cobertura atual desktop: T4.3 (1280), T4.6 (1280, 2), T4.8 (1440); faltam T4.1, T4.2, T4.4, T4.5, T4.7 em desktop.
+
+## Impacto de um push de `main` na Vercel (somente leitura; nada foi enviado)
+
+- O projeto `persona-mvp-v2` está conectado ao GitHub (`yan1405/persona_mvp_V2`), framework Next.js, com deploy automático por commit.
+- Production é o deployment da branch `main`: hoje `dpl_9zcMjtrz…` no commit `06de045` (e já há rollback candidate). Um push de `main` com os 7 commits **dispara um novo deployment de Production** (`persona-mvp-v2.vercel.app`) com o código NVIDIA do `45379b8`.
+- `NVIDIA_API_KEY` não está configurada na Vercel (registro de 28/10): o Persona Live em Production passaria a falhar na geração, com falha recuperável, mas **sem inferência real validada**. O Live hoje funciona em Production com Groq.
+- A migração da Fase 9 não foi aplicada ao banco real; o código de Configurações (exclusão/exportação) iria ao ar junto — risco de erro nessas rotas.
+- Alternativa sem impacto em Production: empurrar uma branch nova (ex.: `baseline/2026-11-03`) gera somente Preview, como `codex/persona-preview-20261028`. A branch `codex/persona-preview-20261028` já contém os 4 commits antigos; um merge para `main` continua sendo o gate de Production.
+- Última verificação: deployments listados via API da Vercel; configurações de “Production Branch” e “Ignored Build Step” não foram lidas (a API de projeto não as devolveu) — confirmar no painel antes do push.
 
 ## Proposta de baseline limpo (aguarda aprovação de Yan; nada foi executado)
 
