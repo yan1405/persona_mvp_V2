@@ -215,6 +215,18 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 | Vercel | **VERIFIED** `dpl_3EWRGAS7vxoC2FY9uaaJFffjKmq3`, `target: null` (Preview), alias de branch `…git-basel-6ee432…`, origem git; estado `BUILDING` na última leitura; nenhum alias de Production |
 | Preview READY e conteúdo | **PENDING** — não verificado; o Preview não prova o fluxo real (sem `NVIDIA_API_KEY`, migração da Fase 9 pendente) |
 
+## Lote 1 liberado (04/11/2026)
+
+| Item | Estado |
+|---|---|
+| Autorização de Yan | **APPROVED** atribuição dos especialistas e worktrees a partir de `8da08c6` (não da `main` local); sem merge, push adicional, tag, mudança em `main` ou Production; Backend corrige o teste RLS mas não aplica a migração; NVIDIA não recebe nem registra a chave; Verificação somente leitura |
+| Worktrees | **VERIFIED** `C:\Users\yansi\Projetos\persona-wt\{interface,backend,agente-nvidia}` (fora do OneDrive), branches `wt/<papel>-lote1` em `8da08c6`, sem upstream, limpos |
+| Atribuição com os seis itens do protocolo | **VERIFIED** `AGENTES/ATRIBUICOES/LOTE-1.md`: caminhos de escrita disjuntos (`docs/redesign/interface`, `docs/redesign/backend` + `docs/qa/fase-9`, `apps/web/lib/agent` + `docs/redesign/agent`), sem dono de arquivo compartilhado necessário |
+| Preparo do worktree NVIDIA | **VERIFIED** `npm ci` (lockfile inalterado, worktree limpo); lint 0, 32/32 testes; typecheck falhava por falta de `LayoutProps` até rodar `npx next typegen` (então 0), não é defeito do código |
+| Abas dos especialistas | **PENDING Yan** abrir as quatro abas com os prompts e a seção do papel; `CONVERSAS.md` segue `PENDING_MANUAL` |
+| Pedido já previsto ao Orquestrador | incluir `lib/agent/*.test.ts` no script `npm test` (dono de `package.json`: Orquestrador, após a entrega) |
+| Aviso | `npm ci` bloqueou o postinstall do `unrs-resolver` (npm 12); lint passou mesmo assim |
+
 ## Proposta de baseline limpo (aguarda aprovação de Yan; nada foi executado)
 
 Princípio: a base de worktrees deve ser um commit identificável que contenha apenas documentação reconciliada e o código de `45379b8`. Nenhuma mudança de produto é adicionada.
