@@ -23,9 +23,12 @@
 --   BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB  -> usuário B
 -- Para ver candidatos: select id, email from auth.users order by created_at;
 --
--- Saída esperada: apenas NOTICE "OK ..." e os resultados dos passos 1, 8 e 9.
--- Qualquer "FALHOU" aborta a transação (nada é gravado). O passo 8 NÃO
--- aborta: se a exclusão falhar, ele imprime "ACHADO BLOQUEANTE" e segue.
+-- Saída esperada: seis NOTICE "OK (esperado)" (passos 2–7) e um NOTICE
+-- "OK:" no passo 8. Os passos 1, 5, 6 e 9 se autoverificam (função
+-- pg_temp.confere): qualquer booleano ou contagem diferente do esperado
+-- levanta "FALHOU" e a transação aborta (nada é gravado; rode ROLLBACK).
+-- O passo 8 NÃO aborta: se a exclusão falhar, imprime "ACHADO BLOQUEANTE"
+-- e segue; nesse caso o passo 9 reprova (as contagens não zeram).
 
 begin;
 
@@ -55,6 +58,18 @@ begin
 end;
 $$ language plpgsql;
 
+-- compara o resultado de um passo (linha como jsonb) com o esperado; reprova
+-- se qualquer chave divergir, faltar ou for NULL. Os valores ficam no NOTICE.
+create or replace function pg_temp.confere(p_rotulo text, p_obtido jsonb, p_esperado jsonb)
+returns void as $$
+begin
+  if p_obtido is distinct from p_esperado then
+    raise exception 'FALHOU %: obtido % esperado %', p_rotulo, p_obtido, p_esperado;
+  end if;
+  raise notice 'OK (conferido) %: %', p_rotulo, p_obtido;
+end;
+$$ language plpgsql;
+
 -- 0) os dois UUIDs foram substituídos por usuários reais e distintos
 do $$ begin
   if 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid = 'BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB'::uuid
@@ -65,6 +80,8 @@ do $$ begin
 end $$;
 
 -- 1) objetos e privilégios da migração (catálogo)
+select pg_temp.confere('passo 1 catálogo', to_jsonb(t), '{"tabela_existe": true, "authorize_existe": true, "delete_existe": true, "assinatura_antiga_removida": true, "rls_ligada": true, "tabela_fechada_authenticated": true, "tabela_fechada_anon": true, "delete_exec_authenticated": true, "delete_sem_exec_anon": true, "authorize_exec_authenticated": true, "authorize_sem_exec_anon": true}'::jsonb)
+from (
 select
   to_regclass('public.sensitive_action_authorizations') is not null as tabela_existe,
   to_regprocedure('public.authorize_sensitive_action(text)') is not null as authorize_existe,
@@ -76,8 +93,8 @@ select
   has_function_privilege('authenticated', 'public.delete_own_account(text)', 'execute') as delete_exec_authenticated,
   not has_function_privilege('anon', 'public.delete_own_account(text)', 'execute') as delete_sem_exec_anon,
   has_function_privilege('authenticated', 'public.authorize_sensitive_action(text)', 'execute') as authorize_exec_authenticated,
-  not has_function_privilege('anon', 'public.authorize_sensitive_action(text)', 'execute') as authorize_sem_exec_anon;
--- esperado: todas as colunas true
+  not has_function_privilege('anon', 'public.authorize_sensitive_action(text)', 'execute') as authorize_sem_exec_anon
+) t;
 
 -- 2) finalidade incorreta é rejeitada (22023)
 select pg_temp.como('AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA');
@@ -96,19 +113,22 @@ select pg_temp.como('AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA');
 select public.authorize_sensitive_action('delete_account');
 select pg_temp.como('BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB');
 select pg_temp.espera_erro('42501', $q$select public.delete_own_account('EXCLUIR')$q$, 'B com A autorizado');
-select
+select pg_temp.confere('passo 5 isolamento', to_jsonb(t),
+  '{"autorizacao_de_a": 1, "autorizacao_de_b": 0, "conta_b_intacta": 1}'::jsonb)
+from (select
   (select count(*) from public.sensitive_action_authorizations where user_id = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid) as autorizacao_de_a,
   (select count(*) from public.sensitive_action_authorizations where user_id = 'BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB'::uuid) as autorizacao_de_b,
-  (select count(*) from auth.users where id = 'BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB'::uuid) as conta_b_intacta;
--- esperado: 1, 0, 1
+  (select count(*) from auth.users where id = 'BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB'::uuid) as conta_b_intacta) t;
+-- esperado: 1, 0, 1 (reprova automaticamente se divergir)
 
 -- 6) A (autorizado) confirma com texto errado (22023); a autorização não é consumida
 select pg_temp.como('AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA');
 select pg_temp.espera_erro('22023', $q$select public.delete_own_account('excluir')$q$, 'confirmação incorreta');
-select count(*) as autorizacao_de_a_preservada
-from public.sensitive_action_authorizations
-where user_id = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid and purpose = 'delete_account';
--- esperado: 1
+select pg_temp.confere('passo 6 autorização preservada', to_jsonb(t), '{"autorizacao_de_a_preservada": 1}'::jsonb)
+from (select count(*) as autorizacao_de_a_preservada
+  from public.sensitive_action_authorizations
+  where user_id = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid and purpose = 'delete_account') t;
+-- esperado: 1 (reprova automaticamente se divergir)
 
 -- 7) autorização de A expira -> falha mesmo com confirmação certa (42501)
 update public.sensitive_action_authorizations
@@ -170,7 +190,9 @@ exception when others then
 end $$;
 
 -- 9) resultado da cascata: tudo de A deve ter sumido; B deve continuar
-select
+select pg_temp.confere('passo 9 cascata', to_jsonb(t),
+  '{"auth_users_restante": 0, "profiles_restante": 0, "daily_logs_restante": 0, "evidences_restante": 0, "live_evidences_restante": 0, "artifact_sources_restante": 0, "snapshots_restante": 0, "conta_b_intacta": 1}'::jsonb)
+from (select
   (select count(*) from auth.users where id = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid) as auth_users_restante,
   (select count(*) from public.profiles where id = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid) as profiles_restante,
   (select count(*) from public.daily_logs where user_id = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid) as daily_logs_restante,
@@ -178,11 +200,12 @@ select
   (select count(*) from public.live_session_evidences where user_id = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid) as live_evidences_restante,
   (select count(*) from public.artifact_sources where user_id = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid) as artifact_sources_restante,
   (select count(*) from public.narrative_score_snapshots where user_id = 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid) as snapshots_restante,
-  (select count(*) from auth.users where id = 'BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB'::uuid) as conta_b_intacta;
--- esperado: 0, 0, 0, 0, 0, 0, 0, 1
+  (select count(*) from auth.users where id = 'BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB'::uuid) as conta_b_intacta) t;
+-- esperado: 0, 0, 0, 0, 0, 0, 0, 1 (reprova automaticamente se divergir)
 
 rollback; -- desfaz TUDO, inclusive os dados semeados e a exclusão do passo 8
 
--- Depois de rodar: cole os `NOTICE` (seis "OK (esperado)" dos passos 2–7 e o
--- "OK:"/"ACHADO BLOQUEANTE" do passo 8) e os resultados dos passos 1, 5, 6 e 9
--- para registrar em docs/reviews/fase-9-configuracoes-privacidade.md.
+-- Depois de rodar: cole os `NOTICE` (seis "OK (esperado)" dos passos 2–7, os
+-- "OK (conferido)" dos passos 1, 5, 6 e 9 e o "OK:"/"ACHADO BLOQUEANTE" do
+-- passo 8) em docs/reviews/fase-9-configuracoes-privacidade.md. Se algum
+-- passo abortar com "FALHOU", cole a mensagem completa (traz obtido e esperado).

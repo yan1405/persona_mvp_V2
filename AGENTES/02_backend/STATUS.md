@@ -27,6 +27,7 @@ Nenhum arquivo de `supabase/`, `apps/web/`, `package.json`, `.env*` foi tocado.
 ## Comandos e resultados
 
 - `git diff --check` → limpo (apenas aviso de LF→CRLF do Git no `.sql`).
+- Passos 1, 5, 6 e 9 do script agora reprovam sozinhos via `pg_temp.confere` (compara jsonb obtido × esperado); não executado.
 - `grep` dos nomes de tabelas/RPCs citados na matriz contra `supabase/migrations` e `apps/web` → todos encontrados (só "não encontrados": os termos genéricos `max_rows` e `select_own`, que não são objetos).
 - Não executados: SQL (sem banco), `npm run lint/typecheck/test/build` (sem código alterado).
 
@@ -34,7 +35,7 @@ Nenhum arquivo de `supabase/`, `apps/web/`, `package.json`, `.env*` foi tocado.
 
 1. **Teste RLS original nunca reprovava** (o `raise 'FALHOU'` estava dentro do `exception when others`) e o "isolamento" não testava o banco. Corrigido.
 2. **R1 · ALTA · HYPOTHESIS:** `delete_own_account` pode falhar para usuários com evidências/Live/Artefatos/diagnóstico, por FKs `on delete restrict` (fases 4–8) na cascata de `auth.users`. O script agora semeia esses dados e imprime `ACHADO BLOQUEANTE` se confirmar. Correção exige migração (gate).
-3. **R2 · MÉDIA · HYPOTHESIS:** `/api/export` sem paginação pode truncar em 1000 linhas por tabela (`supabase/config.toml` não está no repositório).
+3. **R2 · MÉDIA:** ausência de paginação em `/api/export` é fato no código; o teto de linhas (`max_rows`) do projeto Supabase segue PENDING (sem `supabase/config.toml` no repositório).
 4. **R3:** conflito "outra aba" de T4.2/T4.3 sem `revision` em `daily_logs`/`evidences`.
 5. Agente (T4.8), Credibilidade, níveis Certificada/Validada, envio de lembretes: INEXISTENTES.
 

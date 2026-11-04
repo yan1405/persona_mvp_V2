@@ -34,7 +34,7 @@ Mantido: tudo em **uma** transação terminada em `rollback` (inclusive o seed e
 
 ## 4. Como rodar (quando Yan liberar)
 
-Aplicar a migração `20260818200000_phase_9_settings.sql` no projeto de QA, substituir os dois UUIDs, executar o arquivo inteiro e colar os `NOTICE` (seis `OK (esperado)` + resultado do passo 8) e as tabelas dos passos 1, 5, 6 e 9 em `docs/reviews/fase-9-configuracoes-privacidade.md`. Esperado: passo 1 todo `true`; passo 5 = `1, 0, 1`; passo 6 = `1`; passo 9 = `0,0,0,0,0,0,0,1`.
+Aplicar a migração `20260818200000_phase_9_settings.sql` no projeto de QA, substituir os dois UUIDs, executar o arquivo inteiro e colar os `NOTICE` (seis `OK (esperado)`, quatro `OK (conferido)` e o resultado do passo 8) em `docs/reviews/fase-9-configuracoes-privacidade.md`. Os passos 1, 5, 6 e 9 se autoverificam (`pg_temp.confere`): divergência de qualquer booleano ou contagem aborta com `FALHOU … obtido … esperado …`; quando passam, imprimem `OK (conferido)`. Esperado: passo 1 todo `true`; passo 5 = `1, 0, 1`; passo 6 = `1`; passo 9 = `0,0,0,0,0,0,0,1`. O passo 8 segue sem abortar; se a exclusão falhar, o passo 9 reprova.
 
 ## 5. Validação desta revisão
 
