@@ -191,6 +191,19 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 - Alternativa sem impacto em Production: empurrar uma branch nova (ex.: `baseline/2026-11-03`) gera somente Preview, como `codex/persona-preview-20261028`. A branch `codex/persona-preview-20261028` já contém os 4 commits antigos; um merge para `main` continua sendo o gate de Production.
 - Última verificação: deployments listados via API da Vercel; configurações de “Production Branch” e “Ignored Build Step” não foram lidas (a API de projeto não as devolveu) — confirmar no painel antes do push.
 
+## Correções pré-push (03/11/2026) — resultado
+
+| Item | Estado |
+|---|---|
+| Contagem | **VERIFIED** `main` está 8 commits à frente de `origin/main` antes do commit de correção (9 com ele); relatório corrigido |
+| `git diff --check origin/main..HEAD` | **VERIFIED** zero achados (espaços finais viraram `<br>`; linha vazia final removida) |
+| `npm run build` | **VERIFIED** compilou e listou todas as rotas (24 páginas); o código de saída do `tail` não é o do build, a evidência é a tabela de rotas |
+| Ponytail em sessão nova | **VERIFIED** `claude -p` novo na pasta do projeto listou `ponytail` e nenhuma skill swarm/SPARC |
+| `deny` carregado em `/permissions` | **PENDING Yan** — `/permissions` é comando interativo e não pode ser executado por mim; abrir em sessão nova e conferir as 9 regras `Bash(npx …)` |
+| Teste do bloqueio | **NÃO EXECUTADO** por decisão de Yan; nenhum pacote legado foi rodado |
+| Aviso do CLI | `.claude/settings.local.json` (ignorado, fora do Git) tem regra `Bash(grep -oE … *)` com curinga antes do fim do comando; o CLI avisa que aprova opções inseridas sem prompt. Legado v1; recomendo Yan limpar o arquivo |
+| Fonte oficial T4/DS | **PENDING Yan** — aguardando `claude\exports6-11-03-oficial\{t4,design-system}` (ainda inexistente em 03/11) |
+
 ## Proposta de baseline limpo (aguarda aprovação de Yan; nada foi executado)
 
 Princípio: a base de worktrees deve ser um commit identificável que contenha apenas documentação reconciliada e o código de `45379b8`. Nenhuma mudança de produto é adicionada.
