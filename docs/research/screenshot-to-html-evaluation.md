@@ -76,4 +76,3 @@ Fontes: [metadados oficiais do repositório](https://api.github.com/repos/sevzq/
 | Usar como inspiração de processo visual | **Sim, opcional e isolado** |
 | Usar `shot.mjs --url` como auxiliar de captura | **Possível, mas redundante com Playwright e sem valor de gate por si só** |
 | Autorizar integração, merge ou deploy | **Não; permanece sujeito aos gates existentes** |
-

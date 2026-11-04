@@ -185,7 +185,7 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 ## Impacto de um push de `main` na Vercel (somente leitura; nada foi enviado)
 
 - O projeto `persona-mvp-v2` está conectado ao GitHub (`yan1405/persona_mvp_V2`), framework Next.js, com deploy automático por commit.
-- Production é o deployment da branch `main`: hoje `dpl_9zcMjtrz…` no commit `06de045` (e já há rollback candidate). Um push de `main` com os 7 commits **dispara um novo deployment de Production** (`persona-mvp-v2.vercel.app`) com o código NVIDIA do `45379b8`.
+- Production é o deployment da branch `main`: hoje `dpl_9zcMjtrz…` no commit `06de045` (e já há rollback candidate). Um push de `main` com os 8 commits **dispara um novo deployment de Production** (`persona-mvp-v2.vercel.app`) com o código NVIDIA do `45379b8`.
 - `NVIDIA_API_KEY` não está configurada na Vercel (registro de 28/10): o Persona Live em Production passaria a falhar na geração, com falha recuperável, mas **sem inferência real validada**. O Live hoje funciona em Production com Groq.
 - A migração da Fase 9 não foi aplicada ao banco real; o código de Configurações (exclusão/exportação) iria ao ar junto — risco de erro nessas rotas.
 - Alternativa sem impacto em Production: empurrar uma branch nova (ex.: `baseline/2026-11-03`) gera somente Preview, como `codex/persona-preview-20261028`. A branch `codex/persona-preview-20261028` já contém os 4 commits antigos; um merge para `main` continua sendo o gate de Production.
@@ -200,7 +200,7 @@ Princípio: a base de worktrees deve ser um commit identificável que contenha a
    - `docs: governança multiagente da equipe Persona` — `AGENTES/`, `CLAUDE.md`, AGENTS.md §15;
    - `docs: avaliar screenshot-to-html` — `docs/research/` (opcional; pode entrar no anterior).
 2. Antes ou junto do commit 1, corrigir as inconsistências 1–3 acima (edição de documentação, somente com autorização).
-3. Gate: push de `main` (7 commits) para `origin` — necessário para que Preview e baseline tenham fonte remota. Exige aprovação explícita.
+3. Gate (decisão de Yan, 03/11/2026): **não** empurrar `main`. Um único push, após o pacote visual, build e validações e nova autorização, para a branch `baseline/2026-11-03` (8 commits à frente de `origin/main` + o commit do pacote); Production não é tocada.
 4. Marcar o commit de baseline (ex.: tag `baseline-2026-11-03`) após o push.
 5. Só então criar worktrees a partir da tag, um por escritor: `../persona-wt/interface` (`feat/interface-…`), `…/backend`, `…/agente-nvidia`; Verificação trabalha sobre diff congelado, sem worktree de escrita.
 6. Antes de qualquer código: atribuição com os seis itens de `PROTOCOLO.md`, dono do lockfile/`package.json`/CSS global/navegação/migrações, e rollback.

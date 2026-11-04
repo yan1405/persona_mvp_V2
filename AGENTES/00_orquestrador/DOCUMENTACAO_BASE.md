@@ -1,7 +1,7 @@
 # Documentação-base — execução multiagente do Persona
 
-Versão: 1.0  
-Data: 2026-11-03  
+Versão: 1.0<br>
+Data: 2026-11-03<br>
 Status: aprovada por Yan para materialização da arquitetura; implementação do produto ainda não iniciada por esta equipe.
 
 ## 1. Decisão executiva
@@ -90,7 +90,7 @@ Adotar:
 - regras específicas de runtime Next.js e Postgres;
 - configuração de projeto existente sem sobrescrever o que funciona.
 
-Adaptar: os prompts e agentes do kit para os contratos reais do Persona.  
+Adaptar: os prompts e agentes do kit para os contratos reais do Persona.<br>
 Rejeitar: bootstrap integral, swarm/plugins extras e instalação em massa. O toolkit é referência, não fundação do produto.
 
 ## 5. Arquitetura do agente de produto
@@ -203,5 +203,5 @@ Código só começa quando existirem: baseline limpo e identificável; atribuiç
 
 ## 10. Riscos aceitos e não aceitos
 
-Aceito: trabalho paralelo de leitura, pesquisa e implementação em arquivos exclusivos.  
+Aceito: trabalho paralelo de leitura, pesquisa e implementação em arquivos exclusivos.<br>
 Não aceito: duas abas no mesmo checkout, múltiplos escritores no mesmo arquivo, merge por especialista, banco real em paralelo, segredo em prompt, migração/deploy implícito, ou tratar arquitetura como entrega funcional.

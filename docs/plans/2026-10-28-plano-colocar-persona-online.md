@@ -1,6 +1,6 @@
 # Plano para colocar o Persona online e validar o agente
 
-Data: 28/10/2026  
+Data: 28/10/2026<br>
 Escopo operacional: `persona_mvp_v2` (`apps/web`) e projeto Vercel `persona-mvp-v2`.
 
 ## ONDE ESTAMOS
