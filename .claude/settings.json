@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(npx claude-flow*)",
+      "Bash(npx agentic-flow*)",
+      "Bash(npx ruflo*)",
+      "Bash(npx -y claude-flow*)",
+      "Bash(npx -y agentic-flow*)",
+      "Bash(npx -y ruflo*)",
+      "Bash(npx --yes claude-flow*)",
+      "Bash(npx --yes agentic-flow*)",
+      "Bash(npx --yes ruflo*)"
+    ]
+  }
+}

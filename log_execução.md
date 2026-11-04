@@ -1333,3 +1333,21 @@ Não houve timeout; todas ficaram abaixo de 2 s e a mediana caiu 73,5% em relaç
 ### Próximo gate
 
 Rotacionar a chave NVIDIA, confirmar uma inferência bem-sucedida, e então configurar o novo segredo no Preview. Completar OAuth com conta sintética autorizada e exercitar os fluxos de dados antes de considerar qualquer promoção. Não aplicar a migração da Fase 9 sem o checkpoint de banco documentado.
+
+## EXEC-025 — Lote 0: baseline documental, quarentena e Ponytail
+
+**Data:** 03/11/2026
+**Fase:** governança multiagente (sem mudança de produto)
+**Autorização:** Yan aprovou, em 03/11/2026, os commits locais, a quarentena reversível, a instalação do Ponytail v5.3.3 e as correções documentais. Push, deploy, tag remota, worktrees e escrita de especialistas **não** foram autorizados.
+
+### Executado
+
+- Commit `docs: sincronizar visão LD-026 e estado operacional` (nove arquivos de documentação).
+- `.claude/commands/` e seis `.agents/skills/source-command-*` movidos com `git mv` para `docs/archive/agent-legacy/`; `.claude/settings.json` passou a negar `npx claude-flow`, `agentic-flow` e `ruflo`.
+- Ponytail v5.3.3 (`SKILL.md` e `LICENSE`, idênticos à tag) copiado de `C:\Users\yansi\.codex\plugins\cache\ponytail\ponytail\5.3.3` para `.claude/skills/ponytail/`.
+- Precedência entre comportamento real, visual aprovado, contexto e histórico registrada em `AGENTS.md` §3.
+
+### Não concluído
+
+- Novo download dos projetos Claude Design (T4 e Design System) e normalização dos HTML T4.3/T4.6: bloqueado, sem ferramenta autorizada para baixar o projeto T4. O pacote congelado não foi criado.
+- Push e promoção: pendentes de Yan.

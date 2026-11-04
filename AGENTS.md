@@ -99,6 +99,13 @@ Use esta ordem quando houver divergência:
 4. Demais documentos vivos em `../Persona Empreenda/00_documentacao/`.
 5. Código e documentos arquivados em `../99_lixo/persona_v1/`, somente como referência histórica e funcional. A interface, as telas, as imagens e os assets visuais da v1 não são referência para a v2.
 
+Precedência entre tipos de fonte quando o conflito for de natureza, não de data:
+
+1. **Comportamento real comprovado** (código em `apps/web`, migrações aplicadas, testes, execução) define o que o produto faz e vence qualquer protótipo.
+2. **Visual aprovado** (pacote T4 do Claude Design, decisão D-032 de 03/11/2026) define como deve parecer; não prova implementação, backend nem acessibilidade com leitor de tela.
+3. **Decisões vigentes e contexto** (`persona-contexto`, `AGENTES/`, este arquivo) explicam o porquê e são conferidos contra 1 e 2.
+4. **Histórico e referências** (v1, exportação acadêmica do design system, pacote v1 de correções, imagens de terceiros) nunca decidem.
+
 Não copie automaticamente a arquitetura, o design, a dívida técnica ou o escopo da v1. Reaproveite apenas o que for confirmado como válido para a v2.
 
 ## 4. Organização do repositório
@@ -108,8 +115,8 @@ Diretório exclusivo do MVP v2:
 ```text
 persona_mvp_v2/
 ├── AGENTS.md              # regras deste projeto
-├── .agents/               # skills e instruções compatíveis com agentes
-├── .claude/               # skills, comandos e configuração legada do Claude
+├── .agents/               # espelho das skills de design para outros agentes (somente leitura)
+├── .claude/               # skills ativas (fonte canônica) e settings.json com deny
 ├── docs/                  # produto, arquitetura, Design DNA e planos aprovados
 └── apps/                  # a aplicação web será criada em apps/web
 ```
@@ -233,7 +240,7 @@ Aplicar integralmente `docs/design/VISUAL_REVIEW_PROTOCOL.md`.
 
 ## 7. Padrão obrigatório de implementação e revisão
 
-Usar a skill/plugin **`ponytail:ponytail` em nível `full`** em toda tarefa de código, arquitetura, dependências, refatoração ou revisão.
+Usar a skill **`ponytail` em nível `full`** (v5.3.3, instalada em `.claude/skills/ponytail/`) em toda tarefa de código, arquitetura, dependências, refatoração ou revisão.
 
 Aplicar esta ordem:
 
@@ -391,3 +398,9 @@ test(fase-N): descrição objetiva
 Se Git ou remoto não existirem, não inventar destino nem reutilizar repositório da Persona v1. Criar commit local quando autorizado pela tarefa e informar claramente que publicação remota continua pendente.
 
 O handoff de qualquer tarefa precisa informar: arquivos alterados, comandos, resultado, limitações, commit criado, status do push e próximo gate de aprovação.
+
+## 15. Equipe de agentes no Claude Code
+
+A governança da execução paralela está em `AGENTES/README.md`. Toda sessão deve ler primeiro este arquivo raiz e depois o `AGENTES/<papel>/AGENTS.md` correspondente. Abrir uma sessão não autoriza editar: somente o Orquestrador Central pode liberar um escopo com caminhos de escrita exatos, dependências e critérios de aceite.
+
+Os comandos legados de swarm/SPARC/hooks estão em quarentena em `docs/archive/agent-legacy/` e `npx claude-flow|agentic-flow|ruflo` está em `deny` em `.claude/settings.json`. Usá-los exige aprovação escrita de Yan.
