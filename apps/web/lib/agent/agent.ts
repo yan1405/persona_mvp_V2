@@ -1,4 +1,5 @@
 import { recommendEvidences } from "../live/recommendation.ts";
+import { guardRawOutput } from "./output-guard.ts";
 import { LIVE_RESPONSE_SCHEMA, parseLiveResponse, type LiveEvidenceInput, type LiveResponse } from "../live/response-schema.ts";
 
 export const AGENT_PROMPT_VERSION = "persona-agent-readonly-v1";
@@ -22,7 +23,8 @@ export const TOOL_MATRIX = {
 } as const;
 
 export function retrieveEvidences(input: AgentInput): AgentEvidence[] {
-  const own = input.evidences.filter((evidence) => evidence.user_id === input.userId);
+  // Ordem por ID antes do ranking: o sort é estável, então empate de score e data resolve por ID, independente da ordem de entrada.
+  const own = input.evidences.filter((evidence) => evidence.user_id === input.userId).sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   const ranked = recommendEvidences({ targetRole: input.targetRole, company: input.company, description: `${input.question} ${input.description ?? ""}` }, own);
   const byId = new Map(own.map((evidence) => [evidence.id, evidence]));
   return ranked.slice(0, MAX_EVIDENCES).map((item) => byId.get(item.id)!);
@@ -58,6 +60,7 @@ export async function runAgent(provider: AgentProvider, input: AgentInput, timeo
     throw error instanceof AgentError ? error : new AgentError("provider_error");
   } finally { clearTimeout(timer); }
   try {
+    guardRawOutput(raw); // schema estrito + meta-comandos, antes do parser de lib/live
     // Valida IDs (só os recuperados), excertos literais, números e coerência supported/draft/gap.
     return { response: parseLiveResponse(raw, evidences), evidenceIds: evidences.map((evidence) => evidence.id), promptVersion: AGENT_PROMPT_VERSION };
   } catch { throw new AgentError("invalid_output"); }
