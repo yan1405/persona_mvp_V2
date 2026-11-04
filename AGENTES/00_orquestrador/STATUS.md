@@ -227,6 +227,21 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 | Pedido já previsto ao Orquestrador | incluir `lib/agent/*.test.ts` no script `npm test` (dono de `package.json`: Orquestrador, após a entrega) |
 | Aviso | `npm ci` bloqueou o postinstall do `unrs-resolver` (npm 12); lint passou mesmo assim |
 
+## Acompanhamento do Lote 1 (04/11/2026)
+
+| Item | Estado |
+|---|---|
+| Abas ativas | **VERIFIED** (informado por Yan) quatro abas; `CONVERSAS.md` atualizado com o branch/worktree como identificador; ID de sessão não informado |
+| Entregas dos três escritores | **VERIFIED** cada branch tem 1 commit sobre `8da08c6` com handoff no `STATUS.md`; todos dentro dos caminhos de escrita; `git diff --check` limpo; sem segredo |
+| Interface `8c5ef15` | mapa de telas (docs); 0% do plano de implementação, como esperado; 9 decisões para Yan listadas |
+| Backend `ffd4289` | matriz tela×dados; teste RLS reescrito (**o original nunca reprovava**); risco R1 ALTA (HYPOTHESIS): `delete_own_account` pode falhar por FKs `on delete restrict`; R2, R3 médios; execução em banco **não feita** (gate Yan) |
+| Agente NVIDIA `6a6b8f0` | `persona-agent-readonly-v1`, 9/9 testes novos, 32/32 existentes; recall e adaptador real **PENDING**; sem chamada real, sem chave |
+| Reexecução independente (Orquestrador) | **VERIFIED** worktree NVIDIA: 9/9, 32/32, lint 0, typecheck 0; sem `fetch`/`process.env`/SDK em `lib/agent` |
+| Congelamento | **VERIFIED** SHAs registrados em `ATRIBUICOES/LOTE-1_CONGELADO.md` |
+| Verificação | **PENDING** plano `PLANO_LOTE1.md` publicado (77 linhas); revisão dos três SHAs ainda não iniciada |
+| Integração | **BLOCKED** nada integrado a `main`; só após relatório da Verificação e decisão de Yan |
+| Gates abertos para Yan | aplicar migração da Fase 9 e rodar o teste RLS; decidir R1 (migração corretiva); 9 decisões visuais do mapa; chave NVIDIA rotacionada; incluir `lib/agent/*.test.ts` no `npm test` (Orquestrador, após revisão) |
+
 ## Proposta de baseline limpo (aguarda aprovação de Yan; nada foi executado)
 
 Princípio: a base de worktrees deve ser um commit identificável que contenha apenas documentação reconciliada e o código de `45379b8`. Nenhuma mudança de produto é adicionada.
