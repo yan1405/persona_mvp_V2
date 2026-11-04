@@ -23,6 +23,7 @@ Comandos e resultados:
 - `git diff --check`: limpo. Sem espaços finais no mapa.
 - Não rodados (fora do escopo, sem mudança de código): `npm run lint`, `typecheck`, `test`, `build`, app em execução, screenshots.
 
+Revisão 2 (correções pedidas pelo Orquestrador sobre `8c5ef15`): estados enumerados por completo (T4.3 = 27 com `det-e2`/`det-e3`; T4.5 = 36; T4.8 = 19 de conversa/respostas/falhas + `recolhido` do grupo Painel = 20 em `GROUPS`; os 19 pedidos aparecem, e `recolhido` é listado à parte); frase do Agente trocada (LD-026 / Lote 1 · 03); `.woff2` registrados como excluídos do Git e presentes nas cópias locais do `MANIFEST.json`; gates por fatia; Carbon/Lucide mantidos por §8, com SVG só como mecanismo de entrega.
 Evidências: o mapa cita arquivo e hash do manifesto por tela; estados extraídos dos mapas de cenário dos `.jsx`.
 
 Riscos:
@@ -32,6 +33,6 @@ Riscos:
 
 Decisões pendentes de Yan (detalhe no mapa §4): fonte (Plus Jakarta/Inter × Geist); ícones (Lucide × Carbon, `AGENTS.md` §8); painel do Agente sem backend; dados sintéticos; Score painel × página; diagnóstico/onboarding sem T4; painéis × rotas `/[id]`; exportação de Artefato sem backend; aceite visual por fatia.
 
-Bloqueio: nenhum para o mapa. A primeira fatia espera as decisões 4.1, 4.2, 4.5 e 4.7 e a atribuição do Orquestrador (dono de `globals.css`, `layout.tsx`, `app-navigation.tsx`).
+Bloqueio: nenhum para o mapa. Gates por fatia, sem gate global: Fundação ← fonte (4.1) e ícones (4.2); T4.1 ← Score (4.5); T4.2/T4.3 ← painéis × rotas (4.7); T4.6 ← 4.5 e 4.7; T4.8 ← 4.3 e contrato do backend. Toda fatia também espera atribuição do Orquestrador (dono de `globals.css`, `layout.tsx`, `app-navigation.tsx`).
 Próximo passo: o Orquestrador revisa o diff, congela o SHA e envia à Verificação; depois Yan decide.
-Commit local: ver `git log -1` no branch `wt/interface-lote1`. Sem push.
+Commits locais no branch `wt/interface-lote1`: `8c5ef15` (original, a substituir) e o commit de correção (ver `git log -1`). Sem push.

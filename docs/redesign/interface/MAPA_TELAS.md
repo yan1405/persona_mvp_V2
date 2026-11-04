@@ -6,6 +6,8 @@ Contrato de migração, **sem código de produto**. Lote 1, papel Interface, 04/
 
 **Método.** Rotas, componentes e actions conferidos com `Glob`/`Grep`/leitura (seção 7). Estados do protótipo vêm dos mapas de cenários nos `.jsx` (`SCENARIOS`, `ESC`, `STATES`, `SC`, `ASC`, `N_SCN`, `C_SC`) e do seletor do HTML de T4.8. Nenhum screenshot foi reaberto neste lote.
 
+**Fontes tipográficas.** Os `.woff2` (Inter e Plus Jakarta Sans, `fonts/*.woff2` no `MANIFEST.json`) foram excluídos do pacote Git, mas existem nas cópias oficiais locais indicadas por `MANIFEST.json` → `fonte.copias_locais` (`claude/exports/2026-11-03-oficial/`, fora do Git). Não é preciso buscá-los na internet. Incluí-los no produto continua dependendo de decisão de Yan e da conferência da licença.
+
 ## 1. Achados que mudam o desenho da migração
 
 1. **O app real não tem biblioteca de componentes.** Não existe `apps/web/components/`. A UI são páginas (`page.tsx`) com marcação inline, formulários por rota (`*-forms.tsx`) e ~3.000 linhas de classes em `apps/web/app/globals.css`. Todo componente proposto abaixo é **novo**; "reutilizar" vale para páginas, formulários e actions. A casca é `app/app/layout.tsx` + `app/app/app-navigation.tsx`.
@@ -39,7 +41,7 @@ Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `font
 - **Protótipo:** `T4.3 - Evidências.html` (sha: `4939b55522f9`), `t4/evidencias-screen.jsx` (sha: `e62b68e9c76a`), `t4/evidencias-panel.jsx` (sha: `7bfe726c8d70`).
 - **Rotas reais:** existem `app/evidencias/page.tsx` e `app/evidencias/[id]/page.tsx`; `app/evidencias/evidence-forms.tsx` (`NewEvidenceForm`, `EditEvidenceForm`, `EvidenceLinkForm`); `app/evidencias/actions.ts` (inclui `restoreEvidence`, `archiveEvidence`, `removeEvidenceLink`).
 - **Componentes:** `EvidenceCard`, `Chip` (filtros), `Input`, `Badge`, `FloatingPanel`, `SectionIndex`, `TraceLine` + painéis `NovaPanel`, `EvidenciaPanel`, `ErroPanel` → TSX **novos**; formulários reutilizados.
-- **Estados** (`ESC`, 28): `vazia`, `completa`, `para-revisar`, `sem-resultado`, `busca`, `filtros`, `nova-vazia`, `nova-preenchida`, `salvando`, `falha-salvar`, `erro-leitura`, `erro-escrita`, `det-registrada`, `det-documentada`, `link-adicionando`, `link-removendo`, `link-removido`, `prova-ausente`, `uso-vazio`, `edicao-alterada`, `conflito`, `arquivada`, `restaurada`, `nao-encontrado`, `sem-permissao` (+ variantes de link).
+- **Estados** (`ESC`, 27): `vazia`, `completa`, `para-revisar`, `sem-resultado`, `busca`, `filtros`, `nova-vazia`, `nova-preenchida`, `salvando`, `falha-salvar`, `erro-leitura`, `erro-escrita`, `det-registrada`, `det-documentada`, `det-e2`, `det-e3`, `link-adicionando`, `link-removendo`, `link-removido`, `prova-ausente`, `uso-vazio`, `edicao-alterada`, `conflito`, `arquivada`, `restaurada`, `nao-encontrado`, `sem-permissao`.
 - **Lacunas:** o real filtra por query string (`view=review`, `state`, `level`, `competency`, `q`, `from`, `to`); o protótipo exibe sugestões do Diário (`SUGS0`) junto da lista, enquanto no real elas vivem no Diário (`evidence_suggestions`). `nao-encontrado`/`sem-permissao` não têm página própria (`notFound()` genérico).
 - **Compartilhados:** `app/globals.css`; `lib/evidence/validation.ts` (leitura).
 
@@ -55,7 +57,7 @@ Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `font
 - **Protótipo:** `T4.5 - Artefatos.html` (sha: `5c0d6f622420`), `t4/artefatos-screen.jsx` (sha: `d80e2b898b3a`), `artefatos-create.jsx` (sha: `b7fdd796e5b2`), `artefatos-detail.jsx` (sha: `a2d0e69f1de9`), `artefatos-data.jsx` (sha: `80a3c2af9f6d`).
 - **Rotas reais:** existem `app/artefatos/page.tsx`, `app/artefatos/novo/page.tsx`, `app/artefatos/[id]/page.tsx` (abas `content|evidences|versions`); `app/artefatos/artifact-forms.tsx` (`NewArtifactForm`, `ArtifactEditor`); `app/artefatos/actions.ts`; `lib/artifacts/*`; `lib/groq/generate-artifact.ts`.
 - **Componentes:** `ArtifactCard`, `Chip`, `Input`, `Badge`, `StepFlow`/`JourneyStepper`, `FloatingPanel`, `SectionIndex`, `TraceLine`, `EvidenceCard` → TSX **novos**; lógica de `ArtifactEditor` reaproveitada.
-- **Estados** (`ASC`, ~40): biblioteca (`lib-filtros`, `lib-sem-resultado`…), criação `c1`–`c6` (+ `c1-agente`, `c2-validacao`, `c5-sem`, `c6-gerando`, `c6-timeout`, `c6-provedor`, `c6-lacuna`), `c-primeira`, detalhe `d-star`, `d-pitch`, `d-curriculo`, `d-curriculo-previa`, `d-portfolio`, `d-salvando`, `d-salvo`, `d-nao-salvo`, `d-conflito`, `d-gerando`, `d-falha`, `d-restaurar`, `d-restaurando`, `d-exportando`, `d-falha-export`, `d-fonte`.
+- **Estados** (`ASC`, 36): biblioteca (6) `lib-lista`, `lib-vazia`, `lib-carregando`, `lib-erro`, `lib-filtros`, `lib-sem-resultado`; criação (13) `c1`, `c1-agente`, `c2`, `c2-validacao`, `c3`, `c4`, `c5`, `c5-sem`, `c6`, `c6-gerando`, `c6-timeout`, `c6-provedor`, `c6-lacuna`; primeira abertura (1) `c-primeira`; detalhe (16) `d-star`, `d-pitch`, `d-curriculo`, `d-curriculo-previa`, `d-portfolio`, `d-salvando`, `d-salvo`, `d-nao-salvo`, `d-conflito`, `d-gerando`, `d-falha`, `d-restaurar`, `d-restaurando`, `d-exportando`, `d-falha-export`, `d-fonte`.
 - **Lacunas:** o real cria em **uma página**, não em 6 passos; tem `notices` de lacuna e timeout que casam com `c6-*`; restaura versão (`restoreArtifactVersion`). **Exportação de Artefato não foi encontrada**: `app/api/export/route.ts` exporta dados da conta (usado em Configurações), não Artefato → `d-exportando`/`d-falha-export` **não têm backend**. `d-conflito` depende de `revision` (existe no schema lido). `c1-agente` depende do Agente (decisão 4.3).
 - **Compartilhados:** `app/globals.css`; `lib/artifacts/artifact.ts` (leitura).
 
@@ -79,8 +81,8 @@ Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `font
 - **Protótipo:** `T4.8 - Agente Persona.html` (sha: `260d5cb3af47`), `t4/agente-core.jsx` (sha: `3416fbab0dee`), `t4/agente-surfaces.jsx` (sha: `821f9220e02e`), reutilizando `inicio-screen`, `live-screen`, `evidencias-*`.
 - **Rota real:** **ausente.** Nenhum código de produto em `apps/web/app` ou `apps/web/lib` trata o Agente. Superfícies do protótipo (seletor do HTML): `inicio` (conversa central), `evidencias` (painel), `live` (painel).
 - **Componentes:** `AgentPanel`, `AgentPrompt`, `Composer`, `MessageBubble`, `CitationChip`, `AgReply`, `GapNotice`, `FailNotice`, `Handoff` → TSX **novos** (somente casca).
-- **Estados:** resposta com citações; lacuna ("Ainda não há registro sobre isso."); falha ("Não consegui responder agora. Nada foi alterado."); sessão efêmera; origem de outra conta nunca citável (`AG_FOREIGN`).
-- **Lacunas:** sem backend nem contrato de produto. O contrato do Agente é o Lote 1 · 03 (`lib/agent/**`), sem integração. Ações propostas só `abrir`, `pre-preencher`, `revisar` (`AG_VERBS`).
+- **Estados** (`GROUPS` em `T4.8 - Agente Persona.html`: 19 cenários de conversa, respostas e falhas, mais `recolhido` do grupo Painel, exibido só quando o painel está acoplado = 20): Conversa (6) `vazio`, `digitando`, `respondendo`, `parcial`, `completa`, `acao-proposta`; Respostas (5) `entrevista`, `material`, `organizar`, `lacuna`, `sem-citacao`; Falhas (8) `schema-invalido`, `citacao-invalida`, `citacao-alheia`, `acao-proibida`, `timeout`, `rate-limit`, `provedor`, `indisponivel`; Painel (1) `recolhido`. Textos fixos: lacuna "Ainda não há registro sobre isso."; falha "Não consegui responder agora. Nada foi alterado.". Origem de outra conta nunca é citável (`AG_FOREIGN`).
+- **Lacunas:** sem backend ou integração no app; a visão de produto do Agente está aprovada pela LD-026, e o contrato técnico inicial pertence ao Lote 1 · 03 (`lib/agent/**`). Ações propostas só `abrir`, `pre-preencher`, `revisar` (`AG_VERBS`).
 - **Compartilhados:** Início, Evidências e Live (acoplar o painel); `app/globals.css`.
 
 ## 3. Arquivos compartilhados e dono sugerido
@@ -98,15 +100,15 @@ Nenhum deles é tocado neste lote. O Orquestrador designa **um dono único** por
 
 ## 4. Decisões para Yan
 
-1. **Fonte.** O redesign usa Plus Jakarta Sans (display) + Inter (corpo) (`design-system/tokens/typography.css`, sha: `1675d2132707`; `tokens/fonts.css`, sha: `e0412a35f17d`). O produto usa Geist Sans/Mono (`AGENTS.md` §6, `app/layout.tsx`). Os `.woff2` ficaram **fora** do pacote. Opções: (a) adotar as do redesign (obter e licenciar os arquivos; alterar `layout.tsx`/`globals.css`); (b) manter Geist e remapear os tokens. Recomendação: (a), porque a aprovação visual D-032 foi dada com elas.
-2. **Ícones.** O redesign usa Lucide (70+ SVG em `design-system/assets/icons/`); `AGENTS.md` §8 manda Carbon para navegação e ações de domínio, Lucide só para utilidades, sem misturar no mesmo grupo; o app usa `@carbon/icons-react`. Opções: (a) Lucide em tudo (revoga §8); (b) Carbon na navegação/domínio e Lucide nas utilidades; (c) copiar os SVG do DS, sem dependência nova. Recomendação: decidir a regra de §8 primeiro; (c) para o que o DS já fornece.
-3. **Painel do Agente (T4.8) sem backend.** Opções: (a) fora desta migração; (b) casca sem ação, sinalizada como indisponível; (c) esperar o contrato de `lib/agent/**`. Recomendação: (a) até haver inferência real comprovada. `c1-agente` (T4.5) e `agente-off` (T4.6) seguem a mesma decisão.
-4. **Dados sintéticos de T4.** Confirmar: nenhuma tela real usa os números e textos do protótipo; estados como "completo" só aparecem com dados reais do usuário.
-5. **Score: painel ou página.** Manter `/app/score` com abas e usar o painel só como resumo no Início, ou substituir pela rota única? O Score entra na navegação?
-6. **Diagnóstico e onboarding sem tela em T4.** `/app/diagnostico` e `/onboarding` não têm desenho aprovado. Manter o visual atual ou incluir no próximo pacote?
-7. **Painéis flutuantes (registro, evidência, Score).** O app abre em páginas `/[id]` (links diretos, SSR). Manter as rotas renderizando o painel, ou abrir mão do link direto?
-8. **Exportação de Artefato** (`d-exportando`, `d-falha-export`): não há backend. Remover do escopo visual, ou pedir ao papel de Backend?
-9. **Aceite visual.** A aprovação de T4 é visual; cada fatia ainda exige a Sessão de Avaliação Visual (`AGENTS.md` §6.1) e teste com leitor de tela.
+1. **Fonte** — *bloqueia a Fundação.* O redesign usa Plus Jakarta Sans (display) + Inter (corpo) (`design-system/tokens/typography.css`, sha: `1675d2132707`; `tokens/fonts.css`, sha: `e0412a35f17d`). O produto usa Geist Sans/Mono (`AGENTS.md` §6, `app/layout.tsx`). Opções: (a) adotar as do redesign (usar os `.woff2` das cópias oficiais locais, conferir a licença, alterar `layout.tsx`/`globals.css`); (b) manter Geist e remapear os tokens. Recomendação: (a), porque a aprovação visual D-032 foi dada com elas, sujeita à licença.
+2. **Ícones** — *bloqueia a Fundação.* O redesign usa Lucide (70+ SVG em `design-system/assets/icons/`); `AGENTS.md` §8 manda Carbon para navegação e ações de domínio, Lucide só para utilidades, sem misturar estilos no mesmo grupo; o app usa `@carbon/icons-react`. **Até decisão contrária de Yan, vale §8:** Carbon na navegação e nas ações de domínio, Lucide apenas em utilidades. Copiar os SVG do DS é só o *mecanismo de entrega* dos ícones Lucide que forem usados (sem dependência nova); não muda a regra. Decisão pendente: manter §8 ou revogá-la.
+3. **Painel do Agente (T4.8) sem backend** — *bloqueia só T4.8, `c1-agente` (T4.5) e `agente-off` (T4.6).* Opções: (a) fora desta migração; (b) casca sem ação, sinalizada como indisponível; (c) esperar o contrato de `lib/agent/**`. Recomendação: (a) até haver inferência real comprovada. `c1-agente` (T4.5) e `agente-off` (T4.6) seguem a mesma decisão.
+4. **Dados sintéticos de T4** — *regra para todas as fatias; não bloqueia sozinha.* Confirmar: nenhuma tela real usa os números e textos do protótipo; estados como "completo" só aparecem com dados reais do usuário.
+5. **Score: painel ou página** — *bloqueia T4.1 e T4.6.* Manter `/app/score` com abas e usar o painel só como resumo no Início, ou substituir pela rota única? O Score entra na navegação?
+6. **Diagnóstico e onboarding sem tela em T4** — *não bloqueia fatias de T4.* `/app/diagnostico` e `/onboarding` não têm desenho aprovado. Manter o visual atual ou incluir no próximo pacote?
+7. **Painéis flutuantes (registro, evidência, Score)** — *bloqueia T4.2, T4.3 e T4.6.* O app abre em páginas `/[id]` (links diretos, SSR). Manter as rotas renderizando o painel, ou abrir mão do link direto?
+8. **Exportação de Artefato** (`d-exportando`, `d-falha-export`) — *bloqueia só esses dois estados de T4.5.* Não há backend. Remover do escopo visual, ou pedir ao papel de Backend?
+9. **Aceite visual** — *por fatia, antes de avançar.* A aprovação de T4 é visual; cada fatia ainda exige a Sessão de Avaliação Visual (`AGENTS.md` §6.1) e teste com leitor de tela.
 
 ## 5. Hashes dos componentes do DS citados (SHA-256, 12 caracteres)
 
@@ -116,9 +118,9 @@ Componentes com nome `Ag*`, `Cfg*`, `Citation*`, `Handoff`, `NovaPanel`, `Eviden
 
 ## 6. Ordem sugerida de fatias
 
-Uma fatia por atribuição; um dono de `globals.css` por onda (serializar).
+Uma fatia por atribuição; um dono de `globals.css` por onda (serializar). Decisões de fatias posteriores não bloqueiam as anteriores.
 
-0. **Gate:** decisões 4.1, 4.2, 4.5 e 4.7 antes de qualquer código.
+0. **Gates por fatia (não há gate global):** Fundação ← decisões 4.1 e 4.2; T4.1 ← 4.5; T4.2/T4.3 ← 4.7; T4.6 ← 4.5 e 4.7; T4.8 ← 4.3 e o contrato do backend. T4.4, T4.5 e T4.7 só dependem da Fundação (T4.5 sem exportação até a 4.8).
 1. **Fundação:** tokens, fontes, `AppShell`, `Sidebar`, `Button`, `Badge`, `Input`, `Chip`, `Card`. Dono de `globals.css`, `layout.tsx`, `app-navigation.tsx`.
 2. **T4.7 Configurações** — menor risco (3 rotas pequenas); ressalva da Fase 9 pendente.
 3. **T4.1 Início** — leitura; destinos e Score; sem Agente.
