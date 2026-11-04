@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>T4.5 — Artefatos do Persona</title>
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/colors.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/typography.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/effects.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#E9E8F0;font-family:var(--font-body);color:var(--text-strong)}
+a{color:var(--brand)}a:hover{color:var(--brand-strong)}
+.rv{position:relative;z-index:100;background:#E9E8F0;padding:14px 20px 12px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--n-100)}
+.rv-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rv-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--n-600);margin-right:4px;min-width:72px}
+.rv-sep{width:1px;height:24px;background:var(--n-200);margin:0 6px}
+.rv-title{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em;margin-right:8px}
+.rv-desc{margin:0;font-size:13px;color:var(--text-body);max-width:960px;text-wrap:pretty}
+.stage{padding:20px}.stage-frame{border-radius:12px;overflow:clip;box-shadow:var(--shadow-soft)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style></head>
+<body><div id="root"></div>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#4F46E5"/><rect x="32" y="26" width="36" height="48" rx="5" fill="#fff"/><rect x="38" y="36" width="24" height="4" rx="2" fill="#4F46E5"/><rect x="38" y="46" width="24" height="4" rx="2" fill="#94A3B8"/><rect x="38" y="56" width="16" height="4" rx="2" fill="#94A3B8"/></svg></template>
+<script type="text/babel" src="artefatos-data.jsx"></script>
+<script type="text/babel" src="artefatos-create.jsx"></script>
+<script type="text/babel" src="artefatos-detail.jsx"></script>
+<script type="text/babel" src="artefatos-screen.jsx"></script>
+<script type="text/babel">
+const { Chip } = window.PersonaDesignSystem_ff1a7b;
+const GROUPS = [
+  ['Biblioteca', [
+    ['lib-lista','Lista','Os dois ArtifactCard oficiais da §10: STAR “Problema resolvido com dados” (Revisado, cita a evidência 1) e Pitch pessoal (Rascunho, cita 1–3). “Novo Artefato” é o único CTA de marca.'],
+    ['lib-vazia','Vazia','Nenhum artefato: orientação e um único CTA de marca no cabeçalho.'],
+    ['lib-carregando','Carregando','Cards desabilitados com aria-busy; “Novo Artefato” bloqueado.'],
+    ['lib-erro','Erro','Falha recuperável de leitura; nada foi perdido.'],
+    ['lib-filtros','Filtros','Tipo, estado e data atrás de “Filtros”.'],
+    ['lib-sem-resultado','Sem resultado','Currículo ATS não existe na biblioteca: “Limpar filtros”.'],
+  ]],
+  ['Criação', [
+    ['c1','1 · Tipo','Etapa 1 de 6: os quatro tipos. Continuar bloqueado até escolher.'],
+    ['c1-agente','1 · Agente pré-preenche','O Agente Persona só pré-preencheu tipo e objetivo (agente aberto). Nada foi gerado.'],
+    ['c2','2 · Objetivo','Etapa 2 de 6.'],
+    ['c2-validacao','2 · Validação','Objetivo curto demais: erro visível e campos preservados.'],
+    ['c3','3 · Contexto','Etapa 3 de 6: empresa e vaga opcionais, declaração manual.'],
+    ['c4','4 · Dados manuais','Currículo ATS: e-mail sintético, formação e idiomas em branco viram lacuna.'],
+    ['c5','5 · Fontes','Evidências selecionáveis e autorização explícita.'],
+    ['c5-sem','5 · Sem evidência elegível','Nenhuma evidência confirmada: “Continuar” bloqueado, campos preservados.'],
+    ['c6','6 · Revisão','Pronto para “Gerar rascunho” (único CTA de marca). Nada é gerado antes do clique.'],
+    ['c6-gerando','6 · Gerando','Geração em andamento com fontes autorizadas.'],
+    ['c6-timeout','6 · Timeout','Nada criado; campos preservados.'],
+    ['c6-provedor','6 · Provedor indisponível','Nada criado; campos preservados.'],
+    ['c6-lacuna','6 · Lacuna de dados','Só a evidência 4 (sem situação, tarefa nem resultado): as seções ficam como lacuna.'],
+    ['c-primeira','Primeira versão criada','Detalhe logo após a geração: versão 1 em Rascunho.'],
+  ]],
+  ['Detalhe', [
+    ['d-star','STAR · Revisado','Workspace com SectionIndex e seções Conteúdo, Evidências e Versões. Revisado não mostra CTA de marca.'],
+    ['d-pitch','Pitch · Rascunho','Três durações independentes. “Marcar como revisado” é o CTA de marca.'],
+    ['d-curriculo','Currículo','Formação em lacuna (declaração manual).'],
+    ['d-curriculo-previa','Currículo · prévia','Pré-visualização e “Exportar PDF” (impressão do navegador).'],
+    ['d-portfolio','Portfólio · prévia','Casos com ação, resultado registrado e provas.'],
+    ['d-salvando','Salvando','Salvando uma nova versão; ações bloqueadas.'],
+    ['d-salvo','Salvo','Versão 3 salva.'],
+    ['d-nao-salvo','Alteração não salva','Alteração local; “Salvar alterações” vira o CTA de marca.'],
+    ['d-conflito','Conflito','Alterado em outra aba; sua versão foi mantida.'],
+    ['d-gerando','Gerando seção','Conteúdo preservado enquanto a seção é gerada.'],
+    ['d-falha','Falha na seção','Conteúdo preservado; nova tentativa disponível.'],
+    ['d-restaurar','Confirmar restauração','Restaurar exige confirmação explícita.'],
+    ['d-restaurando','Restaurando','Versão sendo restaurada como nova versão.'],
+    ['d-exportando','Exportando','Impressão do navegador sendo aberta.'],
+    ['d-falha-export','Falha de exportação','Conteúdo e estado intactos.'],
+    ['d-fonte','Fonte indisponível','Evidência 2 indisponível: trechos preservados, ações bloqueadas, revisão bloqueada.'],
+  ]],
+];
+const ALL = GROUPS.flatMap(g => g[1]);
+const VH = { 1440: 900, 1280: 800, 1024: 768 };
+const KEY = 'persona.t45.review';
+function Review() {
+  const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })();
+  const qs = new URLSearchParams(location.search);
+  const [v, setV] = React.useState(qs.get('s') || saved.v || 'lib-lista');
+  const [w, setW] = React.useState(+qs.get('w') || saved.w || 1440);
+  const [agent, setAgent] = React.useState(qs.get('a') ? qs.get('a') === '1' : !!saved.agent);
+  const stageRef = React.useRef(null);
+  const [avail, setAvail] = React.useState(0);
+  React.useLayoutEffect(() => { const el = stageRef.current; if (!el) return; const f = () => setAvail(el.clientWidth - 40); f(); const ro = new ResizeObserver(f); ro.observe(el); return () => ro.disconnect(); }, []);
+  React.useEffect(() => { try { localStorage.setItem(KEY, JSON.stringify({ v, w, agent })); } catch (e) {} }, [v, w, agent]);
+  const h = VH[w] || 900;
+  const scale = avail > 0 ? Math.max(0.3, Math.min(1, avail / w)) : 1;
+  const cur = ALL.find(x => x[0] === v) || ALL[0];
+  return <>
+    <div className="rv">
+      <div className="rv-row"><span className="rv-title">T4.5 — Artefatos do Persona</span>
+        <span className="rv-lbl">Largura</span>
+        {[1440, 1280, 1024].map(x => <Chip key={x} size="sm" selected={w === x} onClick={() => setW(x)}>{x + ' × ' + VH[x]}</Chip>)}
+        <span className="rv-sep"></span>
+        <span className="rv-lbl">Agente</span>
+        <Chip size="sm" selected={!agent} onClick={() => setAgent(false)}>Fechado</Chip>
+        <Chip size="sm" selected={agent} onClick={() => setAgent(true)}>Aberto</Chip>
+      </div>
+      {GROUPS.map(([g, items]) => <div key={g} className="rv-row"><span className="rv-lbl">{g}</span>{items.map(([id, label]) => <Chip key={id} size="sm" selected={v === id} onClick={() => setV(id)}>{label}</Chip>)}</div>)}
+      <p className="rv-desc">{cur[2]} Viewport simulado {w} × {h}; a área principal do AppShell é a única origem de rolagem.{scale < 1 ? ' Pré-visualização reduzida a ' + Math.round(scale * 100) + '%.' : ''}</p>
+    </div>
+    <div className="stage" ref={stageRef} data-screen-label={cur[1] + ' · ' + w}>
+      <div className="stage-frame" style={{ width: w, height: h, zoom: scale }}>
+        <ArtefatosScreen key={v + w} scenario={v} width={w} height={h} agentOpen={agent} onAgentToggle={setAgent} />
+      </div>
+    </div>
+  </>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Review />);
+</script>
+</body></html>

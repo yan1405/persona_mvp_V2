@@ -1,0 +1,28 @@
+<!-- @dsCard group="Components" viewport="700x380" name="NavItem" subtitle="Destino ativo · padrão · foco · contagem · rail" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:var(--bg-app);font-family:var(--font-body);color:var(--text-strong)}.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin:0 0 8px}.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}.col{display:flex;flex-direction:column;gap:20px}</style></head><body><div id="r"></div>
+<script type="text/babel">
+const NS = window.PersonaDesignSystem_ff1a7b;
+const { NavItem } = NS;
+const box = { background:'var(--surface-card)', borderRadius:22, padding:12, boxShadow:'var(--shadow-soft)', display:'flex', flexDirection:'column', gap:2 };
+function App(){return <div style={{display:'flex',gap:16,alignItems:'flex-start'}}>
+<div style={{...box,width:240}}><p className="lbl" style={{padding:'4px 8px'}}>Expandido</p>
+<NavItem icon="house" label="Início" active />
+<NavItem icon="notebook-pen" label="Diário" badge={2} badgeLabel="2 sugestões para revisar" />
+<NavItem icon="badge-check" label="Evidências" focused />
+<NavItem icon="mic" label="Persona Live" />
+<NavItem icon="file-text" label="Artefatos" /></div>
+<div style={{...box,width:68,alignItems:'center'}}><p className="lbl" style={{padding:'4px 0'}}>Rail</p>
+<NavItem collapsed icon="house" label="Início" active />
+<NavItem collapsed icon="notebook-pen" label="Diário" badge={2} badgeLabel="2 sugestões para revisar" />
+<NavItem collapsed icon="badge-check" label="Evidências" focused />
+<NavItem collapsed icon="mic" label="Persona Live" />
+<NavItem collapsed icon="file-text" label="Artefatos" /></div>
+<div style={{fontSize:13,lineHeight:1.6,color:'var(--text-body)',maxWidth:300}}><p className="lbl">Estados</p>Início = ativo (pílula Indigo suave, ícone Indigo). Diário = contagem Ink; no rail vira ponto Ink. Evidências = foco duplo: 2 px #A78BFA interno + 2 px #6D28D9 externo.</div>
+</div>}
+ReactDOM.createRoot(document.getElementById('r')).render(<App />);
+</script></body></html>

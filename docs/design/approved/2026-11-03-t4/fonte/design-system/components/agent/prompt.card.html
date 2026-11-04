@@ -1,0 +1,17 @@
+<!-- @dsCard group="Components" viewport="700x420" name="AgentPrompt" subtitle="Buscar ou perguntar · large (Início) e compact (cabeçalho) · vazio e preenchido" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:var(--bg-app);font-family:var(--font-body);color:var(--text-strong)}.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin:0 0 8px}.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}</style></head><body><div id="r"></div>
+<script type="text/babel">
+const NS = window.PersonaDesignSystem_ff1a7b;
+const { AgentPrompt } = NS;
+function App(){return <div style={{display:'flex',flexDirection:'column',gap:24}}>
+<div><p className="lbl">large · Início</p><AgentPrompt size="large" /></div>
+<div><p className="lbl">large · preenchido (enviar em Ink)</p><AgentPrompt size="large" value="O que falta para o score observado?" suggestions={[]} /></div>
+<div><p className="lbl">compact · cabeçalho</p><div style={{display:'flex',gap:16,flexWrap:'wrap'}}><div style={{width:320}}><AgentPrompt size="compact" /></div><div style={{width:320}}><AgentPrompt size="compact" value="Preparar uma entrevista" /></div></div></div>
+</div>}
+ReactDOM.createRoot(document.getElementById('r')).render(<App />);
+</script></body></html>

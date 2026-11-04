@@ -1,0 +1,5 @@
+:root{
+--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-14:56px;--space-18:72px;
+--gutter:16px;--section-gap:40px;--section-gap-mobile:32px;--card-pad:24px;--card-pad-sm:20px;--shell-gap:16px;--content-max:1280px;
+--radius-sm:16px;--radius-md:22px;--radius-lg:28px;--radius-pill:999px;--radius-xs:10px;
+}

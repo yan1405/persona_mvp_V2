@@ -1,0 +1,2 @@
+# Bytes idênticos ao export aprovado: sem conversão de fim de linha; sem avisos de espaço em arquivos importados.
+* -text whitespace=cr-at-eol,-trailing-space,-blank-at-eof,-space-before-tab

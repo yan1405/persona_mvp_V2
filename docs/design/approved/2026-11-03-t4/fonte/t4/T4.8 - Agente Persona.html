@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>T4.8 — Agente Persona</title>
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/colors.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/typography.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/effects.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#E9E8F0;font-family:var(--font-body);color:var(--text-strong)}
+a{color:var(--brand)}a:hover{color:var(--brand-strong)}
+.rv{position:relative;z-index:100;background:#E9E8F0;padding:14px 20px 12px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--n-100)}
+.rv-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rv-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--n-600);margin-right:4px;min-width:72px}
+.rv-sep{width:1px;height:24px;background:var(--n-200);margin:0 6px}
+.rv-title{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em;margin-right:8px}
+.rv-desc{margin:0;font-size:13px;color:var(--text-body);max-width:960px;text-wrap:pretty}
+.stage{padding:20px}
+.stage-frame{border-radius:12px;overflow:clip;box-shadow:var(--shadow-soft)}
+.t48-link{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:999px;border:1px solid var(--border-subtle);background:var(--surface-card);color:var(--text-strong);font-size:13px;font-weight:600;text-decoration:none;outline:0;transition:background var(--dur-micro)}
+.t48-link:hover{background:var(--n-25);color:var(--text-strong)}
+.t48-link:focus-visible{box-shadow:0 0 0 2px #A78BFA,0 0 0 4px #6D28D9}
+.t48-surface [data-shell-header] button[data-agent-open="1"]{background:var(--brand-soft)!important;color:var(--brand)!important;border-color:transparent!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style></head>
+<body><div id="root"></div>
+<script type="text/babel" src="inicio-screen.jsx"></script>
+<script type="text/babel" src="evidencias-panel.jsx"></script>
+<script type="text/babel" src="evidencias-screen.jsx"></script>
+<script type="text/babel" src="live-screen.jsx"></script>
+<script type="text/babel" src="agente-core.jsx"></script>
+<script type="text/babel" src="agente-surfaces.jsx"></script>
+<script type="text/babel">
+const { Chip } = window.PersonaDesignSystem_ff1a7b;
+const SURF = [['inicio', 'Início · conversa central'], ['evidencias', 'Evidências · painel'], ['live', 'Persona Live · painel']];
+const GROUPS = [
+  ['Conversa', [
+    ['vazio', 'Vazio', 'Apresentação curta e sugestões iniciais. Nada aparece antes da pergunta.'],
+    ['digitando', 'Digitando', 'Pergunta no campo, ainda não enviada. Enviar é Ink.'],
+    ['respondendo', 'Respondendo', 'Indicador discreto; a pergunta fica preservada. Conclui sozinho em ~2 s.'],
+    ['parcial', 'Resposta parcial', 'Só afirmações já validadas aparecem, cada uma com sua origem.'],
+    ['completa', 'Completa · score', 'Cenário aprovado da §10: faltam 2 registros, 1 semana e 1 evidência. Ação proposta: Revisar sugestões.'],
+    ['acao-proposta', 'Ação aceita', 'A ação só abre a superfície de destino; a confirmação é da pessoa lá.'],
+  ]],
+  ['Respostas', [
+    ['entrevista', 'Entrevista', 'Propõe “Abrir no Persona Live”; não escreve resposta de entrevista nem autoriza evidências.'],
+    ['material', 'Material', 'Propõe “Criar Artefato” com tipo e objetivo pré-preenchidos; o texto nasce em Artefatos.'],
+    ['organizar', 'Organizar', 'Evidências agrupadas por competência, cada grupo com a sua origem.'],
+    ['lacuna', 'Lacuna', '“Ainda não há registro sobre isso.” com ação para o Diário.'],
+    ['sem-citacao', 'Sem citação', 'A resposta bruta trazia afirmação sem origem: vira lacuna com ação para Evidências.'],
+  ]],
+  ['Falhas', [
+    ['schema-invalido', 'Schema inválido', 'Resposta fora do formato: descartada, nada exibido.'],
+    ['citacao-invalida', 'Citação inexistente', 'Cita evidência que não existe: falha fechada.'],
+    ['citacao-alheia', 'Citação alheia', 'Cita evidência de outra conta: falha fechada.'],
+    ['acao-proibida', 'Ação proibida', 'Propõe “Confirmar evidência” (mutação): falha fechada.'],
+    ['timeout', 'Timeout', 'Falha recuperável, com “Tentar de novo”.'],
+    ['rate-limit', 'Rate limit', 'Falha recuperável, sem culpar a pessoa.'],
+    ['provedor', 'Falha do provedor', 'Falha recuperável; nenhum fallback de provedor é representado.'],
+    ['indisponivel', 'Indisponível', 'O campo vira busca simples onde a superfície permite; o painel desativa o envio.'],
+  ]],
+  ['Painel', [
+    ['recolhido', 'Recolhido', 'Painel recolhido com a conversa da sessão; ao reabrir, o foco volta ao campo.'],
+  ]],
+];
+const ALL = GROUPS.flatMap(g => g[1]);
+const VH = { 1440: 900, 1280: 800, 1024: 768 };
+const KEY = 'persona.t48.review';
+function Review() {
+  const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })();
+  const qs = new URLSearchParams(location.search);
+  const [sf, setSf] = React.useState(qs.get('sf') || saved.sf || 'inicio');
+  const [v, setV] = React.useState(qs.get('s') || saved.v || 'completa');
+  const [w, setW] = React.useState(+qs.get('w') || saved.w || 1440);
+  const [p, setP] = React.useState(qs.get('p') ? qs.get('p') === '1' : saved.p != null ? saved.p : true);
+  const stageRef = React.useRef(null);
+  const [avail, setAvail] = React.useState(0);
+  React.useLayoutEffect(() => { const el = stageRef.current; if (!el) return; const f = () => setAvail(el.clientWidth - 40); f(); const ro = new ResizeObserver(f); ro.observe(el); return () => ro.disconnect(); }, []);
+  React.useEffect(() => { try { localStorage.setItem(KEY, JSON.stringify({ sf, v, w, p })); } catch (e) {} }, [sf, v, w, p]);
+  const h = VH[w] || 900;
+  const scale = avail > 0 ? Math.max(0.3, Math.min(1, avail / w)) : 1;
+  const cur = ALL.find(x => x[0] === v) || ALL[4];
+  const dock = sf !== 'inicio';
+  const open = v === 'recolhido' ? false : p;
+  const groups = dock ? GROUPS : GROUPS.filter(g => g[0] !== 'Painel');
+  return <>
+    <div className="rv">
+      <div className="rv-row"><span className="rv-title">T4.8 — Agente Persona</span>
+        {SURF.map(([id, l]) => <Chip key={id} size="sm" selected={sf === id} onClick={() => { setSf(id); if (id === 'inicio' && v === 'recolhido') setV('completa'); }}>{l}</Chip>)}
+        <span className="rv-sep"></span><span className="rv-lbl">Largura</span>
+        {[1440, 1280, 1024].map(x => <Chip key={x} size="sm" selected={w === x} onClick={() => setW(x)}>{x + ' × ' + VH[x]}</Chip>)}
+        {dock ? <><span className="rv-sep"></span><span className="rv-lbl">Painel</span><Chip size="sm" selected={open} onClick={() => { setP(true); if (v === 'recolhido') setV('completa'); }}>Aberto</Chip><Chip size="sm" selected={!open} onClick={() => setP(false)}>Recolhido</Chip></> : null}
+      </div>
+      {groups.map(([g, items]) => <div key={g} className="rv-row"><span className="rv-lbl">{g}</span>{items.map(([id, label]) => <Chip key={id} size="sm" selected={v === id} onClick={() => setV(id)}>{label}</Chip>)}</div>)}
+      <p className="rv-desc">{cur[2]} Protótipo de direção (LD-026), não implementado no app. Conversa efêmera; perguntas e respostas: dados sintéticos para demonstração, não são conversa real de Yan. Viewport simulado {w} × {h}.{scale < 1 ? ' Pré-visualização reduzida a ' + Math.round(scale * 100) + '%.' : ''}</p>
+    </div>
+    <div className="stage" ref={stageRef} data-screen-label={SURF.find(s => s[0] === sf)[1] + ' · ' + cur[1] + ' · ' + w}>
+      <div className="stage-frame" style={{ width: w, height: h, zoom: scale }}>
+        {dock ? <AgenteDock key={sf + v + w + open} surface={sf} stateKey={v} width={w} height={h} initialOpen={open} />
+          : <AgenteInicio key={v + w} stateKey={v} width={w} height={h} />}
+      </div>
+    </div>
+  </>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Review />);
+</script>
+</body></html>

@@ -1,0 +1,20 @@
+<!-- @dsCard group="Components" viewport="700x760" name="Sidebar" subtitle="Lateral expandida e rail · 5 destinos + Configurações no rodapé · Registrar agora · Continue de onde parou" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:var(--bg-app);font-family:var(--font-body);color:var(--text-strong)}.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin:0 0 8px}.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}.col{display:flex;flex-direction:column;gap:20px}</style></head><body><div id="r"></div>
+<script type="text/babel">
+const NS = window.PersonaDesignSystem_ff1a7b;
+const { Sidebar } = NS;
+const RESUME = { title: 'Registro de ontem', meta: '2 sugestões para revisar', action: 'Revisar sugestões' };
+const BADGES = { diario: { count: 2, label: '2 sugestões para revisar' } };
+function App(){const [a,setA]=React.useState('inicio');const [c,setC]=React.useState(false);
+return <div style={{display:'flex',gap:24,height:720,alignItems:'stretch'}}>
+<div style={{display:'flex',flexDirection:'column'}}><p className="lbl">Expandida</p><div style={{flex:1}}><Sidebar active={a} onNavigate={setA} resume={RESUME} onResume={()=>setA('diario')} badges={BADGES} collapsed={c} onToggle={setC} /></div></div>
+<div style={{display:'flex',flexDirection:'column'}}><p className="lbl">Rail</p><div style={{flex:1}}><Sidebar collapsed active={a} onNavigate={setA} resume={RESUME} onResume={()=>setA('diario')} badges={BADGES} /></div></div>
+<div style={{fontSize:13,lineHeight:1.6,color:'var(--text-body)',maxWidth:250}}><p className="lbl">Comportamento</p>“Registrar agora” (Ink) abre o Diário. “Continue de onde parou” mostra o último registro com sugestões pendentes e some quando não há pendência. Configurações fica isolada no rodapé. Destino atual: <b>{({inicio:'Início',diario:'Diário',evidencias:'Evidências',live:'Persona Live',artefatos:'Artefatos',configuracoes:'Configurações'})[a]}</b>.</div>
+</div>}
+ReactDOM.createRoot(document.getElementById('r')).render(<App />);
+</script></body></html>

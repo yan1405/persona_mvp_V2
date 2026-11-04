@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>T4.7 — Configurações</title>
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/colors.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/typography.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/effects.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#E9E8F0;font-family:var(--font-body);color:var(--text-strong)}
+a{color:var(--brand)}a:hover{color:var(--brand-strong)}
+.rv{position:relative;z-index:100;background:#E9E8F0;padding:14px 20px 12px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--n-100)}
+.rv-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rv-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--n-600);margin-right:4px}
+.rv-sep{width:1px;height:24px;background:var(--n-200);margin:0 6px}
+.rv-title{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em;margin-right:8px}
+.rv-desc{margin:0;font-size:13px;color:var(--text-body);max-width:980px;text-wrap:pretty}
+.stage{padding:20px}.stage-frame{border-radius:12px;overflow:clip;box-shadow:var(--shadow-soft)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style></head>
+<body><div id="root"></div>
+<script type="text/babel" src="configuracoes-screen.jsx"></script>
+<script type="text/babel">
+const { Chip } = window.PersonaDesignSystem_ff1a7b;
+const GROUPS = [
+ ['Formulário', [['carregando','Carregando'],['limpo','Limpo'],['alterado','Alterado'],['validacao','Validação'],['salvando','Salvando'],['salvo','Salvo'],['falha-salvar','Falha ao salvar']]],
+ ['Dados', [['inventario','Inventário'],['exportando','Exportando'],['export-pronto','Exportação pronta'],['export-falha','Falha na exportação']]],
+ ['Exclusão', [['excl-aviso','Aviso'],['reauth-solicitada','Reauth. solicitada'],['reauth-valida','Reauth. válida'],['reauth-expirada','Reauth. expirada'],['excl-incorreta','Texto incorreto'],['excl-correta','Texto correto'],['excl-processando','Processando'],['excl-concluida','Concluída'],['excl-falha','Falha fechada']]],
+ ['Conta', [['ms-disponivel','Microsoft disponível'],['sessao-expirada','Sessão expirada'],['saindo','Saindo'],['sair-falha','Falha ao sair']]],
+];
+const HH = { 1440: 900, 1280: 800, 1024: 768 };
+const KEY = 'persona.t47.review';
+function Review() {
+  const q = new URLSearchParams(location.search);
+  const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })();
+  const [s, setS] = React.useState(q.get('s') || saved.s || 'limpo');
+  const [w, setW] = React.useState(+q.get('w') || saved.w || 1440);
+  const [fail, setFail] = React.useState(q.get('f') === '1');
+  const stageRef = React.useRef(null);
+  const [avail, setAvail] = React.useState(0);
+  React.useLayoutEffect(() => { const el = stageRef.current; const f = () => setAvail(el.clientWidth - 40); f(); const ro = new ResizeObserver(f); ro.observe(el); return () => ro.disconnect(); }, []);
+  React.useEffect(() => { try { localStorage.setItem(KEY, JSON.stringify({ s, w })); } catch (e) {} }, [s, w]);
+  const scale = avail > 0 ? Math.max(0.3, Math.min(1, avail / w)) : 1;
+  return <>
+    <div className="rv">
+      <div className="rv-row"><span className="rv-title">T4.7 — Configurações</span>
+        <span className="rv-lbl">Largura</span>{[1440, 1280, 1024].map(x => <Chip key={x} size="sm" selected={w === x} onClick={() => setW(x)}>{x + ' px'}</Chip>)}
+        <span className="rv-sep"></span><span className="rv-lbl">Simular falha</span><Chip size="sm" selected={fail} onClick={() => setFail(!fail)}>{fail ? 'Ligada' : 'Desligada'}</Chip></div>
+      {GROUPS.map(([g, list]) => <div className="rv-row" key={g}><span className="rv-lbl" style={{ minWidth: 76 }}>{g}</span>{list.map(([id, l]) => <Chip key={id} size="sm" selected={s === id} onClick={() => setS(id)}>{l}</Chip>)}</div>)}
+      <p className="rv-desc">Protótipo visual com dados sintéticos: nenhuma migração de banco, Auth, exportação ou exclusão real foi aplicada. Todas as ações são simuladas no navegador. Largura {w} px.{scale < 1 ? ' Pré-visualização a ' + Math.round(scale * 100) + '%.' : ''}</p>
+    </div>
+    <div className="stage" ref={stageRef} data-screen-label={s + ' · ' + w}><div><div className="stage-frame" style={{ width: w, zoom: scale }}>
+      <ConfiguracoesScreen key={s + w} scenario={s} width={w} height={HH[w]} fail={fail} />
+    </div></div></div>
+  </>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Review />);
+</script></body></html>

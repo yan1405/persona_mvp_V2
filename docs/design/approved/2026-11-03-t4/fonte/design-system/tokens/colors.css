@@ -1,0 +1,27 @@
+:root{
+/* Brand — Indigo. The ONLY CTA per screen, active journey step, active nav. */
+--indigo-50:#F5F3FF;--indigo-100:#ECEAFB;--indigo-200:#DDD6FE;--indigo-300:#C4B5FD;--indigo-400:#A78BFA;--indigo-500:#8B5CF6;--indigo-600:#7C3AED;--indigo-700:#6D28D9;--indigo-900:#2E1A6B;
+/* Neutrals — violet-tinted Slate */
+--n-0:#FFFFFF;--n-25:#FAFAFC;--n-50:#F2F1F7;--n-100:#E4E2EE;--n-200:#C9C5D8;--n-400:#888291;--n-500:#6D5BA6;--n-600:#4F4866;--n-800:#2E2A3D;--n-900:#1A1726;
+/* Semantic — fill/dot, ink text, soft surface */
+--green-500:#10B981;--green-ink:#064E3B;--green-soft:#ECFDF5;--green-on-dark:#6EE7B7;
+--amber-500:#F59E0B;--amber-ink:#78350F;--amber-soft:#FFFBEB;
+--red-500:#EF4444;--red-ink:#7F1D1D;--red-soft:#FEF2F2;
+--blue-500:#3B82F6;--blue-ink:#1E3A8A;--blue-soft:#EFF6FF;
+/* Destination tile pastels (semantic tints) */
+--tile-indigo:#F1EEFD;--tile-blue:#EAF1FE;--tile-amber:#FEF6E4;--tile-green:#E8F8F1;--tile-rose:#FDEEF2;--tile-slate:#EEEDF4;
+
+/* Semantic aliases */
+--bg-app:var(--n-50);--surface-card:var(--n-0);--surface-subtle:var(--n-25);--surface-sunken:var(--n-50);
+--surface-focal:linear-gradient(135deg,#1A1726 0%,#2E1A6B 100%) /* @kind color */;
+--surface-focal-glow:radial-gradient(60% 80% at 85% 20%,rgb(124 58 237 / 0.35) 0%,rgb(124 58 237 / 0) 70%) /* @kind color */;
+--text-strong:var(--n-900);--text-body:var(--n-800);--text-muted:var(--n-500);--text-disabled:var(--n-400);--text-on-brand:#FFFFFF;--text-on-focal:#FFFFFF;--text-on-focal-muted:var(--indigo-300);
+--border-subtle:var(--n-100);--border-strong:var(--n-200);--divider:var(--n-100);
+--brand:var(--indigo-600);--brand-strong:var(--indigo-700);
+--brand-gradient:linear-gradient(135deg,#7C3AED 0%,#6D28D9 100%) /* @kind color */;
+--brand-soft:var(--indigo-100);--focus-ring:var(--indigo-400);
+--ink:var(--n-900);
+--bubble-user:var(--n-900);--bubble-user-text:#FFFFFF;--bubble-ai:var(--n-0);--bubble-ai-text:var(--n-900);
+--success:var(--green-500);--warning:var(--amber-500);--danger:var(--red-500);--info:var(--blue-500);
+}
+a{color:var(--brand);text-decoration:none}a:hover{color:var(--brand-strong);text-decoration:underline}

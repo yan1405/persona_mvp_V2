@@ -1,0 +1,4571 @@
+{
+ "pacote": "T4 oficial — 2026-11-03",
+ "decisao": "D-032 (aprovação visual de T4.1–T4.8, 03/11/2026)",
+ "aviso": "A aprovação é visual. Não prova implementação, backend, leitor de tela nem zoom real.",
+ "fonte": {
+  "tipo": "exportação pela interface do Claude Design",
+  "data_export_utc": "2026-11-04",
+  "projetos": {
+   "t4": "865d08f1-bee1-40c0-854c-eaca4294fcf5",
+   "design-system": "ff1a7bce-a6f2-4fa9-af99-a6196b748678"
+  },
+  "copias_locais": "claude/exports/2026-11-03-oficial/{raw,extracted,hashes} (fora do Git)",
+  "contagem_raw": {
+   "t4": 85,
+   "design-system": 465
+  }
+ },
+ "superado": {
+  "_tmp_oficial_pos.json": {
+   "sha256": "3be154b88fdc8eecdbb5e623aeb1f875078501735eaa718ec2c8ceb694f005e2",
+   "nota": "evidência histórica; contém T4.6 HTML anterior à correção final"
+  }
+ },
+ "normalizacao_html": {
+  "regra": "o servidor injeta '<style data-omelette-injected>…</script>' após <head>; o export não traz o bloco. Remover o bloco (regex \n<style data-omelette-injected>.*?</script>\n, 1 ocorrência) do HTML servido reproduz o export.",
+  "reproduzida": {
+   "t4_html_explicados": 7,
+   "t4_html_total_divergentes": 8,
+   "design_system_cards_explicados": 40,
+   "design_system_cards_total_divergentes": 40
+  },
+  "excecao": "T4.6 - Narrative Score.html: o _tmp_oficial_pos tem a versão anterior (7668e39c8a27853c…); o export (bbfd35a05…) inclui pointerEvents/inert e coincide com o pacote_v2.",
+  "pacote_v2_27_hashes_depois": "27/27 idênticos ao export"
+ },
+ "arquivos": [
+  {
+   "origem": "design-system",
+   "caminho": ".thumbnail",
+   "sha256": "ba65d891a8e4b0239224a702d5de07cb29c5154d07e62006fb2e6fa515644e2f",
+   "tamanho": 9802,
+   "estado": "excluido",
+   "motivo": "miniatura gerada pela plataforma; difere da listagem oficial (não é conteúdo do projeto)"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "SKILL.md",
+   "sha256": "53f7e8600d1a83a319f7d4f7f31208cc56ad5e8ef264ef08994010471839c80b",
+   "tamanho": 3789,
+   "estado": "incluido",
+   "destino": "fonte/design-system/SKILL.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "_adherence.oxlintrc.json",
+   "sha256": "88e670d8dd8d4640b4563533a1a2af55b34429adb6a4cd6058b387856de26d71",
+   "tamanho": 32037,
+   "estado": "incluido",
+   "destino": "fonte/design-system/_adherence.oxlintrc.json"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "_ds_bundle.js",
+   "sha256": "ff47020386216dc7d6a58c9aeb84624d240febe473e3b17e1603947b858f333b",
+   "tamanho": 178443,
+   "estado": "incluido",
+   "destino": "fonte/design-system/_ds_bundle.js"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "_ds_manifest.json",
+   "sha256": "00699c939c8d5942146436ec53db911062d4bab4625cef86f7186ce75c8b64ab",
+   "tamanho": 30390,
+   "estado": "incluido",
+   "destino": "fonte/design-system/_ds_manifest.json"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/arrow-right.svg",
+   "sha256": "4631cdad994f2ad5d5e10a3756d68d33530e4f0f81a48d244c9684580f92a7bb",
+   "tamanho": 8062,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/arrow-right.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/arrow-up-right.svg",
+   "sha256": "76d917686f921494632e658cde4edb4da891f0315288013fff34f2f1a536cdba",
+   "tamanho": 8064,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/arrow-up-right.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/arrow-up.svg",
+   "sha256": "64cb5cd8907cd3dc113df74495241cfdd0bf712d54ba82a5df615f023173e599",
+   "tamanho": 8059,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/arrow-up.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/badge-check.svg",
+   "sha256": "97347d64655a4b2e83a27558d2b2b10fd495de84726ae4b3c0ac60f2a4516188",
+   "tamanho": 8213,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/badge-check.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/bell.svg",
+   "sha256": "57c9704e9895bbae74c8e76fc70f27b99cdb976790ad8dbcf1c6704c25e783e0",
+   "tamanho": 8105,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/bell.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/book-marked.svg",
+   "sha256": "16ec31df4b8c6083c96c6acbbf5a6457941a079dc5e48ebab02b47dc890cb443",
+   "tamanho": 8144,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/book-marked.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/book-open.svg",
+   "sha256": "1f96e5ffbbcaf46b2a812a6f46f0df8b4395bc99d1b0ad5ab139bfbab2352c6b",
+   "tamanho": 8177,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/book-open.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/bookmark.svg",
+   "sha256": "8b84c17fcdd19a6833ddb847a199258f2b82923b131b9ba25abbd2320c8a78ec",
+   "tamanho": 8068,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/bookmark.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/brain.svg",
+   "sha256": "755803b3f3fe55d5ebaa683eca300c08c85d0aa1ea8c633ce7db3f118004061c",
+   "tamanho": 8576,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/brain.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/calendar.svg",
+   "sha256": "61848739a404dc60f2f34347f21c060ff91020fd42bf38b6a12464ac6581577e",
+   "tamanho": 8138,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/calendar.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/check-check.svg",
+   "sha256": "2aa797ed5466920fa5da651fb487e26169cec71550bd2267cf1fc0321b6ad94f",
+   "tamanho": 8076,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/check-check.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/check.svg",
+   "sha256": "be105c153ef959a595f986d7d3b8a0f7961b8e52fcea7371d4b572762ff65eb0",
+   "tamanho": 8029,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/check.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/chevron-down.svg",
+   "sha256": "3dafc2a5f8612388d9c14975a68b45d4c014e23bf679ccc78e00f77e5d146144",
+   "tamanho": 8033,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/chevron-down.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/chevron-left.svg",
+   "sha256": "6d30bd27e6444d95b43eddf30529c5aa64911998702367fb68b1725ad57277d3",
+   "tamanho": 8035,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/chevron-left.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/chevron-right.svg",
+   "sha256": "2d89a77f193bc12753da80b8ea8fceb590aa6c958bd07941342e5778f4d30d96",
+   "tamanho": 8035,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/chevron-right.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/circle-check.svg",
+   "sha256": "c4508bc501b49a5621cfcea1ca1a537f4728781228ef24bb012d5e3dfe70a1dc",
+   "tamanho": 8077,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/circle-check.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/clock.svg",
+   "sha256": "bca1003819d0740f610d1ca85c5058e1cd08420a17a7e0400cbbb34997917d57",
+   "tamanho": 8086,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/clock.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/copy.svg",
+   "sha256": "9503518478182af7a72d8156db16745cdb456ab4de2989442fade8c348887b1d",
+   "tamanho": 8133,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/copy.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/download.svg",
+   "sha256": "218450394a8552e1a417211d603817aa91244f0d35d1ee2df2be58c587ddffd7",
+   "tamanho": 8155,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/download.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/ellipsis-vertical.svg",
+   "sha256": "1ec81370357f217cbd7c7c89eedaf0565c47d1288beb6457f70b84df9af2d143",
+   "tamanho": 8130,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/ellipsis-vertical.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/ellipsis.svg",
+   "sha256": "a482e36fc7eae2e399ce38d76d9862bb04589fe90e7205685f8dc538642b74f7",
+   "tamanho": 8121,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/ellipsis.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/external-link.svg",
+   "sha256": "6a3effc1aa8ab22feed603ad041d395b45de3ef1ec6deba909c943a405b8c5f2",
+   "tamanho": 8140,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/external-link.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/file-search.svg",
+   "sha256": "3c34075e4e15b358ad0c54a518d29e0d585e93accb9e6f045df650712c9a89be",
+   "tamanho": 8208,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/file-search.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/file-text.svg",
+   "sha256": "3f44c68ccccdc31863ced13bc0d11daee31e0d31e2b72c0a6119c75b6e758bbf",
+   "tamanho": 8206,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/file-text.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/filter.svg",
+   "sha256": "67f07a9c3f80a938c563eea2cf8814bda8a9ea3606a6296c7610c225cdfd5056",
+   "tamanho": 8069,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/filter.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/flask-conical.svg",
+   "sha256": "9d16759b52bbf666b4a353abba624d6599f039d17fb21ae1d1a9a0e99ee3553c",
+   "tamanho": 8198,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/flask-conical.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/folder.svg",
+   "sha256": "fb8d37140e2530819c6db558f30464d2c223886457e73247ae9fc9f5666b34e7",
+   "tamanho": 8133,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/folder.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/globe.svg",
+   "sha256": "ad8e42e34549399709577128748f482b44a811f207a65c21e13c9f5746104505",
+   "tamanho": 8133,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/globe.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/graduation-cap.svg",
+   "sha256": "b930076f98091b376730c57afc594458c5dc6cc6be25dec4e304e8b9720ac53e",
+   "tamanho": 8221,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/graduation-cap.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/history.svg",
+   "sha256": "04fa05620d2a3070a9119a239bc7faba15ea3da0dd257515fdc9108f2166980b",
+   "tamanho": 8126,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/history.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/house.svg",
+   "sha256": "91b91b7c7b64a31a74aa4a88d6815980b5f809bb21546657985d02d654aedd93",
+   "tamanho": 8186,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/house.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/info.svg",
+   "sha256": "cc821b1eded3922cc751420b3cfaa827e88e8c5335a631357a539684d37f57d5",
+   "tamanho": 8095,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/info.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/languages.svg",
+   "sha256": "118be2a17218659978c10c083416fd049d48f725519331b3f3e57b328af27dd8",
+   "tamanho": 8181,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/languages.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/layers.svg",
+   "sha256": "b7e9b8fd97d2a661756a23bbab4e5f8cf22f849b1d003d6daf89fae02d44fa1f",
+   "tamanho": 8253,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/layers.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/library.svg",
+   "sha256": "1ba321cba4603def5802719f834778a3553d33dcdc2eae568f911af94e13bf1e",
+   "tamanho": 8111,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/library.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/link.svg",
+   "sha256": "00f5368401a0b5fa40bcd4eaedd49912fca2bceecac55f998db76e67e10f870a",
+   "tamanho": 8153,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/link.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/list-checks.svg",
+   "sha256": "d5cc6e85d3f64b5b5f0839fa1221107c86ec6bc1d83b04165a3acff04ff16f20",
+   "tamanho": 8152,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/list-checks.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/lock.svg",
+   "sha256": "1bb64378af9b87e79adbdd0c1b8181c5f5ed1ce8fcbcec6fbf8a6e7506ddd878",
+   "tamanho": 8103,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/lock.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/log-out.svg",
+   "sha256": "f78c3f90fb456b0fe6138a50fa529af82eb4e5d302a96720ea937c9793ba24a6",
+   "tamanho": 8152,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/log-out.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/message-square.svg",
+   "sha256": "de25a1c992792dc3921ba57043bd5e926cc3c1a0ce308d8046e7f948b8bbdd46",
+   "tamanho": 8084,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/message-square.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/messages-square.svg",
+   "sha256": "71196106a47a8cef72bbcdbbf3bf7e0e41fc6b2e590ba0a4a31588993c49323d",
+   "tamanho": 8153,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/messages-square.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/mic.svg",
+   "sha256": "42d9bf5f2875a0cc58ce1fb8a18b2c58ce6d012b47af9cad3affa7ac1b52982e",
+   "tamanho": 8159,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/mic.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/notebook-pen.svg",
+   "sha256": "aff402875911e4e648e159e42f288cb623b51347898b44af10490493b280120c",
+   "tamanho": 8341,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/notebook-pen.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/panel-left.svg",
+   "sha256": "e2341e20cf1fc31c3d51acfc530d0f3f0d57c561545472aaa0a988b263d114c1",
+   "tamanho": 8084,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/panel-left.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/paperclip.svg",
+   "sha256": "51876f9f6808c91953242aa673f798b3fb03f4da615c34fe4355f540b1126531",
+   "tamanho": 8129,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/paperclip.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/pen-line.svg",
+   "sha256": "732c832517709784ed63cc3acbeaa89a11528fec0bc25c082a3d2d271a16920f",
+   "tamanho": 8175,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/pen-line.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/pencil.svg",
+   "sha256": "07e4743025f77bd82da1aaa2ddd0ebd5a7ee5f25cbb82eea932db268da4d6c66",
+   "tamanho": 8173,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/pencil.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/plus.svg",
+   "sha256": "4ba0ca82fc607a7eadcdcf3eda560deec0b5fb277f90de42f0dc064e97e465c8",
+   "tamanho": 8050,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/plus.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/quote.svg",
+   "sha256": "6cc545e8162542e58457f3c50f1121f10e716d6aedc08c29f99fd2bffca265c3",
+   "tamanho": 8286,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/quote.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/refresh-cw.svg",
+   "sha256": "1a1ef0186341498a7e935d85b64355b8807be7ade9de335abdca8227a90e14b2",
+   "tamanho": 8202,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/refresh-cw.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/search.svg",
+   "sha256": "823ba4612fcd722618264dee1ca7436201461e85676d7207f2fae542eb3d6c75",
+   "tamanho": 8071,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/search.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/send.svg",
+   "sha256": "a628f572d6d99ccaa4172811a36bc6e4c90dbd081f32916d0c9edc862ec5977e",
+   "tamanho": 8187,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/send.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/settings.svg",
+   "sha256": "58379ded8eb9821ce03a33156d3041758234c5793160d033989ab7ce8eb5b312",
+   "tamanho": 8624,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/settings.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/share-2.svg",
+   "sha256": "92cf34703d5250113b84c7da1723006e7a8b9dc6a56a4a4326526b0d4f7c9ecb",
+   "tamanho": 8236,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/share-2.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/smile.svg",
+   "sha256": "7a98b8a6f9a93f9610baa14dd35d332353f9ce147bd7dfeef4fd4f79bb686e34",
+   "tamanho": 8176,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/smile.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/sparkles.svg",
+   "sha256": "82d26e376d58ce2e00f825298474ec7c8c6274077c8cd41b04097f838ffc2c2a",
+   "tamanho": 8381,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/sparkles.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/square-pen.svg",
+   "sha256": "8ba0076f6f4c52e43e05cd7ea1722ea1d2f696dcb5651ed4205cdb7a4bfaae11",
+   "tamanho": 8217,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/square-pen.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/star.svg",
+   "sha256": "01d0f69d8e7498eba77c905002a076cffc16163c315fa971465bf4a40eb15cc8",
+   "tamanho": 8377,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/star.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/target.svg",
+   "sha256": "e78e7f6cd25d0848906a9ae31dcb4471354bfff8401c392c5f48fbe6e6245caa",
+   "tamanho": 8121,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/target.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/thumbs-down.svg",
+   "sha256": "2d9ba89fe94665a7c37d88d46e35746de34f6e21a71a18225634f9f76f011a0b",
+   "tamanho": 8200,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/thumbs-down.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/thumbs-up.svg",
+   "sha256": "3853916383817081ffeaf04a81eb25c9bd6ba41ed72e10599985ddf80b48731f",
+   "tamanho": 8199,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/thumbs-up.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/trash-2.svg",
+   "sha256": "c06dac9dc609dd2a880cf5edd0c01e5fe8fd3add57f6e07d129a2746ea0a6054",
+   "tamanho": 8232,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/trash-2.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/triangle-alert.svg",
+   "sha256": "e42d1e18f4ad912bbe2a6c051dbff4a9aa2a5c3977e9793d2a1a61400a72c978",
+   "tamanho": 8154,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/triangle-alert.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/upload.svg",
+   "sha256": "af2faea2c79a479faf894e8a208db380c4cbe4a54e198fa413ae533f3844746c",
+   "tamanho": 8150,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/upload.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/user.svg",
+   "sha256": "8ecb648bf6bc82f145e0b2c79998cbbe3999d018d9c954b9aa246f900f859382",
+   "tamanho": 8095,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/user.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/users.svg",
+   "sha256": "b6de99c497d893ff7ce88c2145fb747d104d5d15d346d055038f652b03e51e82",
+   "tamanho": 8188,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/users.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/x.svg",
+   "sha256": "ce8132120b7a0d2b78a6e23dd25824a3d919434f975bc82b9954189d5642ceff",
+   "tamanho": 8051,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/x.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/icons/zap.svg",
+   "sha256": "2c69151f78b9ec91653c981dceb65a097398ca8ee31a2042f779aeb20ed3f1f8",
+   "tamanho": 8167,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/icons/zap.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/logos/persona-lockup-h.svg",
+   "sha256": "f931622b1e715dece42cc29d573cac08b568f327230cef19c5ea2384fb39f55a",
+   "tamanho": 8983,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/logos/persona-lockup-h.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/logos/persona-logo-compacta.svg",
+   "sha256": "5c1af9fca74dd5d1120770f77b540cc33447cd8f818c3a0a8e7f4b417298a012",
+   "tamanho": 8656,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/logos/persona-logo-compacta.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/logos/persona-logo-mono.svg",
+   "sha256": "0cac618b8f5034031a0b68d26e92d39d51f5d9a9188a8f6dfe3b83388ddf72b4",
+   "tamanho": 8705,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/logos/persona-logo-mono.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/logos/persona-logo-rica-dark.svg",
+   "sha256": "ce03fd92e883cd4fcf6d25afdf81c5245c37b49fab834502f883a2e69e70390a",
+   "tamanho": 8710,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/logos/persona-logo-rica-dark.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "assets/logos/persona-logo-rica.svg",
+   "sha256": "53a47961e4d89b2492f5a63f189a8ab7602c67d01c14395973cd2d1021646796",
+   "tamanho": 8713,
+   "estado": "incluido",
+   "destino": "fonte/design-system/assets/logos/persona-logo-rica.svg"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/agent/AgentPanel.d.ts",
+   "sha256": "8505b36c626d42011578b9ca48e441e59ac0da7739c3edceb6af5bb862e9eb26",
+   "tamanho": 1300,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/agent/AgentPanel.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/agent/AgentPanel.jsx",
+   "sha256": "53983f15dba6b9aa4dbd93f027a4a0bfc561cbe49ba8f5dfc08b06d9c034817d",
+   "tamanho": 4185,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/agent/AgentPanel.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/agent/AgentPanel.prompt.md",
+   "sha256": "07396b52aae20608c5538aa392264a8ce2581fd78f0c06c0f707a76c80ece318",
+   "tamanho": 614,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/agent/AgentPanel.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/agent/AgentPrompt.d.ts",
+   "sha256": "7f3b13417cc24548fdaebe68d1e7a121899e64d57087497b6a6560c326cf3ff8",
+   "tamanho": 876,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/agent/AgentPrompt.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/agent/AgentPrompt.jsx",
+   "sha256": "8719b9386fdf89a36e1d24e7377f641258bd4d58e742e7e4597167215bc1d68c",
+   "tamanho": 2842,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/agent/AgentPrompt.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/agent/AgentPrompt.prompt.md",
+   "sha256": "e34a57152124cf7d730ead0a348224c5c904fa59f722051e4099705b98dcd0c2",
+   "tamanho": 554,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/agent/AgentPrompt.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/agent/panel.card.html",
+   "sha256": "22742d422fcac486036985cd11c3f27164996fda438a0a3c8115666aceea0692",
+   "tamanho": 2521,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/agent/panel.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/agent/prompt.card.html",
+   "sha256": "c09a13792e3d62fc53cdc4f0750c40ae58bdab5c16d70a9ab8385895a9c9b2ba",
+   "tamanho": 2031,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/agent/prompt.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/artifacts/ArtifactCard.d.ts",
+   "sha256": "730aa41db6fdd61c34152f5aca704583df5d3e4ef2c850f687d826cc29571162",
+   "tamanho": 1026,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/artifacts/ArtifactCard.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/artifacts/ArtifactCard.jsx",
+   "sha256": "707ec66629cf1370965018d88e8e55474dfce71d12d0069e2315c670bbf41672",
+   "tamanho": 4309,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/artifacts/ArtifactCard.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/artifacts/ArtifactCard.prompt.md",
+   "sha256": "a14a5739a9549f50d07481c0123aebe0f1b65924468f9732d949b3c8918e1933",
+   "tamanho": 445,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/artifacts/ArtifactCard.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/artifacts/artifact.card.html",
+   "sha256": "6492a1a6374bebdbea04583cafede2112928d5ab06e8abc74f0fc6a4db4849f0",
+   "tamanho": 2488,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/artifacts/artifact.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/chat/Composer.d.ts",
+   "sha256": "29073dd2be21390fd743af1b8f09c69d8e9c83a2d374fae22c08353f9da31aed",
+   "tamanho": 1101,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/chat/Composer.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/chat/Composer.jsx",
+   "sha256": "b1db5819106f7b187f0c86819aee81dfc1d99540864b5ac5efded924d821dfbd",
+   "tamanho": 2764,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/chat/Composer.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/chat/Composer.prompt.md",
+   "sha256": "506efe34aa84f0cc098fd1ea6e9453d0ad438011d289a0fd47ccfaf8a424db2e",
+   "tamanho": 631,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/chat/Composer.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/chat/MessageBubble.d.ts",
+   "sha256": "91192846c1d2d7e1a372f5f39ad0619155fd01e45d4d97d41b154831600309c7",
+   "tamanho": 1089,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/chat/MessageBubble.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/chat/MessageBubble.jsx",
+   "sha256": "3f8209977ee5b944ecf88136ef8f7f689856899c6529476efd458b36a507ea05",
+   "tamanho": 3147,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/chat/MessageBubble.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/chat/MessageBubble.prompt.md",
+   "sha256": "7f8b6f8bc5765375e7217fbfa9c8144288acf65876b5fcad03796dbedafc2b29",
+   "tamanho": 1202,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/chat/MessageBubble.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/chat/chat.card.html",
+   "sha256": "ec9be9a48ae3f35adfa341633a0f73826a37fde844aba7f5d0da47b4e7ba577c",
+   "tamanho": 3228,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/chat/chat.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Avatar.d.ts",
+   "sha256": "ab8017378f7abab761d9dc99a22ddb363a1068405ae43521db5a8d6707dc5b80",
+   "tamanho": 613,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Avatar.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Avatar.jsx",
+   "sha256": "7266227db257b96d40d7157ffb7b1547c76bdb4b9da9e94192a1ee4c5180468a",
+   "tamanho": 1870,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Avatar.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Avatar.prompt.md",
+   "sha256": "1866772a235be96177711e38c9058f9bba6feee75198a64a694eae10d5ae2583",
+   "tamanho": 335,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Avatar.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Badge.d.ts",
+   "sha256": "dd074b610e740b509874448573caef077aa442cda1c8f8fe3c95d4a265f7108a",
+   "tamanho": 1351,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Badge.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Badge.jsx",
+   "sha256": "f8c1fec27f8742fa0beac6c33fe33c015cdf964c26328ace21f71167cf7b38e3",
+   "tamanho": 2487,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Badge.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Badge.prompt.md",
+   "sha256": "95907bdf89969695808d3335d2c456038c5640c65270251f786a1ae9591c68c1",
+   "tamanho": 909,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Badge.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Button.d.ts",
+   "sha256": "1ab4437b447edd708b5cfefd7cb5b43efb7972a1e4e7f483c8297c293da29bc1",
+   "tamanho": 779,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Button.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Button.jsx",
+   "sha256": "cfb659dab75e7712be600f26c1ac539fcc299e611c01edafc17a88450d53da83",
+   "tamanho": 2791,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Button.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Button.prompt.md",
+   "sha256": "9697ebb9c27c5e206e041f6bbb1e9966b776c6046d23dbe618acda277a3542d5",
+   "tamanho": 569,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Button.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Chip.d.ts",
+   "sha256": "49bc86f84fc200418ffa08ac002408050e140110cb8594d698c7b7274b59ce9f",
+   "tamanho": 1024,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Chip.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Chip.jsx",
+   "sha256": "f184760bb422fbfac4cd879aebeee13dc38a88998858bd46062dca380465b2b4",
+   "tamanho": 2519,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Chip.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Chip.prompt.md",
+   "sha256": "ef744bf39dc23fce5487ea826409285e1a15d587550a0b48c255ee982570faeb",
+   "tamanho": 648,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Chip.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Icon.d.ts",
+   "sha256": "49e9b4fe6feeaec0247f80e4d368727dbc3878ac2fcfddbf5bc2067008c071a6",
+   "tamanho": 420,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Icon.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Icon.jsx",
+   "sha256": "9aa116ca997a56b4d1a38301303484dbffcfe46689b929ddf2c088f7bda3752b",
+   "tamanho": 12459,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Icon.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/Icon.prompt.md",
+   "sha256": "79d7805103e755b574dfce3ca76925eb9824ce924a16ab4b3f01867e9f802946",
+   "tamanho": 301,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/Icon.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/IconButton.d.ts",
+   "sha256": "471263b744e5339b33f0e0aa08c5f19970ded2e015b9e056ab3e50b71851eed2",
+   "tamanho": 645,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/IconButton.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/IconButton.jsx",
+   "sha256": "8ff48329d21978327b5e182c0d056958579fb832eda8eaf744cc12028e8261e1",
+   "tamanho": 2471,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/IconButton.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/IconButton.prompt.md",
+   "sha256": "b278190b38c57adcd55ecdb92efdbed0a414945c6c039ecd8312f830e4a636eb",
+   "tamanho": 362,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/IconButton.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/badge-status.card.html",
+   "sha256": "cb11af05e4f35f384c5123a996b5232937b501cd5b97f36ecfc52c7e89d54bb8",
+   "tamanho": 1991,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/badge-status.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/chip-status.card.html",
+   "sha256": "5e85fefb785927a74b40db882e711e0175740d216f593d7a52c08579bd704ae6",
+   "tamanho": 2369,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/chip-status.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/core.card.html",
+   "sha256": "02f4f5014e53e813e050d4fca396337a93d9842e81cf8bdfbe82b3f8bad4c7af",
+   "tamanho": 3427,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/core.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/core/focusRing.jsx",
+   "sha256": "192d5248477d754f8f8e27b0f7fbf1dca8eb41d5b996ccfd443ddbcc94a5bc57",
+   "tamanho": 1398,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/core/focusRing.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/entries/CaptureEditor.d.ts",
+   "sha256": "944fab31f5fa596a33a2bf5bf44503c87de0d422693aa3558e083347b5b88f21",
+   "tamanho": 1058,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/entries/CaptureEditor.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/entries/CaptureEditor.jsx",
+   "sha256": "3763d43006c5e83015b0116b918dc65ee51059990b7a2e998a6d43dd5729f090",
+   "tamanho": 5974,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/entries/CaptureEditor.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/entries/CaptureEditor.prompt.md",
+   "sha256": "72114dbe7ee6a69dd654a0bde58cd5488a461fabe5db8a14ff5c72fa56597aee",
+   "tamanho": 680,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/entries/CaptureEditor.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/entries/EntryCard.d.ts",
+   "sha256": "6bf9dffdc39173fbc39b999d6e20da0f98e37b117918dba525dc6821dbe1409d",
+   "tamanho": 1182,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/entries/EntryCard.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/entries/EntryCard.jsx",
+   "sha256": "1f23a7f181f217e08362d241072e274dbac4a0052707a1108bf115daf4301fd1",
+   "tamanho": 3482,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/entries/EntryCard.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/entries/EntryCard.prompt.md",
+   "sha256": "8fc8fa81258af500303fe96c029bb6560aed33b71461768f433e2de47ee12509",
+   "tamanho": 992,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/entries/EntryCard.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/entries/capture.card.html",
+   "sha256": "74f403f4be30d3b48f9370de90651a86a7cf6754b05156fc89259d2f395d5d47",
+   "tamanho": 2361,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/entries/capture.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/entries/entry.card.html",
+   "sha256": "179f8be386e41a4b180ff2c71314f9462d8b86ef4f818cf3c25c17854bee7584",
+   "tamanho": 2322,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/entries/entry.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/evidence/EvidenceCard.d.ts",
+   "sha256": "c148795e30e759d763828bea0b70469296e016a51b196e500339346408ba635e",
+   "tamanho": 1742,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/evidence/EvidenceCard.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/evidence/EvidenceCard.jsx",
+   "sha256": "e20dae530e3a2be90cb9806eb2411a983a90c368280942cbd6e80f5f544cdc5d",
+   "tamanho": 8237,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/evidence/EvidenceCard.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/evidence/EvidenceCard.prompt.md",
+   "sha256": "c8bb5ddce26e474c437198e456772f365e112fadc8e7e71596309e9826a70825",
+   "tamanho": 1200,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/evidence/EvidenceCard.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/evidence/evidence.card.html",
+   "sha256": "c045703e5810a59547dac91f6b05475c713981b5634403407602d6b88f4a9c7d",
+   "tamanho": 2739,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/evidence/evidence.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/flow/StepFlow.d.ts",
+   "sha256": "7583c1e31e483cb7d144f406bbbef1aa04faedc84a9deaebe5714bf6d315561d",
+   "tamanho": 1170,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/flow/StepFlow.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/flow/StepFlow.jsx",
+   "sha256": "2b7e464db21125812ab4354d17a9bc8764af7ebc6f82b4c9279ff07f96eafc17",
+   "tamanho": 3279,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/flow/StepFlow.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/flow/StepFlow.prompt.md",
+   "sha256": "3d9245f2a975eb6075a0674a2e0992aab5e6528c5864fac51d96888eb7031ba5",
+   "tamanho": 465,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/flow/StepFlow.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/flow/stepflow.card.html",
+   "sha256": "bdeb0a653e31338dbacdc93328487260ea1fc8d19dbb8d26e480198abfea8e2a",
+   "tamanho": 3343,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/flow/stepflow.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/forms/Input.d.ts",
+   "sha256": "af3456f37a4fef4d3461bd790ae59b84246374ad8c15c695a8a76511b5b53ce3",
+   "tamanho": 639,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/forms/Input.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/forms/Input.jsx",
+   "sha256": "3e3639c60bd7685b00ceef1db401452d1cdba3e50df79072f2b31b378505cef3",
+   "tamanho": 1802,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/forms/Input.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/forms/Input.prompt.md",
+   "sha256": "bce6dca5b35aa19e2288bdedc7102f8603687b5077a4781a1a8d0f36b057af75",
+   "tamanho": 356,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/forms/Input.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/forms/PillTabs.d.ts",
+   "sha256": "dc7ce5976b18da84f6be288bd5056b07db6fa49f2a0428458a0f33e8e14bac13",
+   "tamanho": 598,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/forms/PillTabs.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/forms/PillTabs.jsx",
+   "sha256": "9c092cafbc84db00c9a781a82a65adfdc94f82108d6b160a5e4be4fcc98bac69",
+   "tamanho": 2371,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/forms/PillTabs.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/forms/PillTabs.prompt.md",
+   "sha256": "388e2dd4f0e3cd9d3bc62fd0e03036e68e01b7cbc3246ac48bda807ca9fe9293",
+   "tamanho": 507,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/forms/PillTabs.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/forms/Switch.d.ts",
+   "sha256": "136507ec19eb2064bf23eda04da15cb9c0c90695833e77414ded47a4d1f81fe4",
+   "tamanho": 547,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/forms/Switch.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/forms/Switch.jsx",
+   "sha256": "0e36ea7ef5c2358503f8ffb2c18164e83ff24710256fea80fddbb7aa49ada56a",
+   "tamanho": 1704,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/forms/Switch.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/forms/Switch.prompt.md",
+   "sha256": "3fc62a8ead427d58993bf957a2969e0358bc09253e889f6e5e0371e43d6ecba7",
+   "tamanho": 286,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/forms/Switch.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/forms/forms.card.html",
+   "sha256": "4ec6ac91fd402a2750c1245edb51a33aaa06f33be9d098680801e7d5e28be94a",
+   "tamanho": 2313,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/forms/forms.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/live/ArgumentPanel.d.ts",
+   "sha256": "32b6590fdcc7a4ab02a57499cf9d58f92374e62db569cadeb2aee2ac70c4215d",
+   "tamanho": 1193,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/live/ArgumentPanel.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/live/ArgumentPanel.jsx",
+   "sha256": "8b1a7162d3d58232b7115fad537565b52f7c7253220baebb01706e83ee3a32bc",
+   "tamanho": 6283,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/live/ArgumentPanel.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/live/ArgumentPanel.prompt.md",
+   "sha256": "86098c236c0a72418ab788a8470ef38add0814818ac9322c4a45cb12bdb84e42",
+   "tamanho": 570,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/live/ArgumentPanel.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/live/DraftPanel.d.ts",
+   "sha256": "d058ddec8d5ce02792bff83284fe56695d61a40e4e13a8ff50d0fed1b132acda",
+   "tamanho": 1102,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/live/DraftPanel.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/live/DraftPanel.jsx",
+   "sha256": "7e45e1443273b89a350cacdee79a8d4052cd71081ddb3ccffd20167caedeb53b",
+   "tamanho": 4960,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/live/DraftPanel.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/live/DraftPanel.prompt.md",
+   "sha256": "8af90b06d527e54b344aff13cf276b66c7861976b43b24a1907d18d1725ed2da",
+   "tamanho": 460,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/live/DraftPanel.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/live/argument.card.html",
+   "sha256": "a58bde9e0ffc406ad099b6ce1d20184b7cc4dfa2b720522502cd6f2b1174e86d",
+   "tamanho": 2817,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/live/argument.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/live/draft.card.html",
+   "sha256": "df8ff4cfb42f1d16d5dd4c3946aec3be94a8d6a7ccb14d178d4c21387168d40c",
+   "tamanho": 2404,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/live/draft.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/AppHeader.d.ts",
+   "sha256": "42f01126e7ba61a67154cbb01a45b29a3fbc0d97858e8396e4d2d7a5f07f33b0",
+   "tamanho": 498,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/AppHeader.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/AppHeader.jsx",
+   "sha256": "419f97802b17af1637709a3c40554c17540d9c84019fdef175cbad9db7aba4f8",
+   "tamanho": 2048,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/AppHeader.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/AppHeader.prompt.md",
+   "sha256": "8c5a37ed2dc9e40058607dba85dcb389877451afffed87b5bf935529e42bb1fd",
+   "tamanho": 412,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/AppHeader.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/NavItem.d.ts",
+   "sha256": "5831dd8ea96435f3f6fe7d907776117c956349c47bd24aee0054eeaee870634e",
+   "tamanho": 787,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/NavItem.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/NavItem.jsx",
+   "sha256": "f081292c22e1bf4408832333e15d955096b23c3f6fb38c12b123aab0a1bf7aa5",
+   "tamanho": 2150,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/NavItem.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/NavItem.prompt.md",
+   "sha256": "0c5db9a7cf0863a352b9e790d2368fd722a0c53b92bf0ea5443db528ec71d433",
+   "tamanho": 522,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/NavItem.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/Sidebar.d.ts",
+   "sha256": "a7aaca7b7c1dcd59bfeebe57d7eb10ef0adf77a85c5779198dd8c05c10b5c2f5",
+   "tamanho": 1341,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/Sidebar.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/Sidebar.jsx",
+   "sha256": "33d997a18e6be82ab4c7adc570ba42fbbb5a5877ce38be157232995f9578f201",
+   "tamanho": 5379,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/Sidebar.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/Sidebar.prompt.md",
+   "sha256": "d52bb4053a40a81a5b8ad1bb0a599ebfd0079c2426de8e10cffdce195619fed8",
+   "tamanho": 542,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/Sidebar.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/header.card.html",
+   "sha256": "3316cddd748eb0ce202c28aa5374ad55de42f31c5e178dafb913a4d7f4b3980b",
+   "tamanho": 2587,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/header.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/navigation.card.html",
+   "sha256": "50b221c1cfebf348455d8a1ccfefedb0c9cc972670a66d53717c1bdb978a2ef6",
+   "tamanho": 2851,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/navigation.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/navigation/sidebar.card.html",
+   "sha256": "2aa4fbfb3499f44aca8cbdc530799a20547f3293eb2ad355222eda43f2e07ef5",
+   "tamanho": 2854,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/navigation/sidebar.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/overlay/FloatingPanel.d.ts",
+   "sha256": "aed602f811883e278cb5a2134bc4685dd5069f6cd23cc0bc2aa5eef85c373c1e",
+   "tamanho": 865,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/overlay/FloatingPanel.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/overlay/FloatingPanel.jsx",
+   "sha256": "85593d5d36fea757a711ef6c34e62da4b194b2389b28320a8c41e1d435620ec3",
+   "tamanho": 4419,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/overlay/FloatingPanel.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/overlay/FloatingPanel.prompt.md",
+   "sha256": "44fc0ae3ba6819f3544df76720aeb813c4dd3ec49a2cc2de96728f29b2c07376",
+   "tamanho": 500,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/overlay/FloatingPanel.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/overlay/SectionIndex.d.ts",
+   "sha256": "86cfc35eadb63ed19f7a462d48627e05fbf60f4534a9eb1b85fb79a9d33627b4",
+   "tamanho": 848,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/overlay/SectionIndex.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/overlay/SectionIndex.jsx",
+   "sha256": "33b86097acf2b132603951658842dcb901491d4b991a043f795be4a5a6fa296f",
+   "tamanho": 3283,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/overlay/SectionIndex.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/overlay/SectionIndex.prompt.md",
+   "sha256": "862b897b673a080d2eb9f9b4ef7e4ce802d8df5aabc5da21c75837349b4c5605",
+   "tamanho": 384,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/overlay/SectionIndex.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/overlay/floating.card.html",
+   "sha256": "0e2b98ad6ef08c6fdfe40342f501a77dd5eac40d8a5a337ba7880e0f5d435c37",
+   "tamanho": 5528,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/overlay/floating.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/overlay/section-index.card.html",
+   "sha256": "ed2ce637361339b44a9ac7da994e9e1f86d57fb60af0f4f62bdc5617ab5cfd6c",
+   "tamanho": 3130,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/overlay/section-index.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/score/DimensionRow.d.ts",
+   "sha256": "bb25eddd4d80b19dc2d3344a4419abcc4c8101a4061ebcfa17eea411eb7b13b5",
+   "tamanho": 1152,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/score/DimensionRow.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/score/DimensionRow.jsx",
+   "sha256": "95615ac422092b1db095b079e70d6ed3a543a229e8d9dce92a85edf12903cd3f",
+   "tamanho": 4527,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/score/DimensionRow.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/score/DimensionRow.prompt.md",
+   "sha256": "53c22af527eafe34624d0915968d1de9eb05321a8f085c99e0e3c2cb16e2021d",
+   "tamanho": 507,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/score/DimensionRow.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/score/dimension.card.html",
+   "sha256": "260be79af2a3f24adff5ab1a60b591ec0a13d518c01990c21c664022c05b18ca",
+   "tamanho": 2491,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/score/dimension.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/shell/AppShell.d.ts",
+   "sha256": "320a7ac50ebea4072b30b1ab53da95b7ac939eb2ebe037a42ba125f821c7f71e",
+   "tamanho": 1747,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/shell/AppShell.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/shell/AppShell.jsx",
+   "sha256": "31e6f1eeba444bde26f0baaf6cb9a14c4f6eabb19e9dd0f49532255ff192a256",
+   "tamanho": 7349,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/shell/AppShell.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/shell/shell.card.html",
+   "sha256": "64f88f1cb99759dc6b0d53e4ec7c1ec4854ae336a265ddfdca583fa5fd9414d4",
+   "tamanho": 8732,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/shell/shell.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/Card.d.ts",
+   "sha256": "3695239498fceab125a83501f986fa061d94ba568b0910722f9b3bd1b19e5134",
+   "tamanho": 592,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/Card.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/Card.jsx",
+   "sha256": "58a64d935e5d20e6c234e5088f601a6ace4773bd43f34200892a696cf02efd21",
+   "tamanho": 1010,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/Card.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/Card.prompt.md",
+   "sha256": "c68371f2dfc27fdc067321f6fd2f5e777730363550edbfe7ec4d8b7230c1aea6",
+   "tamanho": 182,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/Card.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/DestinationGrid.d.ts",
+   "sha256": "7afad0acf9d05877ed30c20b5cf4984819d55390555444d79ae0a8ac06f53da0",
+   "tamanho": 575,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/DestinationGrid.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/DestinationGrid.jsx",
+   "sha256": "ea54945ddef385b508f32316abf875b6c11439a562d30cae690099f76e73f61f",
+   "tamanho": 1250,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/DestinationGrid.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/DestinationTile.d.ts",
+   "sha256": "43138aa7c2202c3f4556436177c31fd87478a50a74833945df6503f29714c796",
+   "tamanho": 807,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/DestinationTile.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/DestinationTile.jsx",
+   "sha256": "0220b1c06b103990597c9080f84517f24ed99047150767377d92683ca56f65d1",
+   "tamanho": 2946,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/DestinationTile.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/DestinationTile.prompt.md",
+   "sha256": "4c42e03ea292ad039921ab2f8278477aad8ed23ea6c989fc0a5d639b84795db7",
+   "tamanho": 316,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/DestinationTile.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/FocalCard.d.ts",
+   "sha256": "343ca058042a6793f45d7a8eee7f0dc9f8c26d5fb917f6053778fb537ed46c71",
+   "tamanho": 358,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/FocalCard.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/FocalCard.jsx",
+   "sha256": "e68550bfbd7d98feb85e4e54ec85b27b782f9ce524d4a393278f1d87556059fc",
+   "tamanho": 540,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/FocalCard.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/FocalCard.prompt.md",
+   "sha256": "d696b5cc79f28e3eed228d241737036a709f7f254119a30bd649f094aa5d4c0b",
+   "tamanho": 222,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/FocalCard.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/FocalJourney.d.ts",
+   "sha256": "3bc0470ba55332b2c3de435fb35096c51e0f175362efcef7a7fd39ea7c1ed303",
+   "tamanho": 893,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/FocalJourney.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/FocalJourney.jsx",
+   "sha256": "20ba8be53426a86c5a3e53eae2d4d23b4c9abd1eab32f92ae20c0915c02466b8",
+   "tamanho": 3091,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/FocalJourney.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/JourneyStepper.d.ts",
+   "sha256": "f098981979738b6217826ec937a21cc42e45350e69ed4c3956181ca06054547c",
+   "tamanho": 559,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/JourneyStepper.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/JourneyStepper.jsx",
+   "sha256": "a11fdee75574bc80d89cd6d48c156a2fb1e7fa0357736d64475bd6e03e398d62",
+   "tamanho": 2692,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/JourneyStepper.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/JourneyStepper.prompt.md",
+   "sha256": "492afc41876da2a7f6913e614ed5ab9608dcb566564b2112658e7f12aa6b1148",
+   "tamanho": 430,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/JourneyStepper.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/ProgressBar.d.ts",
+   "sha256": "a32687533a732c2af6002efc73eacb068ae56e547f36d0041ab3969133685a97",
+   "tamanho": 437,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/ProgressBar.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/ProgressBar.jsx",
+   "sha256": "9b25c3b405558997331751f1e63dfa10394ad56c4805b9fa92cf4472ea8226f2",
+   "tamanho": 1043,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/ProgressBar.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/ProgressBar.prompt.md",
+   "sha256": "00f8c61cdd397cb88699cec067e5be087e6ef5a256fe9fa0f012c454cbd46958",
+   "tamanho": 178,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/ProgressBar.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/ScoreRing.d.ts",
+   "sha256": "a8f1ce82c1cbdba6a40c1510ff722a2616f3879911eeeebad40ef3577fd0c91b",
+   "tamanho": 392,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/ScoreRing.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/ScoreRing.jsx",
+   "sha256": "701d73e5f75819a082c02f2b5a9793e48a4431398d6c370727c07de0f9c2c500",
+   "tamanho": 1869,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/ScoreRing.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/ScoreRing.prompt.md",
+   "sha256": "39ccf255de6863889d98631a05aa47f6fa1aca13c0c7deac523d02142b0d979b",
+   "tamanho": 136,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/ScoreRing.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/surfaces/surfaces.card.html",
+   "sha256": "1b19a3c345b416f6585d27e91a76e32c899b09e4a34e803e4334e103b4e2ea53",
+   "tamanho": 3154,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/surfaces/surfaces.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/trace/TraceLine.d.ts",
+   "sha256": "59c9d4fbf836d6776b50419214a581df7fa43e1d5f3bba9fede7c644847d6ebd",
+   "tamanho": 967,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/trace/TraceLine.d.ts"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/trace/TraceLine.jsx",
+   "sha256": "5899c27c24476c559fb399cbec3ef8655dc6fd9d8f05ac8e3136f2b79ce9228f",
+   "tamanho": 5043,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/trace/TraceLine.jsx"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/trace/TraceLine.prompt.md",
+   "sha256": "18ca26bb48638bf1169c19b7205b6538b85efe3db89459187b0d667011e20627",
+   "tamanho": 476,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/trace/TraceLine.prompt.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "components/trace/trace.card.html",
+   "sha256": "89a883bb06966257201d57d271b6019b11c3cdf6c81b5f53937515080814edfe",
+   "tamanho": 3750,
+   "estado": "incluido",
+   "destino": "fonte/design-system/components/trace/trace.card.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/Inter-400-latin-ext.woff2",
+   "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+   "tamanho": 85068,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/Inter-400-latin.woff2",
+   "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+   "tamanho": 48256,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/Inter-500-latin-ext.woff2",
+   "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+   "tamanho": 85068,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/Inter-500-latin.woff2",
+   "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+   "tamanho": 48256,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/Inter-600-latin-ext.woff2",
+   "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+   "tamanho": 85068,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/Inter-600-latin.woff2",
+   "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+   "tamanho": 48256,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/Inter-700-latin-ext.woff2",
+   "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+   "tamanho": 85068,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/Inter-700-latin.woff2",
+   "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+   "tamanho": 48256,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/PlusJakartaSans-500-latin-ext.woff2",
+   "sha256": "38e3b8fd8045048eb311d90170a4429ed2c8f405852dc3d91b5af8452758703f",
+   "tamanho": 21728,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/PlusJakartaSans-500-latin.woff2",
+   "sha256": "153fc85b70298beeb1d61a5f723331649e7f23bb77302a66e61cb3e2fbdb5e79",
+   "tamanho": 27348,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/PlusJakartaSans-600-latin-ext.woff2",
+   "sha256": "38e3b8fd8045048eb311d90170a4429ed2c8f405852dc3d91b5af8452758703f",
+   "tamanho": 21728,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/PlusJakartaSans-600-latin.woff2",
+   "sha256": "153fc85b70298beeb1d61a5f723331649e7f23bb77302a66e61cb3e2fbdb5e79",
+   "tamanho": 27348,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/PlusJakartaSans-700-latin-ext.woff2",
+   "sha256": "38e3b8fd8045048eb311d90170a4429ed2c8f405852dc3d91b5af8452758703f",
+   "tamanho": 21728,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/PlusJakartaSans-700-latin.woff2",
+   "sha256": "153fc85b70298beeb1d61a5f723331649e7f23bb77302a66e61cb3e2fbdb5e79",
+   "tamanho": 27348,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/PlusJakartaSans-800-latin-ext.woff2",
+   "sha256": "38e3b8fd8045048eb311d90170a4429ed2c8f405852dc3d91b5af8452758703f",
+   "tamanho": 21728,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "fonts/PlusJakartaSans-800-latin.woff2",
+   "sha256": "153fc85b70298beeb1d61a5f723331649e7f23bb77302a66e61cb3e2fbdb5e79",
+   "tamanho": 27348,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "github.md",
+   "sha256": "a73039a1f2544d413d79dd62889dc40d24f809c75c961d866fd89b2f5cac2ff8",
+   "tamanho": 1358,
+   "estado": "incluido",
+   "destino": "fonte/design-system/github.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/brand-icons.html",
+   "sha256": "841c5e08ebeb9e81ceb1addcb6e764fcc77b9023ee880918c5656a626d21046a",
+   "tamanho": 5801,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/brand-icons.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/brand-logos.html",
+   "sha256": "145d7b3f53bbe76710c6049b0c2eebb11d6ce182c912cafc0d00a67a6d7094f5",
+   "tamanho": 1628,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/brand-logos.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/colors-brand.html",
+   "sha256": "b66e18e5a0213230a84d08e23d8f961eb21397c5aaa6db06ecbc7339556d4bb6",
+   "tamanho": 1329,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/colors-brand.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/colors-neutral.html",
+   "sha256": "6616b1edb61294944c129eedfe289b9e02ce7b86522bbb07c1ac025fbb78a1e9",
+   "tamanho": 1403,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/colors-neutral.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/colors-semantic.html",
+   "sha256": "fd6da4c503ae1a1947bff15f486db61a05ef1ebfda37caab3e8fc882465e3f34",
+   "tamanho": 2409,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/colors-semantic.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/colors-surfaces.html",
+   "sha256": "1b3166c338aed00fc0f2e862091627b855e5da0018d73850547d8a34f447c978",
+   "tamanho": 1810,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/colors-surfaces.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/colors-tiles.html",
+   "sha256": "f0508a2ec414a08a210b6770eb86c2e184a01b775153b50b917761878b16a5f7",
+   "tamanho": 1249,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/colors-tiles.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/motion.html",
+   "sha256": "5b4b43c9e5dd58762d49475a4b0f42589d805f3cfeb7ef3867b33eb7161a2f49",
+   "tamanho": 1910,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/motion.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/radii.html",
+   "sha256": "cd5df2a0ddf90a5d5a7b38a057c5041e4d4ee1e8d9f9da9d78214350c13ce60c",
+   "tamanho": 2109,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/radii.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/shadows.html",
+   "sha256": "1360263c7f43d95989b8542da139802a57b27ef1531c445c14ef5da0b2719453",
+   "tamanho": 1773,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/shadows.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/spacing-scale.html",
+   "sha256": "420d289f374f6998546b2e90d942edc82d0c0e8c382b494473f2c871260ba53f",
+   "tamanho": 2802,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/spacing-scale.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/spacing-shell.html",
+   "sha256": "13aca2ff9fc49b0b37321454c82960668a10e58850eaeef0ec2e1817b35a88a7",
+   "tamanho": 1580,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/spacing-shell.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/type-body.html",
+   "sha256": "38747a8e8fb9c94844ecdcb2de4e172d5fda1842f37c9a3662f2242f67c60c3b",
+   "tamanho": 2021,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/type-body.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/type-display.html",
+   "sha256": "3408549e69b804c25e66bbfe91b1fc0d3745dfcf4c4e32c9e8ecb2c100a43a4d",
+   "tamanho": 982,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/type-display.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/type-headings.html",
+   "sha256": "bd8e513241a14f53e7e6eefd2003955c5319bad0ea757b74d393496ec0c619ab",
+   "tamanho": 1554,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/type-headings.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "guidelines/type-overline.html",
+   "sha256": "1a03a1b5187e2d4228bf4f2a8f79ee86f85ce2488741beaeaac2955e4131fdde",
+   "tamanho": 1320,
+   "estado": "incluido",
+   "destino": "fonte/design-system/guidelines/type-overline.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "readme.md",
+   "sha256": "8ce73ecc100aa77cf5c5bb4dad323a61f8a93064e802f6f6ebff2c2664b0ba26",
+   "tamanho": 11938,
+   "estado": "incluido",
+   "destino": "fonte/design-system/readme.md"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/01-final-t23-agentpanel.png",
+   "sha256": "ae17ae3330df052f8adda44e40ea32ffcfabe4e295821f248bc09ac1d05c2b0d",
+   "tamanho": 23430,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/01-pacote-t23-capture.png",
+   "sha256": "777d85b03a79491e065ce950f974906d4daaa930d6d1f97bad115e7607a0fec4",
+   "tamanho": 15578,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/01-pacote-t23-chat.png",
+   "sha256": "0689ad5de822bd12875227c977012823e7dae49339edc02628075939bce58bf5",
+   "tamanho": 23551,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/01-t21-evidence.png",
+   "sha256": "1e9bdda41ce96b4708bf4650471e3a05dd1edb7acec5c63f7d5e8a85ca2efc71",
+   "tamanho": 21669,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/01-t21-foco.png",
+   "sha256": "d66e2b955c2001d35988a2bbebbfaf1f183fa6486f5e1e029a50472695eb5aab",
+   "tamanho": 29027,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/01-t23-precheck-agent.png",
+   "sha256": "b1661a6bff10260c1a658c0a0e58578df511dd252efeb5d836f1f375f6b08e6a",
+   "tamanho": 24922,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/01-t23-precheck-b.png",
+   "sha256": "a40df515255051092058a7de86e0cb87a5ddb5ba095423380300acd3bd1c50e9",
+   "tamanho": 17967,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/01-t23-precheck-panel.png",
+   "sha256": "664252959e3e21582ef1463e8dd6ca64344a37e0090cbb9c2f564ec2eb5a23fa",
+   "tamanho": 22595,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/01-t23-precheck.png",
+   "sha256": "91ba9b548680d5971164f5e035d3771c88e7c22eeba7a098d1fbee19796538c3",
+   "tamanho": 27598,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/01-thumb.png",
+   "sha256": "f67e2422f8ee311dcdefe6e1580c43f997874c775d65bc981019578d9a426d03",
+   "tamanho": 22155,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/02-final-t23-agentpanel.png",
+   "sha256": "f2cf2fb10d08886e6900ecc4d8da20965dd22da063bcb0a4353661f5ce1019a3",
+   "tamanho": 22043,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/02-pacote-t23-capture.png",
+   "sha256": "54b1db99082b6e209e248260799f3f2dee6b33796498cce2408482e742fb2f60",
+   "tamanho": 18645,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/02-pacote-t23-chat.png",
+   "sha256": "9e1dae29d6c3429fe0aa342a44db7936499f5dfad2026b507e332d713ab88d8c",
+   "tamanho": 21196,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/02-t21-evidence.png",
+   "sha256": "a1ff6af9a0b795864aeb2942230c76a40191959381b2c7c38e396e2989f27b3f",
+   "tamanho": 28063,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/02-t21-foco.png",
+   "sha256": "001efd9e9c41b05e29836cd27cb73701ab2595e6db9eab75984370b4e9394d6d",
+   "tamanho": 29928,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/02-t23-precheck-agent.png",
+   "sha256": "e3abd7c6f4cf466cf378b197f11fb79bc76a7f8bf53e43bea41daf7250f927cc",
+   "tamanho": 23066,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/02-t23-precheck-b.png",
+   "sha256": "28a68a74bcaca03478dbc0cfd89b4c6ad9ae818b9db227cdd75b9c26b6b7526e",
+   "tamanho": 19166,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/02-t23-precheck-panel.png",
+   "sha256": "3e6a6af221bf3780dca44a7b3d0264dd94905371628312689e80489823a1de06",
+   "tamanho": 9324,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/02-t23-precheck.png",
+   "sha256": "0bd76e82f84b146e0a14d9bb3e533f47aded5a4063192a0ab233af59d1cdb17b",
+   "tamanho": 20497,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/02-thumb.png",
+   "sha256": "71f5d55878d5c6333baeac6f2cb72b42a3a9e98cbd5d7b68f8a121baceab8cb1",
+   "tamanho": 20061,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/03-pacote-t23-capture.png",
+   "sha256": "cea049583e2aea843cd65accd3b9024ac3fa40a1f027976cea77ae759e6da7f6",
+   "tamanho": 19263,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/03-pacote-t23-chat.png",
+   "sha256": "b38a3cfa9a84b4327a2460ec3ba4bda0b0085a09d6d3be4c4eedf9fba6144690",
+   "tamanho": 20305,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/03-t21-evidence.png",
+   "sha256": "66e695c918442ab6cff81a6bef966e36ec9a4e0c2f24389a0a70884d40749fde",
+   "tamanho": 26409,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/03-t21-foco.png",
+   "sha256": "001efd9e9c41b05e29836cd27cb73701ab2595e6db9eab75984370b4e9394d6d",
+   "tamanho": 29928,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/03-t23-precheck-agent.png",
+   "sha256": "84825bc5b181237435a3d0d5b7ded8e724556a0db59bb1ab50a32018f39c67b5",
+   "tamanho": 26850,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/03-t23-precheck-b.png",
+   "sha256": "3824c9a238ba60422be7df87b901dc369a39ad02e92e054310785a6af49bf30d",
+   "tamanho": 20384,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/03-t23-precheck.png",
+   "sha256": "e1709f083dac664fe8a5abd78ff293fba205df6f9ae4c9e894a37fca05aa214e",
+   "tamanho": 36041,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/03-thumb.png",
+   "sha256": "d04238c9390c668bad0020c6798a3351d5540409151f93569b6f6ab6b64f3dc3",
+   "tamanho": 18337,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/04-pacote-t23-capture.png",
+   "sha256": "5d1ce2d8a2de600fc1426979e77f4c41b2186eef0d817b05a79efe663cd7e4a2",
+   "tamanho": 20678,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/04-t23-precheck-agent.png",
+   "sha256": "d202ff4d6fdda79ceea720455472605888678e06eceaf8dbbcc83930e538414f",
+   "tamanho": 24943,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/04-t23-precheck-b.png",
+   "sha256": "debf02b1aa07600a10973fd9722d566dd514b71c5b2b947c3a9c72b1af61eb9d",
+   "tamanho": 37805,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/05-pacote-t23-capture.png",
+   "sha256": "de34c9c71136c174181d623288ebf790a6843a9ff3db7de87afc40e50355f4e7",
+   "tamanho": 17537,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/05-t23-precheck-b.png",
+   "sha256": "e19c886087e81e12e4d8b43dfe1d039a659134379d37017667524e9081f7fd33",
+   "tamanho": 37632,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/06-t23-precheck-b.png",
+   "sha256": "6deb038c51ad764f0f7ecd042a34bcdd8949503bbb71e19d2d58bc2ba6566ed7",
+   "tamanho": 23279,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-corr/diag-panel.html",
+   "sha256": "244753e1cf3e9cf574fc2cf47f299bee79c6e7b920e64a6bcefc459dd8ad734c",
+   "tamanho": 1106,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-corr/diag.html",
+   "sha256": "fb019d2e8e6533f230b69bf2adcddb555bd9969fc30cfb840c825c04b3a0955b",
+   "tamanho": 1583,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-corr/keyboard.html",
+   "sha256": "35bbdcb55087891a06f63fa7d37121dc83994a2a12d3461f9336ba0956281f12",
+   "tamanho": 5257,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-corr/keyboard7.html",
+   "sha256": "d870226ff3741db271ec4d3fe2ebb74b279169cf8c767d262bb66937b6210eda",
+   "tamanho": 5154,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-corr/measure.html",
+   "sha256": "867087b4ea9984ceecbcbef173044820d39e8cbdf9765141b923243406815713",
+   "tamanho": 1341,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t23-agentpanel.png",
+   "sha256": "f430a4182f10059f0871526d30b79eb6f40352e1ec4ceba8019d54279f7759a4",
+   "tamanho": 23823,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t23-capture.png",
+   "sha256": "b23e74b514a04fee2724ef041fbf57ab4f225117a20e0d8d67b7a7f982101a87",
+   "tamanho": 16061,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t23-messagebubble.png",
+   "sha256": "9436d1137dc7a3184d8f3320245a9bca157422856cccfa631d5668252ed9c6bf",
+   "tamanho": 23467,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t24-argumentpanel.png",
+   "sha256": "cc87d0d77d6d3165654189c6b4acdf7c82ac91b8c7f6df91d8ce2fd757a533a9",
+   "tamanho": 24051,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t24-artifactcard.png",
+   "sha256": "06272dffb578da311b59f08739afea3f016e6d4d48fbb7624404827bec2be003",
+   "tamanho": 31818,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t24-dimensionrow.png",
+   "sha256": "03c5d6c524294fed3a3f4eb75814e40c14eb174cc578f6b0ca6efd2b3d7c4112",
+   "tamanho": 30357,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t24-draftpanel.png",
+   "sha256": "99785eb0ea99c314d15cdc4a4bcc1b5c6efca8cb9d0dd1cf308d2fc1004159af",
+   "tamanho": 39117,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t24-floatingpanel.png",
+   "sha256": "0dcb8bbd9573f6725c4de375bed68884de4683f83f754e6b15d4012d0bbfcfa2",
+   "tamanho": 29052,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t24-stepflow.png",
+   "sha256": "ba84fb7359c9b8ec9aa93ea6364fbaef61baa7d2ce3bf4104b4865351627e3f6",
+   "tamanho": 22118,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t24-traceline.png",
+   "sha256": "d81fa77938b8a521c7383284b45c118e3d6810c1255073593c1141f9b1a3c12b",
+   "tamanho": 28060,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t25-header.png",
+   "sha256": "b634b3f783f80c23522f35468c567957f63d33ab4a42fc1c977fdfb2fb3a06aa",
+   "tamanho": 21980,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/01-t25-sidebar.png",
+   "sha256": "e52cd2dadcabe53da80c0e4e14e9fcdcd12754a815867ff1aa7f2546ed54755f",
+   "tamanho": 19040,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t23-agentpanel.png",
+   "sha256": "1c315a155ba473b3fc833c0fe5bd909e91f805348f31eff5f0d05219a23110fa",
+   "tamanho": 21994,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t23-capture.png",
+   "sha256": "f7aa5d6da02241b48739df02c820f992428826374ac8c79e66b5fa48d9289f40",
+   "tamanho": 20428,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t23-messagebubble.png",
+   "sha256": "bd7d429169c5a8931f1883708f9aabbb9ed23e89220687f2e9f70fee27459425",
+   "tamanho": 21045,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t24-argumentpanel.png",
+   "sha256": "c4949ed265d90831a5a9d393b3755742a442fe229d5b5c780a728ef95fcb1f8a",
+   "tamanho": 23124,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t24-artifactcard.png",
+   "sha256": "e0459b821339d517f364a9fbddaec48553f153fb4532dfb6e4ef0d81583620bf",
+   "tamanho": 26954,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t24-dimensionrow.png",
+   "sha256": "c8aca954ec58fc4a77ddfb83f43a52b1058539017504b869b1339eab338d1ecc",
+   "tamanho": 30163,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t24-draftpanel.png",
+   "sha256": "faa706c8c5d8f29b221eafb3177229bdf583de41d4565103c92d5623709e5934",
+   "tamanho": 25840,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t24-floatingpanel.png",
+   "sha256": "d7d0d4596664c8bd37dcf0973a2812da5b80e6c3dc8e575ecdd0784b869f7faa",
+   "tamanho": 26604,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t24-stepflow.png",
+   "sha256": "f791c98422921f621f2697b2f371cc1180c03cb692ae7f5c757ca53f7641562e",
+   "tamanho": 28021,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t24-traceline.png",
+   "sha256": "af7482f7cb96f9224cd01df8d8dfa82135508e985ccd9e48763cf7c029a22ed6",
+   "tamanho": 26230,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t25-header.png",
+   "sha256": "c703b01cb5cb76c2b52257df91721e2bab6b5aee0e65065d789f81431c6b1ee6",
+   "tamanho": 22187,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/02-t25-sidebar.png",
+   "sha256": "a3e8e9ee4ed0e8c1ddb0c4afae67e9cd2bba9c82f3d045301b8d786a474b019f",
+   "tamanho": 13017,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/03-t23-capture.png",
+   "sha256": "2fd7d272985f056e766d3352e3233b554624ce2a316b7096ee0bfe3974f279ca",
+   "tamanho": 19134,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/03-t23-messagebubble.png",
+   "sha256": "dd9aa196bfdafa61f32c5f1f11bcc7bc2d5aa59a93e31400b26451b674a18492",
+   "tamanho": 20253,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/03-t24-argumentpanel.png",
+   "sha256": "d5978de1a6641f04de2b1d029d81df4adfd3dc28e0115c39516c07797ea2bb4f",
+   "tamanho": 26184,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/03-t24-draftpanel.png",
+   "sha256": "7797bcb4ef1df346967036d64115c26befc69f2480c4a2fb0c9a83ee221d33eb",
+   "tamanho": 29068,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/03-t24-floatingpanel.png",
+   "sha256": "4bc1f7867899a1557afe4087dc43f284a78644074dfcfd867b86bc693b0a3ef4",
+   "tamanho": 20488,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/03-t24-stepflow.png",
+   "sha256": "126a2015c6f8ae300f3c9370eabf6c09aef93caa174fd708fdeeb9ac7a856634",
+   "tamanho": 21269,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/04-t23-capture.png",
+   "sha256": "ed89143027d40fc991f441eae6b9973e5c9b6a7ec9e50101ce0bb8d00cdd9fcf",
+   "tamanho": 20554,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/05-t23-capture.png",
+   "sha256": "7dffc66bd89626b8d86920cd6bd41e628c56b6bc052eab3009d2571a274d61f6",
+   "tamanho": 17995,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/t23-agentprompt.png",
+   "sha256": "16f1b8fed77128e88dc3398449568fba56ddf1a6ba8ca906ed0e2dd1fc5fcd4e",
+   "tamanho": 19193,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/t23-entrycard.png",
+   "sha256": "77442325892660b5d7de3a36094b16cfd01e9d788410b058ce8cd0d898175478",
+   "tamanho": 26191,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/t24-sectionindex.png",
+   "sha256": "78c7cd58aa21a21fbd2a3438d658aa8a3e150190b0a9d5961a7e22e1ee2016db",
+   "tamanho": 20031,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2-oficial/t25-navitem.png",
+   "sha256": "5d501e78969339f586b668fd73b9067a5e3c00881510c6fe2b9298219125b7b8",
+   "tamanho": 14297,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t23-agentpanel.png",
+   "sha256": "f430a4182f10059f0871526d30b79eb6f40352e1ec4ceba8019d54279f7759a4",
+   "tamanho": 23823,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t23-capture-erro-desabilitado.png",
+   "sha256": "ed89143027d40fc991f441eae6b9973e5c9b6a7ec9e50101ce0bb8d00cdd9fcf",
+   "tamanho": 20554,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t23-capture.png",
+   "sha256": "b23e74b514a04fee2724ef041fbf57ab4f225117a20e0d8d67b7a7f982101a87",
+   "tamanho": 16061,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t23-entrycard.png",
+   "sha256": "77442325892660b5d7de3a36094b16cfd01e9d788410b058ce8cd0d898175478",
+   "tamanho": 26191,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t23-messagebubble.png",
+   "sha256": "9436d1137dc7a3184d8f3320245a9bca157422856cccfa631d5668252ed9c6bf",
+   "tamanho": 23467,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t24-argumentpanel.png",
+   "sha256": "d0f8a46035cdd975bc0968c0c6d704ed4733934aaf8a6bbea7ebd206485f1c55",
+   "tamanho": 24142,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t24-artifactcard.png",
+   "sha256": "d1dac9e8f570a73f97be74019487cb62e156d5672807c7d8044cc78b917325f4",
+   "tamanho": 31838,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t24-dimensionrow.png",
+   "sha256": "03c5d6c524294fed3a3f4eb75814e40c14eb174cc578f6b0ca6efd2b3d7c4112",
+   "tamanho": 30357,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t24-draftpanel.png",
+   "sha256": "e1c143261e1b7d3b62ccb93fe70a83a0beaa7bfb5af8da4a698975b0684eae86",
+   "tamanho": 39115,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t24-floatingpanel.png",
+   "sha256": "34372476fbe29f74f26f1b80ae2c6ae49d85adcd3cd3f297b6efb7ede039055e",
+   "tamanho": 29383,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t24-stepflow.png",
+   "sha256": "ba84fb7359c9b8ec9aa93ea6364fbaef61baa7d2ce3bf4104b4865351627e3f6",
+   "tamanho": 22118,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t24-traceline.png",
+   "sha256": "6e6e39e8777efc090d884b3ce0ce7a979ec0fbc815a2477ddd2ce44870e98d40",
+   "tamanho": 28547,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t25-header.png",
+   "sha256": "b07dfb7641a701d3c94a88a6def0e7d4b8252936a0e4072336af02320d6ceb39",
+   "tamanho": 22627,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/01-t25-sidebar.png",
+   "sha256": "5eb95458026b4411b3d2b1a8b1d20836e3f7b1e5f60d360072367e1571a44d2a",
+   "tamanho": 19331,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t23-agentpanel.png",
+   "sha256": "1c315a155ba473b3fc833c0fe5bd909e91f805348f31eff5f0d05219a23110fa",
+   "tamanho": 21994,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t23-capture-erro-desabilitado.png",
+   "sha256": "7dffc66bd89626b8d86920cd6bd41e628c56b6bc052eab3009d2571a274d61f6",
+   "tamanho": 17995,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t23-capture.png",
+   "sha256": "f7aa5d6da02241b48739df02c820f992428826374ac8c79e66b5fa48d9289f40",
+   "tamanho": 20428,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t23-entrycard.png",
+   "sha256": "77442325892660b5d7de3a36094b16cfd01e9d788410b058ce8cd0d898175478",
+   "tamanho": 26191,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t23-messagebubble.png",
+   "sha256": "cf4cae6e48d65f058609ef157e487344b199a704714368eb578a8c343ecc209c",
+   "tamanho": 21054,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t24-argumentpanel.png",
+   "sha256": "c3bac7cddae7078d380f40730d1953c0c27352460daa957a59cea117574a86ac",
+   "tamanho": 23278,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t24-artifactcard.png",
+   "sha256": "e1c52ead7f5a769210229b389cb125867c9653b0726c6f3c7aafc28a0912b74c",
+   "tamanho": 26955,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t24-dimensionrow.png",
+   "sha256": "c8aca954ec58fc4a77ddfb83f43a52b1058539017504b869b1339eab338d1ecc",
+   "tamanho": 30163,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t24-draftpanel.png",
+   "sha256": "00219c0624b46f62246e0e957a0743dad793b780edb4dad7975764998770b395",
+   "tamanho": 25880,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t24-floatingpanel.png",
+   "sha256": "e603806f9820b50c909ce26ea714d98bd6a8d441000581d677a01ec747e5c732",
+   "tamanho": 27012,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t24-stepflow.png",
+   "sha256": "4acb16afbd0c9469ad08a6693e97adf2adeebbcd6685084d8c7c36057566fb70",
+   "tamanho": 27830,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t24-traceline.png",
+   "sha256": "20a9f156fa131f67ea1d63ee4678157c40917c602b0d9122ba0372456fbb6bf5",
+   "tamanho": 31553,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t25-header.png",
+   "sha256": "59c04aa268a834866f9d9e61b8055fbf8288022d717f97fdbd2dbac0efee0bf0",
+   "tamanho": 22578,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/02-t25-sidebar.png",
+   "sha256": "f051832df4b5d787f4525a162ec1133738b9257eab29ce8724bb6022e5fd96cc",
+   "tamanho": 19313,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/03-t23-capture.png",
+   "sha256": "558b039d66ce8243b242a6c0a53bfb4289e5eaaf0555b3d1aae79a2e5e23ed56",
+   "tamanho": 19818,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/03-t24-argumentpanel.png",
+   "sha256": "bcc4866b9bc106815fcf1940b0ee627150d0c524a0770fcc151b3f7f2075cc0b",
+   "tamanho": 26125,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/03-t24-draftpanel.png",
+   "sha256": "4aa31bca3d97473b97c43b7a0657ffc416bb7ab8c966ef7f396497a1e7169a9e",
+   "tamanho": 29069,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/03-t24-floatingpanel.png",
+   "sha256": "4bc1f7867899a1557afe4087dc43f284a78644074dfcfd867b86bc693b0a3ef4",
+   "tamanho": 20488,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/03-t24-stepflow.png",
+   "sha256": "2c511591b65bcd19f4029d571fc6a9f03587fa50a244c4cee447334bc0a282ef",
+   "tamanho": 21526,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/04-t23-capture.png",
+   "sha256": "74de3f76300b9dc22fa56b2a92b4a5abf97d8292726bc9572ef6a8b7908b5354",
+   "tamanho": 17765,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/d-core.png",
+   "sha256": "a4fa718b86e1a1b880981715300ef12e3241e33c6fe61c73c6fab73ad1a89972",
+   "tamanho": 19988,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/d-forms.png",
+   "sha256": "922a287863eb1e4d55cceb05c236fcb723efe20a5212c57dd407b08f3a73799d",
+   "tamanho": 16114,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/d-surfaces.png",
+   "sha256": "59692886fc59e9becfd26ffa377034aeee70574ce93538521b4961c340ccedd7",
+   "tamanho": 26448,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/t23-agentprompt.png",
+   "sha256": "16f1b8fed77128e88dc3398449568fba56ddf1a6ba8ca906ed0e2dd1fc5fcd4e",
+   "tamanho": 19193,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/t24-sectionindex.png",
+   "sha256": "8d20daf2933f9a3c06d6af94cc33a89a0ac30a6a24b61df88dd2a949926fc385",
+   "tamanho": 19962,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/t25-navitem.png",
+   "sha256": "5d501e78969339f586b668fd73b9067a5e3c00881510c6fe2b9298219125b7b8",
+   "tamanho": 14297,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa2/t25-sidebar-rodape.png",
+   "sha256": "0a6f791c66c7ea4bff9e30c3d93666504bcde3edfed2d8e88edbe64eb8dbb4f7",
+   "tamanho": 13289,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/01-e.png",
+   "sha256": "21e6d4e5ce4c595a96f04c8c4b9fb461564cdefacf2f09295471d6cef8c9c1b7",
+   "tamanho": 28403,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/01-f.png",
+   "sha256": "3055cf738a79d9eec4e4d4ca9c42f99de6c349015dc479e650d70dd134dd736a",
+   "tamanho": 34070,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/01-i.png",
+   "sha256": "a13179ccd8eaf64861f599d594d833034610946d513e58400b8dae2b9bc0d15b",
+   "tamanho": 26312,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/01-j.png",
+   "sha256": "862a1b550f6736da28f4bf28938b6533ea8d45cbdd97e274678bdd01c0bc884b",
+   "tamanho": 31558,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/01-k.png",
+   "sha256": "907d14f5b2bdda94b81f15be0eb1f66e14b1769fb3d8eb7382d9bf7a9024710b",
+   "tamanho": 25564,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/01-m.png",
+   "sha256": "75848b931200ef656f61ff0a3aaca878bd4913d03ea765e08f3c35b35ec61a69",
+   "tamanho": 20766,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/01-s.png",
+   "sha256": "71f4fd356bf2af429b753bc6a55d8bccd7fef529966f6b5fcad7b36d8f912e02",
+   "tamanho": 26268,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/01-t31.png",
+   "sha256": "d601666333256b72ec2ce56e4579ab059c75932c3f84cba6f2db304706cc8b75",
+   "tamanho": 28278,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/02-e.png",
+   "sha256": "6bf9457d11a2789a2c996e4a0db7c206ab271fef05c33764a01619f963596feb",
+   "tamanho": 28691,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/02-f.png",
+   "sha256": "582736cc136d29f5b82989a1beeae25e88e16cdf0ccaf1296a6549521a00fd65",
+   "tamanho": 31566,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/02-i.png",
+   "sha256": "bc04b45c10cc098094d6083f871de7394483de9aff8c69a9ce5d11a15b1dc985",
+   "tamanho": 24947,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/02-j.png",
+   "sha256": "39027276a2f46fabb54bd4429ee5b44a9fed4aab7d17774e434019981aa61426",
+   "tamanho": 31771,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/02-k.png",
+   "sha256": "f7c6e70d4b924af3261141e3eae6f7538dcb0ce7fdbd867a61678be5ed762dfe",
+   "tamanho": 35224,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/02-m.png",
+   "sha256": "f0739dfd150bfc90b39874a3159f65035582c6b86ab2d0ba1b22eabaaa20a26a",
+   "tamanho": 26747,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/02-s.png",
+   "sha256": "050948f127d7dee90fca3f1bff579d8b909eb8d2b76a53afc74cd77790dad919",
+   "tamanho": 22842,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/02-t31.png",
+   "sha256": "18c1b6da0b2b19fc567051d4454755254ce2d7ba29442897bc74ff795a09bf1f",
+   "tamanho": 29387,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/03-e.png",
+   "sha256": "33e71332bf0317e43c5044cded3a0685ed4ed4243395055163a4ec4e1fe00ae8",
+   "tamanho": 32189,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/03-f.png",
+   "sha256": "f9b695349ae28358bdac39a57ec4e5ad6eff631c41723908362250039347abf5",
+   "tamanho": 34375,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/03-i.png",
+   "sha256": "89fcfae4827608d177f98df81ff89b375cb35a3a13551dd834c3c785332712c5",
+   "tamanho": 31654,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/03-j.png",
+   "sha256": "6534dd8fead490d9063ec4ea15c0ca6a6ae695893ec2b584e5ff4d10a476765b",
+   "tamanho": 24369,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/03-k.png",
+   "sha256": "083761a2670fba1710511880000e0191e0dd6a575da4a285d9ad4d699c45ecd7",
+   "tamanho": 26300,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/03-m.png",
+   "sha256": "33f77c9a6a6b7d3bd7cb9966910f9670308f1acd4495bc71c4e09999ebfda202",
+   "tamanho": 25023,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/03-t31.png",
+   "sha256": "bd8955a7ce3562977badcb5d753ddae9a1473c8325d79d83c2f6224955dfe712",
+   "tamanho": 34074,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/04-f.png",
+   "sha256": "57ea5bf9b6452a37607791e22b39e06dd6e767a8eaa1911f697cb589cdbf71b1",
+   "tamanho": 35114,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/04-i.png",
+   "sha256": "0c8ef8ba272817fbd42768777145f52fb3381145bb52bd7811074eb050d653a0",
+   "tamanho": 31315,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/04-k.png",
+   "sha256": "6b8ae73e730466db3eb47597c8407c60328e31d7785289fe8aa1eae172cf7f14",
+   "tamanho": 33630,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/04-m.png",
+   "sha256": "f2b4d8edbd2a31565946825880fc5eae5887884cbf54d12d86d525551511b55e",
+   "tamanho": 30106,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/05-k.png",
+   "sha256": "85c38eeca7a475962180d2cdac603eb3eb744e0150a4c3fe9c53c40e461136da",
+   "tamanho": 24734,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/05-m.png",
+   "sha256": "b51b8c2fb398009db7c39bc178ed5bab154da90f696402689a4cedcf45f13ed0",
+   "tamanho": 24611,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/06-k.png",
+   "sha256": "c08439458c1c3c5874245693eebd3afc5e03d605d05eaacdf9f09f60a32736ad",
+   "tamanho": 33619,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-fonte/06-m.png",
+   "sha256": "30fc31744c36539b5ee54951ffb54598e87d1896c466b3401ddcbf5fba6402bc",
+   "tamanho": 30094,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/01-inicio.png",
+   "sha256": "65ce6ec86204c739a62a43f5a4ac580c8ca9ce94a2f3b67fa1df79ac74090cf2",
+   "tamanho": 20336,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/01-t31-evidencias.png",
+   "sha256": "0f91b9f710b8029d0b470ba2081361e3a3c97b8ec4fef60ac5149874250e8479",
+   "tamanho": 27127,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/01-t35-comportamento.png",
+   "sha256": "92c050c52f283de5897ceefe2333725a0450ce29ef9150ddeadbe377c72aa904",
+   "tamanho": 26078,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/01-t35-paineis.png",
+   "sha256": "b9295f791e3df78cdf814ed5e08d2f61ffd0f5ad8d6d817729d381f07838a3d6",
+   "tamanho": 25122,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/02-inicio.png",
+   "sha256": "2254eae96f722cccab913ae1e34d8e07c54f140ceb7e22c48507c9113ddb7a98",
+   "tamanho": 20282,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/02-t31-evidencias.png",
+   "sha256": "584c333a63691b8bbd37f1fa1ccd02cb57b7ed852d50e3e6cd3e0011c5727e2b",
+   "tamanho": 29085,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/02-t35-comportamento.png",
+   "sha256": "c4feb7bff385c9c929b7bdc2fdd2329c1e1af084252a6a6de11a5e65380c0c12",
+   "tamanho": 29946,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/02-t35-paineis.png",
+   "sha256": "772e9a7070eab71ff46c83dc65f630cddc2681faef32230cc1413c01c5e46bd7",
+   "tamanho": 26950,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/03-inicio.png",
+   "sha256": "40214daa8ad08a55797e65f8b0a7040bb1bf3a169278bccbdffb22031f8fe24b",
+   "tamanho": 26017,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/03-t31-evidencias.png",
+   "sha256": "c121f57fad89ef7d7e29bb562bd76f582859dddcdbc0263f7dff169cc5ee06c0",
+   "tamanho": 29133,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/03-t35-comportamento.png",
+   "sha256": "f1c6bb7311155873c85e462ef18f1eb1b16e56d63cf36ca897218885e570925e",
+   "tamanho": 30226,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/03-t35-paineis.png",
+   "sha256": "9307f3ee66bc2f36133d91fb4864fef72a5556ea67f8b5076e56997cf29daff0",
+   "tamanho": 29962,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/04-inicio.png",
+   "sha256": "d506aeb4ae88fab6342120f6dbc7d0e45db47ddcc683994d74efe9dfd86505ea",
+   "tamanho": 26054,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/04-t31-evidencias.png",
+   "sha256": "eb1abb995e2dbb7b0eaeaa60acc042a20a025c766f1f6d3f022d5cbf627a2601",
+   "tamanho": 30885,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/04-t35-comportamento.png",
+   "sha256": "46a3506782ea680af82f3b95d7bfab21985b198159c5f660d6a9bae4a1e0b9c6",
+   "tamanho": 34849,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/04-t35-paineis.png",
+   "sha256": "46e434a3ad3ee598d80eb3bad84435395288b1b7a96ad4ba9295d595b15fbf66",
+   "tamanho": 29962,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/05-inicio.png",
+   "sha256": "c610141a1144f7ef826c1d62718949a8bf36481f2054c146655849527393d760",
+   "tamanho": 24512,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/05-t35-comportamento.png",
+   "sha256": "233dfe7a5389e8fe34af7130a035227afd3bd97148756b4b3f94e046c126eb62",
+   "tamanho": 29017,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/05-t35-paineis.png",
+   "sha256": "67fddf2c5d14f56627e4f0fdbd873d549d71104766c00cc49685dbb5a8af43b7",
+   "tamanho": 34112,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/06-inicio.png",
+   "sha256": "c0a541dc8493b6c262c4ee3b447a1fc2840b4de4a4690362f5ce289c3269c9a6",
+   "tamanho": 24481,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/06-t35-comportamento.png",
+   "sha256": "8483016b61c8648ec4cb36383a291b3fe5347fb047c76ae5e9c158029b712a3d",
+   "tamanho": 30376,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/06-t35-paineis.png",
+   "sha256": "4a6b2e3beb506e17ab6d50fe09cf561e8d812dcac9c0a836c0f93affa01c2714",
+   "tamanho": 34096,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/07-inicio.png",
+   "sha256": "4f2a905602beef3e5dc5d3716d4cffd3b6ab2700b5a00533cd4a448641d2b8db",
+   "tamanho": 29405,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/07-t35-paineis.png",
+   "sha256": "2199ce713ba12f918e07e96dd299fb2ce8bcb17893431862258c2eb428a8839e",
+   "tamanho": 25764,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/08-inicio.png",
+   "sha256": "1caab515c42a0fc77a5a5a701ff74654e14fa637fbd728e1f2efb40885f2db1d",
+   "tamanho": 29459,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/08-t35-paineis.png",
+   "sha256": "02bedd7dd5510da95a84d4ee059265d9bfc93b68abea60fc9af4135f2a3e2d74",
+   "tamanho": 25752,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/09-inicio.png",
+   "sha256": "7dbd180b64db06b89cd228dba69c697b61d081fde1f271786070d7e2371aa3fd",
+   "tamanho": 24111,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/10-inicio.png",
+   "sha256": "9d1059ad12ca769df933cba07b54cd11642ac149b54bf835fb2f393278357f99",
+   "tamanho": 24031,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/11-inicio.png",
+   "sha256": "7deac42f572c7d039561059140936ff331f30034f78dc4652373e7b24c2acb6b",
+   "tamanho": 29342,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/etapa3-oficial/12-inicio.png",
+   "sha256": "f433bc0bb361394f574d280ddb47fe858352058f8d2bb0bd9a6d7b8cb5a0ea77",
+   "tamanho": 29415,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/evidence-qa.html",
+   "sha256": "b88164dc46bde3ba4d401bbf7cda57a51c8305b02c70a099a6adda7eee00f757",
+   "tamanho": 28700,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/final-t23-agentprompt.png",
+   "sha256": "95f9fdd13edb7ea5a525c6205fde8643f2cf57a8ed61ec6c390ee135894a8b0d",
+   "tamanho": 19167,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/t21-foco.png",
+   "sha256": "5eb2014222cb04f0726fa376efd5ac6dc06683d7867153a7cda047859edca352",
+   "tamanho": 30004,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/t21b-evidence-bundle.png",
+   "sha256": "a79fdc73241fd8713e8ae6b03ff5d023b3b1acb56541b6daf45c902ee46ff620",
+   "tamanho": 23946,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/t22-badge-qa.html",
+   "sha256": "d87988112f68e9a8e60251bec8c5a63fcb6b5bf8cec41c77ef77f3442b03d49f",
+   "tamanho": 18405,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/t22-badge.png",
+   "sha256": "217e3596ccc5e8c9cb8bc4e9688a0c4e4c8b9b2181e3f4babccd865ce98d0822",
+   "tamanho": 9064,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/t22-chip-qa.html",
+   "sha256": "7cffeae25f847108a0ec472839d51f7b6e02958a4a041fec6583bcbe0dfae7ab",
+   "tamanho": 18785,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/t22-chip.png",
+   "sha256": "29430e443191ee5b3d6a54f5507d84b40388a7ee1cba1bf7d895bc52b8366c4e",
+   "tamanho": 12712,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/t23-1-entrycard.png",
+   "sha256": "3c6ae90889c0ca261d82ed4d18e834bedd038a66ec45d895ad05ddba9d058db3",
+   "tamanho": 25725,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/thumb-ampliada.png",
+   "sha256": "72700baa72c85bd0410c75cab9172bf84baf6e0c395ca5c0ecba7574a874c9e9",
+   "tamanho": 9858,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/thumb-nativa-pixels.png",
+   "sha256": "d291484eb6833589e0f2dfc7e89288667b94fd4ed16960a8273c52090de7ddce",
+   "tamanho": 6681,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/thumb-nativa.png",
+   "sha256": "4f2edc44310308ca33b49137424a9e3119457dc3a2eaa02167090af8d1ed6357",
+   "tamanho": 4856,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/thumb-qa.html",
+   "sha256": "82721aaecab608ee26483c79b3183ec4f0ceefff8b24775df2e507c07a5f682b",
+   "tamanho": 2534,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/thumb-t13c-medidas.png",
+   "sha256": "ed1a5d0fb0fcbf2d5c8c712cdcca3add47d66e286777376e6e1c2f114a360324",
+   "tamanho": 18622,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/thumb-t13c.png",
+   "sha256": "4803099db8a61bf85d0466a5bd6e0b7b6a6a7a4e090f53ab1fb599c72c893ec6",
+   "tamanho": 16190,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/thumb-t13d-css.png",
+   "sha256": "8a61394e9bdc020fa40c8723effbda69e41ba4e3a419e97bb985f657258afa3b",
+   "tamanho": 29722,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "screenshots/thumb-t13d-real.png",
+   "sha256": "ca880c342d5635da3416e8fcf9217cacb3119d8fe640200df5f99399126d5cf5",
+   "tamanho": 22864,
+   "estado": "retido",
+   "motivo": "capturas de iteração do design system (194 arquivos, ~4,5 MB); aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "styles.css",
+   "sha256": "6727dd83a72526b07c660388db4b7c6257806599b1de7796b9403cf5bd3a87c8",
+   "tamanho": 175,
+   "estado": "incluido",
+   "destino": "fonte/design-system/styles.css"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "thumbnail.html",
+   "sha256": "3d4c3396c337f6659310e4b2dce9d695a32f33e57ffe9931147e858c0f35c1e2",
+   "tamanho": 1131,
+   "estado": "incluido",
+   "destino": "fonte/design-system/thumbnail.html"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "tokens/colors.css",
+   "sha256": "d2ed8767950b0bad789628d646092dc51df61ae0c83bedc93423f5ac22fbf86e",
+   "tamanho": 2122,
+   "estado": "incluido",
+   "destino": "fonte/design-system/tokens/colors.css"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "tokens/effects.css",
+   "sha256": "0fb041756e898e45751ebd1859f82381497f2692127ced7dce20d7a7cebdca9c",
+   "tamanho": 1129,
+   "estado": "incluido",
+   "destino": "fonte/design-system/tokens/effects.css"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "tokens/fonts.css",
+   "sha256": "e0412a35f17d2defa162e31a83c99331b3e0c14eebd17fd7b588bdae31afd77e",
+   "tamanho": 6393,
+   "estado": "incluido",
+   "destino": "fonte/design-system/tokens/fonts.css"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "tokens/spacing.css",
+   "sha256": "3ae36c9216850ad09bcf1eb7be7c9911960efa2d6172afb35d5b0996285f8992",
+   "tamanho": 383,
+   "estado": "incluido",
+   "destino": "fonte/design-system/tokens/spacing.css"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "tokens/typography.css",
+   "sha256": "1675d2132707311383dc933c18e69b334529e23747b616e86d165c73a06f1c33",
+   "tamanho": 884,
+   "estado": "incluido",
+   "destino": "fonte/design-system/tokens/typography.css"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/detalhe-provas-1440.png",
+   "sha256": "a4a211c6af46dc83265cc3d41acb917143a875f6aee539ca3478153e5fb08ee8",
+   "tamanho": 53245,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/etapa-4-daily-log.png",
+   "sha256": "a4b4bbfb8477f9bbb29c796eb5898ced55db4958373015a2391f47a900c6f58d",
+   "tamanho": 50407,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/evidencia-confirmada-1440.jpg",
+   "sha256": "4cd967d596976cff5639a131870f1e8847c83334b5f6b5f53d8cdc8286432fd8",
+   "tamanho": 62867,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/guia-execucao-design-system.md",
+   "sha256": "9f3735ddaa38fd07ac758553c085dac4b4c17293e4ff9bd2cddb2fe669cf8c7f",
+   "tamanho": 7385,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/istudio-01-capa.png",
+   "sha256": "60d3db4671bfc33ef426ab36db66a33ada127b4f994dca31059dcaba76991c77",
+   "tamanho": 2612240,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/istudio-09-habilidades.png",
+   "sha256": "9d573c427702ab6b2b2041c62d683cab2fdadbe18138b09393e39914ee22fc64",
+   "tamanho": 2076331,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/istudio-10-mapa-vagas.png",
+   "sha256": "81d8bba9c5a228f4f986038d8ead970a64d5115b256275188ca22147c6ca6126",
+   "tamanho": 1900322,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/istudio-11-curriculo.png",
+   "sha256": "5ea67c411f50eccbc96e3e51a52ac33211fc5262c2c31d104e657e710d4ef1e9",
+   "tamanho": 1105537,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/istudio-12-perfil-verificado.png",
+   "sha256": "0809d0bc302ceb3eceb820f475e63fdea520b31cebf80ff7f422f347d0750690",
+   "tamanho": 2716993,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/istudio-13-formatos.png",
+   "sha256": "e881e692e2f18b31137336108d7a93f87a0cecf499081d4b111af338825c4f82",
+   "tamanho": 2357970,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/istudio-14-mensagens.png",
+   "sha256": "8b11fae8a215e1e11906fe20bfae3c8fdd9315366981d431e17fcdd4e85a73a6",
+   "tamanho": 1010131,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/istudio-15-mobile.png",
+   "sha256": "5063f10d1917d8992a7eac4efd43ebb1dad80cfc028486855da53e1f58c775f1",
+   "tamanho": 3054725,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/istudio-16-rotas.png",
+   "sha256": "0b654e3490ffe37200ac9948766f441ec9b6e1e17a378c74a424090f685c1b8a",
+   "tamanho": 2959408,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/istudio-17-agradecimento.png",
+   "sha256": "6ef6134ecef66d96819bc57f2612fde7cd1e53a1a40cee4a779f0b93f029c4f2",
+   "tamanho": 2470610,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/onboarding-autenticado.png",
+   "sha256": "2f4b53d714ef6bdea2d89e5e2a9b33f56d264ad901a7b00ed661e1f0737cb64d",
+   "tamanho": 37093,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/persona-fluxos-e-features-9ddb5ff5.md",
+   "sha256": "9ddb5ff565110c4d5578ae313607814a0735d61b049a7ad080accfa6a2a29ce6",
+   "tamanho": 25280,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/persona-fluxos-e-features-c98c5782.md",
+   "sha256": "c98c5782c4ddc089fc630af1c29707f9cf604168566bc8b83f9f82043a66f00f",
+   "tamanho": 33949,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/persona-fluxos-e-features.md",
+   "sha256": "9ddb5ff565110c4d5578ae313607814a0735d61b049a7ad080accfa6a2a29ce6",
+   "tamanho": 25280,
+   "estado": "retido",
+   "motivo": "uploads de referência (imagens do case iStudio de terceiros, telas da v1 e cópias de docs); proibidos como referência/redistribuição pelo AGENTS.md; aguarda decisão de Yan"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/persona-lockup-h.svg",
+   "sha256": "f931622b1e715dece42cc29d573cac08b568f327230cef19c5ea2384fb39f55a",
+   "tamanho": 8983,
+   "estado": "excluido",
+   "motivo": "SVG de uploads/ com manifesto C2PA embutido pelo export (~8 KB contra ~1 KB na listagem); os logos aprovados do produto são os de apps/web/public/brand/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/persona-logo-compacta.svg",
+   "sha256": "5c1af9fca74dd5d1120770f77b540cc33447cd8f818c3a0a8e7f4b417298a012",
+   "tamanho": 8656,
+   "estado": "excluido",
+   "motivo": "SVG de uploads/ com manifesto C2PA embutido pelo export (~8 KB contra ~1 KB na listagem); os logos aprovados do produto são os de apps/web/public/brand/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/persona-logo-mono.svg",
+   "sha256": "0cac618b8f5034031a0b68d26e92d39d51f5d9a9188a8f6dfe3b83388ddf72b4",
+   "tamanho": 8705,
+   "estado": "excluido",
+   "motivo": "SVG de uploads/ com manifesto C2PA embutido pelo export (~8 KB contra ~1 KB na listagem); os logos aprovados do produto são os de apps/web/public/brand/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/persona-logo-rica-dark.svg",
+   "sha256": "ce03fd92e883cd4fcf6d25afdf81c5245c37b49fab834502f883a2e69e70390a",
+   "tamanho": 8710,
+   "estado": "excluido",
+   "motivo": "SVG de uploads/ com manifesto C2PA embutido pelo export (~8 KB contra ~1 KB na listagem); os logos aprovados do produto são os de apps/web/public/brand/"
+  },
+  {
+   "origem": "design-system",
+   "caminho": "uploads/persona-logo-rica.svg",
+   "sha256": "53a47961e4d89b2492f5a63f189a8ab7602c67d01c14395973cd2d1021646796",
+   "tamanho": 8713,
+   "estado": "excluido",
+   "motivo": "SVG de uploads/ com manifesto C2PA embutido pelo export (~8 KB contra ~1 KB na listagem); os logos aprovados do produto são os de apps/web/public/brand/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "(transporte) README.md",
+   "sha256": "29193d919b659d55e284488651cf8a8a9c76e8c2db47c1056e8fecb4f755a415",
+   "tamanho": 614,
+   "estado": "excluido",
+   "motivo": "metadado de transporte do export ('About this download'); não é conteúdo do projeto"
+  },
+  {
+   "origem": "t4",
+   "caminho": "(transporte) T4.1 — Início do Persona 865d08f1-bee1/README.md",
+   "sha256": "4f1db2fba441a71568ed26bc1f9ba0daea42bfdac45cfa1508268a2bd409b026",
+   "tamanho": 547,
+   "estado": "excluido",
+   "motivo": "metadado de transporte do export ('About this download'); não é conteúdo do projeto"
+  },
+  {
+   "origem": "t4",
+   "caminho": ".thumbnail",
+   "sha256": "47dfa48c4e01aabb0e20eb8ea78aa9aeceef02156a0ee2b7051b9e26b8850401",
+   "tamanho": 16834,
+   "estado": "excluido",
+   "motivo": "miniatura gerada pela plataforma; difere da listagem oficial (não é conteúdo do projeto)"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.1 - Início.html",
+   "sha256": "8cb04c55ea6b5e3551599dbd17bb378b504408e4d9751842edb47f0ab95ed818",
+   "tamanho": 6380,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.1 - Início.html"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.2 - Diário.html",
+   "sha256": "dc9b6a74580f96015fee2c76fd3c6686edd5f7047fff0a6f4c7b65e9cfe8d5fa",
+   "tamanho": 8177,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.2 - Diário.html"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.3 - Evidências.html",
+   "sha256": "4939b55522f97cdc1bc8b180366eaed37b0fd6cb2d87bff93a96180cd22321db",
+   "tamanho": 8405,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.3 - Evidências.html"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.4 - Persona Live.html",
+   "sha256": "11da9db3982314916536c8978410b79fdbc93446beff28f725179e8166aae5bb",
+   "tamanho": 7309,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.4 - Persona Live.html"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.5 - Artefatos.html",
+   "sha256": "5c0d6f6224204b025295f8c4da42397d56c7a545289531f9f21fa0336554f11b",
+   "tamanho": 9500,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.5 - Artefatos.html"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.5 - manifest.json",
+   "sha256": "8668db8cd87e2b2a9ced04dd192c72a7bcb8dae11349ed62d479af79253708cf",
+   "tamanho": 1439,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.5 - manifest.json"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.6 - Narrative Score.html",
+   "sha256": "bbfd35a0507433d873cddbe1db96084c43ccc8bab207a2a0a10d08dd37d7529d",
+   "tamanho": 8699,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.6 - Narrative Score.html"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.6 - manifest.json",
+   "sha256": "b9ff3192c81c2ae33311039daae60b13b47f394e107cd33c97372b03b6a0fbf8",
+   "tamanho": 1226,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.6 - manifest.json"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.7 - Configurações.html",
+   "sha256": "0576701c7f1bb538be5259da62543956a173a9d4e69d4ee9cd22a0a53d968320",
+   "tamanho": 5788,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.7 - Configurações.html"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.7 - manifest.json",
+   "sha256": "beb582d57a38185a664ef7311ad963b73794fdc59294dba729fb74ec7a1a1b8f",
+   "tamanho": 1132,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.7 - manifest.json"
+  },
+  {
+   "origem": "t4",
+   "caminho": "T4.8 - Agente Persona.html",
+   "sha256": "260d5cb3af47c478736856e5faccf4b9516b3cbcd6138ab3dd5241c43635fcbc",
+   "tamanho": 9243,
+   "estado": "incluido",
+   "destino": "fonte/t4/T4.8 - Agente Persona.html"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_adherence.oxlintrc.json",
+   "sha256": "88e670d8dd8d4640b4563533a1a2af55b34429adb6a4cd6058b387856de26d71",
+   "tamanho": 32037,
+   "estado": "incluido",
+   "destino": "fonte/t4/_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_adherence.oxlintrc.json"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_ds_bundle.js",
+   "sha256": "ff47020386216dc7d6a58c9aeb84624d240febe473e3b17e1603947b858f333b",
+   "tamanho": 178443,
+   "estado": "incluido",
+   "destino": "fonte/t4/_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_ds_bundle.js"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_ds_manifest.json",
+   "sha256": "00699c939c8d5942146436ec53db911062d4bab4625cef86f7186ce75c8b64ab",
+   "tamanho": 30390,
+   "estado": "incluido",
+   "destino": "fonte/t4/_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_ds_manifest.json"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/Inter-400-latin-ext.woff2",
+   "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+   "tamanho": 85068,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/Inter-400-latin.woff2",
+   "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+   "tamanho": 48256,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/Inter-500-latin-ext.woff2",
+   "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+   "tamanho": 85068,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/Inter-500-latin.woff2",
+   "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+   "tamanho": 48256,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/Inter-600-latin-ext.woff2",
+   "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+   "tamanho": 85068,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/Inter-600-latin.woff2",
+   "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+   "tamanho": 48256,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/Inter-700-latin-ext.woff2",
+   "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+   "tamanho": 85068,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/Inter-700-latin.woff2",
+   "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+   "tamanho": 48256,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/PlusJakartaSans-500-latin-ext.woff2",
+   "sha256": "38e3b8fd8045048eb311d90170a4429ed2c8f405852dc3d91b5af8452758703f",
+   "tamanho": 21728,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/PlusJakartaSans-500-latin.woff2",
+   "sha256": "153fc85b70298beeb1d61a5f723331649e7f23bb77302a66e61cb3e2fbdb5e79",
+   "tamanho": 27348,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/PlusJakartaSans-600-latin-ext.woff2",
+   "sha256": "38e3b8fd8045048eb311d90170a4429ed2c8f405852dc3d91b5af8452758703f",
+   "tamanho": 21728,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/PlusJakartaSans-600-latin.woff2",
+   "sha256": "153fc85b70298beeb1d61a5f723331649e7f23bb77302a66e61cb3e2fbdb5e79",
+   "tamanho": 27348,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/PlusJakartaSans-700-latin-ext.woff2",
+   "sha256": "38e3b8fd8045048eb311d90170a4429ed2c8f405852dc3d91b5af8452758703f",
+   "tamanho": 21728,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/PlusJakartaSans-700-latin.woff2",
+   "sha256": "153fc85b70298beeb1d61a5f723331649e7f23bb77302a66e61cb3e2fbdb5e79",
+   "tamanho": 27348,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/PlusJakartaSans-800-latin-ext.woff2",
+   "sha256": "38e3b8fd8045048eb311d90170a4429ed2c8f405852dc3d91b5af8452758703f",
+   "tamanho": 21728,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/fonts/PlusJakartaSans-800-latin.woff2",
+   "sha256": "153fc85b70298beeb1d61a5f723331649e7f23bb77302a66e61cb3e2fbdb5e79",
+   "tamanho": 27348,
+   "estado": "excluido",
+   "motivo": "fonte binária; fora do Git por decisão de Yan; preservada idêntica em raw/ e extracted/"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/readme.md",
+   "sha256": "8ce73ecc100aa77cf5c5bb4dad323a61f8a93064e802f6f6ebff2c2664b0ba26",
+   "tamanho": 11938,
+   "estado": "incluido",
+   "destino": "fonte/t4/_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/readme.md"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/styles.css",
+   "sha256": "6727dd83a72526b07c660388db4b7c6257806599b1de7796b9403cf5bd3a87c8",
+   "tamanho": 175,
+   "estado": "incluido",
+   "destino": "fonte/t4/_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/styles.css"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/colors.css",
+   "sha256": "d2ed8767950b0bad789628d646092dc51df61ae0c83bedc93423f5ac22fbf86e",
+   "tamanho": 2122,
+   "estado": "incluido",
+   "destino": "fonte/t4/_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/colors.css"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/effects.css",
+   "sha256": "0fb041756e898e45751ebd1859f82381497f2692127ced7dce20d7a7cebdca9c",
+   "tamanho": 1129,
+   "estado": "incluido",
+   "destino": "fonte/t4/_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/effects.css"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/fonts.css",
+   "sha256": "e0412a35f17d2defa162e31a83c99331b3e0c14eebd17fd7b588bdae31afd77e",
+   "tamanho": 6393,
+   "estado": "incluido",
+   "destino": "fonte/t4/_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/fonts.css"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/spacing.css",
+   "sha256": "3ae36c9216850ad09bcf1eb7be7c9911960efa2d6172afb35d5b0996285f8992",
+   "tamanho": 383,
+   "estado": "incluido",
+   "destino": "fonte/t4/_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/spacing.css"
+  },
+  {
+   "origem": "t4",
+   "caminho": "_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/typography.css",
+   "sha256": "1675d2132707311383dc933c18e69b334529e23747b616e86d165c73a06f1c33",
+   "tamanho": 884,
+   "estado": "incluido",
+   "destino": "fonte/t4/_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/typography.css"
+  },
+  {
+   "origem": "t4",
+   "caminho": "agente-core.jsx",
+   "sha256": "3416fbab0deef3f1414c08dc1a8eb2c01de785c5052cf297a66ff08c7511b739",
+   "tamanho": 25314,
+   "estado": "incluido",
+   "destino": "fonte/t4/agente-core.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "agente-surfaces.jsx",
+   "sha256": "821f9220e02e3a2c72fd5b4845105e9768195794894c8022f881afdd0e42ffe5",
+   "tamanho": 12665,
+   "estado": "incluido",
+   "destino": "fonte/t4/agente-surfaces.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "artefatos-create.jsx",
+   "sha256": "b7fdd796e5b2ebc34f8692eb02a58519763281d3b716e7ac4de379ea20c9852a",
+   "tamanho": 15822,
+   "estado": "incluido",
+   "destino": "fonte/t4/artefatos-create.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "artefatos-data.jsx",
+   "sha256": "80a3c2af9f6d3943246a0f345b488ed8821483395e37e3c71b82865f38afceb9",
+   "tamanho": 13336,
+   "estado": "incluido",
+   "destino": "fonte/t4/artefatos-data.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "artefatos-detail.jsx",
+   "sha256": "a2d0e69f1de9a11278d2bd09e76969b65b3ba9fd626ff335bf6d263a54fa09d9",
+   "tamanho": 24155,
+   "estado": "incluido",
+   "destino": "fonte/t4/artefatos-detail.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "artefatos-screen.jsx",
+   "sha256": "d80e2b898b3a3e88150f9f613c46c97f16977d18ac276a64c4d67b2f94248e30",
+   "tamanho": 13144,
+   "estado": "incluido",
+   "destino": "fonte/t4/artefatos-screen.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "configuracoes-screen.jsx",
+   "sha256": "a95d01f6f91bd6e36e03abc021050f6cd13dd772b55cca682ba8c585a133c768",
+   "tamanho": 29560,
+   "estado": "incluido",
+   "destino": "fonte/t4/configuracoes-screen.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "diario-panel.jsx",
+   "sha256": "e3c7486dac4dc535dab0bb6303407e341c328355c3168bc5fa94d80e36208be3",
+   "tamanho": 14904,
+   "estado": "incluido",
+   "destino": "fonte/t4/diario-panel.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "diario-screen.jsx",
+   "sha256": "59b9f01ffa173f6ae641f9a618340b86e657dce1d9aaee98753410e1f8964ca3",
+   "tamanho": 13674,
+   "estado": "incluido",
+   "destino": "fonte/t4/diario-screen.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "evidencias-panel.jsx",
+   "sha256": "7bfe726c8d703d4582ceebc3d6efdd53c7337d57f61ebc5195973c020a75e3fb",
+   "tamanho": 20463,
+   "estado": "incluido",
+   "destino": "fonte/t4/evidencias-panel.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "evidencias-screen.jsx",
+   "sha256": "e62b68e9c76af97618a78c8e1346b18221ca7f1f3725ec4367710d37235c262c",
+   "tamanho": 15548,
+   "estado": "incluido",
+   "destino": "fonte/t4/evidencias-screen.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "github.md",
+   "sha256": "56643236a5fe4bb0342978e359bd4a701b62aa9ed70bf95482f7e27140a36feb",
+   "tamanho": 313,
+   "estado": "incluido",
+   "destino": "fonte/t4/github.md"
+  },
+  {
+   "origem": "t4",
+   "caminho": "inicio-screen.jsx",
+   "sha256": "4ec6cb698888e38b0783af8080290c0f1931830f5b64898a853c6f6665eeb414",
+   "tamanho": 16351,
+   "estado": "incluido",
+   "destino": "fonte/t4/inicio-screen.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "live-screen.jsx",
+   "sha256": "aa32152a0a1eb48aed0ae3adf260c49cc9b593b63e39d20c96bd4ab9b64d08a0",
+   "tamanho": 30537,
+   "estado": "incluido",
+   "destino": "fonte/t4/live-screen.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "score-panel.jsx",
+   "sha256": "ddf1df30dccdf423781084394b58d59e5bf289b6079451d4ce2a67042f2c4daf",
+   "tamanho": 13250,
+   "estado": "incluido",
+   "destino": "fonte/t4/score-panel.jsx"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/01-1024.jpg",
+   "sha256": "22cccf512b1897c57ba00e2faf4a68016d91987114a652269a87b3eb9613af7d",
+   "tamanho": 9634,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/01-c3.jpg",
+   "sha256": "30332c14be0ae5dc54beb47d651cab1e6578a43ff7aca67d47857a23d12e551c",
+   "tamanho": 8667,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/01-d.jpg",
+   "sha256": "3eb49f1fbea76f4a30e8d94521422ece2291d802b521a9e74a2a3ed2b300e9ab",
+   "tamanho": 22952,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/01-t.jpg",
+   "sha256": "22cccf512b1897c57ba00e2faf4a68016d91987114a652269a87b3eb9613af7d",
+   "tamanho": 9634,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/01-t42.jpg",
+   "sha256": "afe0c53073e32c6507d361c912098bfa1fb5a64b0c618e4fbdfa682dbdc65369",
+   "tamanho": 28922,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/01-t43-a.jpg",
+   "sha256": "ab346780bce531fa1cad1d178f30814360399e0e8cb1354bd7ab946ec787023c",
+   "tamanho": 39609,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/01-t43-b.jpg",
+   "sha256": "71b23a71ba5f2c2bb0bfc328c95b8b1d0e4967e57ee3f1f2d94372517d14d6a7",
+   "tamanho": 41498,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/01-u.jpg",
+   "sha256": "22cccf512b1897c57ba00e2faf4a68016d91987114a652269a87b3eb9613af7d",
+   "tamanho": 9634,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/01-v.jpg",
+   "sha256": "22cccf512b1897c57ba00e2faf4a68016d91987114a652269a87b3eb9613af7d",
+   "tamanho": 9634,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/01-w.jpg",
+   "sha256": "22cccf512b1897c57ba00e2faf4a68016d91987114a652269a87b3eb9613af7d",
+   "tamanho": 9634,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/02-1024.jpg",
+   "sha256": "607b68902a25f69cb918a20f8f2efd71d3393e0bb593767b955dbe307c54330c",
+   "tamanho": 9524,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/02-c3.jpg",
+   "sha256": "30332c14be0ae5dc54beb47d651cab1e6578a43ff7aca67d47857a23d12e551c",
+   "tamanho": 8667,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/02-d.jpg",
+   "sha256": "1ae2a9b33b57d6b2983b57de91d9cba26bb54715cc6a06a251bd06b0a2c1973b",
+   "tamanho": 17760,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/02-t.jpg",
+   "sha256": "6ffac3867cbc4e905d973ff714ed438096f39e625f2fd54903dc5e1d2428d9f4",
+   "tamanho": 16378,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/02-t42.jpg",
+   "sha256": "474372668a7abc6576ba0380b9cd46f57581ed5ce3803a60f623efc13458fd1f",
+   "tamanho": 28688,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/02-t43-a.jpg",
+   "sha256": "5a58ad1fc7b7e4d9646457dbf4276c99f09b4710d4df99c4c5ec95842a7c4d16",
+   "tamanho": 41316,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/02-t43-b.jpg",
+   "sha256": "4e5d89c9fef4d23ba7cea3b8845bf7226233519678d34365248a91ce914379fc",
+   "tamanho": 37915,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/02-u.jpg",
+   "sha256": "3d2c606f0537e75c131af4f9464644a5f62b5144a4d6be48f34c16ff168f711d",
+   "tamanho": 19637,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/02-v.jpg",
+   "sha256": "57b2bf3d3407a1653e59cb4e512921e7948399a9e0c855f25047739815cd530a",
+   "tamanho": 10206,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/02-w.jpg",
+   "sha256": "4796f685542f26cfbad5466d311d68a00b78be9a5547c20db0263afe3ec25d44",
+   "tamanho": 19239,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/03-t42.jpg",
+   "sha256": "c758f9d443f74d0e16daebb1de6410cc8c10ae931136571d3abc912203ea6ff2",
+   "tamanho": 21807,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/03-t43-a.jpg",
+   "sha256": "b76ab9509b9d8c8a821f80ae81b2a5690b83416563cdceb787abaaaf43dd8aef",
+   "tamanho": 41062,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/03-t43-b.jpg",
+   "sha256": "9ba1ae1dcb3bf62c5621e6cd34ca3d8175873f8a7a40e7f56da727e2cdc100fa",
+   "tamanho": 38478,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/04-t42.jpg",
+   "sha256": "71075f914298ef87f39c49e9862c935114b59aa6e94bf3bc33388b73c817fce2",
+   "tamanho": 25920,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/04-t43-a.jpg",
+   "sha256": "3b83a18c402c47270004acab1161f7eeb435aeaf4c34a8bdd159e2ab3880ff9a",
+   "tamanho": 39454,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/04-t43-b.jpg",
+   "sha256": "31327a2be6d4249048c0f7abfd5da836c542c8f9745e3c83aff330edf141b678",
+   "tamanho": 37873,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/c.jpg",
+   "sha256": "9029e46f635cdc70bb7550440a67456bb140afc26079b9a288d9c2ca6112ba65",
+   "tamanho": 30136,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/c2.jpg",
+   "sha256": "43756ff795262fae818cbd98ec333d0fc61f5b1c540286816e81b4f14eb9cbb2",
+   "tamanho": 25149,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/t41-cols.png",
+   "sha256": "f8691df3a60f660e34593ad2f59667e1d6bd32d273ed17943a74446a19cbdd26",
+   "tamanho": 20680,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/t41-results.png",
+   "sha256": "28ccca5cb3241ef18fc69de569f3ff1aa2178c65e2faff030f91c9fe58b474a4",
+   "tamanho": 19697,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "shots/two.jpg",
+   "sha256": "11ed47c9d518188f4b1b0bec10c274fdfea1b8292127c2efd0b5aed67f08d4c2",
+   "tamanho": 10650,
+   "estado": "retido",
+   "motivo": "capturas de trabalho do Claude Design (iterações anteriores), não são os artefatos das telas; aguarda decisão de Yan"
+  },
+  {
+   "origem": "t4",
+   "caminho": "support.js",
+   "sha256": "8fe7df74405f3c55f49b7249c74ea1397e65d07dea2b1bd3b4a489bec2e28cbe",
+   "tamanho": 69150,
+   "estado": "incluido",
+   "destino": "fonte/t4/support.js"
+  }
+ ],
+ "capturas": [
+  {
+   "tipo": "auditada",
+   "arquivo": "capturas/auditadas/T4.1_375_completo.png",
+   "sha256": "ca7fe1edfbe51068b4aff72fb90c231eaa66d77b53fb11054a4603f362472843",
+   "origem": "pacote_v2_T4_2026-11-03/deliver_v2/capturas",
+   "auditoria": "inspeção visual 03/11/2026: dados sintéticos; sem dado pessoal real nem imagem de terceiros; saudação 'Yan' e cabeçalho do seletor de estados visíveis"
+  },
+  {
+   "tipo": "auditada",
+   "arquivo": "capturas/auditadas/T4.3_1280_detalhe_evidencia2.png",
+   "sha256": "e3046ce1b2e8af5df7ffc93d8f94376034e1497561c1c26c8c73eef0c022201d",
+   "origem": "pacote_v2_T4_2026-11-03/deliver_v2/capturas",
+   "auditoria": "inspeção visual 03/11/2026: dados sintéticos; sem dado pessoal real nem imagem de terceiros; saudação 'Yan' e cabeçalho do seletor de estados visíveis"
+  },
+  {
+   "tipo": "auditada",
+   "arquivo": "capturas/auditadas/T4.6_1280_inicio_fechado.png",
+   "sha256": "5b8af1bab41fb224bafb8f7340a2b11a8b4a896fa9b2a8c233c12c6ba4758280",
+   "origem": "pacote_v2_T4_2026-11-03/deliver_v2/capturas",
+   "auditoria": "inspeção visual 03/11/2026: dados sintéticos; sem dado pessoal real nem imagem de terceiros; saudação 'Yan' e cabeçalho do seletor de estados visíveis"
+  },
+  {
+   "tipo": "auditada",
+   "arquivo": "capturas/auditadas/T4.6_1280_inicio_painel_aberto_por_mouse.png",
+   "sha256": "a6992d503b5bd3cecc97460374b2fedd918cbb0375d3f09dbfe22a3fa02d31ff",
+   "origem": "pacote_v2_T4_2026-11-03/deliver_v2/capturas",
+   "auditoria": "inspeção visual 03/11/2026: dados sintéticos; sem dado pessoal real nem imagem de terceiros; saudação 'Yan' e cabeçalho do seletor de estados visíveis"
+  },
+  {
+   "tipo": "auditada",
+   "arquivo": "capturas/auditadas/T4.6_375_painel_aberto.png",
+   "sha256": "14d95a8cc788fdc8be38375f2b60404c44b00e1c697c0de3e9a4d0381363b504",
+   "origem": "pacote_v2_T4_2026-11-03/deliver_v2/capturas",
+   "auditoria": "inspeção visual 03/11/2026: dados sintéticos; sem dado pessoal real nem imagem de terceiros; saudação 'Yan' e cabeçalho do seletor de estados visíveis"
+  },
+  {
+   "tipo": "auditada",
+   "arquivo": "capturas/auditadas/T4.7_375_fechado.png",
+   "sha256": "4752448b932002e3e0e2823a94c254320174e61e296a29defc83c5bae797ad1a",
+   "origem": "pacote_v2_T4_2026-11-03/deliver_v2/capturas",
+   "auditoria": "inspeção visual 03/11/2026: dados sintéticos; sem dado pessoal real nem imagem de terceiros; saudação 'Yan' e cabeçalho do seletor de estados visíveis"
+  },
+  {
+   "tipo": "auditada",
+   "arquivo": "capturas/auditadas/T4.7_375_gaveta_navegacao_aberta.png",
+   "sha256": "cb578dc484bdd140e244d1793598e415b8d04f6b439264206e00a8181456b264",
+   "origem": "pacote_v2_T4_2026-11-03/deliver_v2/capturas",
+   "auditoria": "inspeção visual 03/11/2026: dados sintéticos; sem dado pessoal real nem imagem de terceiros; saudação 'Yan' e cabeçalho do seletor de estados visíveis"
+  },
+  {
+   "tipo": "auditada",
+   "arquivo": "capturas/auditadas/T4.8_1440_organizar_citacoes.png",
+   "sha256": "6c4a8f819b19015a8d8d97357336911b010638b35fe8d02a8aa4149df60e4c32",
+   "origem": "pacote_v2_T4_2026-11-03/deliver_v2/capturas",
+   "auditoria": "inspeção visual 03/11/2026: dados sintéticos; sem dado pessoal real nem imagem de terceiros; saudação 'Yan' e cabeçalho do seletor de estados visíveis"
+  },
+  {
+   "tipo": "auditada",
+   "arquivo": "capturas/auditadas/T4.8_375_vazio_aviso_efemero.png",
+   "sha256": "e3e68d43e8a247d597507ba2e194eab15030c5a0c23512ee5a1c1640fc383a78",
+   "origem": "pacote_v2_T4_2026-11-03/deliver_v2/capturas",
+   "auditoria": "inspeção visual 03/11/2026: dados sintéticos; sem dado pessoal real nem imagem de terceiros; saudação 'Yan' e cabeçalho do seletor de estados visíveis"
+  },
+  {
+   "tipo": "canonica",
+   "arquivo": "capturas/canonicas/T4.1-1440.png",
+   "sha256": "b4445791d6771f62f337166ecfa30c23d6177ed4970c1b8fd3b2290bda421e27",
+   "origem": "Chrome headless 1440x900 sobre extracted/t4, servido por http.server local; estado inicial do artefato"
+  },
+  {
+   "tipo": "canonica",
+   "arquivo": "capturas/canonicas/T4.2-1440.png",
+   "sha256": "8e3d70324cda17a404afefb44b05d7bcf20c466b8e3c89693e34bfe2f0fbed6d",
+   "origem": "Chrome headless 1440x900 sobre extracted/t4, servido por http.server local; estado inicial do artefato"
+  },
+  {
+   "tipo": "canonica",
+   "arquivo": "capturas/canonicas/T4.3-1440.png",
+   "sha256": "5f5e52aa47b13fa076675778c3bb9faffff370264c63290126a44f73449d6002",
+   "origem": "Chrome headless 1440x900 sobre extracted/t4, servido por http.server local; estado inicial do artefato"
+  },
+  {
+   "tipo": "canonica",
+   "arquivo": "capturas/canonicas/T4.4-1440.png",
+   "sha256": "cfe1746d04ad08a8e2c57a726c781643f62ac8d804a544c6fafa928e4511b8fb",
+   "origem": "Chrome headless 1440x900 sobre extracted/t4, servido por http.server local; estado inicial do artefato"
+  },
+  {
+   "tipo": "canonica",
+   "arquivo": "capturas/canonicas/T4.5-1440.png",
+   "sha256": "f1e154f2a79ca74ae4cc1d82ea0d1b96ad3b65ff689f6fe21a4b5b5f2e884da5",
+   "origem": "Chrome headless 1440x900 sobre extracted/t4, servido por http.server local; estado inicial do artefato"
+  },
+  {
+   "tipo": "canonica",
+   "arquivo": "capturas/canonicas/T4.6-1440.png",
+   "sha256": "52ede675ec6b32ec9fcc656522db2cd1219f343c81222f307090386406e9df21",
+   "origem": "Chrome headless 1440x900 sobre extracted/t4, servido por http.server local; URL ?s=inicio&w=1440 (início com painel fechado)"
+  },
+  {
+   "tipo": "canonica",
+   "arquivo": "capturas/canonicas/T4.7-1440.png",
+   "sha256": "b058fdd324f363e21ce62acdde56121aca70629492bc1448c3bca0bad1a57f1d",
+   "origem": "Chrome headless 1440x900 sobre extracted/t4, servido por http.server local; estado inicial do artefato"
+  },
+  {
+   "tipo": "canonica",
+   "arquivo": "capturas/canonicas/T4.8-1440.png",
+   "sha256": "d82d57779a30560c3b4e361afa9ee31cd8cf42d74043bc69a4262c2c040c15ab",
+   "origem": "Chrome headless 1440x900 sobre extracted/t4, servido por http.server local; estado inicial do artefato"
+  }
+ ],
+ "contagem": {
+  "incluido": 268,
+  "excluido": 41,
+  "retido": 243
+ }
+}

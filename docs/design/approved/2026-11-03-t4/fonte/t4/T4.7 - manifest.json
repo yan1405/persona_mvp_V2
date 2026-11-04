@@ -1,0 +1,14 @@
+{
+  "task": "T4.7 — Configurações",
+  "entry": "T4.7 - Configurações.html",
+  "bundle": ["configuracoes-screen.jsx", "T4.7 - Configurações.html"],
+  "design_system": "PersonaDesignSystem_ff1a7b (Plus Jakarta Sans + Inter, Indigo + Slate, Lucide 1.75)",
+  "components": ["Sidebar", "Switch", "Input", "Button", "Badge", "Avatar", "SectionIndex", "FloatingPanel", "Icon", "Chip"],
+  "agent": "ausente (sem AgentPanel, sem AppShell)",
+  "data_source": "Dados sintéticos para demonstração; nenhum e-mail ou pessoa real",
+  "widths": [1024, 1280, 1440],
+  "url_params": "?s=<estado>&w=<1024|1280|1440>&f=<0|1>",
+  "states": ["carregando","limpo","alterado","validacao","salvando","salvo","falha-salvar","inventario","exportando","export-pronto","export-falha","excl-aviso","reauth-solicitada","reauth-valida","reauth-expirada","excl-incorreta","excl-correta","excl-processando","excl-concluida","excl-falha","ms-disponivel","sessao-expirada","saindo","sair-falha"],
+  "applied": { "db_migration": false, "auth": false, "real_deletion": false, "real_export": false },
+  "out_of_scope": ["T4.8", "AgentPanel", "plano/preço"]
+}

@@ -1,0 +1,17 @@
+{
+  "task": "T4.5 — Artefatos",
+  "entry": "T4.5 - Artefatos.html",
+  "bundle": ["artefatos-data.jsx", "artefatos-create.jsx", "artefatos-detail.jsx", "artefatos-screen.jsx", "T4.5 - Artefatos.html"],
+  "design_system": "PersonaDesignSystem_ff1a7b (Plus Jakarta Sans + Inter, Indigo + Slate, Lucide 1.75)",
+  "components": ["AppShell", "AgentPanel (via AppShell)", "ArtifactCard", "StepFlow", "SectionIndex", "EntryCard(versao)", "EvidenceCard(selectable/grid)", "TraceLine", "Badge", "Button", "Chip", "Input"],
+  "data_source": "persona-fluxos-e-features.md §10; links, datas relativas e e-mail: Dados sintéticos para demonstração; contato/formação/idiomas: Declaração manual",
+  "widths": [1024, 1280, 1440],
+  "agent": ["aberto", "fechado"],
+  "states": {
+    "biblioteca": ["lib-lista", "lib-vazia", "lib-carregando", "lib-erro", "lib-filtros", "lib-sem-resultado"],
+    "criacao": ["c1", "c1-agente", "c2", "c2-validacao", "c3", "c4", "c5", "c5-sem", "c6", "c6-gerando", "c6-timeout", "c6-provedor", "c6-lacuna", "c-primeira"],
+    "detalhe": ["d-star", "d-pitch", "d-curriculo", "d-curriculo-previa", "d-portfolio", "d-salvando", "d-salvo", "d-nao-salvo", "d-conflito", "d-gerando", "d-falha", "d-restaurar", "d-restaurando", "d-exportando", "d-falha-export", "d-fonte"]
+  },
+  "url_params": "?s=<estado>&w=<1024|1280|1440>&a=<0|1>",
+  "out_of_scope": ["carta de apresentação", "preço/plano", "publicação", "T4.6"]
+}

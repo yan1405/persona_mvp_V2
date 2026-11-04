@@ -1,0 +1,13 @@
+{
+  "task": "T4.6 — Narrative Score",
+  "entry": "T4.6 - Narrative Score.html",
+  "bundle": ["inicio-screen.jsx (T4.1, inalterado, origem de abertura)", "score-panel.jsx", "T4.6 - Narrative Score.html"],
+  "design_system": "PersonaDesignSystem_ff1a7b (Plus Jakarta Sans + Inter, Indigo + Slate, Lucide 1.75)",
+  "components": ["FloatingPanel", "SectionIndex", "ScoreRing", "DimensionRow", "TraceLine", "EntryCard(versao)", "Badge", "Button", "Chip"],
+  "opens_from": "Início (T4.1) · botão “Entender o Score” do cartão Narrative Score",
+  "approved_numbers": {"score": 65, "origem": "Base declarada", "confianca": "Inicial", "coerencia": 75, "consistencia": 50, "credibilidade": "Ainda não avaliada", "calculo": "0,6 × 75 + 0,4 × 50 = 65", "consistencia_observada": "4 registros em 2 semanas (meta de referência: 6 registros em 3 semanas)", "coerencia_observada": "4 evidências"},
+  "widths": [1024, 1280, 1440],
+  "states": ["inicio", "dados-insuficientes", "historico-vazio", "snapshot", "nao-elegivel", "calculando", "concluido", "falha-coerencia", "agente-off"],
+  "url_params": "?s=<estado>&w=<1024|1280|1440>",
+  "out_of_scope": ["T4.7", "dados reais", "Credibilidade numérica", "níveis de domínio"]
+}
