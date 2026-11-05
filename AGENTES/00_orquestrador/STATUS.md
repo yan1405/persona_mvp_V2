@@ -254,7 +254,23 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 | `lib/agent/*.test.ts` no `npm test` | **PENDING** commit próprio do Orquestrador, após a nova revisão |
 | Arquivos da Verificação | untracked em `AGENTES/04_verificacao/` (plano, 3 relatórios da rodada 1, `STATUS.md` alterado); versionar quando os relatórios da rodada 2 estiverem prontos |
 
-## Rodada 3 e reconciliação (05/11/2026)
+## Fechamento do Lote 1 — parecer final (05/11/2026)
+
+Refresh de Git às 11:57 e releitura às 12:15 (HEADs estáveis); `origin/main` `06de045`, `baseline/2026-11-03` `8da08c6`, `codex/persona-preview-20261028` `96e5028`; `main` local à frente só com documentação, sem push. Validador da arquitetura: `OK: architecture valid with 0 warning(s)`.
+
+| Entrega | HEAD congelado | Relatório | Achados abertos | Gate sugerido pela Verificação |
+|---|---|---|---|---|
+| Interface | `abcf2882e6c26e11ec0f23f674a95acbf628d4ed` | `RELATORIO_interface_abcf288.md` | S3: IF-5 (resíduos de raiz no texto) | liberar com ressalvas |
+| Backend | `7aeb658d7ce92336d75e0b7edd48b0cb8de21bd6` | `RELATORIO_backend_7aeb658.md` | S3: BK-9 (`STATUS.md` desatualizado) | liberar com ressalvas |
+| Agente + parser do Live | `42dbddf043f19a492b0fddae03031898ec5acd58` | `RELATORIO_agente-nvidia_42dbddf.md` | **S2: L-1** (o parser novo do Live rejeita excerto fiel com negador na mesma oração: 0/12 aceitos contra 12/12 no antigo, corpus sintético); S3: A-12, L-2 | **bloquear integração deste SHA** |
+
+Execução independente (checkout isolado em `42dbddf`, limpo antes e depois): testes do Agente 27/27; `npm test` 37/37 (sem `lib/agent`); lint 0; typecheck 0; build PENDING.
+
+Caminhos para o L-1 (decisão de Yan): (a) aceitar por escrito e medir no Live antes de produção; (b) pedir novo SHA com regra de oração ajustada ou barreira só no Agente; (c) integrar apenas `lib/agent/**` e o contrato do SHA `f4edecf` (revisado com ressalvas, sem tocar o Live) e adiar o parser. Recomendação do Orquestrador: (c), mais um lote separado para o parser do Live com medição em evidências reais.
+
+Estados: Orquestrador `ACTIVE`, Interface `WAITING_APPROVAL`, Backend `WAITING_APPROVAL`, Agente `BLOCKED` (L-1), Verificação `DONE`. Relatórios das rodadas 1 a 3 permanecem como histórico.
+
+## SUPERADA · Rodada 3 e reconciliação (05/11/2026)
 
 Snapshot de Git: 05/11/2026 11:51 (duas coletas seguidas, HEADs idênticos; escritores parados, worktrees sem alteração em arquivos versionados). `main` `4c801d2` (24 commits à frente de `origin/main` `06de045`); remoto: `baseline/2026-11-03` `8da08c6`, `codex/persona-preview-20261028` `96e5028`, `main` `06de045`. Base `8da08c6`.
 

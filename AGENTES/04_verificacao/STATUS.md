@@ -1,7 +1,49 @@
 # Status — Persona — Verificação Independente
 
 Estado: DONE
-Resumo: rodada 3 do Lote 1 revisada (05/11/2026): relatórios para `8240cf3`, `ee6ac3f` e `f4edecf` publicados; execução independente da suíte do Agente concluída no checkout isolado. As rodadas 1 e 2 (seções abaixo) permanecem como histórico e não aprovam os SHAs da rodada 3.
+Resumo: fechamento do Lote 1 revisado (05/11/2026): relatórios novos para `abcf288`, `7aeb658` e `42dbddf` publicados; execução independente da suíte do Agente concluída no checkout isolado; validador de arquitetura com 0 erros. As rodadas 1 a 3 (seções abaixo) permanecem como histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+
+## Fechamento do Lote 1 (base `8da08c6`)
+
+| Entrega | SHA (HEAD congelado) | Relatório | Achados abertos | Gate sugerido |
+|---|---|---|---|---|
+| 01 Interface | `abcf2882e6c26e11ec0f23f674a95acbf628d4ed` | `RELATORIO_interface_abcf288.md` | S3: IF-5 (resíduos de raiz: `tokens/fonts.css`, nomes soltos no §6). IF-4 corrigido | **liberar com ressalvas** |
+| 02 Backend | `7aeb658d7ce92336d75e0b7edd48b0cb8de21bd6` | `RELATORIO_backend_7aeb658.md` | S3: BK-9 (STATUS ainda cita "rodada 3"). BK-6, BK-7 e BK-8 corrigidos | **liberar com ressalvas** (documentação e script de QA). **Não** aprova migração, RLS nem banco real; B-1 é decisão de Yan; R1 HYPOTHESIS; sintaxe do SQL PENDING |
+| 03 Agente NVIDIA | `42dbddf043f19a492b0fddae03031898ec5acd58` | `RELATORIO_agente-nvidia_42dbddf.md` | **S2: L-1** (parser compartilhado do Live rejeita excertos fiéis com negador na mesma oração; 0/12 aceitos num corpus sintético, antes 12/12; produção não medida). S3: A-12 (invisíveis Unicode fora do conjunto), L-2 (letra isolada, declarado). A-1, A-7, A-9, A-10, A-11 (mapa declarado) e A-5 corrigidos | **bloquear integração** do SHA; alternativas no relatório (aceitar L-1 por escrito, ajustar a regra, ou integrar só `lib/agent/**` do `f4edecf`) |
+
+Nenhum S1. Nenhuma severidade reduzida.
+
+### Execução independente (Agente; checkout `C:\Users\yansi\Projetos\persona-wt\verificacao-489ec0d`, HEAD `42dbddf043f19a492b0fddae03031898ec5acd58` desanexado, `git status` limpo antes e depois)
+
+| Comando (em `apps\web`) | Exit | Contagens |
+|---|---:|---|
+| `node --experimental-strip-types --test lib/agent/*.test.ts` | 0 | tests 27 · pass 27 · fail 0 · cancelled 0 · skipped 0 |
+| `npm test` | 0 | tests 37 · pass 37 · fail 0 · cancelled 0 · skipped 0 (não inclui `lib/agent`) |
+| `npm run lint` | 0 | sem diagnósticos |
+| `npm run typecheck` | 0 | sem erros |
+| build | PENDING | nenhum checkout integrado foi preparado; não improvisei integração |
+
+### Governança
+
+- `python C:\Users\yansi\.codex\skills\build-agent-team\scripts\validate_architecture.py C:\Users\yansi\OneDrive\Persona_Geral\persona_mvp_v2` → exit 0, "OK: architecture valid with 0 warning(s)", 0 erros. Li o script antes de rodar: só lê arquivos e imprime. Valida a arquitetura, não o produto.
+- Os cinco `Estado:` do checkout principal (`bfe1f81`): 00 `ACTIVE — Lote 1 em andamento…`, 01 `WAITING_APPROVAL`, 02 `WAITING_APPROVAL`, 03 `BLOCKED`, 04 `DONE`; todos na enumeração `PENDING | ACTIVE | WAITING_APPROVAL | BLOCKED | DONE`. Observação: o 00 traz descrição depois do token. Nos SHAs congelados, os `STATUS.md` dos escritores dizem `WAITING_APPROVAL` (01 e 03 com texto depois do token; 02 só o token), então o 03 difere do checkout principal (`BLOCKED`); a integração decide qual vale.
+- Divulgação: o `Estado: DONE` e a linha `Resumo:` do cabeçalho deste arquivo entraram no commit `0240dc5` do Orquestrador ("reconciliar governança"); o conteúdo de rodada 3 abaixo é o que eu escrevi. Corrijo a minha afirmação anterior de que não havia evidência de edição por terceiros.
+
+### Handoff do fechamento
+
+- Escopo: prompt `AGENTES/PROMPTS/09_verificacao_fechamento_lote1.md` e a seção "SHAs vigentes — fechamento do Lote 1" de `LOTE-1_CONGELADO.md` (commit `bfe1f81`), pedido relayado pelo Orquestrador. Confirmei antes de revisar: os três HEADs dos worktrees são exatamente os SHAs congelados; só o worktree da interface tem 1 arquivo não versionado (`HANDOFF_interface.md`); o checkout isolado está em `42dbddf`, limpo.
+- Arquivos criados: `RELATORIO_interface_abcf288.md`, `RELATORIO_backend_7aeb658.md`, `RELATORIO_agente-nvidia_42dbddf.md`; este `STATUS.md` atualizado. Relatórios das rodadas 1 a 3 e `PLANO_LOTE1.md` intactos (`git status` não os lista). Sem `git add`/commit.
+- Comandos: `git diff --stat|--name-only|--check 8da08c6..<SHA>`, `git show`, `git log`, `git grep`, `git rev-parse`, `git status --short`, `cat-file`; os quatro comandos da tabela; `validate_architecture.py`; scripts de leitura no scratchpad (`f_interface.py`, `f_backend.py`, `f_probe.ts`, `f_corpus.ts`, `estados.py`) e uma cópia do parser antigo (`old_response_schema.ts`, extraído de `8da08c6`) e variantes de teste (`variant_comma.ts`), todos fora do repositório.
+- Não executei: SQL, banco, migração, credencial, `.env`, `npm install`, build, rede de modelo, chamada NVIDIA; nada nos worktrees dos escritores.
+- Limitações: Interface e Backend só por leitura; sintaxe SQL não executada; o corpus do Live é sintético e escrito por mim (não é taxa de produção); A-9 provado só com provedor simulado; o recall e o modelo real não foram avaliados; capturas, acessibilidade e aceite visual não avaliados.
+- Decisões pendentes: Orquestrador/Yan sobre L-1 (aceitar, ajustar ou separar o commit); Yan sobre B-1 (A/B/C), QA em ambiente isolado com duas contas descartáveis, as nove decisões da Interface e o aceite visual; Orquestrador sobre incluir `lib/agent/*.test.ts` no `npm test` e sobre o `Estado` do 03 (`BLOCKED` no principal × `WAITING_APPROVAL` no SHA).
+- Bloqueio: nenhum para a Verificação; bloqueio de integração do `42dbddf` (L-1).
+- Próximo passo mínimo (não executado): decisão sobre L-1; se houver novo SHA, reexecutar os quatro comandos e rodar de novo o corpus do Live.
+- Percentual comprovado do plano ponderado: **0%**. Os quatro comandos passaram, mas nenhum eixo está completo (build/release, banco e UX/acessibilidade não foram executados); o Orquestrador decide se a execução do Agente conta parcialmente.
+
+---
+
+# Histórico — rodada 3
 
 ## Rodada 3 (base `8da08c6`)
 
