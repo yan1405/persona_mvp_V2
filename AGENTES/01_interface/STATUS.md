@@ -35,4 +35,4 @@ Decisões pendentes de Yan (detalhe no mapa §4): fonte (Plus Jakarta/Inter × G
 
 Bloqueio: nenhum para o mapa. Gates por fatia, sem gate global: Fundação ← fonte (4.1) e ícones (4.2); T4.1 ← Score (4.5); T4.2/T4.3 ← painéis × rotas (4.7); T4.6 ← 4.5 e 4.7; T4.8 ← 4.3 e contrato do backend. Toda fatia também espera atribuição do Orquestrador (dono de `globals.css`, `layout.tsx`, `app-navigation.tsx`).
 Próximo passo: o Orquestrador revisa o diff, congela o SHA e envia à Verificação; depois Yan decide.
-Commits locais no branch `wt/interface-lote1`: `8c5ef15` (original, a substituir) e o commit de correção (ver `git log -1`). Sem push.
+Commits locais em `wt/interface-lote1` (sem push, sem amend): `8c5ef15` (histórico), `d4a1e3b` (revisão 2, histórico imutável) e `d88f2f231fdf5ca5e8f1041461d578eedb85dca1` (rodada 3: IF-1, IF-2, IF-3). O commit que grava este SHA no STATUS é o seguinte; o SHA a congelar é o do HEAD (`git rev-parse HEAD`).
