@@ -2,7 +2,43 @@
 
 Congelado pelo Orquestrador. Rodada 2 em 05/11/2026, após as correções dos escritores, por instrução de Yan. Base: `8da08c698a74aeb4d95c70123eba61fc921a591c`. Os branches compartilham o repositório Git, então `git diff 8da08c6..<SHA>` funciona de qualquer checkout. Um SHA é imutável: nova correção gera novo SHA e novo registro.
 
-## SHAs vigentes (substituem os da rodada 1)
+## SHAs vigentes — rodada 3 (substituem os da rodada 2)
+
+Congelados pelo Orquestrador em 05/11/2026 após as correções da rodada 3 (`LOTE-1_CORRECOES.md`). Cada SHA é o **topo do branch** do escritor, conferido por mim: HEAD igual ao SHA, worktree limpo, caminhos dentro do escopo, nenhum arquivo proibido, `git diff --check 8da08c6..<SHA>` limpo, trailer de coautoria, sem push. Os SHAs da rodada 2 viram histórico e os relatórios deles **não aprovam** estes.
+
+| Entrega | Branch | SHA congelado | Commits desde a base | Arquivos | Linhas (vs. base) |
+|---|---|---|---:|---:|---|
+| 01 Interface | `wt/interface-lote1` | `8240cf3df08161d0888ec61535de46cd0100fbcd` | 4 | 2 | +169 / −13 |
+| 02 Backend | `wt/backend-lote1` | `ee6ac3f43ad10523b71f3f2924e71750db6f8490` | 5 | 5 | +560 / −68 |
+| 03 Agente NVIDIA | `wt/agente-nvidia-lote1` | `f4edecf6fac422e6980d0e045ea30e29e22aa3e8` | 5 | 5 | +446 / −13 |
+
+- Interface: correções em `d88f2f2`; `8240cf3` só registra o SHA no STATUS.
+- Backend: um commit de correção sobre `4a37131`; entra também `docs/redesign/backend/HANDOFF_LOTE1.md`, novo e dentro de `docs/redesign/backend/**`.
+- Agente: o código está em `56afc7c99344c87c53e2e83719c8f0b83ac12741`; o topo `f4edecf` só registra o SHA no STATUS. Congelei o topo para que a revisão cubra também o handoff escrito.
+
+Comando de diff para cada um: `git diff 8da08c6..<SHA>` a partir de qualquer checkout.
+
+### Checkout isolado da Verificação (reposicionado)
+
+`C:\Users\yansi\Projetos\persona-wt\verificacao-489ec0d` agora está **desanexado em `f4edecf6fac422e6980d0e045ea30e29e22aa3e8`** (o nome da pasta é histórico), limpo, com `next typegen` refeito; `node_modules` e lockfile inalterados. Mesma regra: só executar, sem editar arquivo versionado nem `npm install`. Comandos em `apps\web`:
+
+```text
+node --experimental-strip-types --test lib/agent/*.test.ts
+npm test
+npm run lint
+npm run typecheck
+```
+
+### Pedidos dos escritores já registrados
+
+- `apps/web/lib/live/response-schema.ts` (parser compartilhado, sem dono) tem os mesmos defeitos A-1/A-7 e serve o Persona Live: **decisão de dono e correção pendentes**, fora desta rodada.
+- Incluir `lib/agent/*.test.ts` no `npm test`: Orquestrador, em commit próprio **depois** da aprovação.
+- Decisão de produto do Agente: o limiar `score > 0` pode cortar evidência relevante (recall não medido).
+- O Agente declara como **não coberto**: limites de tamanho das entradas, `updated_at` inválido, paráfrases de meta-comando e escopo sintático da negação.
+
+## Rodada 2 (superada por esta)
+
+## SHAs da rodada 2 (histórico)
 
 | Entrega | Branch | SHA congelado | Commits | Arquivos | Linhas |
 |---|---|---|---:|---:|---|
