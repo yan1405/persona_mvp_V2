@@ -40,5 +40,7 @@ export function guardRawOutput(raw: string): void {
     const gap = value.gap;
     if (!isRecord(gap) || !exactKeys(gap, ["missing_facts", "registration_suggestion"]) || !str(gap.registration_suggestion, 8, 240)) return fail();
     if (!Array.isArray(gap.missing_facts) || gap.missing_facts.length < 1 || gap.missing_facts.length > 4 || !gap.missing_facts.every((fact) => str(fact, 4, 160))) return fail();
+    // gap é devolvido ao usuário sem reconstrução: também precisa passar pela barreira
+    if (gap.missing_facts.some((fact) => hasMetaCommand(fact as string)) || hasMetaCommand(gap.registration_suggestion as string)) return fail();
   }
 }
