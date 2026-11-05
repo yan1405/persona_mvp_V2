@@ -9,8 +9,10 @@
 -- diagnóstico/snapshot — as FKs `on delete restrict` das Fases 4–8 podem
 -- impedir a cascata a partir de auth.users).
 -- Privilégios (RLS ligada, REVOKE ALL na tabela — SELECT, INSERT, UPDATE,
--- DELETE, TRUNCATE, REFERENCES e TRIGGER para anon e authenticated —, e
--- EXECUTE só para authenticated) são conferidos pelo catálogo no passo 1.
+-- DELETE, TRUNCATE, REFERENCES e TRIGGER para anon e authenticated, mais
+-- MAINTAIN quando server_version_num >= 170000 —, e EXECUTE só para
+-- authenticated) são conferidos pelo catálogo no passo 1. MAINTAIN não é
+-- passado ao has_table_privilege no PostgreSQL 15/16 (levantaria erro).
 --
 -- Tudo roda dentro de UMA transação com ROLLBACK no final: nada é
 -- persistido, nem mesmo a exclusão de conta simulada no passo 8. Rodar
@@ -90,8 +92,10 @@ select
   to_regprocedure('public.delete_own_account(text)') is not null as delete_existe,
   to_regprocedure('public.delete_own_account()') is null as assinatura_antiga_removida,
   (select relrowsecurity from pg_class where oid = 'public.sensitive_action_authorizations'::regclass) as rls_ligada,
-  not has_table_privilege('authenticated', 'public.sensitive_action_authorizations', 'select,insert,update,delete,truncate,references,trigger') as tabela_fechada_authenticated,
-  not has_table_privilege('anon', 'public.sensitive_action_authorizations', 'select,insert,update,delete,truncate,references,trigger') as tabela_fechada_anon,
+  not has_table_privilege('authenticated', 'public.sensitive_action_authorizations', 'select,insert,update,delete,truncate,references,trigger'
+    || case when current_setting('server_version_num')::int >= 170000 then ',maintain' else '' end) as tabela_fechada_authenticated,
+  not has_table_privilege('anon', 'public.sensitive_action_authorizations', 'select,insert,update,delete,truncate,references,trigger'
+    || case when current_setting('server_version_num')::int >= 170000 then ',maintain' else '' end) as tabela_fechada_anon,
   has_function_privilege('authenticated', 'public.delete_own_account(text)', 'execute') as delete_exec_authenticated,
   not has_function_privilege('anon', 'public.delete_own_account(text)', 'execute') as delete_sem_exec_anon,
   has_function_privilege('authenticated', 'public.authorize_sensitive_action(text)', 'execute') as authorize_exec_authenticated,

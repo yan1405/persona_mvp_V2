@@ -28,6 +28,7 @@ Nenhum arquivo de `supabase/`, `apps/web/`, `package.json`, `.env*` foi tocado.
 
 - `git diff --check` → limpo (apenas aviso de LF→CRLF do Git no `.sql`).
 - Ajustes finais (commit seguinte a `1e7ad02`): script exige duas contas descartáveis de QA (sem recomendar conta principal); passo 1 verifica também TRUNCATE, REFERENCES e TRIGGER para `anon` e `authenticated` (as chaves do JSON esperado não mudaram). Não executado.
+- Compatibilidade PostgreSQL 15/16/17: o passo 1 inclui `maintain` na verificação de privilégios da tabela só se `server_version_num >= 170000`; em 15/16 não é passado. Assertions, transação e rollback preservados. Não executado.
 - Passos 1, 5, 6 e 9 do script agora reprovam sozinhos via `pg_temp.confere` (compara jsonb obtido × esperado); não executado.
 - `grep` dos nomes de tabelas/RPCs citados na matriz contra `supabase/migrations` e `apps/web` → todos encontrados (só "não encontrados": os termos genéricos `max_rows` e `select_own`, que não são objetos).
 - Não executados: SQL (sem banco), `npm run lint/typecheck/test/build` (sem código alterado).
