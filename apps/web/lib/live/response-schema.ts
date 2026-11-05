@@ -39,6 +39,40 @@ export type LiveResponse = {
 
 function record(value: unknown): value is Record<string, unknown> { return typeof value === "object" && value !== null && !Array.isArray(value); }
 
+const WORD = /[\p{L}\p{N}]/u;
+const NEGATOR = /(?:^|[^\p{L}\p{N}])(?:nao|nunca|sem|nem|jamais|nenhum|nenhuma)(?![\p{L}\p{N}])/u;
+// letra isolada (iniciais, "S.A.") ou abreviação comum antes do ponto: não encerra a oração
+const ABBREVIATION = /(?:^|[^\p{L}])(?:\p{L}|sr|sra|dr|dra|prof|ex|ltda|cia|av|tel|ref)$/u;
+const plain = (value: string) => value.normalize("NFD").replace(/[̀-ͯ]/g, "");
+const isWord = (char: string | undefined) => char !== undefined && WORD.test(char);
+const isDigit = (char: string | undefined) => char !== undefined && /\p{N}/u.test(char);
+
+// Início da oração que contém `start`. "." só encerra se for seguido de espaço/fim e não for abreviação: "v2.0" e "Sr. Silva" não cortam.
+function clauseStart(source: string, start: number) {
+  for (let index = start - 1; index >= 0; index -= 1) {
+    const char = source[index];
+    if (!".;:!?".includes(char)) continue;
+    if (char !== "." || ((source[index + 1] === undefined || /\s/.test(source[index + 1])) && !ABBREVIATION.test(plain(source.slice(0, index))))) return index + 1;
+  }
+  return 0;
+}
+
+// `source` e `excerpt` já em minúsculas. O excerto vale só se for uma unidade íntegra da fonte: sem cortar palavra ou número
+// ("3" de "30%", "1" de "1.000") e sem remover uma negação anterior na mesma oração.
+// shortcut: negação = negador (não, nunca, sem, nem, jamais, nenhum/a) antes do trecho na oração; não entende escopo sintático nem negação posposta. Evoluir com os evals reais.
+function hasIntactMatch(source: string, excerpt: string) {
+  const first = excerpt[0], last = excerpt[excerpt.length - 1];
+  for (let start = source.indexOf(excerpt); start >= 0; start = source.indexOf(excerpt, start + 1)) {
+    const end = start + excerpt.length, prev = source[start - 1], next = source[end];
+    if ((isWord(prev) && isWord(first)) || (isWord(next) && isWord(last))) continue;
+    if (isDigit(last) && (next === "%" || ((next === "." || next === ",") && isDigit(source[end + 1])))) continue;
+    if (isDigit(first) && (prev === "." || prev === ",") && isDigit(source[start - 2])) continue;
+    if (NEGATOR.test(plain(source.slice(clauseStart(source, start), start))) && !NEGATOR.test(plain(excerpt))) continue;
+    return true;
+  }
+  return false;
+}
+
 export function parseLiveResponse(raw: string, evidences: LiveEvidenceInput[]): LiveResponse {
   let value: unknown;
   try { value = JSON.parse(raw); } catch { throw new Error("invalid_output"); }
@@ -52,9 +86,10 @@ export function parseLiveResponse(raw: string, evidences: LiveEvidenceInput[]): 
       || typeof argument.source_field !== "string" || !fields.has(argument.source_field) || typeof argument.source_excerpt !== "string") throw new Error("invalid_output");
     const evidence = byId.get(argument.evidence_id);
     if (!evidence) throw new Error("invalid_output");
-    const source = argument.source_field === "competencies" ? evidence.competencies.join(" ") : evidence[argument.source_field as keyof Omit<LiveEvidenceInput, "id" | "competencies">];
-    if (!source || !source.toLocaleLowerCase("pt-BR").includes(argument.source_excerpt.trim().toLocaleLowerCase("pt-BR"))) throw new Error("invalid_output");
     const excerpt = argument.source_excerpt.trim();
+    // competências são conferidas uma a uma: um excerto não pode cruzar duas
+    const sources = argument.source_field === "competencies" ? evidence.competencies : [evidence[argument.source_field as keyof Omit<LiveEvidenceInput, "id" | "competencies">] ?? ""];
+    if (!WORD.test(excerpt) || !sources.some((source) => hasIntactMatch(source.toLocaleLowerCase("pt-BR"), excerpt.toLocaleLowerCase("pt-BR")))) throw new Error("invalid_output");
     return { text: excerpt, evidence_id: argument.evidence_id, source_field: argument.source_field as LiveArgument["source_field"], source_excerpt: excerpt };
   });
   const primary = typeof value.primary_evidence_id === "string" ? value.primary_evidence_id : null;

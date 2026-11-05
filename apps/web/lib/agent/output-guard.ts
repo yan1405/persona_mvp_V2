@@ -1,8 +1,15 @@
-import type { LiveEvidenceInput, LiveResponse } from "../live/response-schema.ts";
+import type { LiveResponse } from "../live/response-schema.ts";
 
-// Barreiras determinísticas em volta de parseLiveResponse (lib/live é somente leitura neste lote).
+// Barreiras determinísticas em volta de parseLiveResponse. Fronteira de palavra/número, negação e conteúdo efetivo do excerto
+// vivem no parser compartilhado (lib/live/response-schema.ts), para valer igual no Persona Live e no Agente.
 
-const fold = (value: string) => value.normalize("NFD").replace(/[̀-ͯ]/g, "").toLocaleLowerCase("pt-BR");
+// Homóglifos cirílicos/gregos mais comuns → latino. shortcut: mapa mínimo; outros (ex.: "ı" U+0131) escapam, ampliar com os evals reais.
+const HOMOGLYPHS: Record<string, string> = {
+  "а": "a", "е": "e", "о": "o", "р": "p", "с": "c", "х": "x", "у": "y",
+  "і": "i", "ј": "j", "ѕ": "s", "ο": "o", "ι": "i", "ν": "v",
+};
+// NFKC antes de tudo: largura total ("ｉｇｎｏｒｅ") e formas de compatibilidade viram ASCII.
+const fold = (value: string) => value.normalize("NFKC").toLocaleLowerCase("pt-BR").replace(/[аеорсхуіјѕοιν]/g, (char) => HOMOGLYPHS[char]).normalize("NFD").replace(/[̀-ͯ]/g, "");
 
 // shortcut: heurística lexical pt/en, não cobre paráfrases nem outros idiomas; evoluir junto com os evals reais.
 const META_COMMANDS = [
@@ -16,54 +23,25 @@ const META_COMMANDS = [
 ];
 
 // Quebras de linha e caracteres invisíveis viram espaço/nada antes do teste: "." não atravessa "\n".
-const flat = (value: string) => value.replace(/[​-‍⁠﻿]/g, "").replace(/\s+/g, " ");
+const INVISIBLE = /[​-‍⁠﻿]/g;
+const flat = (value: string) => value.replace(INVISIBLE, "").replace(/\s+/g, " ");
 export const hasMetaCommand = (value: string) => META_COMMANDS.some((pattern) => pattern.test(fold(flat(value))));
 
 const len = (value: string) => [...value].length; // JSON Schema conta pontos de código
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === "object" && value !== null && !Array.isArray(value);
 const exactKeys = (value: Record<string, unknown>, keys: string[]) => Object.keys(value).length === keys.length && keys.every((key) => key in value);
-const str = (value: unknown, min: number, max: number): value is string => typeof value === "string" && len(value.trim()) >= min && len(value) <= max; // mínimo após trim: espaços não contam
+// mínimo após remover invisíveis e trim: espaços e zero-width não contam
+const str = (value: unknown, min: number, max: number): value is string => typeof value === "string" && len(value.replace(INVISIBLE, "").trim()) >= min && len(value) <= max;
 
-const WORD = /[\p{L}\p{N}]/u;
 const FIELDS = ["title", "context", "action", "result", "learning", "competencies"];
 
-const NEGATOR = /(?:^|[^\p{L}\p{N}])(?:nao|nunca|sem|nem|jamais|nenhum|nenhuma)(?![\p{L}\p{N}])/u;
-const isDigit = (char: string | undefined) => char !== undefined && /\p{N}/u.test(char);
-const isWord = (char: string | undefined) => char !== undefined && WORD.test(char);
-
-// Uma ocorrência só vale se for uma unidade inteira da fonte: sem cortar palavra/número e sem remover negação.
-// shortcut: negação = negador na mesma oração (. ; : ! ?) antes do trecho; não entende escopo sintático nem negação posposta, nem sinônimos ("jamais" listado, "tampouco" não).
-function groundedAt(source: string, excerpt: string, start: number): boolean {
-  const end = start + excerpt.length;
-  const prev = source[start - 1], next = source[end];
-  if (isWord(prev) && isWord(excerpt[0])) return false;
-  if (isWord(next) && isWord(excerpt[excerpt.length - 1])) return false;
-  const last = excerpt[excerpt.length - 1];
-  if (isDigit(last) && (next === "%" || ((next === "." || next === ",") && isDigit(source[end + 1])))) return false; // 30% -> 30; 1.000 -> 1
-  if (isDigit(excerpt[0]) && (prev === "." || prev === ",") && isDigit(source[start - 2])) return false; // 1.000 -> 000
-  const before = source.slice(Math.max(source.slice(0, start).search(/[.;:!?][^.;:!?]*$/) + 1, 0), start);
-  return !NEGATOR.test(fold(before)) || NEGATOR.test(fold(excerpt));
-}
-
-/** Pós-parse: cada excerto precisa casar com ao menos uma ocorrência íntegra do campo citado; argumentos repetidos são rejeitados. Lança "invalid_output". */
-export function guardGrounding(response: LiveResponse, evidences: LiveEvidenceInput[]): void {
-  const byId = new Map(evidences.map((evidence) => [evidence.id, evidence]));
+/** Pós-parse: argumentos repetidos (mesma evidência, campo e excerto) são rejeitados. Lança "invalid_output". */
+export function guardRepeatedArguments(response: LiveResponse): void {
   const seen = new Set<string>();
   for (const argument of response.arguments) {
-    const evidence = byId.get(argument.evidence_id);
-    if (!evidence) throw new Error("invalid_output");
-    const excerpt = argument.source_excerpt.toLocaleLowerCase("pt-BR");
-    const key = `${argument.evidence_id}|${argument.source_field}|${excerpt}`;
+    const key = `${argument.evidence_id}|${argument.source_field}|${argument.source_excerpt.toLocaleLowerCase("pt-BR")}`;
     if (seen.has(key)) throw new Error("invalid_output");
     seen.add(key);
-    // competências são checadas uma a uma: o parser as junta com espaço e um excerto poderia cruzar duas
-    const sources = argument.source_field === "competencies" ? evidence.competencies : [evidence[argument.source_field as "title"] ?? ""];
-    const ok = sources.some((raw) => {
-      const source = raw.toLocaleLowerCase("pt-BR");
-      for (let index = source.indexOf(excerpt); index >= 0; index = source.indexOf(excerpt, index + 1)) if (groundedAt(source, excerpt, index)) return true;
-      return false;
-    });
-    if (!ok) throw new Error("invalid_output");
   }
 }
 
@@ -80,7 +58,7 @@ export function guardRawOutput(raw: string): void {
   if (!Array.isArray(value.arguments) || value.arguments.length > 5) return fail();
   for (const argument of value.arguments) {
     if (!isRecord(argument) || !exactKeys(argument, ["text", "evidence_id", "source_field", "source_excerpt"])) return fail();
-    if (!str(argument.text, 4, 280) || typeof argument.evidence_id !== "string" || !FIELDS.includes(String(argument.source_field)) || !str(argument.source_excerpt, 2, 240) || !WORD.test(argument.source_excerpt)) return fail();
+    if (!str(argument.text, 4, 280) || typeof argument.evidence_id !== "string" || !FIELDS.includes(String(argument.source_field)) || !str(argument.source_excerpt, 2, 240)) return fail();
     if (hasMetaCommand(argument.text) || hasMetaCommand(argument.source_excerpt)) return fail();
   }
   if (typeof value.draft === "string" && hasMetaCommand(value.draft)) return fail();

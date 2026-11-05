@@ -1,8 +1,9 @@
 import { recommendEvidences } from "../live/recommendation.ts";
-import { guardGrounding, guardRawOutput } from "./output-guard.ts";
+import { guardRawOutput, guardRepeatedArguments } from "./output-guard.ts";
 import { LIVE_RESPONSE_SCHEMA, parseLiveResponse, type LiveEvidenceInput, type LiveResponse } from "../live/response-schema.ts";
 
 export const AGENT_PROMPT_VERSION = "persona-agent-readonly-v1";
+export const QUESTION_MIN = 8, QUESTION_MAX = 500, DESCRIPTION_MAX = 2_000; // mesmos limites de lib/live/validation.ts
 export const MAX_EVIDENCES = 8; // contrato: 5–8 evidências por pergunta (menos só se o usuário tiver menos)
 
 export type AgentEvidence = LiveEvidenceInput & { user_id: string; updated_at: string };
@@ -50,6 +51,8 @@ export function buildMessages(input: AgentInput, evidences: AgentEvidence[]): Ag
 }
 
 export async function runAgent(provider: AgentProvider, input: AgentInput, timeoutMs = 15_000): Promise<{ response: LiveResponse; evidenceIds: string[]; promptVersion: string }> {
+  const question = input.question.trim().length;
+  if (question < QUESTION_MIN || input.question.length > QUESTION_MAX || (input.description?.length ?? 0) > DESCRIPTION_MAX) throw new AgentError("invalid_input");
   if (new Set(input.evidences.map((evidence) => evidence.id)).size !== input.evidences.length) throw new AgentError("invalid_input");
   const evidences = retrieveEvidences(input);
   const controller = new AbortController();
@@ -58,7 +61,8 @@ export async function runAgent(provider: AgentProvider, input: AgentInput, timeo
   try {
     raw = await Promise.race([
       provider(buildMessages(input, evidences), controller.signal),
-      new Promise<never>((_, reject) => { timer = setTimeout(() => { controller.abort(); reject(new AgentError("timeout")); }, timeoutMs); }),
+      // rejeita ANTES de abortar: o abort dispara o listener do provedor de forma síncrona e ele venceria a corrida como provider_error
+      new Promise<never>((_, reject) => { timer = setTimeout(() => { reject(new AgentError("timeout")); controller.abort(); }, timeoutMs); }),
     ]);
   } catch (error) {
     throw error instanceof AgentError ? error : new AgentError("provider_error");
@@ -67,7 +71,7 @@ export async function runAgent(provider: AgentProvider, input: AgentInput, timeo
     guardRawOutput(raw); // schema estrito + meta-comandos, antes do parser de lib/live
     // Valida IDs (só os recuperados), excertos literais, números e coerência supported/draft/gap.
     const response = parseLiveResponse(raw, evidences);
-    guardGrounding(response, evidences); // fronteira de palavra/número, negação e argumentos repetidos
+    guardRepeatedArguments(response); // fronteira, negação e conteúdo efetivo já são validados pelo parser compartilhado
     return { response, evidenceIds: evidences.map((evidence) => evidence.id), promptVersion: AGENT_PROMPT_VERSION };
   } catch { throw new AgentError("invalid_output"); }
 }
