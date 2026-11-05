@@ -8,17 +8,19 @@
 -- (agora com dados dependentes semeados: evidência, sessão Live, Artefato,
 -- diagnóstico/snapshot — as FKs `on delete restrict` das Fases 4–8 podem
 -- impedir a cascata a partir de auth.users).
--- Privilégios (RLS ligada, REVOKE ALL na tabela, EXECUTE só para
--- authenticated) são conferidos pelo catálogo no passo 1.
+-- Privilégios (RLS ligada, REVOKE ALL na tabela — SELECT, INSERT, UPDATE,
+-- DELETE, TRUNCATE, REFERENCES e TRIGGER para anon e authenticated —, e
+-- EXECUTE só para authenticated) são conferidos pelo catálogo no passo 1.
 --
 -- Tudo roda dentro de UMA transação com ROLLBACK no final: nada é
--- persistido, nem mesmo a exclusão de conta simulada no passo 8. Seguro
--- para rodar contra o banco real, mas ainda assim use duas contas que
--- você aceitaria perder se algo saísse do esperado.
+-- persistido, nem mesmo a exclusão de conta simulada no passo 8. Rodar
+-- SOMENTE no projeto de QA e SOMENTE com duas contas descartáveis de QA
+-- (sem dados reais). Nunca use uma conta pessoal ou principal: o script
+-- semeia e exclui dados do usuário A dentro da transação.
 --
 -- ANTES DE RODAR: substitua (find & replace no editor) as duas strings
--- abaixo por dois UUIDs reais e distintos de auth.users — ex.: sua conta
--- principal como A e a conta descartável de QA das Fases 7-9 como B.
+-- abaixo por dois UUIDs reais e distintos de auth.users, ambos de contas
+-- descartáveis de QA.
 --   AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA  -> usuário A
 --   BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB  -> usuário B
 -- Para ver candidatos: select id, email from auth.users order by created_at;
@@ -88,8 +90,8 @@ select
   to_regprocedure('public.delete_own_account(text)') is not null as delete_existe,
   to_regprocedure('public.delete_own_account()') is null as assinatura_antiga_removida,
   (select relrowsecurity from pg_class where oid = 'public.sensitive_action_authorizations'::regclass) as rls_ligada,
-  not has_table_privilege('authenticated', 'public.sensitive_action_authorizations', 'select,insert,update,delete') as tabela_fechada_authenticated,
-  not has_table_privilege('anon', 'public.sensitive_action_authorizations', 'select,insert,update,delete') as tabela_fechada_anon,
+  not has_table_privilege('authenticated', 'public.sensitive_action_authorizations', 'select,insert,update,delete,truncate,references,trigger') as tabela_fechada_authenticated,
+  not has_table_privilege('anon', 'public.sensitive_action_authorizations', 'select,insert,update,delete,truncate,references,trigger') as tabela_fechada_anon,
   has_function_privilege('authenticated', 'public.delete_own_account(text)', 'execute') as delete_exec_authenticated,
   not has_function_privilege('anon', 'public.delete_own_account(text)', 'execute') as delete_sem_exec_anon,
   has_function_privilege('authenticated', 'public.authorize_sensitive_action(text)', 'execute') as authorize_exec_authenticated,
