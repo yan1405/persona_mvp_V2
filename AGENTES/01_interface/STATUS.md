@@ -1,6 +1,6 @@
 # Status — Persona — Migração de Interface
 
-Estado: VERIFIED (Lote 1 · 01, mapa de telas). Nenhuma fatia de produto iniciada.
+Estado: ENTREGUE PARA VERIFICAÇÃO (Lote 1 · 01, mapa de telas); a verificação independente ainda decide o gate. Nenhuma fatia de produto iniciada.
 
 | Tarefa | Peso | Estado | Evidência |
 |---|---:|---|---|
@@ -9,7 +9,7 @@ Estado: VERIFIED (Lote 1 · 01, mapa de telas). Nenhuma fatia de produto iniciad
 | Tela/fluxo aprovado | 35 | PENDING | fora do Lote 1 |
 | Acessibilidade e larguras | 20 | PENDING | fora do Lote 1 |
 
-Lote 1 · 01 (contrato, sem código): `docs/redesign/interface/MAPA_TELAS.md` — VERIFIED pelas validações abaixo.
+Lote 1 · 01 (contrato, sem código): `docs/redesign/interface/MAPA_TELAS.md` — conferido por mim pelas validações abaixo; não é VERIFIED até o relatório da Verificação.
 Concluído (plano ponderado do papel): 0%. O mapa não pontua nenhuma tarefa acima; o Lote 1 não implementa.
 Faltante: 100% do plano de implementação.
 

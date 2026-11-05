@@ -26,7 +26,7 @@ Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `font
 - **Rota real:** existe, `app/inicio/page.tsx` (server component; lê `daily_logs` e `getNarrativeScoreData`).
 - **Componentes:** `AppShell`, `DestinationGrid`/`DestinationTile`, `FocalJourney`, `Card`, `ScoreRing`, `TraceLine`, `Badge`, `Chip`, `Button`, `AgentPrompt`, `AgentPanel` → TSX **novos**: `AppShell` (substitui o markup de `app/app/layout.tsx`), `DestinationTile`, `FocalJourney`, `ScoreRing`, `TraceLine`, `Badge`, `Button`. `AgentPrompt`/`AgentPanel` ficam em T4.8.
 - **Estados** (`STATES`): `completo`, `vazio`, `calculando`, `falha`.
-- **Lacunas:** o real só tem `?notice=diagnostic-completed` e o estado sem-Score; faltam `calculando` e `falha` no Início (o Score é calculado na action de `/app/score`). Credibilidade é "Indisponível nesta fase" no real; conferir o protótipo. A atividade recente do protótipo (`ACT_*`) mistura registros e evidências; o real lista 4 registros e competências recorrentes.
+- **Lacunas:** o real só tem `?notice=diagnostic-completed` e o estado sem-Score; faltam `calculando` e `falha` no Início (o Score é calculado na action de `/app/score`). Credibilidade é "Indisponível nesta fase" no real; o protótipo a mostra sem número (`inicio-screen.jsx:134`, "Ainda não avaliada", sha: `4ec6cb698888`), compatível. A atividade recente do protótipo (`ACT_*`) mistura registros e evidências; o real lista 4 registros e competências recorrentes.
 - **Compartilhados:** `app/app/layout.tsx`, `app/app/app-navigation.tsx`, `app/globals.css`.
 
 ### T4.2 — Diário
@@ -34,7 +34,7 @@ Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `font
 - **Rotas reais:** existem `app/diario/page.tsx` (captura + histórico) e `app/diario/[id]/page.tsx`; `app/diario/diary-forms.tsx` (`NewDailyLogForm`, `EditDailyLogForm`, `SuggestionReviewForm`, `PendingButton`); `app/diario/actions.ts`.
 - **Componentes:** `CaptureEditor`, `EntryCard`, `Input`, `Chip`, `Badge`, `FloatingPanel` (painel do registro), `SectionIndex`, `TraceLine` → TSX **novos** para a casca; lógica de `NewDailyLogForm`/`SuggestionReviewForm` reaproveitada.
 - **Estados** (`SCENARIOS`, 21): `editor-vazio`, `editor-preenchido`, `criando`, `salvar-falha`, `historico-vazio`, `historico`, `sem-resultado`, `carregando`, `erro-leitura`, `registro-criado`, `gerando`, `nenhuma-util`, `pendente`, `descartada`, `confirmada`, `falha-ia`, `manual`, `conflito`, `exclusao-bloqueada`, `exclusao-confirmar`, `exclusao-falha`.
-- **Lacunas:** o real cobre vazio, erro de leitura, sem-resultado e falha de sugestão; **não tem `carregando`** (sem `loading.tsx`). `conflito` de edição e `exclusao-bloqueada` não foram localizados (não verificado a fundo). O real abre o registro em **página** (`/app/diario/[id]`); o protótipo, em **painel** (decisão 4.7).
+- **Lacunas:** o real cobre vazio, erro de leitura, sem-resultado e falha de sugestão; **não tem `carregando`** (sem `loading.tsx`). `exclusao-bloqueada` **existe**: `diario/actions.ts:134` redireciona com `notice=delete-blocked` quando o registro sustenta evidência, e `diario/[id]/page.tsx:55` exibe a mensagem; falta só o desenho T4. `conflito` de edição **está ausente**: a action grava `updated_at` sem checagem de versão (nenhuma ocorrência de `revision` em `diario/actions.ts` nem em `lib/diary/validation.ts`). O real abre o registro em **página** (`/app/diario/[id]`); o protótipo, em **painel** (decisão 4.7).
 - **Compartilhados:** `app/globals.css`; `lib/diary/validation.ts` (leitura).
 
 ### T4.3 — Evidências
@@ -66,7 +66,7 @@ Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `font
 - **Rota real:** existe `app/score/page.tsx` (abas Resumo / Histórico / Como é calculado) + `app/score/actions.ts` (`updateCoherence`). **Fora da navegação principal.** O diagnóstico (`app/diagnostico/page.tsx`, `diagnostic-form.tsx`, `actions.ts`) também alimenta o Score e **não tem tela em T4**.
 - **Componentes:** `ScoreRing`, `DimensionRow`, `ProgressBar`, `TraceLine`, `Badge`, `FloatingPanel`, `SectionIndex` → TSX **novos**.
 - **Estados** (`N_SCN`): `snapshot`, `elegivel`, `nao-elegivel`, `calculando`, `concluido`, `falha-coerencia`, `agente-off`, `dados-insuficientes`, `historico-vazio`.
-- **Lacunas:** painel (T4) contra página (real) — decisão 4.5. `falha-coerencia` casa com os `notice` de provedor (`not_configured`, `timeout`, `rate_limit`, `invalid_output`, `provider_error`). `agente-off` pressupõe o Agente. Credibilidade fica fora da nota no real (60% coerência + 40% consistência); conferir que o protótipo não a soma.
+- **Lacunas:** painel (T4) contra página (real) — decisão 4.5. `falha-coerencia` casa com os `notice` de provedor (`not_configured`, `timeout`, `rate_limit`, `invalid_output`, `provider_error`). `agente-off` pressupõe o Agente. Credibilidade fica fora da nota no real (60% coerência + 40% consistência) e no protótipo também: `score-panel.jsx:102` diz "Credibilidade fica sem número nesta versão e não entra no cálculo." (sha: `ddf1df30dccd`).
 - **Compartilhados:** `app/globals.css`; `lib/score/*` (leitura).
 
 ### T4.7 — Configurações
@@ -120,7 +120,7 @@ Componentes com nome `Ag*`, `Cfg*`, `Citation*`, `Handoff`, `NovaPanel`, `Eviden
 
 Uma fatia por atribuição; um dono de `globals.css` por onda (serializar). Decisões de fatias posteriores não bloqueiam as anteriores.
 
-0. **Gates por fatia (não há gate global):** Fundação ← decisões 4.1 e 4.2; T4.1 ← 4.5; T4.2/T4.3 ← 4.7; T4.6 ← 4.5 e 4.7; T4.8 ← 4.3 e o contrato do backend. T4.4, T4.5 e T4.7 só dependem da Fundação (T4.5 sem exportação até a 4.8).
+0. **Gates por fatia (não há gate global):** Fundação ← decisões 4.1 e 4.2; T4.1 ← 4.5; T4.2/T4.3 ← 4.7; T4.6 ← 4.5 e 4.7; T4.8 ← 4.3 e o contrato do backend. T4.4, T4.5 e T4.7 só dependem da Fundação (T4.5 sem exportação até a decisão §4.8).
 1. **Fundação:** tokens, fontes, `AppShell`, `Sidebar`, `Button`, `Badge`, `Input`, `Chip`, `Card`. Dono de `globals.css`, `layout.tsx`, `app-navigation.tsx`.
 2. **T4.7 Configurações** — menor risco (3 rotas pequenas); ressalva da Fase 9 pendente.
 3. **T4.1 Início** — leitura; destinos e Score; sem Agente.
