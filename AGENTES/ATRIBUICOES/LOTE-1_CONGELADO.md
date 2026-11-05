@@ -10,6 +10,8 @@ Congelado pelo Orquestrador. Rodada 2 em 05/11/2026, após as correções dos es
 | 02 Backend | `wt/backend-lote1` | `4a37131865586be802f25511ce8f6969ad09109e` | 4 | 4 | +411 / −68 |
 | 03 Agente NVIDIA | `wt/agente-nvidia-lote1` | `489ec0d89b43d47bb858ba95ea44ab8cecc3351a` | 3 | 5 | +317 / −13 |
 
+**Candidato congelado de Dados e Backend:** `4a37131865586be802f25511ce8f6969ad09109e` (branch `wt/backend-lote1`, worktree `C:\Users\yansi\Projetos\persona-wt\backend`, base `8da08c6`, 4 arquivos, +411/−68; reconferido: HEAD igual ao SHA, worktree limpo, merge-base igual à base). Comando de diff para a Verificação: `git -C C:\Users\yansi\Projetos\persona-wt\backend diff 8da08c6..4a37131865586be802f25511ce8f6969ad09109e`. Pontos de revisão pedidos por Yan: fidelidade da matriz ao código real; validade do SQL por leitura e compatibilidade PostgreSQL 15/16/17; isolamento, privilégios e falsos positivos; R1 (HYPOTHESIS) e o que só o banco real prova; preservação de `begin`, transação única e `rollback`. Migração e teste no projeto de QA seguem como gate posterior e separado de Yan.
+
 Caminhos alterados (todos dentro dos caminhos de escrita de `LOTE-1.md`, nenhum arquivo proibido):
 
 - 01: `AGENTES/01_interface/STATUS.md`, `docs/redesign/interface/MAPA_TELAS.md`.
