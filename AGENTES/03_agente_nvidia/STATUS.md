@@ -27,4 +27,4 @@ Faltante: 80%
 - **Decisões pendentes (Yan/Orquestrador):** a inclusão de `lib/agent/agent.test.ts` no script `npm test` pertence ao Orquestrador (`package.json` não editado); chamada real e chave NVIDIA rotacionada; migração Groq→NVIDIA continua não aprovada.
 - **Bloqueio:** nenhum para este lote. Credencial não solicitada nem usada; `.env*` não lido.
 - **Próximo passo:** com gate de Yan, adaptador NVIDIA (timeout/retry/429) e eval real; métrica de recall com dados sintéticos maiores.
-- **Commit:** local em `wt/agente-nvidia-lote1`; sem push.
+- **Commits (históricos imutáveis, sem amend/rebase):** `6a6b8f0` → `80feabe` → `489ec0d` → `56afc7c` (código da rodada 3). SHA de código para congelar: `56afc7c99344c87c53e2e83719c8f0b83ac12741`; o commit seguinte só registra este SHA no STATUS. Local em `wt/agente-nvidia-lote1`; sem push.
