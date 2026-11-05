@@ -1,27 +1,55 @@
-# Lote 1 — diffs congelados para a Verificação
+# Lote 1 — diffs congelados para a Verificação (rodada 2)
 
-Congelado pelo Orquestrador em 04/11/2026. Base: `8da08c698a74aeb4d95c70123eba61fc921a591c`. Os três branches compartilham o mesmo repositório Git, então `git diff 8da08c6..<SHA>` funciona a partir de qualquer checkout. Um SHA é imutável: se o escritor corrigir algo, nasce um SHA novo e este registro é substituído.
+Congelado pelo Orquestrador. Rodada 2 em 05/11/2026, após as correções dos escritores, por instrução de Yan. Base: `8da08c698a74aeb4d95c70123eba61fc921a591c`. Os branches compartilham o repositório Git, então `git diff 8da08c6..<SHA>` funciona de qualquer checkout. Um SHA é imutável: nova correção gera novo SHA e novo registro.
 
-| Entrega | Branch | SHA congelado | Arquivos | Linhas |
-|---|---|---|---:|---|
-| 01 Interface | `wt/interface-lote1` | `8c5ef15877afac9837522c16c83d3f86ffbe2a98` | 2 | +166 / −13 |
-| 02 Backend | `wt/backend-lote1` | `ffd4289e1c7efaa46ae52734962e5d371e1ee491` | 4 | +370 / −63 |
-| 03 Agente NVIDIA | `wt/agente-nvidia-lote1` | `6a6b8f0011aa340a0efaf5862c837d72ab530777` | 4 | +213 / −13 |
+## SHAs vigentes (substituem os da rodada 1)
 
-## Conferido pelo Orquestrador antes de congelar (não substitui a Verificação)
+| Entrega | Branch | SHA congelado | Commits | Arquivos | Linhas |
+|---|---|---|---:|---:|---|
+| 01 Interface | `wt/interface-lote1` | `d4a1e3bb1390b8061838f7a0ad8ef98e90f0d304` | 2 | 2 | +169 / −13 |
+| 02 Backend | `wt/backend-lote1` | `4a37131865586be802f25511ce8f6969ad09109e` | 4 | 4 | +411 / −68 |
+| 03 Agente NVIDIA | `wt/agente-nvidia-lote1` | `489ec0d89b43d47bb858ba95ea44ab8cecc3351a` | 3 | 5 | +317 / −13 |
 
-- Os caminhos alterados de cada branch estão dentro dos caminhos de escrita da sua seção; nenhum arquivo proibido foi tocado.
-- `git diff --check` limpo nos três; nenhum padrão de segredo, chave ou e-mail nos três diffs.
-- Agente: `lib/agent/agent.ts` só importa de `lib/live` (leitura), sem `fetch`, `process.env` ou SDK; 9/9 testes novos, 32/32 existentes, lint e typecheck com código 0, reexecutados por mim no worktree.
-- Backend: o script SQL termina em `rollback`, sem `commit`, `drop table`, `truncate` ou service role.
-- Interface: só documentação; cada afirmação do mapa ainda precisa de conferência independente.
+Caminhos alterados (todos dentro dos caminhos de escrita de `LOTE-1.md`, nenhum arquivo proibido):
 
-## O que a Verificação deve fazer
+- 01: `AGENTES/01_interface/STATUS.md`, `docs/redesign/interface/MAPA_TELAS.md`.
+- 02: `AGENTES/02_backend/STATUS.md`, `docs/qa/fase-9/teste-rls-dois-usuarios.sql`, `docs/redesign/backend/MATRIZ_TELA_DADOS.md`, `docs/redesign/backend/RELATORIO_TESTE_RLS.md`.
+- 03: `AGENTES/03_agente_nvidia/STATUS.md`, `apps/web/lib/agent/agent.ts`, `agent.test.ts`, `output-guard.ts` (novo), `docs/redesign/agent/CONTRATO_AGENTE.md`.
 
-Seguir `AGENTES/04_verificacao/PLANO_LOTE1.md` sobre estes três SHAs, em leitura. Relatório por entrega em `AGENTES/04_verificacao/`, com achados por severidade e reprodução mínima. Não corrigir; não aprovar visual; não rodar build, `npm install` nem testes dentro dos worktrees dos escritores (use uma cópia sua, se precisar executar, e declare o comando).
+## Conferido pelo Orquestrador (não substitui a Verificação)
 
-## Itens que o Orquestrador já sabe e que não são achado novo
+- `git diff --check 8da08c6..<SHA>` limpo nos três; nenhum padrão de segredo, chave, e-mail ou `service_role` nas linhas adicionadas; todos os commits têm o trailer de coautoria; os três branches sem upstream e sem push.
+- Os SHAs congelados são exatamente o HEAD de cada worktree, e os três estão limpos.
+- Não reexecutei testes nesta rodada: a execução independente é da Verificação (ver abaixo).
 
-- `lib/agent/agent.test.ts` ainda não está no script `npm test` (`package.json` é do Orquestrador).
-- O validador do agente aceita um número já presente na evidência, inclusive plantado (risco declarado pelo escritor).
-- O risco R1 do Backend (`delete_own_account` e chaves estrangeiras `on delete restrict`) é HYPOTHESIS e só um banco real confirma.
+## Checkout isolado para a Verificação
+
+`C:\Users\yansi\Projetos\persona-wt\verificacao-489ec0d`: worktree **desanexado** em `489ec0d89b43d47bb858ba95ea44ab8cecc3351a`, limpo, com `npm ci` (código 0) e `npx next typegen` já feitos. Uso exclusivo da Verificação, somente para executar, sem editar arquivo versionado:
+
+```text
+cd apps\web
+node --experimental-strip-types --test lib/agent/*.test.ts
+npm test
+npm run lint
+npm run typecheck
+```
+
+Não rodar `npm install`, não editar nem commitar ali. Para outros SHAs a execução continua fora do escopo e deve ser pedida ao Orquestrador. Sem chave NVIDIA, sem `.env*`, sem rede de modelo.
+
+## Relatórios
+
+A Verificação cria ou atualiza relatórios **específicos para estes três SHAs**, em `AGENTES/04_verificacao/`. Os relatórios dos SHAs antigos (`8c5ef15`, `ffd4289`, `6a6b8f0`) ficam como histórico e **não aprovam** os substitutos.
+
+## Histórico — rodada 1 (superada)
+
+| Entrega | SHA |
+|---|---|
+| 01 Interface | `8c5ef15877afac9837522c16c83d3f86ffbe2a98` |
+| 02 Backend | `ffd4289e1c7efaa46ae52734962e5d371e1ee491` |
+| 03 Agente NVIDIA | `6a6b8f0011aa340a0efaf5862c837d72ab530777` |
+
+## Itens já conhecidos (não são achado novo)
+
+- `lib/agent/*.test.ts` entra no `npm test` em commit próprio do Orquestrador, **depois** da nova revisão.
+- O validador do agente aceita número já presente na evidência, inclusive plantado (risco declarado).
+- R1 do Backend é HYPOTHESIS e só um banco real confirma; as propostas B-1/QA/R1 estão em `LOTE-1_BACKEND_DECISOES.md`.
