@@ -2,7 +2,30 @@
 
 Congelado pelo Orquestrador. Rodada 2 em 05/11/2026, após as correções dos escritores, por instrução de Yan. Base: `8da08c698a74aeb4d95c70123eba61fc921a591c`. Os branches compartilham o repositório Git, então `git diff 8da08c6..<SHA>` funciona de qualquer checkout. Um SHA é imutável: nova correção gera novo SHA e novo registro.
 
-## SHAs vigentes — rodada 3 (substituem os da rodada 2)
+## SHAs vigentes — fechamento do Lote 1 (substituem os da rodada 3)
+
+Congelados pelo Orquestrador em 05/11/2026 11:57, após o refresh completo de Git (duas coletas seguidas, HEADs estáveis; `fetch` feito; `origin/main` `06de045`; `main` local `0240dc5`, 25 commits à frente, sem push). Cada SHA é o topo do branch do escritor, igual ao HEAD observado, worktree sem alteração em arquivo versionado, caminhos dentro do escopo do prompt de fechamento (`PROMPTS/06`–`08`), nenhum arquivo proibido, `git diff --check 8da08c6..<SHA>` limpo e trailer de coautoria no commit novo. Os SHAs das rodadas anteriores viram histórico e os relatórios deles **não aprovam** estes.
+
+| Entrega | Branch | SHA congelado | Commits desde a base | Arquivos | Linhas (vs. base) |
+|---|---|---|---:|---:|---|
+| 01 Interface | `wt/interface-lote1` | `abcf2882e6c26e11ec0f23f674a95acbf628d4ed` | 5 | 2 | +175 / −13 |
+| 02 Backend | `wt/backend-lote1` | `7aeb658d7ce92336d75e0b7edd48b0cb8de21bd6` | 6 | 5 | +553 / −69 |
+| 03 Agente NVIDIA | `wt/agente-nvidia-lote1` | `42dbddf043f19a492b0fddae03031898ec5acd58` | 6 | 7 | +561 / −15 |
+
+Pontos de atenção do Orquestrador para a Verificação final:
+
+- **Agente, mudança em produto compartilhado:** este SHA altera `apps/web/lib/live/response-schema.ts` e `live.test.ts` (propriedade explícita desta rodada, só para a causa compartilhada). Nenhuma exportação mudou. O parser mais estrito altera o **Persona Live** (rejeita excerto parcial, sem conteúdo ou que omita negação) e pode elevar `invalid_output` em produção; o escritor declara que o efeito não foi medido e que não há teste de rota nem com modelo real.
+- Interface: raiz de caminhos `apps/web/`; Backend: handoff único do SHA anterior e relatório/SQL alinhados; ambos sem execução, sem produto.
+- Declarado como não coberto pelo Agente: limites de `targetRole`/`company`/campos de evidência, `updated_at` inválido, paráfrases e homóglifos fora do mapa, escopo sintático da negação, recall do limiar `score > 0`.
+- `npm test` do checkout isolado agora tem **37** testes (32 anteriores + 5 de regressão do parser no Live, segundo o escritor); o agregado de `lib/agent/*.test.ts` continua fora do `npm test` até o gate do Orquestrador.
+
+### Checkout isolado da Verificação (reposicionado de novo)
+
+`C:\Users\yansi\Projetos\persona-wt\verificacao-489ec0d` agora está **desanexado em `42dbddf043f19a492b0fddae03031898ec5acd58`**, limpo, com `next typegen` refeito; `node_modules` e lockfile inalterados. Mesmas regras: só executar, sem editar arquivo versionado nem `npm install`. Comandos em `apps\web`: `node --experimental-strip-types --test lib/agent/*.test.ts`, `npm test`, `npm run lint`, `npm run typecheck`. Build: **PENDING** (nenhum checkout integrado foi preparado).
+
+## SHAs da rodada 3 (histórico)
+
+## (rodada 3, superados)
 
 Congelados pelo Orquestrador em 05/11/2026 após as correções da rodada 3 (`LOTE-1_CORRECOES.md`). Cada SHA é o **topo do branch** do escritor, conferido por mim: HEAD igual ao SHA, worktree limpo, caminhos dentro do escopo, nenhum arquivo proibido, `git diff --check 8da08c6..<SHA>` limpo, trailer de coautoria, sem push. Os SHAs da rodada 2 viram histórico e os relatórios deles **não aprovam** estes.
 
