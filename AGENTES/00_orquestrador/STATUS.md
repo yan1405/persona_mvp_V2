@@ -215,7 +215,7 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 | Vercel | **VERIFIED** `dpl_3EWRGAS7vxoC2FY9uaaJFffjKmq3`, `target: null` (Preview), alias de branch `…git-basel-6ee432…`, origem git; estado `BUILDING` na última leitura; nenhum alias de Production |
 | Preview READY e conteúdo | **PENDING** — não verificado; o Preview não prova o fluxo real (sem `NVIDIA_API_KEY`, migração da Fase 9 pendente) |
 
-## Lote 1 liberado (04/11/2026)
+## SUPERADA · Lote 1 liberado (04/11/2026)
 
 | Item | Estado |
 |---|---|
@@ -227,7 +227,7 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 | Pedido já previsto ao Orquestrador | incluir `lib/agent/*.test.ts` no script `npm test` (dono de `package.json`: Orquestrador, após a entrega) |
 | Aviso | `npm ci` bloqueou o postinstall do `unrs-resolver` (npm 12); lint passou mesmo assim |
 
-## Acompanhamento do Lote 1 (04/11/2026)
+## SUPERADA · Acompanhamento do Lote 1 (04/11/2026)
 
 | Item | Estado |
 |---|---|
@@ -242,7 +242,7 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 | Integração | **BLOCKED** nada integrado a `main`; só após relatório da Verificação e decisão de Yan |
 | Gates abertos para Yan | aplicar migração da Fase 9 e rodar o teste RLS; decidir R1 (migração corretiva); 9 decisões visuais do mapa; chave NVIDIA rotacionada; incluir `lib/agent/*.test.ts` no `npm test` (Orquestrador, após revisão) |
 
-## Lote 1 — rodada 2 (05/11/2026)
+## SUPERADA · Lote 1 — rodada 2 (05/11/2026)
 
 | Item | Estado |
 |---|---|
@@ -254,7 +254,27 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 | `lib/agent/*.test.ts` no `npm test` | **PENDING** commit próprio do Orquestrador, após a nova revisão |
 | Arquivos da Verificação | untracked em `AGENTES/04_verificacao/` (plano, 3 relatórios da rodada 1, `STATUS.md` alterado); versionar quando os relatórios da rodada 2 estiverem prontos |
 
-## Parecer da Verificação — rodada 2 (05/11/2026)
+## Rodada 3 e reconciliação (05/11/2026)
+
+Snapshot de Git: 05/11/2026 11:51 (duas coletas seguidas, HEADs idênticos; escritores parados, worktrees sem alteração em arquivos versionados). `main` `4c801d2` (24 commits à frente de `origin/main` `06de045`); remoto: `baseline/2026-11-03` `8da08c6`, `codex/persona-preview-20261028` `96e5028`, `main` `06de045`. Base `8da08c6`.
+
+| Entrega | Branch | HEAD congelado (= HEAD observado) | Relatório | Achados abertos | Gate |
+|---|---|---|---|---|---|
+| Interface | `wt/interface-lote1` | `8240cf3df08161d0888ec61535de46cd0100fbcd` | `RELATORIO_interface_8240cf3.md` | S3: IF-4 (convenção de caminhos do mapa) | liberar com ressalvas |
+| Backend | `wt/backend-lote1` | `ee6ac3f43ad10523b71f3f2924e71750db6f8490` | `RELATORIO_backend_ee6ac3f.md` | S3: BK-6, BK-7, BK-8; BK-1/2/5 corrigidos | liberar com ressalvas (texto); B-1 e R1 seguem de Yan / HYPOTHESIS |
+| Agente NVIDIA | `wt/agente-nvidia-lote1` | `f4edecf6fac422e6980d0e045ea30e29e22aa3e8` | `RELATORIO_agente-nvidia_f4edecf.md` | S3: A-9, A-10, A-11, A-5, A-6, entradas sem limite. **S2 aberto fora do SHA:** A-1/A-7 em `lib/live/response-schema.ts` (parser compartilhado, sem dono) | liberar com ressalvas o módulo isolado; **BLOCKED** para integração enquanto o parser estiver aberto |
+
+Execução independente (Verificação, checkout isolado `verificacao-489ec0d` em `f4edecf`, limpo antes e depois): testes do Agente 20/20; `npm test` 32/32 (sem `lib/agent`); lint 0; typecheck 0. Build: **PENDING** (nenhum checkout integrado preparado).
+
+Estados atuais na enumeração permitida: Orquestrador `ACTIVE`, Interface `WAITING_APPROVAL`, Backend `WAITING_APPROVAL`, Agente `BLOCKED`, Verificação `DONE` (rodada 3). Os `STATUS.md` de 01/02/03 em `main` são cópias atrasadas; o estado vivo vem de `git show <HEAD>:AGENTES/<papel>/STATUS.md` em cada branch.
+
+Classificação dos arquivos não versionados de `main` (snapshots históricos; **não** são status vivo e ficaram **fora do commit**): `AGENTES/01_interface/HANDOFF_interface.md`, `AGENTES/02_backend/HANDOFF_LOTE1.md`, `AGENTES/03_agente_nvidia/HANDOFF_AGENTE_NVIDIA.md`, `AGENTES/04_verificacao/HANDOFF_2026-11-05.md`. Há ainda `AGENTES/01_interface/HANDOFF_interface.md` não rastreado no worktree `interface`. Nenhum foi apagado ou movido.
+
+Arquivos de governança preexistentes e não escritos por esta sessão (alinhados ao prompt de Yan, incluídos no commit): `AGENTES/00_orquestrador/AGENTS.md` (refresh obrigatório), `AGENTES/PROTOCOLO.md` (fonte operacional do estado), `AGENTES/PROMPTS/00_orquestrador.md`, `AGENTES/PROMPTS/05`–`09`, `docs/plans/2026-11-05-retomada-operacional-lote1-design.md`. Autoria humana versus outra sessão não confirmada pelo Git.
+
+Relatórios das rodadas 1 e 2 permanecem como histórico e não aprovam SHAs posteriores.
+
+## SUPERADA · Parecer da Verificação — rodada 2 (05/11/2026)
 
 Executada por instância independente (sem o contexto do Orquestrador); relatórios versionados em `AGENTES/04_verificacao/` (commit `ad25055`). Nenhum S1; nenhuma severidade reduzida.
 

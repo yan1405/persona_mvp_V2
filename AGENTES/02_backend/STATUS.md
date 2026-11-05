@@ -1,6 +1,8 @@
 # Status — Persona — Dados e Backend
 
-Estado: PENDING
+Estado: WAITING_APPROVAL
+
+> Cópia em `main`, atrasada por desenho: o estado vivo está no branch `wt/backend-lote1` (HEAD `ee6ac3f`, lido por `git show`). A tabela abaixo é o contrato original e não representa o estado atual. Ver `AGENTES/00_orquestrador/STATUS.md` (rodada 3).
 
 | Tarefa | Peso | Estado | Evidência |
 |---|---:|---|---|

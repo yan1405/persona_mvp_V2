@@ -14,6 +14,20 @@ Transformar decisões aprovadas em lotes pequenos, sem sobreposição de escrita
 
 Parar quando faltar decisão de Yan, credencial, dado real, aprovação visual, autorização de migração/merge/deploy ou quando as evidências não sustentarem avanço.
 
+## Refresh obrigatório antes de status, gate ou integração
+
+Antes de relatar o estado de qualquer especialista, congelar SHA, emitir nova atribuição ou propor integração, o Orquestrador deve reler o Git real. Não usar a cópia de `AGENTES/<papel>/STATUS.md` presente em `main` como prova do estado de um branch ainda não integrado.
+
+Para cada rodada:
+
+1. registrar `git status --short --branch`, `git log --oneline --decorate -15`, `git worktree list --porcelain` e os heads remotos após `git fetch origin`;
+2. em cada worktree ativo, registrar `status --short --branch`, `rev-parse HEAD`, `merge-base HEAD <base>`, `log <base>..HEAD`, `diff --stat <base>..HEAD`, `diff --name-only <base>..HEAD` e `diff --check <base>..HEAD`;
+3. ler o `STATUS.md` diretamente no worktree ou por `git show <HEAD>:<caminho>`, nunca pela cópia antiga de `main`;
+4. comparar o HEAD observado com o SHA congelado e com o relatório da Verificação específico daquele SHA;
+5. publicar no handoff a hora do snapshot, HEAD de `main`, base, HEAD de cada worktree, estado de limpeza e divergências encontradas.
+
+Se qualquer worktree mudar durante a leitura, o snapshot é inválido: parar, repetir o refresh e não decidir gate com dados misturados.
+
 ## Plano ponderado
 
 | Tarefa | Peso | Evidência |

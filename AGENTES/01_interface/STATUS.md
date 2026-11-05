@@ -1,6 +1,8 @@
 # Status — Persona — Migração de Interface
 
-Estado: PENDING
+Estado: WAITING_APPROVAL
+
+> Cópia em `main`, atrasada por desenho: o estado vivo está no branch `wt/interface-lote1` (HEAD `8240cf3`, lido por `git show`). A tabela abaixo é o contrato original e não representa o estado atual. Ver `AGENTES/00_orquestrador/STATUS.md` (rodada 3).
 
 | Tarefa | Peso | Estado | Evidência |
 |---|---:|---|---|

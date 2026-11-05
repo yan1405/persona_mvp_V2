@@ -35,6 +35,14 @@ Sem esses seis itens, a sessão permanece em leitura.
 - nenhum agente descarta, sobrescreve ou inclui mudanças preexistentes sem autoria confirmada;
 - conflitos suspendem o lote e voltam ao Orquestrador.
 
+### Fonte operacional do estado
+
+- o estado atual de um especialista vem do Git do próprio worktree: HEAD, status, log e diff contra a base;
+- a cópia de `AGENTES/<papel>/STATUS.md` em `main` pode estar atrasada enquanto o branch não foi integrado e não deve ser usada isoladamente;
+- antes de cada congelamento, gate, integração ou resposta de status, o Orquestrador executa o refresh definido em `AGENTES/00_orquestrador/AGENTS.md`;
+- todo relatório da Verificação deve citar o SHA exato; relatório de SHA anterior é histórico e não aprova o novo;
+- um snapshot coletado enquanto outro agente ainda escreve é inválido e precisa ser repetido depois da pausa dos escritores.
+
 ## Gates humanos de Yan
 
 Exigem aprovação explícita: mudança de estratégia/escopo; instalação ou troca relevante de dependência; uso de credenciais ou dados pessoais reais; gasto; publicação ou mensagem externa; migração em Supabase; merge; push fora do combinado; Preview; deploy/Production; mudanças de Auth/RLS; alteração do provedor/modelo de IA; aceite visual.

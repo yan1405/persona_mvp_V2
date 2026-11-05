@@ -14,8 +14,17 @@ Arquitetura comprovada: 100%
 Arquitetura faltante: 0%
 Execução real do produto nesta etapa: 0%
 
-Bloqueio atual (05/11/2026): o baseline foi reconciliado e publicado em `baseline/2026-11-03` (`8da08c6`); `main` local está à frente do remoto só com documentação; `origin/main` não foi tocada. Lote 1 entregue e verificado: Interface com ressalvas; Agente e Backend bloqueados por achados S2.
+Rodada 3 do Lote 1 (05/11/2026) — estado por entrega; o estado vivo vem do Git de cada worktree, não desta cópia:
 
-Próximo desbloqueio: rodada 3 de correções (`ATRIBUICOES/LOTE-1_CORRECOES.md`), novos SHAs congelados e nova Verificação. Detalhe e percentuais em `00_orquestrador/STATUS.md`.
+| Entrega | Estado | HEAD congelado | Relatório | Gate sugerido pela Verificação |
+|---|---|---|---|---|
+| Interface | WAITING_APPROVAL | `8240cf3` | `RELATORIO_interface_8240cf3.md` | liberar com ressalvas (S3: IF-4) |
+| Backend | WAITING_APPROVAL | `ee6ac3f` | `RELATORIO_backend_ee6ac3f.md` | liberar com ressalvas (S3: BK-6, BK-7, BK-8) |
+| Agente NVIDIA | BLOCKED | `f4edecf` | `RELATORIO_agente-nvidia_f4edecf.md` | liberar com ressalvas o módulo isolado; A-1/A-7 seguem S2 abertos no parser compartilhado do Live |
+| Verificação | DONE (rodada 3) | — | os três acima | — |
+
+Bloqueio atual: nenhuma integração; parser compartilhado do Live sem dono e fechamento da rodada 4 (`PROMPTS/06`–`09`) ainda não executado. `main` local à frente de `origin/main` só com documentação; `origin/main` não foi tocada.
+
+Próximo desbloqueio: fechamento do Lote 1 (IF-4, BK-6/7/8, A-9/A-10/A-11/A-5/A-6, limites de entrada e parser compartilhado), novos SHAs e Verificação final. Detalhe em `00_orquestrador/STATUS.md`.
 
 Decisões do usuário: análise e arquitetura aprovadas em 2026-11-03; mesmo repositório `persona_mvp_v2`; planejamento materializado sem iniciar implementação do produto.

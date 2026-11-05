@@ -1,6 +1,9 @@
 # Status — Persona — Agente NVIDIA
 
-Estado: PENDING
+Estado: BLOCKED
+
+> Cópia em `main`, atrasada por desenho: o estado vivo está no branch `wt/agente-nvidia-lote1` (HEAD `f4edecf`, lido por `git show`). A tabela abaixo é o contrato original e não representa o estado atual. Ver `AGENTES/00_orquestrador/STATUS.md` (rodada 3).
+Motivo do BLOCKED: o parser compartilhado `apps/web/lib/live/response-schema.ts` mantém A-1/A-7 abertos (S2, sem dono, fora do SHA `f4edecf`); bloqueia a integração enquanto aberto.
 
 | Tarefa | Peso | Estado | Evidência |
 |---|---:|---|---|

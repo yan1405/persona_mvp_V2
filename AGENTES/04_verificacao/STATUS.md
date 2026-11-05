@@ -1,6 +1,52 @@
 # Status — Persona — Verificação Independente
 
-Estado: rodada 2 do Lote 1 revisada (05/11/2026): relatórios para `d4a1e3b`, `4a37131` e `489ec0d` publicados; execução independente da suíte do Agente concluída no checkout isolado. A rodada 1 (seção "Rodada 1", abaixo) permanece como histórico e não aprova os substitutos.
+Estado: DONE
+Resumo: rodada 3 do Lote 1 revisada (05/11/2026): relatórios para `8240cf3`, `ee6ac3f` e `f4edecf` publicados; execução independente da suíte do Agente concluída no checkout isolado. As rodadas 1 e 2 (seções abaixo) permanecem como histórico e não aprovam os SHAs da rodada 3.
+
+## Rodada 3 (base `8da08c6`)
+
+| Entrega | SHA | Relatório | Achados abertos | Gate sugerido |
+|---|---|---|---|---|
+| 01 Interface | `8240cf3` (correção em `d88f2f2`) | `RELATORIO_interface_8240cf3.md` | S3: IF-4 (convenção de caminhos do mapa). IF-1, IF-2 e IF-3 corrigidos | liberar com ressalvas |
+| 02 Backend | `ee6ac3f` | `RELATORIO_backend_ee6ac3f.md` | S3: BK-6 (esperado do passo 9 desatualizado no relatório), BK-7 (`HANDOFF_LOTE1.md` mistura estados), BK-8 (resíduos do cabeçalho do SQL). BK-1, BK-2, BK-3, BK-4 e BK-5 corrigidos | liberar com ressalvas (documentação e script de QA). **Não** aprova migração, RLS nem banco real; B-1 pendente de Yan; R1 HYPOTHESIS; sintaxe do SQL PENDING |
+| 03 Agente NVIDIA | `f4edecf` (código em `56afc7c`) | `RELATORIO_agente-nvidia_f4edecf.md` | S3: A-9 (timeout vira `provider_error` se o provedor rejeita ao abortar), A-10 (ponto decimal apaga negação), A-11 (largura total/homóglifos escapam da barreira), A-5, A-6, entradas sem limite. A-1, A-7 e A-8 corrigidos no Agente | liberar com ressalvas, **com ressalva obrigatória**: A-1/A-7 seguem abertos (S2) no parser compartilhado `lib/live/response-schema.ts`, fora deste SHA e sem dono. Se o Orquestrador incluir esse S2 no gate do Agente, o gate passa a bloquear |
+
+Nenhum S1. Nenhum S2 dentro dos três diffs. Nenhuma severidade foi reduzida (A-1 e A-7 passam a "corrigido no Agente" por evidência de execução).
+
+### Execução independente (Agente; checkout `C:\Users\yansi\Projetos\persona-wt\verificacao-489ec0d`, HEAD `f4edecf6fac422e6980d0e045ea30e29e22aa3e8` desanexado, `git status` limpo antes e depois)
+
+| Comando (em `apps\web`) | Exit | Contagens |
+|---|---:|---|
+| `node --experimental-strip-types --test lib/agent/*.test.ts` | 0 | tests 20 · pass 20 · fail 0 · cancelled 0 · skipped 0 |
+| `npm test` | 0 | tests 32 · pass 32 · fail 0 (não inclui `lib/agent`, já conhecido) |
+| `npm run lint` | 0 | sem diagnósticos |
+| `npm run typecheck` | 0 | sem erros |
+
+Sem `npm install`, build, `.env`, rede de modelo ou chamada NVIDIA. Sondas por scripts no scratchpad (`r3_probe.ts`, `r3_interface.py`, `r3_paths.py`, `estados.py`), fora do repositório, importando o módulo por URL `file:`.
+
+### VERIFIED / PENDING por entrega
+
+| Entrega | VERIFIED | PENDING |
+|---|---|---|
+| Interface | escopo, `diff --check`, segredos; 62 hashes no `MANIFEST.json`; nomes de estado (T4.1–T4.7) e caminhos; IF-1, IF-2, IF-3 corrigidos; 9 decisões de Yan presentes | capturas e aceite visual (Yan); acessibilidade e larguras; implementação das fatias |
+| Backend | escopo, sem `supabase/` nem `apps/`; BK-1 a BK-5 corrigidos por leitura; seed de `profiles` contra o schema; `begin`/`rollback`, sem commit nem DDL persistente | execução e sintaxe do SQL; B-1 (decisão de Yan); R1 (HYPOTHESIS); RLS das Fases 3–8 (não coberta pelo script); versão do PostgreSQL do QA |
+| Agente | escopo, sem rede/env/mutação; suíte 20/20, `npm test` 32/32, lint e typecheck (execução independente); ownership; A-1, A-7 e A-8 no módulo do Agente | modelo real; recall; rota e adaptador; reprodução de A-9 com `fetch` real; correção do parser compartilhado (Live) |
+
+### Handoff da rodada 3
+
+- Escopo: pedido do Orquestrador (sessão `persona-mvp-v2-66`) com base em `LOTE-1_CONGELADO.md` (commit `4c801d2`); execução limitada ao checkout `verificacao-489ec0d`. Escrita só em `AGENTES/04_verificacao/**`.
+- Arquivos criados nesta rodada: `RELATORIO_interface_8240cf3.md`, `RELATORIO_backend_ee6ac3f.md`, `RELATORIO_agente-nvidia_f4edecf.md`; `STATUS.md` atualizado. Relatórios das rodadas 1 e 2 e `PLANO_LOTE1.md` intactos. `HANDOFF_2026-11-05.md` (criado antes) segue não rastreado. Sem `git add`/commit.
+- Comandos: `git diff --stat|--name-only|--check 8da08c6..<SHA>`, `git show`, `git log`, `git grep`, `git rev-parse`, `git status --short`, `cat-file`, os quatro comandos da tabela, e scripts de leitura sobre o `MANIFEST.json`, os `.jsx` e o mapa.
+- Não executei: SQL, banco, credencial, `.env`, `npm install`, build, rede de modelo; nada nos worktrees dos escritores.
+- Limitações: Backend e Interface só por leitura; sintaxe SQL não executada; A-9 provado só com provedor simulado; capturas, acessibilidade e aceite visual não avaliados; A-1/A-7 do parser compartilhado não reproduzidos no fluxo do Live.
+- Decisões pendentes: Yan (B-1 A/B/C; QA com duas contas descartáveis em ambiente isolado; nove decisões da Interface; aceite visual); Orquestrador (dono do parser compartilhado; se esse S2 entra no gate do Agente; incluir `lib/agent/*.test.ts` no `npm test` depois da aprovação; nova atribuição para BK-6/7/8, IF-4, A-9/10/11).
+- Bloqueio: nenhum para a Verificação.
+- Próximo passo: se corrigidos, receber novos SHAs, revisar o patch e reexecutar os quatro comandos.
+- Percentual comprovado do plano ponderado: **0%**. Os quatro comandos do Agente passaram, mas nenhum eixo está completo (UX/acessibilidade, build/release e banco não foram executados); o Orquestrador decide se a execução do Agente conta parcialmente.
+
+---
+
+# Histórico — rodada 2
 
 ## Rodada 2 (base `8da08c6`)
 
