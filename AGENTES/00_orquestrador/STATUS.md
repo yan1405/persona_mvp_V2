@@ -1,18 +1,18 @@
 # Status — Persona — Orquestrador Central
 
-Estado: ACTIVE (somente leitura; nenhuma atribuição de escrita emitida)
-Última atualização: 2026-11-03 — auditoria de baseline (lote 0, passo 1)
+Estado: ACTIVE — Lote 1 em andamento; rodada 3 de correções liberada em 05/11/2026 (`AGENTES/ATRIBUICOES/LOTE-1_CORRECOES.md`)
+Última atualização: 2026-11-05. Este cabeçalho foi saneado; as seções abaixo são cronológicas e cada uma registra o estado da sua data (as primeiras descrevem o baseline de 03/11, já superado).
 
 | Tarefa | Peso | Estado | Evidência |
 |---|---:|---|---|
-| Escopo e prioridades | 20 | ACTIVE | `DOCUMENTACAO_BASE.md`; lote 0 = reconciliar baseline |
-| Atribuição e dependências | 20 | PENDING | nenhum lote liberado; sem worktrees |
-| Evidência e status | 25 | ACTIVE | esta auditoria (seções abaixo) |
-| Integração e Git | 25 | BLOCKED | proposta de baseline pronta; aguarda aprovação de Yan |
-| Gates humanos | 10 | ACTIVE | aprovações de 2026-11-03 registradas; baseline ainda sem decisão |
+| Escopo e prioridades | 20 | DONE (autoavaliado) | Lote 1 registrado com aceite e limites: `ATRIBUICOES/LOTE-1.md` e `LOTE-1_CORRECOES.md` |
+| Atribuição e dependências | 20 | DONE (autoavaliado) | caminhos de escrita disjuntos e conferidos nos três diffs; worktrees `wt/*-lote1` |
+| Evidência e status | 25 | ACTIVE | parecer independente da rodada 2 registrado; handoffs ainda não aceitos (S2 abertos) |
+| Integração e Git | 25 | BLOCKED | nada integrado em `main`; Agente e Backend bloqueados por S2 |
+| Gates humanos | 10 | ACTIVE | decisões de Yan registradas antes de cada ação; B-1, migração/QA, chave NVIDIA, 9 decisões visuais e push de `main` pendentes |
 
-Concluído comprovado: 0% (a auditoria não fecha nenhuma tarefa ponderada; nenhuma porcentagem parcial é atribuída)
-Faltante: 100%
+Concluído comprovado: 40% (somente Escopo 20 + Atribuição 20, autoavaliados; sem aprovação independente)
+Faltante: 60%
 
 ## Comandos e escopo desta auditoria (somente leitura)
 

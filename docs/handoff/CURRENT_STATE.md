@@ -216,6 +216,7 @@ Evite reabrir esses problemas sem evidência atual.
 - branch local `main` acompanha `origin/main`;
 - primeiro push concluído em 10/08/2026;
 - repositório de destino: `https://github.com/yan1405/persona_mvp_V2`.
+- **Atualização 05/11/2026:** `origin/main` continua em `06de045` (Production). A branch `baseline/2026-11-03` (`8da08c6`) foi publicada e gera Preview; `origin/codex/persona-preview-20261028` está em `96e5028`. `main` local está à frente de `origin/main` somente com os commits do Lote 0 e Lote 1 (sem push). Worktrees de trabalho em `C:\Users\yansi\Projetos\persona-wt\` (`wt/interface-lote1`, `wt/backend-lote1`, `wt/agente-nvidia-lote1`), ainda não integrados. Fonte: `AGENTES/00_orquestrador/STATUS.md`.
 
 Para confirmar sincronização, execute `git status --short --branch` e `git log -1 --oneline`. Não trocar o remoto sem autorização explícita de Yan.
 
