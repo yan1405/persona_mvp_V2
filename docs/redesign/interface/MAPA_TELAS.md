@@ -19,11 +19,11 @@ Contrato de migração, **sem código de produto**. Lote 1, papel Interface, 04/
 
 ## 2. Mapa por tela
 
-Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `fonte/design-system/components/` (hashes na seção 5).
+**Raiz de caminhos única: `apps/web/`.** Todo caminho de código sem prefixo (`app/...`, `lib/...`) parte de `apps/web/` (ex.: `app/app/layout.tsx` = `apps/web/app/app/layout.tsx`); caminhos com prefixo `apps/web/` estão por extenso. Caminhos do protótipo partem de `docs/design/approved/2026-11-03-t4/fonte/`. Componentes do DS: `fonte/design-system/components/` (hashes na seção 5).
 
 ### T4.1 — Início
 - **Protótipo:** `T4.1 - Início.html` (sha: `8cb04c55ea6b`), `t4/inicio-screen.jsx` (sha: `4ec6cb698888`).
-- **Rota real:** existe, `app/inicio/page.tsx` (server component; lê `daily_logs` e `getNarrativeScoreData`).
+- **Rota real:** existe, `app/app/inicio/page.tsx` (server component; lê `daily_logs` e `getNarrativeScoreData`).
 - **Componentes:** `AppShell`, `DestinationGrid`/`DestinationTile`, `FocalJourney`, `Card`, `ScoreRing`, `TraceLine`, `Badge`, `Chip`, `Button`, `AgentPrompt`, `AgentPanel` → TSX **novos**: `AppShell` (substitui o markup de `app/app/layout.tsx`), `DestinationTile`, `FocalJourney`, `ScoreRing`, `TraceLine`, `Badge`, `Button`. `AgentPrompt`/`AgentPanel` ficam em T4.8.
 - **Estados** (`STATES`): `completo`, `vazio`, `calculando`, `falha`.
 - **Lacunas:** o real só tem `?notice=diagnostic-completed` e o estado sem-Score; faltam `calculando` e `falha` no Início (o Score é calculado na action de `/app/score`). Credibilidade é "Indisponível nesta fase" no real; o protótipo a mostra sem número (`inicio-screen.jsx:134`, "Ainda não avaliada", sha: `4ec6cb698888`), compatível. A atividade recente do protótipo (`ACT_*`) mistura registros e evidências; o real lista 4 registros e competências recorrentes.
@@ -31,15 +31,15 @@ Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `font
 
 ### T4.2 — Diário
 - **Protótipo:** `T4.2 - Diário.html` (sha: `dc9b6a74580f`), `t4/diario-screen.jsx` (sha: `59b9f01ffa17`), `t4/diario-panel.jsx` (sha: `e3c7486dac4d`).
-- **Rotas reais:** existem `app/diario/page.tsx` (captura + histórico) e `app/diario/[id]/page.tsx`; `app/diario/diary-forms.tsx` (`NewDailyLogForm`, `EditDailyLogForm`, `SuggestionReviewForm`, `PendingButton`); `app/diario/actions.ts`.
+- **Rotas reais:** existem `app/app/diario/page.tsx` (captura + histórico) e `app/app/diario/[id]/page.tsx`; `app/app/diario/diary-forms.tsx` (`NewDailyLogForm`, `EditDailyLogForm`, `SuggestionReviewForm`, `PendingButton`); `app/app/diario/actions.ts`.
 - **Componentes:** `CaptureEditor`, `EntryCard`, `Input`, `Chip`, `Badge`, `FloatingPanel` (painel do registro), `SectionIndex`, `TraceLine` → TSX **novos** para a casca; lógica de `NewDailyLogForm`/`SuggestionReviewForm` reaproveitada.
 - **Estados** (`SCENARIOS`, 21): `editor-vazio`, `editor-preenchido`, `criando`, `salvar-falha`, `historico-vazio`, `historico`, `sem-resultado`, `carregando`, `erro-leitura`, `registro-criado`, `gerando`, `nenhuma-util`, `pendente`, `descartada`, `confirmada`, `falha-ia`, `manual`, `conflito`, `exclusao-bloqueada`, `exclusao-confirmar`, `exclusao-falha`.
-- **Lacunas:** o real cobre vazio, erro de leitura, sem-resultado e falha de sugestão; **não tem `carregando`** (sem `loading.tsx`). `exclusao-bloqueada` **existe**: `diario/actions.ts:134` redireciona com `notice=delete-blocked` quando o registro sustenta evidência, e `diario/[id]/page.tsx:55` exibe a mensagem; falta só o desenho T4. `conflito` de edição **está ausente**: a action grava `updated_at` sem checagem de versão (nenhuma ocorrência de `revision` em `diario/actions.ts` nem em `lib/diary/validation.ts`). O real abre o registro em **página** (`/app/diario/[id]`); o protótipo, em **painel** (decisão 4.7).
+- **Lacunas:** o real cobre vazio, erro de leitura, sem-resultado e falha de sugestão; **não tem `carregando`** (sem `loading.tsx`). `exclusao-bloqueada` **existe**: `app/app/diario/actions.ts:134` redireciona com `notice=delete-blocked` quando o registro sustenta evidência, e `app/app/diario/[id]/page.tsx:55` exibe a mensagem; falta só o desenho T4. `conflito` de edição **está ausente**: a action grava `updated_at` sem checagem de versão (nenhuma ocorrência de `revision` em `app/app/diario/actions.ts` nem em `lib/diary/validation.ts`). O real abre o registro em **página** (`/app/diario/[id]`); o protótipo, em **painel** (decisão 4.7).
 - **Compartilhados:** `app/globals.css`; `lib/diary/validation.ts` (leitura).
 
 ### T4.3 — Evidências
 - **Protótipo:** `T4.3 - Evidências.html` (sha: `4939b55522f9`), `t4/evidencias-screen.jsx` (sha: `e62b68e9c76a`), `t4/evidencias-panel.jsx` (sha: `7bfe726c8d70`).
-- **Rotas reais:** existem `app/evidencias/page.tsx` e `app/evidencias/[id]/page.tsx`; `app/evidencias/evidence-forms.tsx` (`NewEvidenceForm`, `EditEvidenceForm`, `EvidenceLinkForm`); `app/evidencias/actions.ts` (inclui `restoreEvidence`, `archiveEvidence`, `removeEvidenceLink`).
+- **Rotas reais:** existem `app/app/evidencias/page.tsx` e `app/app/evidencias/[id]/page.tsx`; `app/app/evidencias/evidence-forms.tsx` (`NewEvidenceForm`, `EditEvidenceForm`, `EvidenceLinkForm`); `app/app/evidencias/actions.ts` (inclui `restoreEvidence`, `archiveEvidence`, `removeEvidenceLink`).
 - **Componentes:** `EvidenceCard`, `Chip` (filtros), `Input`, `Badge`, `FloatingPanel`, `SectionIndex`, `TraceLine` + painéis `NovaPanel`, `EvidenciaPanel`, `ErroPanel` → TSX **novos**; formulários reutilizados.
 - **Estados** (`ESC`, 27): `vazia`, `completa`, `para-revisar`, `sem-resultado`, `busca`, `filtros`, `nova-vazia`, `nova-preenchida`, `salvando`, `falha-salvar`, `erro-leitura`, `erro-escrita`, `det-registrada`, `det-documentada`, `det-e2`, `det-e3`, `link-adicionando`, `link-removendo`, `link-removido`, `prova-ausente`, `uso-vazio`, `edicao-alterada`, `conflito`, `arquivada`, `restaurada`, `nao-encontrado`, `sem-permissao`.
 - **Lacunas:** o real filtra por query string (`view=review`, `state`, `level`, `competency`, `q`, `from`, `to`); o protótipo exibe sugestões do Diário (`SUGS0`) junto da lista, enquanto no real elas vivem no Diário (`evidence_suggestions`). `nao-encontrado`/`sem-permissao` não têm página própria (`notFound()` genérico).
@@ -47,15 +47,15 @@ Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `font
 
 ### T4.4 — Persona Live
 - **Protótipo:** `T4.4 - Persona Live.html` (sha: `11da9db39823`), `t4/live-screen.jsx` (sha: `aa32152a0a1e`).
-- **Rotas reais:** existem `app/live/page.tsx` (índice + nova sessão) e `app/live/[id]/page.tsx` (preparação e conversa); `app/live/live-forms.tsx` (`NewLiveSessionForm`, `EvidenceSelectionForm`, `LiveQuestionForm`, `CopyDraftButton`, `ConfirmCloseButton`); `app/live/actions.ts`; `lib/live/*`.
+- **Rotas reais:** existem `app/app/live/page.tsx` (índice + nova sessão) e `app/app/live/[id]/page.tsx` (preparação e conversa); `app/app/live/live-forms.tsx` (`NewLiveSessionForm`, `EvidenceSelectionForm`, `LiveQuestionForm`, `CopyDraftButton`, `ConfirmCloseButton`); `app/app/live/actions.ts`; `lib/live/*`.
 - **Componentes:** `EvidenceCard`, `EntryCard`, `ArgumentPanel`, `DraftPanel`, `Input`, `Chip`, `Badge` → TSX **novos**; `ArgumentPanel` e `DraftPanel` mantêm argumentos e rascunho em áreas separadas (`AGENTS.md` §1.2); formulários reutilizados.
 - **Estados** (`SC`, 21): `sem-sessoes`, `lista`, `sem-resultado`, `duplicando`, `prep-vazia`, `prep-validacao`, `prep-zero`, `prep-selecao`, `criando`, `pronta`, `ativa`, `processando`, `resposta`, `lacuna`, `lacuna-enviada`, `falha-ia`, `pausada`, `retomada`, `encerrada`, `salvando`, `falha-salvar`.
 - **Lacunas:** `ConfirmCloseButton` usa `window.confirm`; o protótipo tem confirmação própria. O real já modela `live_sessions.status` (`preparing/active/paused/closed`) e `live_questions.status` (`processing/answered/gap/failed`), que cobrem a maior parte dos cenários. Só modo Manual. **Inferência real do provedor NVIDIA não está comprovada** (`AGENTS.md` §5).
-- **Compartilhados:** `app/globals.css`; `app/app/artefatos/actions.ts` (`saveLiveAsArtifact`, importado por `live/[id]/page.tsx`).
+- **Compartilhados:** `app/globals.css`; `app/app/artefatos/actions.ts` (`saveLiveAsArtifact`, importado por `app/app/live/[id]/page.tsx`).
 
 ### T4.5 — Artefatos
 - **Protótipo:** `T4.5 - Artefatos.html` (sha: `5c0d6f622420`), `t4/artefatos-screen.jsx` (sha: `d80e2b898b3a`), `artefatos-create.jsx` (sha: `b7fdd796e5b2`), `artefatos-detail.jsx` (sha: `a2d0e69f1de9`), `artefatos-data.jsx` (sha: `80a3c2af9f6d`).
-- **Rotas reais:** existem `app/artefatos/page.tsx`, `app/artefatos/novo/page.tsx`, `app/artefatos/[id]/page.tsx` (abas `content|evidences|versions`); `app/artefatos/artifact-forms.tsx` (`NewArtifactForm`, `ArtifactEditor`); `app/artefatos/actions.ts`; `lib/artifacts/*`; `lib/groq/generate-artifact.ts`.
+- **Rotas reais:** existem `app/app/artefatos/page.tsx`, `app/app/artefatos/novo/page.tsx`, `app/app/artefatos/[id]/page.tsx` (abas `content|evidences|versions`); `app/app/artefatos/artifact-forms.tsx` (`NewArtifactForm`, `ArtifactEditor`); `app/app/artefatos/actions.ts`; `lib/artifacts/*`; `lib/groq/generate-artifact.ts`.
 - **Componentes:** `ArtifactCard`, `Chip`, `Input`, `Badge`, `StepFlow`/`JourneyStepper`, `FloatingPanel`, `SectionIndex`, `TraceLine`, `EvidenceCard` → TSX **novos**; lógica de `ArtifactEditor` reaproveitada.
 - **Estados** (`ASC`, 36): biblioteca (6) `lib-lista`, `lib-vazia`, `lib-carregando`, `lib-erro`, `lib-filtros`, `lib-sem-resultado`; criação (13) `c1`, `c1-agente`, `c2`, `c2-validacao`, `c3`, `c4`, `c5`, `c5-sem`, `c6`, `c6-gerando`, `c6-timeout`, `c6-provedor`, `c6-lacuna`; primeira abertura (1) `c-primeira`; detalhe (16) `d-star`, `d-pitch`, `d-curriculo`, `d-curriculo-previa`, `d-portfolio`, `d-salvando`, `d-salvo`, `d-nao-salvo`, `d-conflito`, `d-gerando`, `d-falha`, `d-restaurar`, `d-restaurando`, `d-exportando`, `d-falha-export`, `d-fonte`.
 - **Lacunas:** o real cria em **uma página**, não em 6 passos; tem `notices` de lacuna e timeout que casam com `c6-*`; restaura versão (`restoreArtifactVersion`). **Exportação de Artefato não foi encontrada**: `app/api/export/route.ts` exporta dados da conta (usado em Configurações), não Artefato → `d-exportando`/`d-falha-export` **não têm backend**. `d-conflito` depende de `revision` (existe no schema lido). `c1-agente` depende do Agente (decisão 4.3).
@@ -63,7 +63,7 @@ Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `font
 
 ### T4.6 — Narrative Score
 - **Protótipo:** `T4.6 - Narrative Score.html` (sha: `bbfd35a05074`), `t4/score-panel.jsx` (sha: `ddf1df30dccd`) sobre `inicio-screen.jsx`; `T4.6 - manifest.json` (sha: `b9ff3192c81c`). O HTML do pacote difere do `_tmp_oficial_pos` anterior (`MANIFEST.json` → `normalizacao_html.excecao`).
-- **Rota real:** existe `app/score/page.tsx` (abas Resumo / Histórico / Como é calculado) + `app/score/actions.ts` (`updateCoherence`). **Fora da navegação principal.** O diagnóstico (`app/diagnostico/page.tsx`, `diagnostic-form.tsx`, `actions.ts`) também alimenta o Score e **não tem tela em T4**.
+- **Rota real:** existe `app/app/score/page.tsx` (abas Resumo / Histórico / Como é calculado) + `app/app/score/actions.ts` (`updateCoherence`). **Fora da navegação principal.** O diagnóstico (`app/app/diagnostico/page.tsx`, `app/app/diagnostico/diagnostic-form.tsx`, `app/app/diagnostico/actions.ts`) também alimenta o Score e **não tem tela em T4**.
 - **Componentes:** `ScoreRing`, `DimensionRow`, `ProgressBar`, `TraceLine`, `Badge`, `FloatingPanel`, `SectionIndex` → TSX **novos**.
 - **Estados** (`N_SCN`): `snapshot`, `elegivel`, `nao-elegivel`, `calculando`, `concluido`, `falha-coerencia`, `agente-off`, `dados-insuficientes`, `historico-vazio`.
 - **Lacunas:** painel (T4) contra página (real) — decisão 4.5. `falha-coerencia` casa com os `notice` de provedor (`not_configured`, `timeout`, `rate_limit`, `invalid_output`, `provider_error`). `agente-off` pressupõe o Agente. Credibilidade fica fora da nota no real (60% coerência + 40% consistência) e no protótipo também: `score-panel.jsx:102` diz "Credibilidade fica sem número nesta versão e não entra no cálculo." (sha: `ddf1df30dccd`).
@@ -71,7 +71,7 @@ Caminhos relativos a `apps/web/app/` salvo indicação. Componentes do DS: `font
 
 ### T4.7 — Configurações
 - **Protótipo:** `T4.7 - Configurações.html` (sha: `0576701c7f1b`), `t4/configuracoes-screen.jsx` (sha: `a95d01f6f91b`), `T4.7 - manifest.json` (sha: `beb582d57a38`).
-- **Rotas reais:** existem `app/configuracoes/layout.tsx`, `page.tsx` (Perfil), `dados/page.tsx`, `conta/page.tsx`; `profile-form.tsx` (`SettingsProfileForm`), `dados/data-form.tsx` (`SettingsDataForm`), `settings-navigation.tsx`; `lib/settings/actions.ts`; `app/api/export/route.ts`.
+- **Rotas reais:** existem `app/app/configuracoes/layout.tsx`, `app/app/configuracoes/page.tsx` (Perfil), `app/app/configuracoes/dados/page.tsx`, `app/app/configuracoes/conta/page.tsx`; `app/app/configuracoes/profile-form.tsx` (`SettingsProfileForm`), `app/app/configuracoes/dados/data-form.tsx` (`SettingsDataForm`), `app/app/configuracoes/settings-navigation.tsx`; `lib/settings/actions.ts`; `app/api/export/route.ts`.
 - **Componentes:** `Sidebar`, `Input`, `Switch`, `Badge`, `Button`, `SectionIndex`, `FloatingPanel`, `Avatar`, `IconButton`, `CfgAlert`, `CfgSkeleton` → TSX **novos** para `Switch`, `Avatar`, alerta e skeleton; formulários e actions reutilizados.
 - **Estados** (`C_SC`, 24): `carregando`, `limpo`, `alterado`, `validacao`, `salvando`, `salvo`, `falha-salvar`, `inventario`, `exportando`, `export-pronto`, `export-falha`, `excl-aviso`, `reauth-solicitada`, `reauth-valida`, `reauth-expirada`, `excl-incorreta`, `excl-correta`, `excl-processando`, `excl-concluida`, `excl-falha`, `ms-disponivel`, `sessao-expirada`, `saindo`, `sair-falha`.
 - **Lacunas:** o real já tem reautenticação (`/auth/iniciar?reauth=delete_account`, `?notice=reauthenticated|reauth_failed`) e a confirmação por texto `EXCLUIR`; a contagem regressiva de `secs` e o inventário com contagens por tabela do protótipo **não foram encontrados** no real. A migração e o teste RLS da Fase 9 estão **pendentes no Supabase real** (`AGENTS.md`, cabeçalho): a tela de dados não é provada ponta a ponta.
@@ -128,7 +128,7 @@ Uma fatia por atribuição; um dono de `globals.css` por onda (serializar). Deci
 5. **T4.3 Evidências** — depende de `FloatingPanel` e `EvidenceCard`.
 6. **T4.6 Score** — depende da decisão 4.5.
 7. **T4.4 Persona Live** — depois de Evidências (`EvidenceCard`).
-8. **T4.5 Artefatos** — a maior; depende de `StepFlow` e do dono de `artefatos/actions.ts`.
+8. **T4.5 Artefatos** — a maior; depende de `StepFlow` e do dono de `app/app/artefatos/actions.ts`.
 9. **T4.8 Agente** — só após a decisão 4.3 e o contrato do backend.
 
 ## 7. Validação

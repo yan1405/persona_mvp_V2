@@ -1,6 +1,6 @@
 # Status — Persona — Migração de Interface
 
-Estado: ENTREGUE PARA VERIFICAÇÃO (Lote 1 · 01, mapa de telas); a verificação independente ainda decide o gate. Nenhuma fatia de produto iniciada.
+Estado: WAITING_APPROVAL (Lote 1 · 01 entregue; aguarda gate da Verificação e aceite visual de Yan). Nenhuma fatia de produto iniciada.
 
 | Tarefa | Peso | Estado | Evidência |
 |---|---:|---|---|
@@ -9,7 +9,7 @@ Estado: ENTREGUE PARA VERIFICAÇÃO (Lote 1 · 01, mapa de telas); a verificaç�
 | Tela/fluxo aprovado | 35 | PENDING | fora do Lote 1 |
 | Acessibilidade e larguras | 20 | PENDING | fora do Lote 1 |
 
-Lote 1 · 01 (contrato, sem código): `docs/redesign/interface/MAPA_TELAS.md` — conferido por mim pelas validações abaixo; não é VERIFIED até o relatório da Verificação.
+Lote 1 · 01 (contrato, sem código): `docs/redesign/interface/MAPA_TELAS.md` — conferido por mim pelas validações abaixo; o gate é da Verificação.
 Concluído (plano ponderado do papel): 0%. O mapa não pontua nenhuma tarefa acima; o Lote 1 não implementa.
 Faltante: 100% do plano de implementação.
 
@@ -36,3 +36,9 @@ Decisões pendentes de Yan (detalhe no mapa §4): fonte (Plus Jakarta/Inter × G
 Bloqueio: nenhum para o mapa. Gates por fatia, sem gate global: Fundação ← fonte (4.1) e ícones (4.2); T4.1 ← Score (4.5); T4.2/T4.3 ← painéis × rotas (4.7); T4.6 ← 4.5 e 4.7; T4.8 ← 4.3 e contrato do backend. Toda fatia também espera atribuição do Orquestrador (dono de `globals.css`, `layout.tsx`, `app-navigation.tsx`).
 Próximo passo: o Orquestrador revisa o diff, congela o SHA e envia à Verificação; depois Yan decide.
 Commits locais em `wt/interface-lote1` (sem push, sem amend): `8c5ef15` (histórico), `d4a1e3b` (revisão 2, histórico imutável) e `d88f2f231fdf5ca5e8f1041461d578eedb85dca1` (rodada 3: IF-1, IF-2, IF-3). O commit que grava este SHA no STATUS é o seguinte; o SHA a congelar é o do HEAD (`git rev-parse HEAD`).
+
+Rodada 4 (fechamento, IF-4): `MAPA_TELAS.md` agora declara a raiz única `apps/web/` e escreve todo caminho de código a partir dela (`app/app/<rota>/...`, `app/app/layout.tsx`, `app/globals.css`, `app/api/export/route.ts`). Estados, rotas, decisões e hashes não mudaram.
+Comandos: `git diff --check` limpo; script de conferência: 76 caminhos citados a partir de `apps/web/`, todos existem exceto `apps/web/components/`, citado de propósito como inexistente; `git diff --name-only` só `MAPA_TELAS.md` e `STATUS.md`.
+Classificação das evidências: VERIFIED = existência de caminhos e hashes (script); PENDING = captura, aceite visual, acessibilidade e larguras (nada foi aberto no navegador).
+Limitação visual: o mapa não prova fidelidade visual; nenhuma tela foi executada nem capturada neste lote.
+Gate: Verificação revisa o novo SHA; aceite visual e as decisões 4.1–4.9 são de Yan. Novo SHA: o HEAD do branch (`git rev-parse HEAD`), informado ao Orquestrador por mensagem; um SHA não pode constar no commit que o cria.
