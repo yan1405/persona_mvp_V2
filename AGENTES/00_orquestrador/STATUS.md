@@ -242,6 +242,18 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 | Integração | **BLOCKED** nada integrado a `main`; só após relatório da Verificação e decisão de Yan |
 | Gates abertos para Yan | aplicar migração da Fase 9 e rodar o teste RLS; decidir R1 (migração corretiva); 9 decisões visuais do mapa; chave NVIDIA rotacionada; incluir `lib/agent/*.test.ts` no `npm test` (Orquestrador, após revisão) |
 
+## Lote 1 — rodada 2 (05/11/2026)
+
+| Item | Estado |
+|---|---|
+| SHAs substitutos congelados | **VERIFIED** Interface `d4a1e3b`, Backend `4a37131`, Agente `489ec0d` (= HEAD dos worktrees, limpos); stat, caminhos, `diff --check` e varredura de segredos limpos; ver `LOTE-1_CONGELADO.md` |
+| Relatórios da rodada 1 (`8c5ef15`, `ffd4289`, `6a6b8f0`) | histórico; **não aprovam** os substitutos |
+| Checkout isolado para a Verificação | **VERIFIED** `C:\Users\yansi\Projetos\persona-wt\verificacao-489ec0d` desanexado em `489ec0d`, limpo, `npm ci` 0 e `next typegen` feitos; os testes ainda **não** foram executados por mim |
+| Propostas do Backend (B-1, QA de duas contas, R1 por SQLSTATE, rollback) | **PENDING Yan** em `LOTE-1_BACKEND_DECISOES.md`; nada aplicado, nenhum SQL executado |
+| Revisão da rodada 2 pela Verificação | **PENDING** depende de Yan repassar à aba de Verificação |
+| `lib/agent/*.test.ts` no `npm test` | **PENDING** commit próprio do Orquestrador, após a nova revisão |
+| Arquivos da Verificação | untracked em `AGENTES/04_verificacao/` (plano, 3 relatórios da rodada 1, `STATUS.md` alterado); versionar quando os relatórios da rodada 2 estiverem prontos |
+
 ## Proposta de baseline limpo (aguarda aprovação de Yan; nada foi executado)
 
 Princípio: a base de worktrees deve ser um commit identificável que contenha apenas documentação reconciliada e o código de `45379b8`. Nenhuma mudança de produto é adicionada.
