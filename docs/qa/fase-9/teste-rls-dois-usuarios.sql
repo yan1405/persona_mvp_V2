@@ -31,11 +31,12 @@
 -- semeia e exclui dados do usuário A dentro da transação.
 --
 -- ANTES DE RODAR: substitua (find & replace no editor) as duas strings
--- abaixo por dois UUIDs reais e distintos de auth.users, ambos de contas
--- descartáveis de QA.
+-- abaixo por dois UUIDs distintos de contas descartáveis que já existem no
+-- QA (auth.users).
 --   AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA  -> usuário A
 --   BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB  -> usuário B
--- Para ver candidatos: select id, email from auth.users order by created_at;
+-- Para ver candidatos (sem e-mail): select id, created_at from auth.users order by created_at;
+-- identifique as contas descartáveis pela data de criação que você registrou.
 --
 -- Saída esperada: seis NOTICE "OK (esperado)" (passos 2–7); "OK (conferido)"
 -- nos passos 1, 5, 6 e 9 (função pg_temp.confere); NOTICE do passo 1b ("OK
@@ -86,7 +87,7 @@ begin
 end;
 $$ language plpgsql;
 
--- 0) os dois UUIDs foram substituídos por usuários reais e distintos
+-- 0) os dois UUIDs foram substituídos por contas descartáveis existentes no QA e distintas
 do $$ begin
   if 'AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA'::uuid = 'BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB'::uuid
     or (select count(*) from auth.users

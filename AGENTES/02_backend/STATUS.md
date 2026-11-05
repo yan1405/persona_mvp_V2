@@ -1,6 +1,6 @@
 # Status — Persona — Dados e Backend
 
-Estado: rodada 3 de correções (BK-1…BK-5) aplicada em commits novos; aguarda nova Verificação. Somente documentos e script de teste; nenhuma execução em banco.
+Estado: WAITING_APPROVAL
 
 Atribuição: `AGENTES/ATRIBUICOES/LOTE-1.md`, seção 02 · branch `wt/backend-lote1` · base `8da08c6`.
 
@@ -61,3 +61,9 @@ Commits novos sobre `4a37131865586be802f25511ce8f6969ad09109e` (imutável, sem a
 - **BK-5:** B-1 virou passo 1b não abortante (`ACHADO B-1`); opção A/B/C segue decisão de Yan, não escolhida.
 - Não executado: SQL, banco, migração. Mantidos `begin`, transação única e `rollback`; sem `commit` nem DDL persistente.
 - B-1 pendente de Yan; R1 HYPOTHESIS; nada marcado VERIFIED antes da Verificação.
+
+## Fechamento do Lote 1 (prompt 07)
+- Estado: WAITING_APPROVAL. SHA anterior ao fechamento: `ee6ac3f43ad10523b71f3f2924e71750db6f8490`; o commit de fechamento é o HEAD do branch `wt/backend-lote1` (entregue ao Orquestrador na mensagem de conclusão, `git rev-parse HEAD`).
+- BK-6 (relatório §4 alinhado às 12 chaves do passo 9 e às mensagens do passo 1b), BK-7 (`HANDOFF_LOTE1.md` reescrito como snapshot único) e BK-8 (cabeçalho do SQL sem e-mails; "contas descartáveis existentes no QA") corrigidos em texto. Nada marcado VERIFIED antes da Verificação.
+- Gate da rodada 3: aguarda parecer da Verificação sobre o commit de fechamento e aprovação de Yan.
+- Continuam pendentes: B-1 (decisão A/B/C de Yan, não escolhida), R1 (HYPOTHESIS) e qualquer execução em banco, migração ou QA.
