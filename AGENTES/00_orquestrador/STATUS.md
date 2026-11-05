@@ -254,6 +254,22 @@ Abertas e inspecionadas uma a uma (`pacote_v2/deliver_v2/capturas/`). **Sem bloq
 | `lib/agent/*.test.ts` no `npm test` | **PENDING** commit próprio do Orquestrador, após a nova revisão |
 | Arquivos da Verificação | untracked em `AGENTES/04_verificacao/` (plano, 3 relatórios da rodada 1, `STATUS.md` alterado); versionar quando os relatórios da rodada 2 estiverem prontos |
 
+## Parecer da Verificação — rodada 2 (05/11/2026)
+
+Executada por instância independente (sem o contexto do Orquestrador); relatórios versionados em `AGENTES/04_verificacao/` (commit `ad25055`). Nenhum S1; nenhuma severidade reduzida.
+
+| SHA | Relatório | Achados abertos | Gate sugerido |
+|---|---|---|---|
+| Interface `d4a1e3b` | `RELATORIO_interface_d4a1e3b.md` | S3: IF-1 (mapa diz que `exclusao-bloqueada` não existe; existe em `diario/actions.ts:134`), IF-2 ("conferir o protótipo" já resolvido em `score-panel.jsx:102`), IF-3 (rótulo VERIFIED prematuro) | **liberar com ressalvas** |
+| Backend `4a37131` | `RELATORIO_backend_4a37131.md` | S2: BK-1 (o script roda como `postgres`, não prova nenhuma política RLS das Fases 3–8; só a lógica das funções e o catálogo da Fase 9), BK-2 (HYPOTHESIS: SQLSTATE de R1 contraditório entre documentos), BK-5 (HYPOTHESIS: se B-1 for real, o passo 1 aborta antes de provar R1); S3: BK-3, BK-4 | **bloquear integração até correção textual pequena**; depois liberar com ressalvas |
+| Agente `489ec0d` | `RELATORIO_agente-nvidia_489ec0d.md` | S2: A-1 residual (excerto de dois espaços passa), A-7 (excerto substring sem fronteira: `"em 3"` sobre `30%`, `"reduzi o custo"` sobre `"Não reduzi…"`); S3: A-8 (meta-comando contornado por quebra de linha; falsos positivos), timeout sem cancelamento, recuperação aceita evidência irrelevante, IDs duplicados | **bloquear integração** |
+
+Execução independente no checkout isolado `489ec0d` (limpo antes e depois): `node --test lib/agent/*.test.ts` 13/13, `npm test` 32/32 (não inclui `lib/agent`), `lint` 0, `typecheck` 0.
+
+Conferido por mim depois do parecer: IF-1 (`delete-blocked` existe em `diario/actions.ts:134` e `page.tsx:55`) e BK-3 (nenhum `ilike` no app) **confirmados**; A-1 (`len` sem `trim`) e A-8 (`.` não casa quebra de linha nas expressões) **confirmados pela leitura de `output-guard.ts`**. BK-2: a Verificação afirma que `ON DELETE RESTRICT` levanta `23001`; minha leitura anterior era `23503` e **não consegui decidir sem um PostgreSQL** (nenhum local). Tratamento seguro: `LOTE-1_BACKEND_DECISOES.md` §3 agora aceita os dois códigos, e o Backend deve fazer o mesmo na matriz e no script.
+
+**Não feito de propósito:** incluir `lib/agent/*.test.ts` no `npm test`. O código do agente ainda não está em `main` (gate bloqueado); alterar `package.json` antes quebraria `npm test`. A mudança entra em commit próprio junto da integração, depois do desbloqueio.
+
 ## Proposta de baseline limpo (aguarda aprovação de Yan; nada foi executado)
 
 Princípio: a base de worktrees deve ser um commit identificável que contenha apenas documentação reconciliada e o código de `45379b8`. Nenhuma mudança de produto é adicionada.

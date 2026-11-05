@@ -40,10 +40,10 @@ O passo 8 do script semeia dados dependentes para a conta de teste e chama a exc
 | Saída do passo 8 | Leitura |
 |---|---|
 | `OK:` (exclusão concluída com dados dependentes) | R1 **refutada**: a ordem da cascata não é violada |
-| `ACHADO BLOQUEANTE … [23503] …` com `foreign_key_violation` e a restrição citada | R1 **confirmada**; a mensagem nomeia a tabela e a restrição que bloqueou |
+| `ACHADO BLOQUEANTE … [23503] …` (`foreign_key_violation`) **ou** `[23001]` (`restrict_violation`), com a restrição citada | R1 **confirmada**; a mensagem nomeia a tabela e a restrição que bloqueou. Os dois códigos são aceitos porque a `MATRIZ_TELA_DADOS.md` e a Verificação dizem `23001` para `ON DELETE RESTRICT`, enquanto minha leitura anterior dizia `23503`; só o banco real decide qual vem |
 | `ACHADO BLOQUEANTE … [outro SQLSTATE]` (ex.: `42501` permissão, `42883` função inexistente) | **não** é R1: é falha de ambiente ou de privilégio; registrar e repetir após corrigir a causa |
 
-Só `23503` com a restrição `on delete restrict` de uma tabela das fases 4–8 confirma R1. Se confirmada, a correção é uma migração nova (excluir em ordem ou tornar as FKs adiáveis/`cascade`), com decisão de Yan sobre o que o produto deve fazer com evidências ao excluir a conta.
+Só `23503` ou `23001` com a restrição `on delete restrict` de uma tabela das fases 4–8 confirma R1 (corrigido em 05/11/2026 após o achado BK-2 da Verificação). Se confirmada, a correção é uma migração nova (excluir em ordem ou tornar as FKs adiáveis/`cascade`), com decisão de Yan sobre o que o produto deve fazer com evidências ao excluir a conta.
 
 ## 4. Rollback e evidências esperadas
 
