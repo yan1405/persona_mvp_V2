@@ -1,17 +1,17 @@
 # Status — Persona — Dados e Backend
 
-Estado: Lote 1 entregue para revisão (somente documentos e script de teste; nenhuma execução em banco).
+Estado: rodada 3 de correções (BK-1…BK-5) aplicada em commits novos; aguarda nova Verificação. Somente documentos e script de teste; nenhuma execução em banco.
 
 Atribuição: `AGENTES/ATRIBUICOES/LOTE-1.md`, seção 02 · branch `wt/backend-lote1` · base `8da08c6`.
 
 | Tarefa | Peso | Estado | Evidência |
 |---|---:|---|---|
-| Matriz tela × dados × ações | 25 | VERIFIED | `docs/redesign/backend/MATRIZ_TELA_DADOS.md`: T4.1–T4.8 ligadas a tabela/RPC/action/lib ou marcadas INEXISTENTE; nomes conferidos por `grep` nas migrações e em `apps/web` |
+| Matriz tela × dados × ações | 25 | entregue (BK-3 corrigido); aguarda Verificação da rodada 3 | `docs/redesign/backend/MATRIZ_TELA_DADOS.md`: T4.1–T4.8 ligadas a tabela/RPC/action/lib ou marcadas INEXISTENTE; nomes conferidos por `grep` nas migrações e em `apps/web` |
 | Adaptação de contratos | 25 | PENDING | sem atribuição neste lote (nenhuma action/lib alterada) |
 | Auth, ownership e RLS | 25 | PENDING | script revisado e corrigido por leitura (`RELATORIO_TESTE_RLS.md`); **não executado** — o peso só conta com o teste rodando em banco liberado por Yan |
 | Regressão e falhas | 25 | PENDING | sem código de produto alterado; lint/typecheck/testes não se aplicam |
 
-Concluído: 25%
+Concluído: 25% (conforme contrato; a matriz só conta como VERIFIED após o parecer da Verificação)
 Faltante: 75%
 Lote 1 (aceite da atribuição): matriz completa + relatório RLS + script corrigido, todos entregues; execução no banco é gate de Yan.
 
@@ -51,3 +51,13 @@ Bloqueio: execução do teste em Supabase real (gate de Yan). Sem bloqueio para 
 Próximo passo: Orquestrador congela SHA do commit e envia à Verificação; após liberação de Yan, rodar o teste.
 Decisões do usuário: migrações remotas e RLS exigem aprovação específica.
 Validação: leitura e `git diff --check`; nada comprovado em banco real.
+
+## Rodada 3 — correções BK-1…BK-5 (liberadas pelo Orquestrador, `LOTE-1_CORRECOES.md` §02)
+Commits novos sobre `4a37131865586be802f25511ce8f6969ad09109e` (imutável, sem amend/rebase/reset). Novo SHA: ver `git log` do branch (registrado na mensagem ao Orquestrador).
+- **BK-1:** cabeçalho do script e `RELATORIO_TESTE_RLS.md` §0: roda como `postgres`, não prova RLS das Fases 3–8; teste futuro descrito em §7 (não implementado).
+- **BK-2:** R1 aceita `23001` e `23503`, sem afirmar qual vem (script, matriz, relatório).
+- **BK-3:** matriz corrigida: não há `ilike`; filtro em memória.
+- **BK-4:** `profiles` semeado; passo 9 com 11 contagens zero; limites restantes justificados em §4b.
+- **BK-5:** B-1 virou passo 1b não abortante (`ACHADO B-1`); opção A/B/C segue decisão de Yan, não escolhida.
+- Não executado: SQL, banco, migração. Mantidos `begin`, transação única e `rollback`; sem `commit` nem DDL persistente.
+- B-1 pendente de Yan; R1 HYPOTHESIS; nada marcado VERIFIED antes da Verificação.

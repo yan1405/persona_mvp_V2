@@ -3,6 +3,10 @@
 Lote 1 · 04/11/2026 · script: `docs/qa/fase-9/teste-rls-dois-usuarios.sql` · contra `supabase/migrations/20260818200000_phase_9_settings.sql` e as demais migrações.
 Nada foi executado: sem conexão, credencial ou service role. A migração da Fase 9 **não foi aplicada**.
 
+## 0. Escopo real do script (BK-1)
+
+O script roda no SQL Editor como `postgres`, que **ignora RLS e privilégios de tabela**. Prova somente: (a) a lógica de `authorize_sensitive_action` e `delete_own_account`, chaveada por `auth.uid()` simulado (finalidade, sem identidade, sem autorização, confirmação errada, expirada, isolamento A×B); (b) o catálogo da Fase 9 (RLS ligada, ACLs da tabela, `EXECUTE` de `authenticated`, assinatura antiga removida); (c) a cascata de exclusão com dados semeados (R1). **Não prova** nenhuma política RLS das Fases 3–8 (`*_select_own`, `*_update_own`…), nem acesso às tabelas como `authenticated` ou `anon`. Passar não significa "RLS aprovada"; nenhum documento deste lote afirma isso.
+
 ## 1. Checado por leitura (VERIFIED no texto das migrações)
 
 - `sensitive_action_authorizations`: PK `(user_id, purpose)`, `purpose in ('delete_account')`, RLS ligada, zero políticas, `REVOKE ALL` de `public/anon/authenticated`.
@@ -34,7 +38,17 @@ Mantido: tudo em **uma** transação terminada em `rollback` (inclusive o seed e
 
 ## 4. Como rodar (quando Yan liberar)
 
-Aplicar a migração `20260818200000_phase_9_settings.sql` no projeto de QA, substituir os dois UUIDs (duas contas descartáveis de QA, nunca conta pessoal ou principal), executar o arquivo inteiro e colar os `NOTICE` (seis `OK (esperado)`, quatro `OK (conferido)` e o resultado do passo 8) em `docs/reviews/fase-9-configuracoes-privacidade.md`. Os passos 1, 5, 6 e 9 se autoverificam (`pg_temp.confere`): divergência de qualquer booleano ou contagem aborta com `FALHOU … obtido … esperado …`; quando passam, imprimem `OK (conferido)`. Esperado: passo 1 todo `true`; passo 5 = `1, 0, 1`; passo 6 = `1`; passo 9 = `0,0,0,0,0,0,0,1`. O passo 8 segue sem abortar; se a exclusão falhar, o passo 9 reprova.
+Aplicar a migração `20260818200000_phase_9_settings.sql` no projeto de QA, substituir os dois UUIDs (duas contas descartáveis de QA, nunca conta pessoal ou principal), executar o arquivo inteiro e colar os `NOTICE` (seis `OK (esperado)`, quatro `OK (conferido)` e o resultado do passo 8) em `docs/reviews/fase-9-configuracoes-privacidade.md`. Os passos 1, 5, 6 e 9 se autoverificam (o passo 1b, sobre `anon`/B-1, apenas avisa) (`pg_temp.confere`): divergência de qualquer booleano ou contagem aborta com `FALHOU … obtido … esperado …`; quando passam, imprimem `OK (conferido)`. Esperado: passo 1 todo `true`; passo 5 = `1, 0, 1`; passo 6 = `1`; passo 9 = `0,0,0,0,0,0,0,1`. O passo 8 segue sem abortar; se a exclusão falhar, o passo 9 reprova.
+
+## 4b. Achados da Verificação (rodada 3) e tratamento
+
+| Achado | Tratamento |
+|---|---|
+| BK-1 | Escopo real explícito no cabeçalho do script e em §0; teste futuro descrito em §7 (sem script novo). |
+| BK-2 | O passo 8 imprime `ACHADO BLOQUEANTE (sinal de R1)` para `23001` **e** `23503`, sem afirmar qual vem; outro SQLSTATE sai como "fora de R1; investigar ambiente". Conferir sempre se a mensagem nomeia uma FK `restrict` das fases 4–8. |
+| BK-3 | Corrigido na matriz: não há `ilike`; filtros em memória (até 100 registros). |
+| BK-4 | `profiles` passa a ser semeado (`on conflict do nothing`), então `profiles_restante = 0` deixa de passar trivialmente; o passo 9 agora conta também `live_sessions`, `live_questions`, `artifacts` e `narrative_diagnostics` (11 contagens zero + conta B = 1). Mantido por justificativa: as contagens do passo 5 são lidas como `postgres` (provam a lógica da função, não RLS); o passo 8 classifica o SQLSTATE em vez de tratar todo erro como R1. |
+| BK-5 | A checagem de `anon` com `EXECUTE` saiu do passo 1 (que aborta) e virou o passo 1b, **não abortante**: imprime `ACHADO B-1` (ou `OK (conferido) B-1`) e segue até o passo 8. B-1 continua decisão de Yan (A/B/C); o script não escolhe opção. Só documentação e este ajuste do script; nada de migração. |
 
 ## 5. Validação desta revisão
 
@@ -45,3 +59,7 @@ Aplicar a migração `20260818200000_phase_9_settings.sql` no projeto de QA, sub
 ## 6. Compatibilidade PostgreSQL 15 / 16 / 17
 
 `has_table_privilege` rejeita nomes de privilégio desconhecidos. O PostgreSQL 15 e o 16 aceitam `SELECT, INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER`; o 17 acrescenta `MAINTAIN`, que também faz parte de `REVOKE ALL`. O passo 1 monta a lista em tempo de execução: os sete privilégios sempre, e `,maintain` só quando `current_setting('server_version_num')::int >= 170000`. Em 15/16 `MAINTAIN` nunca é passado (evita erro de privilégio desconhecido); em 17 é conferido para `anon` e `authenticated`. As chaves do JSON esperado não mudam. A versão do servidor do projeto de QA não foi consultada.
+
+## 7. Teste futuro com papel `authenticated` (descrição; NÃO implementado)
+
+Para provar as políticas RLS das Fases 3–8 seria preciso um teste separado, também em transação com `rollback`, que: (1) semeia dados de A e de B como `postgres`; (2) faz `set local role authenticated` e `set_config('request.jwt.claims', …sub = A…)`; (3) tenta `select`/`update`/`delete` em `profiles`, `daily_logs`, `evidences`, `evidence_suggestions`, `evidence_sources`, `narrative_*`, `live_*`, `artifacts*` sobre linhas de B e espera zero linhas visíveis ou erro de política; (4) confirma que `insert` com `user_id = B` é rejeitado pelo `with check`; (5) tenta ler `sensitive_action_authorizations` e espera `42501`; (6) repete com `set local role anon` esperando zero acesso; (7) `reset role`. Exige decisão de Yan e fica fora do Lote 1.
