@@ -1,7 +1,16 @@
 # Status — Persona — Verificação Independente
 
 Estado: DONE
-Resumo: Lote 2 revisado (08/11/2026). Vigentes: Backend `33373ae`, Agente `9abf927` (Rodada 2) e Interface `14ad969` (Rodada 3; `d71f2a7` virou histórico); `4b4650d`, `cba617a` e `e6b3e5c` viraram histórico. Parecer A/B/C sobre as 11 observações em `PARECER_OBSERVACOES_LOTE2.md`. As seções do Lote 1 abaixo são histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+Resumo: Lote 2 revisado (08/11/2026). Vigentes: Backend `33373ae` (Rodada 2), Agente `72b0e60` e Interface `d3dfa63` (Rodada 4; `9abf927`, `14ad969` e `d71f2a7` viraram histórico); `4b4650d`, `cba617a` e `e6b3e5c` viraram histórico. Parecer A/B/C sobre as 11 observações em `PARECER_OBSERVACOES_LOTE2.md`. As seções do Lote 1 abaixo são histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+
+## Lote 2 — Rodada 4: Interface `d3dfa63` e Agente `72b0e60` (08/11/2026)
+
+| Entrega | SHA (substitui) | Relatório | Resultado | Gate sugerido |
+|---|---|---|---|---|
+| 01 Interface | `d3dfa633630f672f7301fadfecdd78d8f186fc5c` (`14ad969`) | `RELATORIO_interface_d3dfa63.md` | **IF4-1 resolvido na amostra:** com o CSS real do build, 0 rolagens horizontais em 23 larguras (375–1280 px) × 5 telas (115 combinações; antes 9; base 3, do Diário). Sem corte, reticências, `sticky` e barra lateral preservados; IF3-1 (1024–1280 px) sem regressão. **Novo IF5-1 (S3, HYPOTHESIS na tela real):** remover o override do Diário troca a rolagem por campos apertados: a 375 px a data mostra `dd/mm/a` (98 px) e a busca é cortada; a 440 px cabe; de 1023 px para cima nada muda. IF2-2, IF2-3, IF3-2 inalterados | **liberar com ressalvas** (sem S1/S2). Aceite visual: **não é meu**, PENDING de Yan; telas reais PENDING |
+| 03 Agente NVIDIA | `72b0e60d51c6c7142207f62cf2085356e4aa7a52` (`9abf927`) | `RELATORIO_agente-nvidia_72b0e60.md` | **AG2-2 resolvido na parte com ramificação:** corpo de `generateVersion` idêntico ao anterior (diff linha a linha, 34 linhas); 11 testes cobrem os casos pedidos; 9 de 9 mutações de comportamento falham; `npm test` 75/75. Nada de cliente alcança `generate-version.ts`. **Novo AG4-1 (S3):** os fakes ignoram os filtros de consulta (`user_id`, `status = confirmed`, `removed_at`); 3 mutações sobrevivem. AG4-2 (S4): arquivos novos fora da lista por nome. AG2-3 aberto (agora dois módulos sem `server-only`), AG3-1 aberto | **liberar para integração local, com ressalvas** (AG4-1; parser A-1/A-7/L-1 fora deste SHA). Sem chamada real |
+
+Execução (checkout isolado, sem `.env`, builds em sequência com `HEAD` conferido): Agente `72b0e60` typegen 0, `npm test` 75/75, lint 0, typecheck 0, build 0; Interface `d3dfa63` typegen 0, `npm test` 32/32, lint 0, typecheck 0, build 0. Os relatórios de `14ad969` e `9abf927` são histórico e **não** aprovam os SHAs novos. Nada corrigido, aplicado ou commitado por mim; verificação isolada devolvida a `acc1f44`, limpa.
 
 ## Lote 2 — Rodada 3: Interface `14ad969` (08/11/2026)
 
