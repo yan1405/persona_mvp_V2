@@ -4,7 +4,7 @@ Estado: WAITING_APPROVAL (Lote 2 · 01 entregue: licença das fontes PROVADA e F
 
 | Tarefa | Peso | Estado | Evidência |
 |---|---:|---|---|
-| Fundação visual da fatia | 20 | VERIFIED (código) / PENDING (visual) | lint, typecheck e build verdes; `FUNDACAO_LOTE2.md`; aceite visual pendente |
+| Fundação visual da fatia | 20 | PENDING | autoexecução de lint, typecheck, `npm test` e build verdes; `FUNDACAO_LOTE2.md`; `VERIFIED` só após a Verificação; visual depende do aceite de Yan |
 | Componentes e estados | 25 | PENDING | fora do Lote 2 |
 | Tela/fluxo aprovado | 35 | PENDING | fora do Lote 2 |
 | Acessibilidade e larguras | 20 | PENDING | sem sessão de login; 1024/1440/1920 px e leitor de tela não feitos |
@@ -12,6 +12,8 @@ Estado: WAITING_APPROVAL (Lote 2 · 01 entregue: licença das fontes PROVADA e F
 Concluído (plano ponderado do papel): 0% comprovado até a Verificação e o aceite visual; a Fundação pesa 20 e só conta com essas evidências.
 
 Escopo recebido: `AGENTES/ATRIBUICOES/LOTE-2.md`, linha 01, em `wt/interface-lote2` (`C:\Users\yansi\Projetos\persona-wt\lote2-interface`), base `acc1f44`.
+
+Correção IF2-1 (S2 da Verificação sobre `e6b3e5c`, `RELATORIO_interface_e6b3e5c.md`): **corrigido, pendente de re-verificação.** `.app-content` não tem mais `min-width: 0` e a coluna da casca é `1fr`: o painel cresce até o conteúdo e a janela rola na horizontal, como antes da casca; `overflow: clip` só arredonda. Barra superior < 640 px limitada à janela. Em harness com o CSS real do build e a marcação de `.artifact-filters`, `.artifact-list`, `.live-session-list` e `.live-evidence-options`, a 1024, 1100, 1152, 1200, 1230, 1280, 1920 e 375 px nada ficou fora do painel; a janela rola abaixo de ≈ 1226 px e não rola a 1280/1920 px. Casca real (login) segue PENDING. O SHA a congelar é o HEAD do branch (`git rev-parse HEAD`), informado por mensagem; `e6b3e5c` é o SHA anterior, histórico. IF2-4 (autorrótulo) aplicado na tabela acima. IF2-2 (barra lateral em janelas baixas) e IF2-3 (`<main>` em Configurações) **não** foram resolvidos por esta correção e seguem abertos.
 
 Etapa 1 — licença: `docs/redesign/interface/LICENCAS_FONTES.md`. **PROVADA**: Plus Jakarta Sans e Inter são OFL-1.1, sem Reserved Font Name; `.woff2` idênticos (SHA-256) aos servidos pelo Google Fonts; fontes primárias `google/fonts@5bb2873`, `rsms/inter@v4.1`, `tokotype/PlusJakartaSans@2.7.1`. Versão e ausência de RFN lidas das licenças/metadados, não da tabela `name` dos binários.
 Etapa 2 — Fundação: `apps/web/app/layout.tsx`, `app/globals.css` (tokens `--ds-*`, tipografia, casca), `components/shell/app-shell.tsx`, `app/app/app-navigation.tsx`, `app/app/layout.tsx`, `public/fonts/**`, `docs/redesign/interface/FUNDACAO_LOTE2.md`.
