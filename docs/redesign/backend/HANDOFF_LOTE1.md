@@ -1,3 +1,5 @@
+> **HISTÓRICO — não canônico, superado.** Snapshot do Lote 1. A decisão B-1 (opção A) e o passo 1b reprovando estão no Lote 2; para o estado atual veja `AGENTES/02_backend/STATUS.md` e `docs/redesign/backend/RELATORIO_TESTE_RLS.md`. Onde este texto diz que B-1 está pendente ou que o passo 1b não aborta, vale o Lote 2.
+
 # Handoff — Persona — Dados e Backend (Lote 1)
 
 Snapshot do branch no HEAD `ee6ac3f43ad10523b71f3f2924e71750db6f8490` (rodada 3 de correções incluída). O commit de fechamento que contém esta versão é posterior e não aparece nos números abaixo. Somente leitura de fatos: nenhum SQL, migração, banco, credencial, push ou merge. O SHA `4a37131865586be802f25511ce8f6969ad09109e` é histórico imutável (entrega encaminhada à Verificação na rodada 2).
