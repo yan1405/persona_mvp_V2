@@ -48,3 +48,15 @@ Commit novo da Interface sobre `d71f2a7` (`wt/interface-lote2`), menor correçã
 ## Rodada 4 do Lote 2 — IF4-1 (08/11/2026, decisão de Yan: "Corrigir agora")
 
 Commit novo da Interface sobre `14ad969` (`wt/interface-lote2`): menor correção para eliminar a rolagem horizontal da janela do Diário (639–671 px) e de Artefatos (761–799 px), sem desfazer IF2-1 nem IF3-1. Aceite: sem rolagem horizontal de 375 a 1280 px nas duas telas e sem regressão nas demais; conteúdo acessível; sticky, reticências e barra lateral preservados; `npm test`, lint, typecheck e build 0; novo SHA e revisão independente. Escrita: só a linha da Interface. Fora da rodada: IF2-2, IF2-3, IF3-2 e os S4. Em paralelo, o Agente trata o AG2-2 (linhas distintas, sem sobreposição de arquivos). Sem integração nem merge em `main` sem autorização explícita de Yan (a `main` tem `d71f2a7`; `14ad969` e os commits novos ainda não entraram).
+
+## Rodada 5 do Lote 2 — IF5-1, AG4-1 e saneamento Backend (08/11/2026, continuidade autorizada por Yan)
+
+Três commits locais independentes, sem integração em `main` e sem ação externa:
+
+| Papel | Base | Objetivo e escrita exclusiva | Aceite |
+|---|---|---|---|
+| 01 Interface | `d3dfa63` | Corrigir IF5-1 em `apps/web/app/globals.css`; atualizar somente `docs/redesign/interface/FUNDACAO_LOTE2.md` e `AGENTES/01_interface/STATUS.md` se necessário. Pode incluir IF2-2 na mesma regra de CSS; IF2-3 fica para a fatia Configurações | abaixo de 450 px, filtros do Diário em uma coluna ou solução menor equivalente; data completa e busca utilizável em 375/414 px; zero rolagem horizontal de 375 a 1280 px; janela 800×400 com navegação alcançável se IF2-2 entrar; sem regressão em Artefatos, Live, Score e Diagnóstico; testes, lint, typecheck, build e `diff --check` limpos |
+| 03 Agente NVIDIA | `72b0e60` | Corrigir somente AG4-1 em `apps/web/lib/live/generate-version.test.ts` e, se estritamente necessário, helpers de teste já atribuídos; não mudar comportamento do produto | fake registra a cadeia de filtros e asserções provam `live_questions.user_id`, `live_session_evidences.user_id`, `removed_at is null` e `evidences.status = confirmed`; as três mutações deixam de sobreviver; `npm test`, lint, typecheck, build e `diff --check` limpos; sem chave ou rede |
+| 02 Backend | `33373ae` | Saneamento documental BK3-1/BK3-2 em `docs/redesign/backend/**`, `AGENTES/02_backend/STATUS.md` e comentários da migração B-1; não alterar SQL executável. Itens históricos fora dessa propriedade são apenas listados ao Orquestrador | comportamento de CLI e SQL Editor rotulado `HYPOTHESIS`; após qualquer falha, roteiro manda executar `verificacao-b1-anon-execute.sql`; resíduos editoriais do estado vigente corrigidos; árvore SQL executável idêntica antes/depois; `diff --check` limpo |
+
+Condição de parada: cada escritor cria um único commit local com trailer de coautoria e entrega o SHA. A Verificação revisa os três SHAs congelados antes de qualquer integração. Continuam proibidos: merge em `main`, push, Preview, Production, banco, SQL remoto, migração aplicada, credencial e chamada a provedor real.
