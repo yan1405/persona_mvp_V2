@@ -1,6 +1,6 @@
 -- B-1 (opção A, decisão de Yan): `anon` não pode executar as duas funções
 -- sensíveis da Fase 9. Depende de 20260818200000_phase_9_settings.sql (as
--- funções precisam existir; sem elas o REVOKE falha e a transação aborta).
+-- funções precisam existir; sem elas o REVOKE falha e esta execução para).
 -- Rollback e ordem de aplicação: docs/redesign/backend/ROLLBACK_B1.md.
 --
 -- Por que é preciso: a Fase 9 revoga de `public`, mas o Supabase costuma
@@ -15,16 +15,16 @@
 --  * `alter default privileges` NÃO é alterado: afetaria toda função futura do
 --    esquema `public` e outros objetos; é decisão de Yan à parte. Funções novas
 --    precisam do próprio revoke.
--- Sem begin/commit (padrão das outras migrações): o Supabase CLI já envolve o
--- arquivo numa transação. Fora dela (SQL Editor) cada comando é seguro sozinho:
--- REVOKE é atômico e idempotente, o bloco DO só lê o catálogo. Falha parcial:
--- ver docs/redesign/backend/ROLLBACK_B1.md.
+-- Sem begin/commit (padrão das outras migrações). O agrupamento transacional
+-- depende do executor (HYPOTHESIS); após qualquer falha, confira o estado com
+-- docs/qa/fase-9/verificacao-b1-anon-execute.sql. Detalhes e rollback:
+-- docs/redesign/backend/ROLLBACK_B1.md.
 -- Idempotente: REVOKE repetido não falha.
 
 revoke execute on function public.authorize_sensitive_action(text) from anon;
 revoke execute on function public.delete_own_account(text) from anon;
 
--- Falha a migração (aborta a transação) se o resultado efetivo não for o esperado.
+-- Falha esta execução se o resultado efetivo não for o esperado.
 do $$
 declare
   f text;

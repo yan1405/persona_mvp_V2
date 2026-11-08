@@ -6,16 +6,18 @@ Migração: `supabase/migrations/20261108120000_b1_revoke_anon_execute.sql` (op�
 
 1. Aplicar `20260818200000_phase_9_settings.sql` (a B-1 falha se as funções não existirem).
 2. Opcional, antes: rodar `docs/qa/fase-9/verificacao-b1-anon-execute.sql` (somente leitura) e guardar a saída.
-3. Aplicar `20261108120000_b1_revoke_anon_execute.sql`. A timestamp é posterior à da Fase 9. Se o bloco final falhar, o efeito depende do método (seção abaixo).
+3. Aplicar `20261108120000_b1_revoke_anon_execute.sql`. A timestamp é posterior à da Fase 9. Se o bloco final falhar, não presuma o estado: siga a seção abaixo.
 4. Rodar de novo a verificação (esperado `anon = false`, `authenticated = true`, `public = false`, `conforme = true`) e, no QA, `teste-rls-dois-usuarios.sql` (o passo 1b agora reprova se `anon` tiver `EXECUTE`).
 
 ## Método de aplicação e falha parcial
 
-O arquivo não tem `begin`/`commit`.
+O arquivo não tem `begin`/`commit`. O agrupamento transacional depende de como a ferramenta envia o script; os comportamentos abaixo são `HYPOTHESIS` até serem observados no projeto de QA.
 
-- **Supabase CLI (`db push`)**: o CLI envolve o arquivo numa transação. Se o bloco final falhar, os `revoke` são desfeitos e a migração não é registrada; nada muda.
-- **SQL Editor**: cada `revoke` vale sozinho (atômico). Se o bloco final falhar, os `revoke` **ficam aplicados** e o erro `B-1 FALHOU` indica o que sobrou (ex.: `anon` ainda com `EXECUTE` por `PUBLIC` ou por papel herdado, ou `authenticated` sem `EXECUTE`). Estado parcial = `anon` com menos privilégio, nunca mais; corrija a causa e rode o arquivo de novo (idempotente) ou use o `grant` abaixo para voltar.
+- **Supabase CLI (`db push`) — HYPOTHESIS:** pode envolver o arquivo numa transação e desfazer os `revoke` se o bloco final falhar.
+- **SQL Editor — HYPOTHESIS:** pode enviar o script numa única transação implícita ou em comandos separados; portanto, uma falha pode desfazer tudo ou deixar os `revoke` aplicados.
 - Se a Fase 9 não estiver aplicada, o primeiro `revoke` falha (função inexistente) e nada é alterado.
+
+Após **qualquer** falha, rode `docs/qa/fase-9/verificacao-b1-anon-execute.sql` antes de repetir ou desfazer a migração. A saída determina o estado real; corrija a causa e rode o arquivo novamente (ele é idempotente) ou use o `grant` abaixo para voltar.
 
 ## O que a migração muda
 
