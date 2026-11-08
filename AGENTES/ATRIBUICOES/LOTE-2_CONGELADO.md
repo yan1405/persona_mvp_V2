@@ -24,3 +24,20 @@ Comando de diff para cada um, de qualquer checkout: `git diff acc1f44..<SHA>`.
 ## Relatórios
 
 Um relatório por SHA em `AGENTES/04_verificacao/`: `RELATORIO_backend_4b4650d.md`, `RELATORIO_agente-nvidia_cba617a.md`, `RELATORIO_interface_e6b3e5c.md`.
+
+
+## Atualização 08/11/2026 19:13 — Interface: novo SHA após IF2-1 (substitui `e6b3e5c`)
+
+Yan decidiu **corrigir o IF2-1**. Refresh completo de Git feito às 19:13 (`fetch`, `worktree list --porcelain`, HEADs estáveis; `main` `77ee86c`, `origin/main` `06de045`; Backend e Agente inalterados). O SHA abaixo é o topo de `wt/interface-lote2`, igual ao HEAD do worktree, limpo, filho direto de `e6b3e5c`, 2 commits sobre a base, caminhos dentro da linha da Interface, `git diff --check` limpo, coautoria presente, zero padrões de segredo.
+
+| Entrega | Branch | SHA congelado | Substitui | Diff do commit novo |
+|---|---|---|---|---|
+| 01 Interface | `wt/interface-lote2` | `d71f2a7ac2e9b720385f0bf8d425d95811d0edab` | `e6b3e5c0367a8b76acfadebe5072ccf70f55c089` | 3 arquivos, +11 / −7: `apps/web/app/globals.css`, `docs/redesign/interface/FUNDACAO_LOTE2.md`, `AGENTES/01_interface/STATUS.md` |
+
+Backend `4b4650d34f3a748078dcb5b7c6c351eade7ad7eb` e Agente `cba617abe33860d94e338dfb93ee14a67f60499e` **continuam vigentes**, sem mudança.
+
+O relatório `RELATORIO_interface_e6b3e5c.md` vira histórico e **não aprova** `d71f2a7`. Relatório novo: `RELATORIO_interface_d71f2a7.md`.
+
+**Correção (conferida pelo Orquestrador no diff):** `grid-template-columns: auto minmax(0, 1fr)` → `auto 1fr` (e `1fr` no layout móvel), e removido `min-width: 0` do painel, para que o painel cresça até o conteúdo e a janela volte a rolar na horizontal como antes da casca; `overflow: clip` fica só para arredondar. Mais `left: 8px; max-width: calc(100vw - 16px)` em um elemento do bloco móvel e o `STATUS.md` sem o autorrótulo `VERIFIED`.
+
+**Pontos para a re-verificação:** (1) IF2-1 resolvido nas larguras 1024, 1100, 1152, 1200, 1230, 1280 e 375 px, com o CSS real do build; (2) sem regressão: a 375 px e a 1280 px não pode surgir rolagem horizontal nova nem corte; `position: sticky` das páginas preservado; (3) o efeito colateral esperado do `1fr` é a janela rolar na horizontal entre ≈ 1100 e ≈ 1230 px nas telas de Artefatos/Live: avaliar se é aceitável (igual ao comportamento antes da casca) ou novo defeito; (4) IF2-2 e IF2-3 seguem abertos, salvo se a correção os alterou.
