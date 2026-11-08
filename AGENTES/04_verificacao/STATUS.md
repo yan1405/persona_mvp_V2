@@ -1,7 +1,49 @@
 # Status — Persona — Verificação Independente
 
 Estado: DONE
-Resumo: fechamento do Lote 1 revisado (05/11/2026): relatórios novos para `abcf288`, `7aeb658` e `42dbddf` publicados; execução independente da suíte do Agente concluída no checkout isolado; validador de arquitetura com 0 erros. As rodadas 1 a 3 (seções abaixo) permanecem como histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+Resumo: Lote 2 revisado (08/11/2026): relatórios novos para `4b4650d` (Backend), `cba617a` (Agente) e `e6b3e5c` (Interface) publicados; execução independente concluída no checkout isolado. As seções do Lote 1 abaixo são histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+
+## Lote 2 — Preview seguro (base `acc1f44`)
+
+| Entrega | SHA (congelado) | Relatório | Achados abertos | Gate sugerido |
+|---|---|---|---|---|
+| 02 Backend | `4b4650d34f3a748078dcb5b7c6c351eade7ad7eb` | `RELATORIO_backend_4b4650d.md` | S3: BK2-1 (`begin`/`commit` na migração destoa do padrão; depende do método de aplicação, HYPOTHESIS), BK2-2 (cinco textos de outros caminhos ainda dizem que o passo 1b não aborta; o roteiro de QA levaria a `FALHOU B-1`), BK2-3 (`STATUS.md` mistura Lote 1 e 2; SHA não literal). S4: BK2-4 | **liberar com ressalvas** (SQL e documentação). **Não** aprova aplicar a migração, o estado real de `anon`, R1, RLS das Fases 3–8, Preview ou Production; sintaxe do SQL PENDING |
+| 03 Agente NVIDIA | `cba617abe33860d94e338dfb93ee14a67f60499e` | `RELATORIO_agente-nvidia_cba617a.md` | S3: AG2-1 (timeout de 15 s e `signal` não fixados pelos testes; 2 de 8 mutações sobrevivem), AG2-2 (action da rota não testada, só `describeLiveFailure`), AG2-3 (`nvidia-chat.ts` sem `server-only`). S4: AG2-4 (STATUS sem o contexto do bloqueio do parser) | **liberar com ressalvas**. Comportamento publicado do adaptador preservado (diff byte a byte); parser e lockfile intocados; `package.json` só `scripts.test`. Parser compartilhado (A-1/A-7/L-1) segue aberto fora deste SHA; sem chamada real |
+| 01 Interface | `e6b3e5c0367a8b76acfadebe5072ccf70f55c089` | `RELATORIO_interface_e6b3e5c.md` | **S2: IF2-1** (`overflow: clip` + barra de 256 px cortam conteúdo sem rolagem entre ≈ 1100 e ≈ 1230 px; medido com o CSS real, tela real PENDING). S3: IF2-2 (barra estoura o cartão em janelas < ≈ 445 px de altura), IF2-3 (`<main>` ausente em Configurações; afirmação do documento falsa), IF2-4 (`STATUS` autorrotulado `VERIFIED`) | **bloquear integração** até IF2-1 ser corrigido ou aceito por escrito pelo Orquestrador/Yan; se aceito, liberar com ressalvas. Licença das fontes: conferida (hashes dos `.woff2` = pacote aprovado; `OFL-*.txt` = upstream). Aceite visual: **não é meu**, PENDING de Yan |
+
+Nenhum S1. Nenhuma severidade reduzida. Relatórios do Lote 1 são histórico e não aprovam estes SHAs.
+
+### Execução independente (checkout `C:\Users\yansi\Projetos\persona-wt\verificacao-lote2`, desanexado, limpo antes e depois; devolvido a `acc1f44`)
+
+`npm ci` uma vez (lockfile idêntico nos três SHAs, exit 0). Em cada SHA, em `apps\web`, sem `.env`, sem chave, sem rede de provedor:
+
+| Comando | Backend `4b4650d` | Agente `cba617a` | Interface `e6b3e5c` |
+|---|---|---|---|
+| `npx next typegen` | 0 | 0 | 0 |
+| testes do papel | n/a (só SQL/docs) | `lib/live/nvidia-chat.test.ts` + `lib/agent/agent.test.ts`: 30/30 | n/a (sem teste unitário do papel) |
+| `npm test` | 0 · 32/32 | 0 · **62/62** (10 do adaptador + 20 de `lib/agent` entram agora) | 0 · 32/32 |
+| `npm run lint` | 0 | 0 | 0 |
+| `npm run typecheck` | 0 | 0 | 0 |
+| `npm run build` | 0 | 0 | 0 |
+
+Contagens de `npm test`: cancelled 0, skipped 0 em todos. Extras fora do repositório (scratchpad): 8 mutações do adaptador NVIDIA (6 pegas, 2 sobrevivem: `signal` e 30 s), hashes dos `.woff2`/OFL, cálculo de contraste, e um harness estático (CSS real do build, `127.0.0.1`, encerrado) para IF2-1 e IF2-2.
+
+### Governança do Lote 2
+
+- Cada SHA: 1 commit sobre `acc1f44`, caminhos dentro da linha do papel em `LOTE-2.md`, nenhum arquivo proibido, `git diff --check` limpo, trailer `Co-Authored-By`, zero padrões de segredo reais (a constante `nvapi-chave-sintetica-de-teste` é de teste).
+- `Estado:` dos `STATUS.md` dos escritores nos SHAs: 01 `WAITING_APPROVAL (…)`, 02 `WAITING_APPROVAL`, 03 `WAITING_APPROVAL` (o 03 deixa de ser `BLOCKED`; ver AG2-4).
+- Não executei: SQL, banco, migração, credencial, `.env`, rede de modelo, chamada NVIDIA/Groq, push, merge, correção, aprovação visual. Nada nos worktrees dos escritores. Download feito: só os dois textos de licença upstream (`raw.githubusercontent.com`, ~4 KB cada, para hash; ficaram no scratchpad).
+
+### Handoff do Lote 2
+
+- Escopo: pedido do Orquestrador (prompt `13_verificacao_lote2.md` + `LOTE-2_CONGELADO.md`); relatórios no checkout principal, sem commit.
+- Arquivos criados: `RELATORIO_backend_4b4650d.md`, `RELATORIO_agente-nvidia_cba617a.md`, `RELATORIO_interface_e6b3e5c.md`; este `STATUS.md` atualizado. Relatórios e seções do Lote 1 intactos.
+- Decisões pendentes: Orquestrador: IF2-1 (corrigir ou aceitar), método de aplicação da migração (BK2-1), nova atribuição para BK2-2/BK2-3 e IF2-2/IF2-3, AG2-2; Yan: aplicar B-1 em QA isolado (depois da Fase 9), `alter default privileges`, chave NVIDIA e chamada de aceite, ADR Groq→NVIDIA, aceite visual.
+- Bloqueio: nenhum para a Verificação; bloqueio de integração sugerido para a Interface (IF2-1).
+- Próximo passo mínimo: se houver novos SHAs, reexecutar os comandos e reabrir os relatórios; senão, a decisão sobre IF2-1.
+- Percentual comprovado do plano ponderado: **0%**. Os comandos passaram, mas nenhum eixo está completo (UX/acessibilidade em tela real, banco e release de Preview não foram executados); o Orquestrador decide se a execução conta parcialmente.
+
+---
 
 ## Fechamento do Lote 1 (base `8da08c6`)
 

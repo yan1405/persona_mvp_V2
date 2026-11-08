@@ -347,3 +347,17 @@ Próximo desbloqueio: decisão de Yan sobre os quatro itens do plano de baseline
 Decisões do usuário: mesmo repositório, equipe de cinco papéis e documentação-base aprovados (03/11/2026).
 Arquivos alterados nesta sessão: somente `AGENTES/00_orquestrador/STATUS.md`.
 Commit criado: nenhum. Push: não realizado.
+
+## Lote 2 — Preview seguro: parecer da Verificação (08/11/2026)
+
+Base `acc1f44`; SHAs congelados em `AGENTES/ATRIBUICOES/LOTE-2_CONGELADO.md` (`0a1bfaf`). Nada integrado em `main`; sem push, migração, SQL, chave, Preview ou Production. `origin/main` `06de045`.
+
+| Entrega | SHA congelado | Relatório | Achados | Gate sugerido pela Verificação |
+|---|---|---|---|---|
+| Backend (B-1 opção A) | `4b4650d34f3a748078dcb5b7c6c351eade7ad7eb` | `RELATORIO_backend_4b4650d.md` | S3: BK2-1 (`begin`/`commit` fora do padrão das migrações), BK2-2 (outros documentos ainda descrevem B-1 como pendente), BK2-3 (STATUS mistura lotes); S4: BK2-4 | liberar com ressalvas (leitura; nunca executado em banco) |
+| Agente NVIDIA / Live | `cba617abe33860d94e338dfb93ee14a67f60499e` | `RELATORIO_agente-nvidia_cba617a.md` | S3: AG2-1 (testes não fixam timeout nem sinal de aborto; provado por mutação), AG2-2 (a server action não é exercitada, só a função extraída), AG2-3 (`nvidia-chat.ts` sem `server-only`); S4: AG2-4 | liberar com ressalvas; comportamento publicado do adaptador inalterado |
+| Interface (fontes + Fundação) | `e6b3e5c0367a8b76acfadebe5072ccf70f55c089` | `RELATORIO_interface_e6b3e5c.md` | **S2: IF2-1** (`.app-content { overflow: clip }` com barra lateral de 256 px corta conteúdo sem rolagem entre ≈ 1100 e ≈ 1230 px, ex.: filtros de Artefatos; medido em harness, tela real PENDING); S3: IF2-2, IF2-3, IF2-4; S4: IF2-5 | **bloquear integração** até IF2-1 ser corrigido ou aceito por escrito; licença das fontes PROVADA |
+
+Execução independente (checkout isolado, sem `.env`): Backend `npm test` 32/32, lint, typecheck e build 0; Agente `npm test` 62/62 (32 + 10 do adaptador + 20 de `lib/agent`), lint, typecheck e build 0; Interface `npm test` 32/32, lint, typecheck e build 0 (24 páginas). Visual real, chamada real à NVIDIA, SQL e banco: PENDING. Orquestrador conferiu no código que `overflow: clip` em `.app-content` existe em `e6b3e5c` e não existe em `acc1f44`.
+
+Estados: Orquestrador `ACTIVE`, Backend `WAITING_APPROVAL`, Agente `WAITING_APPROVAL`, Interface `WAITING_APPROVAL` com IF2-1 aberto, Verificação `DONE`. Próximo gate de Yan: aceitar ou mandar corrigir IF2-1; aprovar a integração local de Backend e Agente (um por vez); decidir se as ressalvas S3 viram correção antes da integração.
