@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { generateLiveResponse, LIVE_PROMPT_VERSION, LiveGenerationError } from "@/lib/live/generate-live-response";
+import { describeLiveFailure, generateLiveResponse, LIVE_PROMPT_VERSION, LiveGenerationError } from "@/lib/live/generate-live-response";
 import { recommendEvidences, type RecommendableEvidence } from "@/lib/live/recommendation";
 import { validateEvidenceSelection, validateLiveContext, validateLiveQuestion } from "@/lib/live/validation";
 import { createClient } from "@/lib/supabase/server";
@@ -104,10 +104,10 @@ async function generateVersion(questionId: string, mode: "initial" | "shorter" |
     if (error) throw new LiveGenerationError("invalid_output");
     return {};
   } catch (error) {
-    const code = error instanceof LiveGenerationError ? error.code : "provider_error";
-    if (mode === "initial") await supabase.rpc("fail_live_question", { p_question_id: question.id, p_error_code: code });
-    console.error("Live generation failed", { code });
-    return { error: code === "timeout" ? "A geração demorou além do limite. A pergunta foi preservada." : "Não foi possível gerar com segurança. A pergunta foi preservada." };
+    const failure = describeLiveFailure(mode, error);
+    if (failure.markQuestionFailed) await supabase.rpc("fail_live_question", { p_question_id: question.id, p_error_code: failure.code });
+    console.error("Live generation failed", { code: failure.code });
+    return { error: failure.message };
   }
 }
 

@@ -1,22 +1,17 @@
 # Status — Persona — Agente NVIDIA
 
-Estado: BLOCKED
+Estado: WAITING_APPROVAL
 
-> Cópia em `main`, atrasada por desenho: o estado vivo está no branch `wt/agente-nvidia-lote1` (HEAD `f4edecf`, lido por `git show`). A tabela abaixo é o contrato original e não representa o estado atual. Ver `AGENTES/00_orquestrador/STATUS.md` (rodada 3).
-Motivo do BLOCKED: o parser compartilhado `apps/web/lib/live/response-schema.ts` mantém A-1/A-7 abertos (S2, sem dono, fora do SHA `f4edecf`); bloqueia a integração enquanto aberto.
+Lote 2 (base `acc1f44`, branch `wt/agente-lote2`). Entrega: testes do adaptador do Persona Live com provedor simulado, `lib/agent` no `npm test` e comparação Groq × NVIDIA. Sem chave, sem chamada externa, sem push.
 
-| Tarefa | Peso | Estado | Evidência |
-|---|---:|---|---|
-| Prompt e contrato de saída | 20 | PENDING | — |
-| Recuperação/RAG mínimo | 25 | PENDING | — |
-| Ferramentas e autoridade | 20 | PENDING | — |
-| Adaptador NVIDIA | 15 | PENDING | — |
-| Evals e regressão | 20 | PENDING | — |
+| Tarefa | Estado | Evidência |
+|---|---|---|
+| Testes do adaptador (`nvidia-chat.test.ts`, 10 casos) | DONE | sucesso, sem chave, timeout, 429, 5xx/rede, 4xx, saída inválida, chave só no cabeçalho, nº de tentativas |
+| Erro da server action | DONE (parcial) | `describeLiveFailure` testada (mensagem por código, `fail_live_question` só no modo inicial); a action em si exige Next/Supabase e **não** é testada |
+| `npm test` inclui `lib/agent` e o novo teste | DONE | só o valor de `scripts.test` |
+| Comparação Groq × NVIDIA | DONE | `docs/redesign/agent/COMPARACAO_LIVE_GROQ_NVIDIA.md` |
 
-Concluído: 0%
-Faltante: 100%
-Bloqueio: baseline, credencial rotacionada e decisão de primeiro incremento pendentes.
-Próximo desbloqueio: aprovar o contrato read-only e uma suíte sintética antes da chamada real.
-Decisões do usuário: `z-ai/glm-5.3-flash` aprovado; migração das outras superfícies não aprovada automaticamente.
-Arquivos alterados: nenhum arquivo do produto.
-Validação: não iniciada.
+Decisão refatoração: núcleo movido para `lib/live/nvidia-chat.ts` (sem `server-only`); `generate-live-response.ts` virou casca de reexportação. Comportamento igual; `LiveGenerationError` deixou de usar parameter property (não roda em `node --test`).
+
+Riscos abertos: regerar (`regenerateLiveQuestion`) descarta a mensagem de erro; latência/limite da função, taxa de `invalid_output` e `max_tokens` 1.024 dependem de chamada real (PENDING); parser do Live (G5) intocado.
+Gates humanos: chave NVIDIA nova, chamada real de aceite, ADR Groq→NVIDIA, push/Preview/Production.
