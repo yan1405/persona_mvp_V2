@@ -1,5 +1,6 @@
 -- Teste da Fase 9 — rodar inteiro no SQL Editor do Supabase (projeto
--- persona-mvp-v2), depois de aplicar 20260818200000_phase_9_settings.sql.
+-- persona-mvp-v2), depois de aplicar 20260818200000_phase_9_settings.sql E
+-- 20261108120000_b1_revoke_anon_execute.sql (B-1, opção A; nessa ordem).
 -- (Revisado em 04/11/2026, Lote 1 — ver docs/redesign/backend/RELATORIO_TESTE_RLS.md.)
 --
 -- ESCOPO REAL (BK-1): este arquivo roda no SQL Editor como o papel `postgres`,
@@ -21,8 +22,9 @@
 -- DELETE, TRUNCATE, REFERENCES e TRIGGER para anon e authenticated, mais
 -- MAINTAIN quando server_version_num >= 170000 —, e EXECUTE só para
 -- authenticated) são conferidos pelo catálogo no passo 1; a checagem de
--- EXECUTE para `anon` (B-1) NÃO aborta: vira aviso (passo 1b). MAINTAIN não é
--- passado ao has_table_privilege no PostgreSQL 15/16 (levantaria erro).
+-- EXECUTE para `anon` (B-1) ABORTA no passo 1b se `anon` ainda puder executar
+-- as funções (migração B-1 não aplicada). MAINTAIN não é passado ao
+-- has_table_privilege no PostgreSQL 15/16 (levantaria erro).
 --
 -- Tudo roda dentro de UMA transação com ROLLBACK no final: nada é
 -- persistido, nem mesmo a exclusão de conta simulada no passo 8. Rodar
@@ -39,13 +41,13 @@
 -- identifique as contas descartáveis pela data de criação que você registrou.
 --
 -- Saída esperada: seis NOTICE "OK (esperado)" (passos 2–7); "OK (conferido)"
--- nos passos 1, 5, 6 e 9 (função pg_temp.confere); NOTICE do passo 1b ("OK
--- (conferido) B-1 ..." ou "ACHADO B-1 ..."); e um NOTICE no passo 8.
+-- nos passos 1, 5, 6 e 9 (função pg_temp.confere); dois NOTICE "OK (conferido)
+-- B-1 ..." no passo 1b; e um NOTICE no passo 8.
 -- Qualquer booleano ou contagem diferente do esperado nos passos 1, 5, 6 e 9
 -- levanta "FALHOU" e a transação aborta (nada é gravado; rode ROLLBACK).
--- Exceções que NÃO abortam: o passo 1b (anon com EXECUTE = ACHADO B-1, decisão
--- de Yan; o script não escolhe opção) e o passo 8 (imprime "OK:" ou "ACHADO
--- BLOQUEANTE" e segue; se a exclusão falhar, o passo 9 reprova).
+-- O passo 1b também aborta ("FALHOU B-1: anon tem EXECUTE em ..."). Única
+-- exceção que NÃO aborta: o passo 8 (imprime "OK:" ou "ACHADO BLOQUEANTE" e
+-- segue; se a exclusão falhar, o passo 9 reprova).
 
 begin;
 
@@ -113,21 +115,19 @@ select
   has_function_privilege('authenticated', 'public.authorize_sensitive_action(text)', 'execute') as authorize_exec_authenticated
 ) t;
 
--- 1b) B-1: `anon` com EXECUTE nas duas funções? NÃO aborta. A migração revoga
--- só de `public`; se o Supabase concede EXECUTE a `anon` por privilégios
--- padrão, isto é um ACHADO (decisão A/B/C de Yan em LOTE-1_BACKEND_DECISOES.md;
--- este script não escolhe opção) e os passos 2–9, inclusive o que prova R1,
--- continuam rodando. Dentro das funções, auth.uid() nulo ainda responde 42501.
+-- 1b) B-1: `anon` NÃO pode ter EXECUTE nas duas funções (migração
+-- 20261108120000_b1_revoke_anon_execute.sql). Reprova se tiver; antes da
+-- migração B-1 este passo falha de propósito. Dentro das funções, auth.uid()
+-- nulo ainda responde 42501, mas o privilégio não deve existir.
 do $$
 declare
   f text;
 begin
   foreach f in array array['public.authorize_sensitive_action(text)', 'public.delete_own_account(text)'] loop
     if has_function_privilege('anon', f, 'execute') then
-      raise notice 'ACHADO B-1: anon tem EXECUTE em % (decisão de Yan pendente)', f;
-    else
-      raise notice 'OK (conferido) B-1: anon sem EXECUTE em %', f;
+      raise exception 'FALHOU B-1: anon tem EXECUTE em % (aplicar a migração B-1)', f;
     end if;
+    raise notice 'OK (conferido) B-1: anon sem EXECUTE em %', f;
   end loop;
 end $$;
 
@@ -262,7 +262,7 @@ from (select
 rollback; -- desfaz TUDO, inclusive os dados semeados e a exclusão do passo 8
 
 -- Depois de rodar: cole os `NOTICE` (seis "OK (esperado)" dos passos 2–7, os
--- "OK (conferido)" dos passos 1, 5, 6 e 9, o aviso do passo 1b — "OK
--- (conferido) B-1" ou "ACHADO B-1" — e o "OK:"/"ACHADO BLOQUEANTE" do passo 8)
+-- "OK (conferido)" dos passos 1, 5, 6 e 9, as duas linhas "OK (conferido) B-1"
+-- do passo 1b e o "OK:"/"ACHADO BLOQUEANTE" do passo 8)
 -- em docs/reviews/fase-9-configuracoes-privacidade.md. Se algum passo
 -- abortar com "FALHOU", cole a mensagem completa (traz obtido e esperado).
