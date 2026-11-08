@@ -1,7 +1,15 @@
 # Status — Persona — Verificação Independente
 
 Estado: DONE
-Resumo: Lote 2 revisado (08/11/2026). Vigentes: Backend `33373ae`, Agente `9abf927` (Rodada 2) e Interface `d71f2a7`; `4b4650d`, `cba617a` e `e6b3e5c` viraram histórico. Parecer A/B/C sobre as 11 observações em `PARECER_OBSERVACOES_LOTE2.md`. As seções do Lote 1 abaixo são histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+Resumo: Lote 2 revisado (08/11/2026). Vigentes: Backend `33373ae`, Agente `9abf927` (Rodada 2) e Interface `14ad969` (Rodada 3; `d71f2a7` virou histórico); `4b4650d`, `cba617a` e `e6b3e5c` viraram histórico. Parecer A/B/C sobre as 11 observações em `PARECER_OBSERVACOES_LOTE2.md`. As seções do Lote 1 abaixo são histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+
+## Lote 2 — Rodada 3: Interface `14ad969` (08/11/2026)
+
+| Entrega | SHA (substitui) | Relatório | Resultado | Gate sugerido |
+|---|---|---|---|---|
+| 01 Interface | `14ad9699faa1041ce9e66f9da4693227ed8234e8` (`d71f2a7`) | `RELATORIO_interface_14ad969.md` | **IF3-1 resolvido na amostra:** com o CSS real do build, Artefatos, Diário, Live, Score e Diagnóstico **não rolam na horizontal** em 1024, 1100, 1152, 1200, 1230, 1279 e 1280 px (antes: Artefatos e Diário rolavam de 1024 a 1230). A regra nova vem **antes** das regras móveis e não as sobrepõe (medido: colunas e rolagem idênticas de 375 a 1000 px; só 1023 px melhora). Sem corte, reticências, `sticky` e barra lateral preservados. IF2-2, IF2-3 e IF3-2 **inalterados**. **Novo IF4-1 (S3, HYPOTHESIS na tela real):** Diário rola em 639–671 px e Artefatos em 761–799 px, onde a base `acc1f44` não rolava; igual em `d71f2a7`, não causado nem corrigido por esta rodada, fora do critério de 1024–1280 px | **liberar com ressalvas** (sem S1/S2). Aceite visual: **não é meu**, PENDING de Yan; telas reais PENDING |
+
+Execução em `14ad969` (checkout isolado, sem `.env`): typegen 0, `npm test` 32/32 (cancelled 0, skipped 0), lint 0, typecheck 0, build 0. Nota de método: uma primeira rodada de builds correu em paralelo por engano e foi descartada; os números vêm da rodada refeita em sequência, com `HEAD` conferido. O relatório de `d71f2a7` é histórico e **não** aprova `14ad969`. Nada corrigido, aplicado ou commitado por mim; verificação isolada devolvida a `acc1f44`, limpa.
 
 ## Lote 2 — Rodada 2: Backend `33373ae` e Agente `9abf927` (08/11/2026)
 
