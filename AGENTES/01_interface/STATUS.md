@@ -1,44 +1,30 @@
 # Status — Persona — Migração de Interface
 
-Estado: WAITING_APPROVAL (Lote 1 · 01 entregue; aguarda gate da Verificação e aceite visual de Yan). Nenhuma fatia de produto iniciada.
+Estado: WAITING_APPROVAL (Lote 2 · 01 entregue: licença das fontes PROVADA e Fundação visual implementada; aguarda gate da Verificação e aceite visual de Yan). Nenhuma tela migrada.
 
 | Tarefa | Peso | Estado | Evidência |
 |---|---:|---|---|
-| Fundação visual da fatia | 20 | PENDING | fora do Lote 1 |
-| Componentes e estados | 25 | PENDING | fora do Lote 1 |
-| Tela/fluxo aprovado | 35 | PENDING | fora do Lote 1 |
-| Acessibilidade e larguras | 20 | PENDING | fora do Lote 1 |
+| Fundação visual da fatia | 20 | VERIFIED (código) / PENDING (visual) | lint, typecheck e build verdes; `FUNDACAO_LOTE2.md`; aceite visual pendente |
+| Componentes e estados | 25 | PENDING | fora do Lote 2 |
+| Tela/fluxo aprovado | 35 | PENDING | fora do Lote 2 |
+| Acessibilidade e larguras | 20 | PENDING | sem sessão de login; 1024/1440/1920 px e leitor de tela não feitos |
 
-Lote 1 · 01 (contrato, sem código): `docs/redesign/interface/MAPA_TELAS.md` — conferido por mim pelas validações abaixo; o gate é da Verificação.
-Concluído (plano ponderado do papel): 0%. O mapa não pontua nenhuma tarefa acima; o Lote 1 não implementa.
-Faltante: 100% do plano de implementação.
+Concluído (plano ponderado do papel): 0% comprovado até a Verificação e o aceite visual; a Fundação pesa 20 e só conta com essas evidências.
 
-Escopo recebido: `AGENTES/ATRIBUICOES/LOTE-1.md`, seção 01, em `wt/interface-lote1` (`C:\Users\yansi\Projetos\persona-wt\interface`). Escrita: `docs/redesign/interface/**` e este arquivo.
+Escopo recebido: `AGENTES/ATRIBUICOES/LOTE-2.md`, linha 01, em `wt/interface-lote2` (`C:\Users\yansi\Projetos\persona-wt\lote2-interface`), base `acc1f44`.
 
-Arquivos alterados: `docs/redesign/interface/MAPA_TELAS.md` (novo), `AGENTES/01_interface/STATUS.md`. Nenhum arquivo de produto, `globals.css`, navegação ou `package.json`.
+Etapa 1 — licença: `docs/redesign/interface/LICENCAS_FONTES.md`. **PROVADA**: Plus Jakarta Sans e Inter são OFL-1.1, sem Reserved Font Name; `.woff2` idênticos (SHA-256) aos servidos pelo Google Fonts; fontes primárias `google/fonts@5bb2873`, `rsms/inter@v4.1`, `tokotype/PlusJakartaSans@2.7.1`. Versão e ausência de RFN lidas das licenças/metadados, não da tabela `name` dos binários.
+Etapa 2 — Fundação: `apps/web/app/layout.tsx`, `app/globals.css` (tokens `--ds-*`, tipografia, casca), `components/shell/app-shell.tsx`, `app/app/app-navigation.tsx`, `app/app/layout.tsx`, `public/fonts/**`, `docs/redesign/interface/FUNDACAO_LOTE2.md`.
 
-Comandos e resultados:
-- Leitura de `AGENTS.md`, `AGENTES/PROTOCOLO.md`, `AGENTES/01_interface/AGENTS.md`, prompt e atribuição: ok.
-- Script de conferência: todos os 12-hex `sha:` do mapa existem em `MANIFEST.json`; todos os caminhos `app/**`, `lib/**` e `t4/*.jsx` citados existem.
-- `git diff --check`: limpo. Sem espaços finais no mapa.
-- Não rodados (fora do escopo, sem mudança de código): `npm run lint`, `typecheck`, `test`, `build`, app em execução, screenshots.
-
-Revisão 2 (correções pedidas pelo Orquestrador sobre `8c5ef15`): estados enumerados por completo (T4.3 = 27 com `det-e2`/`det-e3`; T4.5 = 36; T4.8 = 19 de conversa/respostas/falhas + `recolhido` do grupo Painel = 20 em `GROUPS`; os 19 pedidos aparecem, e `recolhido` é listado à parte); frase do Agente trocada (LD-026 / Lote 1 · 03); `.woff2` registrados como excluídos do Git e presentes nas cópias locais do `MANIFEST.json`; gates por fatia; Carbon/Lucide mantidos por §8, com SVG só como mecanismo de entrega.
-Evidências: o mapa cita arquivo e hash do manifesto por tela; estados extraídos dos mapas de cenário dos `.jsx`.
+Comandos e resultados (em `apps/web`, sem `.env`, lockfile intacto): `npm ci` ok; `npm run lint` ok; `npm run build` ok; `npm run typecheck` ok (depende do build para os tipos de rota); `git diff --check` limpo. `npm test` não rodado (`lib/**` intocado).
+Visual: `/entrar`, `/termos`, `/privacidade` em 375 e 1280 px no navegador embutido (Inter carrega; `/entrar` com +5 px de rolagem a 375 px, **pré-existente**, fora do escopo). Casca avaliada só em harness estático (1280/1000/375 px): PENDING a sessão real.
 
 Riscos:
-- Estados do protótipo foram listados dos objetos de cenário; não foram abertos no navegador. Itens "não verificado"/"não foi encontrado" no mapa são ausência na leitura, não prova.
-- Parte das comparações com o real vem de leitura parcial das páginas (colunas longas truncadas); conferir ao implementar cada fatia.
-- A tela de dados (T4.7) depende da migração e do teste RLS da Fase 9, ainda pendentes no Supabase real.
+- Tema misto transitório: moldura clara do DS + painel escuro legado até cada fatia pôr `ds-surface` na raiz (o DS não tem variante escura).
+- Regressões possíveis em todas as telas de `/app/**` (moldura, fonte, largura útil); lista e roteiro de verificação em `FUNDACAO_LOTE2.md` §4–5.
+- Geist Mono continua carregado de `node_modules/next/...` (sem fonte monoespaçada no DS).
+- Header do DS, busca, painel do Agente, “Continue de onde parou” e emblemas ficaram de fora (dependem do Agente e de dados de outras áreas).
 
-Decisões pendentes de Yan (detalhe no mapa §4): fonte (Plus Jakarta/Inter × Geist); ícones (Lucide × Carbon, `AGENTS.md` §8); painel do Agente sem backend; dados sintéticos; Score painel × página; diagnóstico/onboarding sem T4; painéis × rotas `/[id]`; exportação de Artefato sem backend; aceite visual por fatia.
+Decisões pendentes de Yan: aceite visual da moldura clara com painel escuro transitório; monoespaçada (manter Geist Mono × definir no DS); decisões 4.2–4.9 do `MAPA_TELAS.md` seguem abertas.
 
-Bloqueio: nenhum para o mapa. Gates por fatia, sem gate global: Fundação ← fonte (4.1) e ícones (4.2); T4.1 ← Score (4.5); T4.2/T4.3 ← painéis × rotas (4.7); T4.6 ← 4.5 e 4.7; T4.8 ← 4.3 e contrato do backend. Toda fatia também espera atribuição do Orquestrador (dono de `globals.css`, `layout.tsx`, `app-navigation.tsx`).
-Próximo passo: o Orquestrador revisa o diff, congela o SHA e envia à Verificação; depois Yan decide.
-Commits locais em `wt/interface-lote1` (sem push, sem amend): `8c5ef15` (histórico), `d4a1e3b` (revisão 2, histórico imutável) e `d88f2f231fdf5ca5e8f1041461d578eedb85dca1` (rodada 3: IF-1, IF-2, IF-3). O commit que grava este SHA no STATUS é o seguinte; o SHA a congelar é o do HEAD (`git rev-parse HEAD`).
-
-Rodada 4 (fechamento, IF-4): `MAPA_TELAS.md` agora declara a raiz única `apps/web/` e escreve todo caminho de código a partir dela (`app/app/<rota>/...`, `app/app/layout.tsx`, `app/globals.css`, `app/api/export/route.ts`). Estados, rotas, decisões e hashes não mudaram.
-Comandos: `git diff --check` limpo; script de conferência: 76 caminhos citados a partir de `apps/web/`, todos existem exceto `apps/web/components/`, citado de propósito como inexistente; `git diff --name-only` só `MAPA_TELAS.md` e `STATUS.md`.
-Classificação das evidências: VERIFIED = existência de caminhos e hashes (script); PENDING = captura, aceite visual, acessibilidade e larguras (nada foi aberto no navegador).
-Limitação visual: o mapa não prova fidelidade visual; nenhuma tela foi executada nem capturada neste lote.
-Gate: Verificação revisa o novo SHA; aceite visual e as decisões 4.1–4.9 são de Yan. Novo SHA: o HEAD do branch (`git rev-parse HEAD`), informado ao Orquestrador por mensagem; um SHA não pode constar no commit que o cria.
+Bloqueio: nenhum. Próximo passo: Orquestrador congela o SHA do HEAD (`git rev-parse HEAD`) e envia à Verificação; depois Yan decide.
