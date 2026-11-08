@@ -38,7 +38,8 @@
   --color-error: #ef4444;
   --color-success: #10b981;
 
-  --font-sans: var(--font-geist-sans), "Geist", sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), "Geist Mono", monospace;
 
   --radius-control: 4px;
@@ -68,6 +69,105 @@
   --radius-sm: var(--radius-control);
   --radius-md: var(--radius-surface);
   --radius-lg: var(--radius-special);
+}
+
+/*
+ * Design System aprovado (pacote T4, D-032): tokens com prefixo --ds-.
+ * O prefixo evita colidir com --indigo-*, --radius-* e --font-* legados, que as telas
+ * atuais (tema escuro) ainda usam. Cada fatia migra suas classes para estes tokens;
+ * ao fim da migração o legado é removido. Mapa: docs/redesign/interface/FUNDACAO_LOTE2.md.
+ */
+:root {
+  --ds-indigo-50: #f5f3ff;
+  --ds-indigo-100: #eceafb;
+  --ds-indigo-200: #ddd6fe;
+  --ds-indigo-300: #c4b5fd;
+  --ds-indigo-400: #a78bfa;
+  --ds-indigo-500: #8b5cf6;
+  --ds-indigo-600: #7c3aed;
+  --ds-indigo-700: #6d28d9;
+  --ds-indigo-900: #2e1a6b;
+
+  --ds-n-0: #ffffff;
+  --ds-n-25: #fafafc;
+  --ds-n-50: #f2f1f7;
+  --ds-n-100: #e4e2ee;
+  --ds-n-200: #c9c5d8;
+  --ds-n-400: #888291;
+  --ds-n-500: #6d5ba6;
+  --ds-n-600: #4f4866;
+  --ds-n-800: #2e2a3d;
+  --ds-n-900: #1a1726;
+
+  --ds-green-500: #10b981;
+  --ds-green-ink: #064e3b;
+  --ds-green-soft: #ecfdf5;
+  --ds-amber-500: #f59e0b;
+  --ds-amber-ink: #78350f;
+  --ds-amber-soft: #fffbeb;
+  --ds-red-500: #ef4444;
+  --ds-red-ink: #7f1d1d;
+  --ds-red-soft: #fef2f2;
+  --ds-blue-500: #3b82f6;
+  --ds-blue-ink: #1e3a8a;
+  --ds-blue-soft: #eff6ff;
+
+  --ds-tile-indigo: #f1eefd;
+  --ds-tile-blue: #eaf1fe;
+  --ds-tile-amber: #fef6e4;
+  --ds-tile-green: #e8f8f1;
+  --ds-tile-rose: #fdeef2;
+  --ds-tile-slate: #eeedf4;
+
+  --ds-bg-app: var(--ds-n-50);
+  --ds-surface-card: var(--ds-n-0);
+  --ds-surface-subtle: var(--ds-n-25);
+  --ds-text-strong: var(--ds-n-900);
+  --ds-text-body: var(--ds-n-800);
+  --ds-text-muted: var(--ds-n-500);
+  --ds-text-disabled: var(--ds-n-400);
+  --ds-border-subtle: var(--ds-n-100);
+  --ds-border-strong: var(--ds-n-200);
+  --ds-brand: var(--ds-indigo-600);
+  --ds-brand-strong: var(--ds-indigo-700);
+  --ds-brand-soft: var(--ds-indigo-100);
+  --ds-ink: var(--ds-n-900);
+  /* Desvio do DS: o anel aprovado (indigo-400 sobre branco) dá ~2,7:1; WCAG 2.2 1.4.11 pede 3:1. */
+  --ds-focus-ring: var(--ds-indigo-600);
+
+  --ds-space-1: 4px;
+  --ds-space-2: 8px;
+  --ds-space-3: 12px;
+  --ds-space-4: 16px;
+  --ds-space-5: 20px;
+  --ds-space-6: 24px;
+  --ds-space-8: 32px;
+  --ds-space-10: 40px;
+  --ds-space-14: 56px;
+  --ds-space-18: 72px;
+  --ds-shell-gap: 16px;
+  --ds-content-max: 1280px;
+  --ds-radius-xs: 10px;
+  --ds-radius-sm: 16px;
+  --ds-radius-md: 22px;
+  --ds-radius-lg: 28px;
+  --ds-radius-pill: 999px;
+
+  --ds-shadow-soft: 0 1px 2px rgb(26 23 38 / 0.04), 0 4px 12px rgb(26 23 38 / 0.05);
+  --ds-shadow-float: 0 12px 32px -8px rgb(26 23 38 / 0.14);
+  --ds-dur-micro: 140ms;
+  --ds-dur-normal: 220ms;
+
+  --ds-font-display: var(--font-display);
+  --ds-font-body: var(--font-sans);
+  --ds-fs-display: 40px;
+  --ds-fs-h1: 28px;
+  --ds-fs-h2: 22px;
+  --ds-fs-h3: 18px;
+  --ds-fs-body: 15px;
+  --ds-fs-body-sm: 14px;
+  --ds-fs-caption: 13px;
+  --ds-fs-overline: 12px;
 }
 
 * {
@@ -886,83 +986,314 @@ select.text-field {
   border: 0;
 }
 
+/*
+ * AppShell (Fundação do Lote 2): trilho/barra lateral + painel de conteúdo.
+ * Moldura clara do Design System aprovado. O painel segue escuro (tema legado) até
+ * a fatia de cada tela entrar: a página migrada põe .ds-surface na raiz e o painel clareia (:has).
+ */
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 12px 16px;
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-ink);
+  color: #fff;
+  font-size: var(--ds-fs-body-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+  outline: 2px solid var(--ds-focus-ring);
+  outline-offset: 2px;
+}
+
 .app-shell {
   min-height: 100svh;
   display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  grid-template-rows: 48px minmax(0, 1fr);
-  background: var(--color-bg-canvas);
+  /* 1fr (mínimo automático), não minmax(0, 1fr): o painel cresce até o conteúdo e a janela rola na horizontal, como antes da casca. */
+  grid-template-columns: auto 1fr;
+  gap: var(--ds-shell-gap);
+  padding: var(--ds-shell-gap);
+  background: var(--ds-bg-app);
+  color-scheme: light;
+  font-family: var(--ds-font-body);
 }
 
-.app-header {
-  z-index: 2;
-  grid-column: 1 / -1;
-  padding-inline: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--color-border-subtle);
-  background: var(--color-bg-canvas);
-}
-
-.app-rail {
+.app-sidebar {
   position: sticky;
-  top: 0;
-  height: calc(100svh - 48px);
-  padding-block: 10px;
+  top: var(--ds-shell-gap);
+  align-self: start;
+  width: 256px;
+  height: calc(100svh - 2 * var(--ds-shell-gap));
+  padding: 18px 14px;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-card);
+  box-shadow: var(--ds-shadow-soft);
+  color: var(--ds-text-strong);
+  transition: width var(--ds-dur-normal) var(--ease-out);
+}
+
+.app-sidebar-top {
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  border-right: 1px solid var(--color-border-subtle);
-  background: var(--color-bg-canvas);
+  gap: 8px;
+  padding-inline: 8px 4px;
 }
 
-.app-rail-main {
-  display: grid;
-  gap: 4px;
+.app-sidebar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--ds-font-display);
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
-.rail-item {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: var(--radius-control);
-  color: var(--color-text-muted);
+.app-sidebar-nav {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app-sidebar-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.app-sidebar-settings {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--ds-border-subtle);
+}
+
+/* Alvo de toque mínimo 44 px em todos os controles do menu. */
+.nav-item,
+.nav-register,
+.nav-toggle {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  border-radius: var(--ds-radius-pill);
+  font: inherit;
+  font-size: var(--ds-fs-body-sm);
   text-decoration: none;
-  transition:
-    background-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out);
+  cursor: pointer;
 }
 
-.rail-item:hover:not(.rail-item-disabled) {
-  background: var(--color-bg-surface);
-  color: var(--color-text-primary);
+.nav-item {
+  padding-inline: 12px;
+  background: transparent;
+  color: var(--ds-text-strong);
+  font-weight: 500;
+  transition: background-color var(--ds-dur-micro);
 }
 
-.rail-item[data-active="true"] {
-  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
-  color: var(--color-accent-bright);
+.nav-item svg {
+  flex: 0 0 auto;
+  color: var(--ds-n-600);
 }
 
-.rail-item[data-active="true"]::before {
+.nav-item:hover {
+  background: var(--ds-n-50);
+}
+
+.nav-item[aria-current="page"] {
+  background: var(--ds-brand-soft);
+  font-weight: 600;
+}
+
+.nav-item[aria-current="page"] svg {
+  color: var(--ds-brand);
+}
+
+.nav-register {
+  justify-content: center;
+  background: var(--ds-ink);
+  color: #fff;
+  font-weight: 600;
+}
+
+.nav-register:hover {
+  background: var(--ds-n-800);
+}
+
+.nav-toggle {
+  width: 44px;
+  justify-content: center;
+  background: transparent;
+  color: var(--ds-n-600);
+}
+
+.nav-toggle:hover {
+  background: var(--ds-n-50);
+}
+
+.app-sidebar :focus-visible {
+  outline: 2px solid var(--ds-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Trilho de ícones: recolhido pelo usuário ou largura < 1100 px. */
+.app-sidebar[data-collapsed="true"] {
+  width: 76px;
+  padding-inline: 16px;
+  align-items: center;
+}
+
+.app-sidebar[data-collapsed="true"] .app-sidebar-top {
+  flex-direction: column;
+  padding-inline: 0;
+}
+
+.app-sidebar[data-collapsed="true"] .app-sidebar-brand span,
+.app-sidebar[data-collapsed="true"] .nav-label {
   position: absolute;
-  left: -10px;
-  width: 2px;
-  height: 20px;
-  background: var(--color-accent-bright);
-  content: "";
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
-.rail-item-disabled {
-  cursor: not-allowed;
-  opacity: 0.38;
+.app-sidebar[data-collapsed="true"] .nav-item,
+.app-sidebar[data-collapsed="true"] .nav-register {
+  width: 44px;
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.app-sidebar[data-collapsed="true"] .app-sidebar-nav {
+  align-items: center;
 }
 
 .app-content {
-  min-width: 0;
+  min-height: calc(100svh - 2 * var(--ds-shell-gap));
+  /* clip (não hidden): só arredonda; não cria contêiner de rolagem (preserva position: sticky) e, como o painel cresce até o conteúdo, não corta nada. */
+  overflow: clip;
+  border-radius: var(--ds-radius-lg);
+  background: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+  color-scheme: dark;
+}
+
+.app-content:focus {
+  outline: none;
+}
+
+.app-content:has(.ds-surface) {
+  background: var(--ds-surface-subtle);
+  color: var(--ds-text-body);
+  color-scheme: light;
+}
+
+@media (max-width: 1099px) {
+  .app-sidebar {
+    width: 76px;
+    padding-inline: 16px;
+    align-items: center;
+  }
+
+  .app-sidebar .app-sidebar-top {
+    flex-direction: column;
+    padding-inline: 0;
+  }
+
+  .app-sidebar .app-sidebar-brand span,
+  .app-sidebar .nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .app-sidebar .nav-item,
+  .app-sidebar .nav-register {
+    width: 44px;
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .app-sidebar .app-sidebar-nav {
+    align-items: center;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+}
+
+/* Telefone: a barra lateral vira uma barra superior com os mesmos destinos (sem gaveta, sem armadilha de foco). */
+@media (max-width: 639px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .app-sidebar {
+    top: 8px;
+    left: 8px;
+    z-index: 10;
+    width: 100%;
+    max-width: calc(100vw - 16px);
+    height: auto;
+    padding: 8px 12px;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .app-sidebar .app-sidebar-top {
+    flex-direction: row;
+    padding-inline: 0 4px;
+  }
+
+  .app-sidebar-nav {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .app-sidebar-nav ul {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .app-sidebar-settings {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .nav-register {
+    display: none;
+  }
+
+  .app-content {
+    min-height: calc(100svh - 80px);
+    border-radius: var(--ds-radius-md);
+  }
 }
 
 .app-page {
@@ -2387,10 +2718,6 @@ select.text-field {
     border-left: 0;
   }
 
-  .app-shell {
-    grid-template-columns: 48px minmax(0, 1fr);
-  }
-
   .diary-heading,
   .detail-heading,
   .suggestion-tools {
@@ -2990,8 +3317,8 @@ select.text-field {
 @media print {
   @page { size: A4; margin: 16mm 15mm; }
   html, body { background: white !important; color: #17151f !important; }
-  .app-header, .app-rail, .artifact-detail-heading, .inline-notice, .artifact-tabs, .artifact-editor-status, .artifact-editor-grid { display: none !important; }
-  .app-shell, .app-content, .app-page, .artifact-editor-shell { display: block !important; width: auto !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; }
+  .app-sidebar, .skip-link, .artifact-detail-heading, .inline-notice, .artifact-tabs, .artifact-editor-status, .artifact-editor-grid { display: none !important; }
+  .app-shell, .app-content, .app-page, .artifact-editor-shell { display: block !important; width: auto !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; background: none !important; border-radius: 0 !important; }
   .artifact-print-sheet { display: block !important; font-family: Arial, sans-serif; color: #17151f; }
   .artifact-print-sheet > header { margin-bottom: 18mm; padding-bottom: 6mm; display: flex; justify-content: space-between; border-bottom: 1px solid #c9c5d8; color: #4f4866; font-size: 9pt; text-transform: uppercase; }
   .artifact-print-sheet > header strong { color: #2e1a6b; font-size: 10pt; }
