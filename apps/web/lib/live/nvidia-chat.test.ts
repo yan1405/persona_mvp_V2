@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { describeLiveFailure, generateLiveResponse, LiveGenerationError } from "./nvidia-chat.ts";
+import { describeLiveFailure, generateLiveResponse, LiveGenerationError, NVIDIA_MAX_ATTEMPTS, NVIDIA_TIMEOUT_MS } from "./nvidia-chat.ts";
 
 const KEY = "nvapi-chave-sintetica-de-teste";
 const evidences = [{ id: "11111111-1111-1111-1111-111111111111", title: "Automação de atendimento", context: "Projeto em consultoria", action: "Estruturei um fluxo de IA", result: "Reduzi o trabalho manual", learning: null, competencies: ["Comunicação"] }];
@@ -10,33 +10,54 @@ const valid = { intent: "behavioral", supported: true, primary_evidence_id: evid
   arguments: [{ text: "Estruturei um fluxo de IA", evidence_id: evidences[0].id, source_field: "action", source_excerpt: "Estruturei um fluxo de IA" }] };
 const completion = (content: unknown) => new Response(JSON.stringify({ choices: [{ message: { content } }] }), { status: 200 });
 
-type Call = { url: string; init: RequestInit };
+type Call = { url: string; init: RequestInit; signalLive: boolean };
 type Outcome = { value?: Awaited<ReturnType<typeof generateLiveResponse>>; error?: unknown };
-// Simula o provedor: cada item é uma Response ou um erro lançado; nenhuma rede é usada.
-async function run(steps: (Response | Error)[], env: string | null = KEY) {
+// Simula o provedor: cada item é uma Response, um erro lançado ou "hang" (só rejeita quando o signal aborta); nenhuma rede é usada.
+// `fastTimeoutMs` encurta só o timer real do AbortSignal; o valor pedido pelo adaptador continua registrado em `timeouts`.
+async function run(steps: (Response | Error | "hang")[], env: string | null = KEY, fastTimeoutMs?: number) {
   const calls: Call[] = [];
-  const realFetch = globalThis.fetch, realKey = process.env.NVIDIA_API_KEY;
+  const timeouts: number[] = [];
+  const realFetch = globalThis.fetch, realKey = process.env.NVIDIA_API_KEY, realTimeout = AbortSignal.timeout;
+  AbortSignal.timeout = (ms: number) => { timeouts.push(ms); return realTimeout.call(AbortSignal, fastTimeoutMs ?? ms); };
   globalThis.fetch = (async (url: string, init: RequestInit) => {
-    calls.push({ url, init });
+    const signal = init.signal;
+    calls.push({ url, init, signalLive: signal instanceof AbortSignal && !signal.aborted });
     const step = steps[Math.min(calls.length, steps.length) - 1];
+    if (step === "hang") {
+      if (!(signal instanceof AbortSignal)) throw new Error("sem signal: a chamada ficaria pendurada");
+      return new Promise<Response>((_, reject) => signal.addEventListener("abort", () => reject(signal.reason), { once: true }));
+    }
     if (step instanceof Error) throw step;
     return step.clone();
   }) as typeof fetch;
   if (env === null) delete process.env.NVIDIA_API_KEY; else process.env.NVIDIA_API_KEY = env;
   try {
     const result = await generateLiveResponse(input).then((value): Outcome => ({ value }), (error: unknown): Outcome => ({ error }));
-    return { calls, ...result };
+    return { calls, timeouts, ...result };
   } finally {
     globalThis.fetch = realFetch;
+    AbortSignal.timeout = realTimeout;
     if (realKey === undefined) delete process.env.NVIDIA_API_KEY; else process.env.NVIDIA_API_KEY = realKey;
   }
 }
 const code = (r: { error?: unknown }) => (r.error instanceof LiveGenerationError ? r.error.code : `outro:${String(r.error)}`);
+// Cada tentativa leva um AbortSignal ainda não abortado, criado com o timeout de produção.
+function assertTransport(r: { calls: Call[]; timeouts: number[] }) {
+  assert.ok(r.calls.length >= 1 && r.calls.length <= NVIDIA_MAX_ATTEMPTS);
+  assert.ok(r.calls.every((call) => call.signalLive), "toda tentativa precisa levar um AbortSignal não abortado");
+  assert.deepEqual(r.timeouts, r.calls.map(() => 15_000));
+}
 const named = (name: string) => Object.assign(new Error(name), { name });
+
+test("política publicada: 15 s por tentativa e 2 tentativas", () => {
+  assert.equal(NVIDIA_TIMEOUT_MS, 15_000);
+  assert.equal(NVIDIA_MAX_ATTEMPTS, 2);
+});
 
 test("sucesso: JSON válido, uma chamada, chave só no cabeçalho Authorization", async () => {
   const r = await run([completion(JSON.stringify(valid))]);
   assert.equal(r.calls.length, 1);
+  assertTransport(r);
   assert.equal(r.value?.response.supported, true);
   assert.equal(r.value?.model, "z-ai/glm-5.3-flash");
   const { init, url } = r.calls[0];
@@ -55,26 +76,36 @@ test("timeout (AbortError/TimeoutError): duas tentativas e code=timeout", async 
   for (const name of ["AbortError", "TimeoutError"]) {
     const r = await run([named(name)]);
     assert.equal(code(r), "timeout");
-    assert.equal(r.calls.length, 2);
+    assert.equal(r.calls.length, NVIDIA_MAX_ATTEMPTS);
+    assertTransport(r);
   }
+});
+
+test("aborto real: o signal dispara, a chamada pendurada rejeita e vira timeout após as tentativas", async () => {
+  const r = await run(["hang"], KEY, 5);
+  assert.equal(code(r), "timeout");
+  assert.equal(r.calls.length, NVIDIA_MAX_ATTEMPTS);
+  assertTransport(r);
 });
 
 test("429: duas tentativas e rate_limit; 429 seguido de sucesso recupera", async () => {
   const limited = await run([new Response("", { status: 429 })]);
   assert.equal(code(limited), "rate_limit");
-  assert.equal(limited.calls.length, 2);
+  assert.equal(limited.calls.length, NVIDIA_MAX_ATTEMPTS);
+  assertTransport(limited);
   const recovered = await run([new Response("", { status: 429 }), completion(JSON.stringify(valid))]);
-  assert.equal(recovered.calls.length, 2);
+  assert.equal(recovered.calls.length, NVIDIA_MAX_ATTEMPTS);
   assert.equal(recovered.value?.response.supported, true);
 });
 
 test("5xx e erro de rede: duas tentativas e provider_error", async () => {
   const server = await run([new Response("", { status: 503 })]);
   assert.equal(code(server), "provider_error");
-  assert.equal(server.calls.length, 2);
+  assert.equal(server.calls.length, NVIDIA_MAX_ATTEMPTS);
+  assertTransport(server);
   const network = await run([new TypeError("fetch failed")]);
   assert.equal(code(network), "provider_error");
-  assert.equal(network.calls.length, 2);
+  assert.equal(network.calls.length, NVIDIA_MAX_ATTEMPTS);
 });
 
 test("4xx diferente de 429: provider_error sem repetir", async () => {

@@ -1,7 +1,10 @@
+// Núcleo do adaptador, sem "server-only" para rodar em `node --test`. A guarda "server-only" fica na casca generate-live-response.ts: importe a casca no app.
 import { LIVE_RESPONSE_SCHEMA, parseLiveResponse, type LiveEvidenceInput } from "./response-schema.ts";
 
 const NVIDIA_CHAT_URL = "https://integrate.api.nvidia.com/v1/chat/completions";
 const DEFAULT_MODEL = "z-ai/glm-5.3-flash";
+export const NVIDIA_TIMEOUT_MS = 15_000;
+export const NVIDIA_MAX_ATTEMPTS = 2;
 export const LIVE_PROMPT_VERSION = "persona-live-nvidia-v1";
 
 export class LiveGenerationError extends Error {
@@ -42,16 +45,16 @@ export async function generateLiveResponse(input: {
 
   try {
     let response: Response | null = null;
-    for (let attempt = 0; attempt < 2; attempt += 1) {
+    for (let attempt = 0; attempt < NVIDIA_MAX_ATTEMPTS; attempt += 1) {
       try {
         response = await fetch(NVIDIA_CHAT_URL, {
           method: "POST",
           headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify(body),
-          signal: AbortSignal.timeout(15_000),
+          signal: AbortSignal.timeout(NVIDIA_TIMEOUT_MS),
         });
       } catch (error) {
-        if (attempt === 0) continue;
+        if (attempt < NVIDIA_MAX_ATTEMPTS - 1) continue;
         throw error;
       }
       if (response.ok || (response.status !== 429 && response.status < 500)) break;
