@@ -11,18 +11,26 @@ const response = (over: Record<string, unknown> = {}) => ({ intent: "behavioral"
   arguments: [{ text: "a", evidence_id: E1, source_field: "action", source_excerpt: "Estruturei um fluxo de IA" }, { text: "b", evidence_id: E1, source_field: "result", source_excerpt: "Reduzi o trabalho manual" }, { text: "c", evidence_id: E2, source_field: "action", source_excerpt: "Estruturei um fluxo de IA" }], ...over });
 
 type Setup = { question?: unknown; links?: { evidence_id: string; recommendation_score: number }[]; evidences?: unknown[]; rpcErrors?: Record<string, unknown>; generate?: () => Promise<unknown> };
+type Query = { table: string; filters: { method: "eq" | "is" | "in"; column: string; value: unknown }[] };
 // Fakes sem rede, chave ou banco: o builder devolve o dado da tabela em maybeSingle() ou ao ser aguardado.
 function setup(o: Setup = {}) {
   const rpcs: { fn: string; args: Record<string, unknown> }[] = [];
   const generated: Record<string, unknown>[] = [];
+  const queries: Query[] = [];
   const tables: Record<string, unknown> = {
     live_questions: "question" in o ? o.question : question(),
     live_session_evidences: o.links ?? [{ evidence_id: E1, recommendation_score: 5 }, { evidence_id: E2, recommendation_score: 3 }],
     evidences: o.evidences ?? [evidence(E1, "Automação de atendimento"), evidence(E2, "Organização interna")],
   };
   const builder = (table: string) => {
+    const query: Query = { table, filters: [] };
+    queries.push(query);
     const b: Record<string, unknown> = {};
-    for (const m of ["select", "eq", "is", "in"]) b[m] = () => b;
+    b.select = () => b;
+    for (const method of ["eq", "is", "in"] as const) b[method] = (column: string, value: unknown) => {
+      query.filters.push({ method, column, value });
+      return b;
+    };
     b.maybeSingle = async () => ({ data: tables[table] });
     b.then = (resolve: (v: unknown) => unknown) => resolve({ data: tables[table] });
     return b;
@@ -30,7 +38,7 @@ function setup(o: Setup = {}) {
   const supabase = { from: builder, rpc: async (fn: string, args: Record<string, unknown>) => { rpcs.push({ fn, args }); return { error: o.rpcErrors?.[fn] ?? null }; } };
   const generate = async (input: Record<string, unknown>) => { generated.push(input); return o.generate ? o.generate() : { response: response(), model: "modelo-simulado" }; };
   const deps = { supabase, userId: "u1", generate } as unknown as GenerateVersionDeps;
-  return { deps, rpcs, generated, run: (mode: LiveMode = "initial") => runGenerateVersion(deps, "q1", mode) };
+  return { deps, rpcs, generated, queries, run: (mode: LiveMode = "initial") => runGenerateVersion(deps, "q1", mode) };
 }
 const quiet = (t: { mock: { method: (o: object, m: "error") => unknown } }) => t.mock.method(console, "error");
 const failing = (code: LiveGenerationError["code"]) => async () => { throw new LiveGenerationError(code); };
@@ -100,6 +108,26 @@ test("generate recebe a pergunta, o contexto e no máximo 5 evidências", async 
   assert.equal(input.targetRole, "Analista");
   assert.equal(input.company, "Acme");
   assert.equal(input.evidences.length, 5);
+});
+
+test("consultas preservam ownership e somente evidências confirmadas e não removidas", async () => {
+  const s = setup();
+  await s.run();
+  assert.deepEqual(s.queries, [
+    { table: "live_questions", filters: [
+      { method: "eq", column: "id", value: "q1" },
+      { method: "eq", column: "user_id", value: "u1" },
+    ] },
+    { table: "live_session_evidences", filters: [
+      { method: "eq", column: "session_id", value: "s1" },
+      { method: "eq", column: "user_id", value: "u1" },
+      { method: "is", column: "removed_at", value: null },
+    ] },
+    { table: "evidences", filters: [
+      { method: "in", column: "id", value: [E1, E2] },
+      { method: "eq", column: "status", value: "confirmed" },
+    ] },
+  ]);
 });
 
 test("(e) falha do adaptador no modo inicial: fail_live_question com o código e a mensagem de describeLiveFailure", async (t) => {
