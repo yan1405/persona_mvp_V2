@@ -1,5 +1,8 @@
 # Backend — propostas para decisão de Yan (nada aplicado, nenhum SQL executado)
 
+> **ATUALIZAÇÃO 08/11/2026 — leia antes das seções abaixo.** Yan decidiu **B-1 = opção A**. A correção está na migração nova `20261108120000_b1_revoke_anon_execute.sql` (Backend `4b4650d`, Lote 2; **não aplicada**). Efeitos neste documento: (1) onde ele diz que o passo 1b **não aborta** ou que B-1 está **pendente**, vale agora o contrário: o passo 1b do teste RLS **reprova** (aborta) enquanto `anon` tiver `EXECUTE`; (2) a ordem do QA passa a ser: aplicar a Fase 9, aplicar a B-1, rodar `docs/qa/fase-9/verificacao-b1-anon-execute.sql` (somente leitura) e só então o `teste-rls-dois-usuarios.sql`; sem a B-1 aplicada o teste para no passo 1b e **não chega ao passo 8 (R1)**. O restante do texto é o registro de 05/11/2026 e permanece como histórico das opções A/B/C.
+
+
 Base: Backend `4a37131865586be802f25511ce8f6969ad09109e`, migração `20260818200000_phase_9_settings.sql` (não aplicada). Preparado pelo Orquestrador em 05/11/2026 a partir do código e do relatório do Backend; é proposta, não aprovação.
 
 ## 1. Proposta de decisão B-1 — `EXECUTE` para `anon`
