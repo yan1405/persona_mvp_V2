@@ -56,3 +56,18 @@ Decisão de Yan: "Sim, rodada curta". Refresh completo de Git feito (`fetch`, `w
 Os relatórios `RELATORIO_backend_4b4650d.md` e `RELATORIO_agente-nvidia_cba617a.md` viram histórico e **não aprovam** os SHAs novos.
 
 **Pontos para a re-verificação (só estes dois SHAs):** (1) Backend: migração sem `begin`/`commit` e ainda abortando via `DO` (ler); nenhum texto operacional contradiz a opção A (grep em `docs/redesign/backend`, `docs/qa/fase-9`, `AGENTES/02_backend`; o que sobrou em `HANDOFF_LOTE1.md` de `AGENTES/02_backend` e `docs/redesign/backend` é histórico com aviso); `ROLLBACK_B1.md` descreve CLI x SQL Editor corretamente; STATUS só do Lote 2. (2) Agente: repetir as mutações `sem_signal` e `timeout_30` em cópia fora do repo e provar que agora **falham**; provar que o comportamento publicado do adaptador não mudou (diff do `.ts`); `npm test`, lint, typecheck e build sem `.env`. Nada se corrige: só relatar.
+
+
+## Atualização 08/11/2026 — Rodada 3: Interface, novo SHA após IF3-1 (substitui `d71f2a7`)
+
+Yan decidiu **corrigir o IF3-1**. Refresh completo de Git feito (`fetch`, `worktree list --porcelain`, HEADs conferidos; `main` `2fa12d7`, `origin/main` `06de045`). O SHA abaixo é o topo de `wt/interface-lote2`, igual ao HEAD do worktree, limpo, filho direto de `d71f2a7`, 3 arquivos, caminhos dentro da linha da Interface, `git diff --check` limpo, coautoria presente, zero padrões de segredo.
+
+| Entrega | Branch | SHA congelado | Substitui | Diff do commit novo |
+|---|---|---|---|---|
+| 01 Interface | `wt/interface-lote2` | `14ad9699faa1041ce9e66f9da4693227ed8234e8` | `d71f2a7ac2e9b720385f0bf8d425d95811d0edab` | 3 arquivos, +13 / −3: `apps/web/app/globals.css` (+8: `.diary-filters` e `.artifact-filters` com 3 colunas `minmax(0, 1fr)` abaixo de 1280 px), `docs/redesign/interface/FUNDACAO_LOTE2.md`, `AGENTES/01_interface/STATUS.md` |
+
+**Nota de integração:** `main` já contém `d71f2a7` (integrado em `7da0be0`). O SHA novo é um commit só da Interface sobre `d71f2a7`; entra por merge simples quando Yan autorizar. Nada foi integrado nesta rodada.
+
+Backend `33373ae` e Agente `9abf927` seguem vigentes. O relatório `RELATORIO_interface_d71f2a7.md` vira histórico e **não aprova** `14ad969`.
+
+**Pontos para a re-verificação (só este SHA):** (1) nenhuma rolagem horizontal da janela de 1024 a 1280 px (1024, 1100, 1152, 1200, 1230, 1279, 1280) nas telas de Artefatos, Diário, Live, Score, Diagnóstico, com o CSS real do build; (2) sem regressão a 375 px e a ~640–768 px (a nova regra `max-width: 1279px` não pode sobrepor regras móveis posteriores de `.artifact-filters`/`.diary-filters`); (3) conteúdo acessível, sem corte (IF2-1 segue corrigido); (4) barra lateral e `position: sticky` preservados; (5) `npm test`, lint, typecheck e build sem `.env`; (6) escopo, `diff --check`, segredos, coautoria; (7) IF2-2, IF2-3 e IF3-2 seguem abertos e fora desta rodada. Nada se corrige: só relatar.
