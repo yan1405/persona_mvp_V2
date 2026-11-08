@@ -28,3 +28,15 @@ Sem sobreposição de escrita. Donos únicos: `package.json` (valor de `scripts.
 ## Gates humanos mantidos
 
 Migração em Supabase, chave NVIDIA rotacionada e uso real, troca de provedor do Live em Production, dependência nova, push, Preview, Production, aceite visual.
+
+
+## Rodada 2 do Lote 2 — correções curtas (08/11/2026, decisão de Yan: "Sim, rodada curta")
+
+Commit novo sobre o SHA vigente de cada papel; SHA anterior vira histórico. **Interface:** sem nova rodada; IF3-1 aguarda decisão de Yan (aceitar por escrito ou corrigir). Pedidos vindos de `PARECER_OBSERVACOES_LOTE2.md`.
+
+| Papel | Itens | Escrita adicional autorizada nesta rodada |
+|---|---|---|
+| 02 Backend (sobre `4b4650d`) | BK2-1 (remover `begin;`/`commit;` da migração B-1), BK2-2 (roteiros e textos que ainda dizem que o passo 1b não aborta ou que B-1 está pendente), BK2-3 (`STATUS.md` do Lote 2) | `docs/redesign/backend/**` (inclui `RELATORIO_TESTE_RLS.md` e a nota de topo em `HANDOFF_LOTE1.md`), além da linha original. `AGENTES/ATRIBUICOES/LOTE-1_BACKEND_DECISOES.md` é do Orquestrador e já foi corrigido por ele |
+| 03 Agente NVIDIA (sobre `cba617a`) | AG2-1 (testes devem fixar o timeout e o `signal`) | mesma linha original; pode exportar constantes de `nvidia-chat.ts` para fixá-las |
+
+Aceite: Backend, migração sem `begin`/`commit` e ainda abortando via `DO` se `anon` mantiver `EXECUTE`; nenhum texto operacional (QA, relatório, STATUS) contradiz a opção A; Agente, as mutações `sem_signal` e `timeout_30` do relatório da Verificação passam a **falhar** os testes, sem mudar o comportamento publicado do adaptador. Mesmas regras do Lote 2: commit local com coautoria, sem push, SQL, migração, chave ou chamada externa; handoff compacto com o HEAD completo. Depois: refresh completo, novo congelamento e re-verificação só dos dois SHAs.
