@@ -1,7 +1,16 @@
 # Status — Persona — Verificação Independente
 
 Estado: DONE
-Resumo: Lote 2 revisado (08/11/2026): relatórios para `4b4650d` (Backend), `cba617a` (Agente) e, na re-verificação, `d71f2a7` (Interface; `e6b3e5c` virou histórico). Parecer A/B/C sobre as 11 observações em `PARECER_OBSERVACOES_LOTE2.md`. As seções do Lote 1 abaixo são histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+Resumo: Lote 2 revisado (08/11/2026). Vigentes: Backend `33373ae`, Agente `9abf927` (Rodada 2) e Interface `d71f2a7`; `4b4650d`, `cba617a` e `e6b3e5c` viraram histórico. Parecer A/B/C sobre as 11 observações em `PARECER_OBSERVACOES_LOTE2.md`. As seções do Lote 1 abaixo são histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+
+## Lote 2 — Rodada 2: Backend `33373ae` e Agente `9abf927` (08/11/2026)
+
+| Entrega | SHA (substitui) | Relatório | Resultado | Gate sugerido |
+|---|---|---|---|---|
+| 02 Backend | `33373ae2f0d909da0dfad67584ed0ab8db654ec1` (`4b4650d`) | `RELATORIO_backend_33373ae.md` | BK2-1, BK2-2, BK2-3 **resolvidos** (por leitura): migração sem `begin`/`commit` e com o `DO` abortante; textos operacionais alinhados à opção A; STATUS abre só com o Lote 2. Abertos só S4: BK3-1 (`ROLLBACK_B1.md` afirma como fato o comportamento do CLI e do SQL Editor; `HYPOTHESIS`), BK3-2 (restos de redação) | **liberar para integração local.** Não aprova aplicar a migração, estado real de `anon`, R1, Preview ou Production; SQL nunca executado, sintaxe PENDING |
+| 03 Agente NVIDIA | `9abf92762285c50dc4c20c58624b8f4a794d0001` (`cba617a`) | `RELATORIO_agente-nvidia_9abf927.md` | AG2-1 **resolvido (medido)**: `sem_signal` e `timeout_30` agora falham (5/12 cada); sem mutação 12/12; diff do adaptador ≡ comportamento anterior. AG2-4 resolvido; AG2-3 mitigado por comentário (S4). Aberto: AG2-2 (S3, ressalva), AG3-1 (S4: `npm test` sem `--test-timeout`, mutante com sinal que não expira trava em vez de falhar) | **liberar para integração local, com ressalvas** (AG2-2; parser A-1/A-7/L-1 fora deste SHA). Sem chamada real |
+
+Execução do Agente em `9abf927` (checkout isolado, sem `.env`): typegen 0, `npm test` 64/64 (cancelled 0, skipped 0), lint 0, typecheck 0, build 0. Backend: árvore `apps/` e lockfile idênticas a `4b4650d`; não reexecutei `npm` (inferência, sem execução nova). Relatórios de `4b4650d` e `cba617a` são histórico e **não** aprovam os SHAs novos. Nada corrigido, aplicado, executado em banco ou commitado por mim; verificação isolada devolvida a `acc1f44`, limpa.
 
 ## Lote 2 — Re-verificação da Interface `d71f2a7` (08/11/2026)
 

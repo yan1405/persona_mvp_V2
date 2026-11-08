@@ -377,3 +377,17 @@ Interface, medido com o CSS real do build (sem `.env`; `npm test` 32/32, lint, t
 Parecer A/B/C da Verificação (A = corrigir antes de integrar; B = integrar com ressalva; C = observação): **A:** BK2-1 (`begin`/`commit` na migração; esforço P), BK2-2 (roteiros de QA ainda dizem que o passo 1b não aborta; M), AG2-1 (teste não fixa timeout/`signal`, provado por mutação; P). **B:** BK2-3, AG2-2, AG2-3, IF2-2, IF2-3, IF3-1. **C:** BK2-4, AG2-4, IF2-5. Nenhum item muda os gates; BK2-1 e BK2-2 devem ser resolvidos antes do gate de aplicação de B-1. Riscos reais para o Preview: chave NVIDIA ausente na Vercel (gate de Yan), método de aplicação de B-1, roteiro de QA enganoso, timeout sem teste, IF3-1 e o parser do Live (A-1/A-7/L-1) ainda aberto.
 
 Estados: Orquestrador `ACTIVE`, Backend/Agente/Interface `WAITING_APPROVAL`, Verificação `DONE`. Próximo gate de Yan: reatribuir BK2-1, BK2-2 e AG2-1 numa rodada curta (e BK2-3 de carona); aceitar ou corrigir IF3-1; ordem da integração local.
+
+## Lote 2 — Rodada 2 (rodada curta) e re-verificação (08/11/2026)
+
+Decisão de Yan: "Sim, rodada curta". Commits novos sobre os SHAs anteriores, congelados em `LOTE-2_CONGELADO.md` (`398681d`). Relatórios: `RELATORIO_backend_33373ae.md`, `RELATORIO_agente-nvidia_9abf927.md`. `origin/main` `06de045`; nada integrado, aplicado ou enviado.
+
+| Entrega | SHA vigente | Gate sugerido | Resultado |
+|---|---|---|---|
+| Backend | `33373ae2f0d909da0dfad67584ed0ab8db654ec1` | liberar para integração local | BK2-1/2/3 resolvidos (leitura); restam S4 (BK3-1: método CLI x SQL Editor é HYPOTHESIS; BK3-2: restos de redação) |
+| Agente NVIDIA / Live | `9abf92762285c50dc4c20c58624b8f4a794d0001` | liberar com ressalvas | AG2-1 fechado por medição (`sem_signal` e `timeout_30` agora falham 5/12; sem mutação 12/12; `npm test` 64/64, lint, typecheck, build 0); comportamento do adaptador inalterado. Abertos: AG2-2 (S3), AG2-3 (S4), AG3-1 (S4: mutante de sinal eterno trava o `npm test`), parser A-1/A-7/L-1 fora do SHA |
+| Interface | `d71f2a7ac2e9b720385f0bf8d425d95811d0edab` | liberar com ressalvas | inalterado; IF3-1 (S3) aguarda decisão de Yan |
+
+Parecer do Orquestrador (não é aprovação): nenhum S1/S2/S3 novo bloqueia a integração local; BK3-1/BK3-2/AG3-1 são S4 e podem ir numa passada futura (sugestão: marcar BK3-1 como HYPOTHESIS no `ROLLBACK_B1.md` e rodar `verificacao-b1-anon-execute.sql` após qualquer falha). Riscos reais para Preview: chave NVIDIA ausente na Vercel, método de aplicação da B-1, IF3-1, parser do Live, AG2-2.
+
+Próximos gates de Yan: IF3-1 (aceitar ou corrigir); aceitar BK3-1/BK3-2/AG3-1 como ressalva ou pedir ajuste; ordem da integração local (um por vez); método de aplicar B-1; chave NVIDIA rotacionada; ADR Groq→NVIDIA; parser do Live em lote próprio; push/branch pública.
