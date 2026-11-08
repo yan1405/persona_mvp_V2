@@ -361,3 +361,19 @@ Base `acc1f44`; SHAs congelados em `AGENTES/ATRIBUICOES/LOTE-2_CONGELADO.md` (`0
 Execução independente (checkout isolado, sem `.env`): Backend `npm test` 32/32, lint, typecheck e build 0; Agente `npm test` 62/62 (32 + 10 do adaptador + 20 de `lib/agent`), lint, typecheck e build 0; Interface `npm test` 32/32, lint, typecheck e build 0 (24 páginas). Visual real, chamada real à NVIDIA, SQL e banco: PENDING. Orquestrador conferiu no código que `overflow: clip` em `.app-content` existe em `e6b3e5c` e não existe em `acc1f44`.
 
 Estados: Orquestrador `ACTIVE`, Backend `WAITING_APPROVAL`, Agente `WAITING_APPROVAL`, Interface `WAITING_APPROVAL` com IF2-1 aberto, Verificação `DONE`. Próximo gate de Yan: aceitar ou mandar corrigir IF2-1; aprovar a integração local de Backend e Agente (um por vez); decidir se as ressalvas S3 viram correção antes da integração.
+
+## Lote 2 — re-verificação da Interface e parecer sobre as observações (08/11/2026)
+
+Interface `d71f2a7ac2e9b720385f0bf8d425d95811d0edab` (substitui `e6b3e5c`; congelado em `caaba76`). Relatório: `RELATORIO_interface_d71f2a7.md`. Parecer de priorização: `PARECER_OBSERVACOES_LOTE2.md` (opinião da Verificação; não aprova nada). Backend `4b4650d` e Agente `cba617a` inalterados. `origin/main` `06de045`.
+
+| Entrega | SHA vigente | Gate sugerido |
+|---|---|---|
+| Backend | `4b4650d34f3a748078dcb5b7c6c351eade7ad7eb` | liberar com ressalvas |
+| Agente NVIDIA / Live | `cba617abe33860d94e338dfb93ee14a67f60499e` | liberar com ressalvas |
+| Interface | `d71f2a7ac2e9b720385f0bf8d425d95811d0edab` | liberar com ressalvas (IF2-1 corrigido; sem S1/S2 aberto) |
+
+Interface, medido com o CSS real do build (sem `.env`; `npm test` 32/32, lint, typecheck e build 0): IF2-1 corrigido em 1024–1280 px e 375 px, sem corte, `position: sticky` preservado, sem rolagem nova a 1280 e 375 px. **IF3-1 (S3, novo):** a janela passa a rolar na horizontal de 1024 a cerca de 1233 px nas telas largas (Artefatos), o que a base não faz na mesma amostra; conteúdo alcançável, tela real PENDING. IF3-2 (S4): barra lateral fora da tela com a janela rolada à direita. IF2-2 e IF2-3 inalterados; IF2-4 corrigido.
+
+Parecer A/B/C da Verificação (A = corrigir antes de integrar; B = integrar com ressalva; C = observação): **A:** BK2-1 (`begin`/`commit` na migração; esforço P), BK2-2 (roteiros de QA ainda dizem que o passo 1b não aborta; M), AG2-1 (teste não fixa timeout/`signal`, provado por mutação; P). **B:** BK2-3, AG2-2, AG2-3, IF2-2, IF2-3, IF3-1. **C:** BK2-4, AG2-4, IF2-5. Nenhum item muda os gates; BK2-1 e BK2-2 devem ser resolvidos antes do gate de aplicação de B-1. Riscos reais para o Preview: chave NVIDIA ausente na Vercel (gate de Yan), método de aplicação de B-1, roteiro de QA enganoso, timeout sem teste, IF3-1 e o parser do Live (A-1/A-7/L-1) ainda aberto.
+
+Estados: Orquestrador `ACTIVE`, Backend/Agente/Interface `WAITING_APPROVAL`, Verificação `DONE`. Próximo gate de Yan: reatribuir BK2-1, BK2-2 e AG2-1 numa rodada curta (e BK2-3 de carona); aceitar ou corrigir IF3-1; ordem da integração local.

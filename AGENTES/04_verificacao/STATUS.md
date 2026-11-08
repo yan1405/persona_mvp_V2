@@ -1,7 +1,19 @@
 # Status — Persona — Verificação Independente
 
 Estado: DONE
-Resumo: Lote 2 revisado (08/11/2026): relatórios novos para `4b4650d` (Backend), `cba617a` (Agente) e `e6b3e5c` (Interface) publicados; execução independente concluída no checkout isolado. As seções do Lote 1 abaixo são histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+Resumo: Lote 2 revisado (08/11/2026): relatórios para `4b4650d` (Backend), `cba617a` (Agente) e, na re-verificação, `d71f2a7` (Interface; `e6b3e5c` virou histórico). Parecer A/B/C sobre as 11 observações em `PARECER_OBSERVACOES_LOTE2.md`. As seções do Lote 1 abaixo são histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+
+## Lote 2 — Re-verificação da Interface `d71f2a7` (08/11/2026)
+
+| Entrega | SHA | Relatório | Resultado | Gate sugerido |
+|---|---|---|---|---|
+| 01 Interface | `d71f2a7ac2e9b720385f0bf8d425d95811d0edab` (filho de `e6b3e5c`) | `RELATORIO_interface_d71f2a7.md` | **IF2-1 corrigido** (CSS real do build: nada cortado de 1024 a 1280 px nem a 375 px; reticências e `sticky` preservados; sem rolagem nova a 1280/375). **IF2-4 corrigido.** **Novo IF3-1 (S3):** a janela rola na horizontal de 1024 a ≈ 1233 px (a base `acc1f44` não rola ali; o texto "como antes da casca" é impreciso). Novo IF3-2 (S4). IF2-2 e IF2-3 re-medidos, **sem mudança** | **liberar com ressalvas** (sem S1/S2). Aceite visual: **não é meu**, PENDING de Yan; telas reais PENDING |
+
+Execução em `d71f2a7`: typegen 0, `npm test` 32/32, lint 0, typecheck 0, build 0 (sem `.env`, sem rede). O relatório de `e6b3e5c` abaixo é histórico e **não** aprova `d71f2a7`.
+
+**Parecer sobre as observações** (`PARECER_OBSERVACOES_LOTE2.md`): A = BK2-1, BK2-2 (roteiros), AG2-1; B = BK2-3, AG2-2, AG2-3, IF2-2, IF2-3, e IF3-1; C = BK2-4, AG2-4, IF2-5. O parecer **não muda** o gate "liberar com ressalvas" de Backend e Agente; os itens A são condições dessas ressalvas e devem ser resolvidos antes do gate de aplicação de B-1.
+
+Não verificado: tela real autenticada, SQL/banco/`supabase db push`, chamadas reais NVIDIA/Groq, aceite visual. Nada corrigido, nada aplicado, nada commitado por mim.
 
 ## Lote 2 — Preview seguro (base `acc1f44`)
 
@@ -9,7 +21,7 @@ Resumo: Lote 2 revisado (08/11/2026): relatórios novos para `4b4650d` (Backend)
 |---|---|---|---|---|
 | 02 Backend | `4b4650d34f3a748078dcb5b7c6c351eade7ad7eb` | `RELATORIO_backend_4b4650d.md` | S3: BK2-1 (`begin`/`commit` na migração destoa do padrão; depende do método de aplicação, HYPOTHESIS), BK2-2 (cinco textos de outros caminhos ainda dizem que o passo 1b não aborta; o roteiro de QA levaria a `FALHOU B-1`), BK2-3 (`STATUS.md` mistura Lote 1 e 2; SHA não literal). S4: BK2-4 | **liberar com ressalvas** (SQL e documentação). **Não** aprova aplicar a migração, o estado real de `anon`, R1, RLS das Fases 3–8, Preview ou Production; sintaxe do SQL PENDING |
 | 03 Agente NVIDIA | `cba617abe33860d94e338dfb93ee14a67f60499e` | `RELATORIO_agente-nvidia_cba617a.md` | S3: AG2-1 (timeout de 15 s e `signal` não fixados pelos testes; 2 de 8 mutações sobrevivem), AG2-2 (action da rota não testada, só `describeLiveFailure`), AG2-3 (`nvidia-chat.ts` sem `server-only`). S4: AG2-4 (STATUS sem o contexto do bloqueio do parser) | **liberar com ressalvas**. Comportamento publicado do adaptador preservado (diff byte a byte); parser e lockfile intocados; `package.json` só `scripts.test`. Parser compartilhado (A-1/A-7/L-1) segue aberto fora deste SHA; sem chamada real |
-| 01 Interface | `e6b3e5c0367a8b76acfadebe5072ccf70f55c089` | `RELATORIO_interface_e6b3e5c.md` | **S2: IF2-1** (`overflow: clip` + barra de 256 px cortam conteúdo sem rolagem entre ≈ 1100 e ≈ 1230 px; medido com o CSS real, tela real PENDING). S3: IF2-2 (barra estoura o cartão em janelas < ≈ 445 px de altura), IF2-3 (`<main>` ausente em Configurações; afirmação do documento falsa), IF2-4 (`STATUS` autorrotulado `VERIFIED`) | **bloquear integração** até IF2-1 ser corrigido ou aceito por escrito pelo Orquestrador/Yan; se aceito, liberar com ressalvas. Licença das fontes: conferida (hashes dos `.woff2` = pacote aprovado; `OFL-*.txt` = upstream). Aceite visual: **não é meu**, PENDING de Yan |
+| 01 Interface (histórico; superado por `d71f2a7`, ver acima) | `e6b3e5c0367a8b76acfadebe5072ccf70f55c089` | `RELATORIO_interface_e6b3e5c.md` | **S2: IF2-1** (`overflow: clip` + barra de 256 px cortam conteúdo sem rolagem entre ≈ 1100 e ≈ 1230 px; medido com o CSS real, tela real PENDING). S3: IF2-2 (barra estoura o cartão em janelas < ≈ 445 px de altura), IF2-3 (`<main>` ausente em Configurações; afirmação do documento falsa), IF2-4 (`STATUS` autorrotulado `VERIFIED`) | **bloquear integração** até IF2-1 ser corrigido ou aceito por escrito pelo Orquestrador/Yan; se aceito, liberar com ressalvas. Licença das fontes: conferida (hashes dos `.woff2` = pacote aprovado; `OFL-*.txt` = upstream). Aceite visual: **não é meu**, PENDING de Yan |
 
 Nenhum S1. Nenhuma severidade reduzida. Relatórios do Lote 1 são histórico e não aprovam estes SHAs.
 
