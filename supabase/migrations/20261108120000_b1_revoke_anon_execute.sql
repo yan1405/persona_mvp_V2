@@ -15,9 +15,11 @@
 --  * `alter default privileges` NÃO é alterado: afetaria toda função futura do
 --    esquema `public` e outros objetos; é decisão de Yan à parte. Funções novas
 --    precisam do próprio revoke.
+-- Sem begin/commit (padrão das outras migrações): o Supabase CLI já envolve o
+-- arquivo numa transação. Fora dela (SQL Editor) cada comando é seguro sozinho:
+-- REVOKE é atômico e idempotente, o bloco DO só lê o catálogo. Falha parcial:
+-- ver docs/redesign/backend/ROLLBACK_B1.md.
 -- Idempotente: REVOKE repetido não falha.
-
-begin;
 
 revoke execute on function public.authorize_sensitive_action(text) from anon;
 revoke execute on function public.delete_own_account(text) from anon;
@@ -39,5 +41,3 @@ begin
     end if;
   end loop;
 end $$;
-
-commit;
