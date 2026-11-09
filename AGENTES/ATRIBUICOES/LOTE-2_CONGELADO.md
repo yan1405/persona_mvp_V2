@@ -101,3 +101,19 @@ Backend `33373ae` segue vigente e inalterado. Os relatórios `RELATORIO_interfac
 - Agente `72b0e60`: (1) a extração é comportamentalmente idêntica (diff linha a linha do corpo de `generateVersion` entre `actions.ts` de `9abf927` e `generate-version.ts`; mensagens, ordem das chamadas, nomes de RPC e parâmetros); (2) os 11 testes cobrem os casos pedidos (sessão inativa, sem evidências, `alternative` sem outra, sucesso com `answered`/`gap` e `p_evidence_ids` sem duplicatas, falha do adaptador com e sem `markQuestionFailed`, falha do `rpc` como `invalid_output`); (3) repetir 3 mutações em cópia fora do repo (ex.: não chamar `fail_live_question`, trocar `answered`/`gap`, gerar com sessão inativa) e provar que falham; (4) `generate-version.ts` importa `nvidia-chat.ts` direto, sem passar pela casca `generate-live-response.ts`: confirmar que só `actions.ts` (servidor) o importa e que nada de cliente o alcança (relação com AG2-3); (5) `npm test` (75), lint, typecheck e build sem `.env`; (6) escopo, `diff --check`, segredos, coautoria; (7) AG2-3 e AG3-1 abertos? A correção os altera?
 
 Nada se corrige: só relatar.
+
+
+## Lote 3 — SHAs congelados (08/11/2026)
+
+Refresh completo de Git feito (`fetch`; worktrees limpos; HEADs iguais aos SHAs; `main` `1d94887`+registros, `origin/main` `06de045`). Cada commit: filho do anterior, caminhos dentro de `LOTE-3.md`, `git diff --check` limpo, coautoria presente, zero segredo. Nada integrado.
+
+| Papel | Branch | Ordem | SHA | Conteúdo |
+|---|---|---|---|---|
+| 01 Interface | `wt/interface-lote2` | 1 | `a15ed1b650371e9f798c02dd9d81815237f3fec1` | IF2-3 (`<main>` em Configurações, `layout.tsx`); IF3-2 declarado não reproduz |
+| 01 Interface | | 2 | `4f2190768b5001117e965c9fce3f1b3b60338059` | tela Início (`inicio/page.tsx`, +306 linhas de CSS) |
+| 01 Interface | | 3 | `e0be7e6be2fc39889a0b6598d1d500f1fa1a4561` (topo) | tela Diário (`diario/page.tsx`, `diary-forms.tsx`, CSS) |
+| 03 Agente | `wt/agente-lote2` | 1 | `b7b21a49057e143ccf259dde678cd3949b0f8b3c` | AG2-3 (regra no ESLint), AG3-1 (`--test-timeout`), AG4-2 |
+| 03 Agente | | 2 | `952ec70b65b2793e07f06c22909073e42e08bb71` | parser do Live A-1/A-7/L-1 (`response-schema.ts` +31/−, 73 linhas de teste, contrato) |
+| 03 Agente | | 3 | `4d9aa79f6608730a34100d7d1302d152524b6ec8` (topo) | ADR_NVIDIA_UNICO.md (só documento) |
+
+Pontos para a Verificação — Interface: apresentação só (nenhuma mudança de lógica, RPC, textos ou mensagens em Início/Diário/Configurações: comparar com a base `a5a18aa`); zero rolagem horizontal 375–1280 px; sem regressão em telas não tocadas (globals.css cresceu +409 linhas: checar vazamento de seletores novos); acessibilidade; IF3-2 realmente não reproduz; gates. Agente: AG2-3 por mutação (import cliente falha o lint); parser: testes falham antes e passam depois (rodar os testes novos contra o parser antigo), o que muda para o usuário, regressões nas respostas válidas; ADR: inventário completo contra `git grep` de Groq/LLM, sem código; gates. Nada se corrige: só relatar.
