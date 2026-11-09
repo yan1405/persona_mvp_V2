@@ -3,8 +3,8 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
 const SERVER_CORE_FILE = "(^|/)(nvidia-chat|nvidia-client|generate-version)(\.[cm]?[jt]s)?$";
-const SERVER_CORE_BARREL = "(^|/)lib/(live|llm)(/index(\.[cm]?[jt]s)?)?$";
-const SERVER_CORE_MESSAGE = "Núcleo do LLM é só de servidor: importe-o apenas de lib/live/**, lib/llm/**, lib/score/coherence.ts ou app/app/live/actions.ts, nunca de componente ou código cliente.";
+const SERVER_CORE_BARREL = "(^|/)lib/live(/index(\.[cm]?[jt]s)?)?$";
+const SERVER_CORE_MESSAGE = "Núcleo do LLM é só de servidor: importe-o apenas de lib/live/**, lib/score/coherence.ts ou app/app/live/actions.ts, nunca de componente ou código cliente.";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -20,7 +20,7 @@ const eslintConfig = defineConfig([
   // AG2-3/AG5-1: o núcleo do adaptador NVIDIA não tem "server-only" (precisa rodar em node --test); só o servidor pode importá-lo.
   // Cobre import estático, re-export, import() com texto literal, require() com texto literal, sufixos .ts/.js/.mjs/.cjs e a pasta/index (barril).
   // Limites (sem análise de fluxo): caminho montado em tempo de execução (`import(`${base}/nvidia-chat`)`, concatenação), alias novo que aponte
-  // para estes arquivos e componente cliente colocado dentro das pastas permitidas. Um barril novo dentro de lib/live ou lib/llm que reexporte o núcleo
+  // para estes arquivos e componente cliente colocado dentro das pastas permitidas. Um barril novo dentro de lib/live que reexporte o núcleo
   // fica liberado pela lista abaixo; por isso o barril não deve existir (nenhum hoje) e a revisão deve recusá-lo.
   {
     rules: {
@@ -36,7 +36,7 @@ const eslintConfig = defineConfig([
       ],
     },
   },
-  { files: ["lib/live/**", "lib/llm/**", "lib/score/coherence.ts", "app/app/live/actions.ts"], rules: { "no-restricted-imports": "off", "no-restricted-syntax": "off" } },
+  { files: ["lib/live/**", "lib/score/coherence.ts", "app/app/live/actions.ts"], rules: { "no-restricted-imports": "off", "no-restricted-syntax": "off" } },
 ]);
 
 export default eslintConfig;
