@@ -4,7 +4,7 @@ import nextTs from "eslint-config-next/typescript";
 
 const SERVER_CORE_FILE = "(^|/)(nvidia-chat|nvidia-client|generate-version|coherence|structure-evidence)(\.[cm]?[jt]s)?$";
 const SERVER_CORE_BARREL = "(^|/)lib/live(/index(\.[cm]?[jt]s)?)?$";
-const SERVER_CORE_MESSAGE = "Núcleo do LLM é só de servidor: importe-o apenas de lib/live/**, lib/score/coherence.ts, lib/score/analyze-coherence.ts, lib/groq/structure-evidence.ts, app/app/live/actions.ts ou app/app/diario/actions.ts, nunca de componente ou código cliente.";
+const SERVER_CORE_MESSAGE = "Núcleo do LLM é só de servidor: importe-o apenas de lib/live/**, lib/score/coherence.ts, lib/score/analyze-coherence.ts, lib/groq/structure-evidence.ts, lib/groq/structure-evidence-server.ts ou app/app/live/actions.ts, nunca de componente ou código cliente.";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -36,7 +36,7 @@ const eslintConfig = defineConfig([
       ],
     },
   },
-  { files: ["lib/live/**", "lib/score/coherence.ts", "lib/score/coherence.test.ts", "lib/score/analyze-coherence.ts", "lib/groq/structure-evidence.ts", "lib/groq/structure-evidence.test.ts", "app/app/live/actions.ts", "app/app/diario/actions.ts"], rules: { "no-restricted-imports": "off", "no-restricted-syntax": "off" } },
+  { files: ["lib/live/**", "lib/score/coherence.ts", "lib/score/coherence.test.ts", "lib/score/analyze-coherence.ts", "lib/groq/structure-evidence.ts", "lib/groq/structure-evidence.test.ts", "lib/groq/structure-evidence-server.ts", "app/app/live/actions.ts"], rules: { "no-restricted-imports": "off", "no-restricted-syntax": "off" } },
 ]);
 
 export default eslintConfig;
