@@ -41,10 +41,10 @@ Lote 4 · item 3 — tela Live migrada à Fundação (HEAD sobre `ed87907`): **i
 
 **SHAs vigentes do Lote 4** (ordem de commit): (1) S4 do Lote 3 `45a399649c4f30e9ac7b02a445ea87eeda1a7dad`; (2) Evidências `ed879071abae773a387e806725c5fad68f0df6e7`; (3) Live: o SHA completo está no handoff (um commit não pode conter o próprio hash). Antes: Início `4f21907`, Diário `e0be7e6`, IF2-3 `a15ed1b`.
 
-**Telas já migradas à Fundação:** Início, Diário, Evidências (biblioteca), Live (índice e sessão), Score (Lote 5, item 2; harness estático com palavras longas sem espaço, 10 larguras de painel de 343 a 1024 px × 4 variantes: 0 corte, 0 estouro, 0 alvo < 44 px; marcação real PENDING). Tabela em `docs/redesign/interface/FUNDACAO_LOTE2.md` §7.
+**Telas já migradas à Fundação:** Início, Diário, Evidências (biblioteca), Live (índice e sessão), Score (Lote 5, item 2; harness estático com palavras longas sem espaço, 10 larguras de painel de 343 a 1024 px × 4 variantes: 0 corte, 0 estouro, 0 alvo < 44 px; marcação real PENDING), Artefatos (Lote 5, item 3: lista, filtros e `/[id]` com editor, fontes e versões; `/novo` segue legada; mesmo harness, 4 variantes: 0 corte, 0 estouro, 0 alvo < 44 px; o harness achou o `.empty-state` sem quebra de palavra e `.ds-surface .empty-state` passou a ter `overflow-wrap: anywhere`; impressão do PDF conferida só pelo CSS: `.artifact-print-sheet h2` mantém cor e fonte). Tabela em `docs/redesign/interface/FUNDACAO_LOTE2.md` §7.
 
 **O que falta:**
-- Telas: Artefatos, Diagnóstico e Configurações (continuam escuras/legadas); `/app/evidencias/[id]` e `/app/diario/[id]` (detalhe).
+- Telas: `/app/artefatos/novo`, Diagnóstico e Configurações (continuam escuras/legadas); `/app/evidencias/[id]` e `/app/diario/[id]` (detalhe).
 - Painel/gaveta flutuante do registro, da evidência e estados `carregando`/`conflito` (decisão 4.7; usar portal fora de `.ds-surface`, ver IF6-3).
 - IF6-4 / IF3-2: causa não tratada, a barra lateral só é `sticky` na vertical (não vira problema nas telas medidas, mas não foi corrigida).
 - Verificação em tela real logada (dados reais, leitor de tela, Safari/VoiceOver, teclado) e aceite visual de Yan: tudo PENDING.
