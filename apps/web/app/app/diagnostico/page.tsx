@@ -11,7 +11,7 @@ export default async function DiagnosticPage() {
   ]);
 
   return (
-    <main className="app-page diagnostic-page">
+    <main className="app-page diagnostic-page ds-surface">
       <aside className="diagnostic-context">
         <p className="eyebrow">Narrative Score</p>
         <h2>{latest ? "Refazer diagnóstico" : "Diagnóstico inicial"}</h2>

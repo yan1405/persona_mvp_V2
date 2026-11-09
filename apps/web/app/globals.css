@@ -3348,7 +3348,11 @@ select.text-field {
   background: var(--ds-surface-card);
 }
 
-.ds-surface .empty-state { overflow-wrap: anywhere; }
+.ds-surface .empty-state,
+.ds-surface .field-error,
+.ds-surface .form-error,
+.ds-surface .form-success,
+.ds-surface .inline-notice { overflow-wrap: anywhere; }
 .ds-surface .empty-state strong { color: var(--ds-text-strong); }
 .ds-surface .empty-state p { color: var(--ds-text-body); font-size: var(--ds-fs-body-sm); }
 .ds-surface .empty-state a { display: inline-flex; min-height: 44px; align-items: center; color: var(--ds-brand-strong); font-size: var(--ds-fs-body-sm); }
@@ -4229,4 +4233,60 @@ select.text-field {
 
 @media print {
   .ds-surface .artifact-print-sheet h2 { color: #2e1a6b; font-family: Arial, sans-serif; font-weight: 700; }
+}
+
+/* ---------- Diagnóstico ---------- */
+.ds-surface.diagnostic-page { min-height: 0; grid-template-columns: minmax(0, 1fr); gap: var(--ds-space-8); align-content: start; justify-content: stretch; }
+.ds-surface.diagnostic-page > * { min-width: 0; }
+
+.ds-surface .diagnostic-context { padding: var(--ds-space-6); border: 1px solid var(--ds-border-subtle); border-radius: var(--ds-radius-md); background: var(--ds-surface-subtle); }
+.ds-surface .diagnostic-context h2 { font-size: var(--ds-fs-h2); line-height: 1.25; letter-spacing: -0.02em; }
+.ds-surface .diagnostic-context > p:not(.eyebrow) { margin: var(--ds-space-2) 0 0; color: var(--ds-text-body); font-size: var(--ds-fs-body-sm); line-height: 1.5; overflow-wrap: anywhere; }
+.ds-surface .diagnostic-context ol { margin-top: var(--ds-space-5); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--ds-space-2); }
+.ds-surface .diagnostic-context li { min-height: 44px; padding: var(--ds-space-2) var(--ds-space-3); grid-template-columns: auto minmax(0, 1fr); gap: var(--ds-space-2); align-items: center; border: 1px solid var(--ds-border-subtle); border-radius: var(--ds-radius-pill); background: var(--ds-surface-card); color: var(--ds-text-muted); font-size: var(--ds-fs-body-sm); }
+.ds-surface .diagnostic-context li span { font: 600 var(--ds-fs-caption)/1 var(--ds-font-body); }
+.ds-surface .diagnostic-context li[data-active="true"] { border-color: var(--ds-brand); background: var(--ds-brand-soft); color: var(--ds-brand-strong); font-weight: 600; }
+
+.ds-surface .diagnostic-form { padding: var(--ds-space-8); border: 1px solid var(--ds-border-subtle); border-radius: var(--ds-radius-md); background: var(--ds-surface-card); box-shadow: var(--ds-shadow-soft); }
+.ds-surface .diagnostic-step-header { margin-bottom: var(--ds-space-6); padding-bottom: var(--ds-space-3); flex-wrap: wrap; gap: var(--ds-space-1) var(--ds-space-4); border-bottom-color: var(--ds-border-subtle); color: var(--ds-text-muted); font: 600 var(--ds-fs-caption)/18px var(--ds-font-body); letter-spacing: 0; text-transform: none; }
+.ds-surface .diagnostic-form h1 { max-width: none; font-size: clamp(24px, 5cqi, 32px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; }
+.ds-surface .diagnostic-intro { max-width: 40em; margin: var(--ds-space-2) 0 var(--ds-space-6); color: var(--ds-text-body); font-size: var(--ds-fs-body-sm); line-height: 1.5; overflow-wrap: anywhere; }
+.ds-surface .diagnostic-objective { min-height: 148px; }
+
+.ds-surface .diagnostic-question { min-width: 0; padding: var(--ds-space-5) 0; border-top-color: var(--ds-border-subtle); }
+.ds-surface .diagnostic-question legend { grid-template-columns: 36px minmax(0, 1fr); color: var(--ds-text-strong); font-size: var(--ds-fs-body); line-height: 1.4; overflow-wrap: anywhere; }
+.ds-surface .diagnostic-question legend span { color: var(--ds-text-muted); font: 600 var(--ds-fs-caption)/22px var(--ds-font-body); }
+.ds-surface .diagnostic-options { margin: var(--ds-space-3) 0 0 36px; gap: var(--ds-space-2); grid-template-columns: repeat(5, minmax(0, 1fr)); border: 0; }
+.ds-surface .diagnostic-options label,
+.ds-surface .diagnostic-options label + label { min-height: 80px; padding: var(--ds-space-3); gap: var(--ds-space-2); border: 1px solid var(--ds-n-400); border-radius: var(--ds-radius-sm); background: var(--ds-surface-card); color: var(--ds-text-body); font-size: var(--ds-fs-body-sm); line-height: 1.35; overflow-wrap: anywhere; }
+.ds-surface .diagnostic-options label:hover { border-color: var(--ds-brand); }
+.ds-surface .diagnostic-options label:has(input:checked) { border-color: var(--ds-brand); background: var(--ds-brand-soft); color: var(--ds-brand-strong); font-weight: 600; }
+.ds-surface .diagnostic-options label:has(input:focus-visible) { outline: 2px solid var(--ds-focus-ring); outline-offset: 2px; }
+.ds-surface .diagnostic-options input { width: 24px; height: 24px; accent-color: var(--ds-brand); }
+
+.ds-surface .diagnostic-review { margin-top: var(--ds-space-6); padding: var(--ds-space-4) var(--ds-space-5); border: 1px solid var(--ds-border-subtle); border-left: 4px solid var(--ds-brand); border-radius: var(--ds-radius-sm); background: var(--ds-surface-subtle); }
+.ds-surface .diagnostic-review strong { color: var(--ds-text-strong); font-size: var(--ds-fs-body-sm); }
+.ds-surface .diagnostic-review p { max-width: 40em; color: var(--ds-text-body); font-size: var(--ds-fs-body-sm); line-height: 1.5; overflow-wrap: anywhere; }
+
+.ds-surface .diagnostic-form > .form-error,
+.ds-surface .diagnostic-form > .form-success { margin-top: var(--ds-space-4); overflow-wrap: anywhere; }
+.ds-surface .diagnostic-actions { margin-top: var(--ds-space-6); padding-top: var(--ds-space-5); flex-wrap: wrap; gap: var(--ds-space-3); border-top-color: var(--ds-border-subtle); }
+.ds-surface .diagnostic-actions .button-primary,
+.ds-surface .diagnostic-actions .button-secondary { min-height: 44px; }
+
+@container (min-width: 1000px) {
+  .ds-surface.diagnostic-page { grid-template-columns: minmax(0, 240px) minmax(0, 1fr); align-items: start; }
+  .ds-surface .diagnostic-context ol { grid-template-columns: minmax(0, 1fr); }
+}
+
+@container (max-width: 539px) {
+  .ds-surface .diagnostic-context ol { grid-template-columns: minmax(0, 1fr); }
+}
+
+@container (max-width: 699px) {
+  .ds-surface .diagnostic-form { padding: var(--ds-space-5); }
+  .ds-surface .diagnostic-options { margin-left: 0; grid-template-columns: minmax(0, 1fr); }
+  .ds-surface .diagnostic-options label,
+  .ds-surface .diagnostic-options label + label { min-height: 48px; grid-template-columns: 24px minmax(0, 1fr); align-content: center; align-items: center; }
+  .ds-surface .diagnostic-question legend { grid-template-columns: 32px minmax(0, 1fr); }
 }
