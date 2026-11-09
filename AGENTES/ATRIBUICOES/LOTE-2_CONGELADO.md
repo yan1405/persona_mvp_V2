@@ -168,3 +168,16 @@ Refresh completo de Git feito (`fetch`; worktrees limpos; HEADs iguais aos topos
 | 03 Agente | | 4 | `b5ba5149216ceff1f29359356be43958448a8798` (topo) | só `STATUS.md` |
 
 Pontos para a Verificação — Interface: AG7-1: `git grep -i groq` em `apps/web/app` antes/depois (nenhum "Groq" visível restante; significado preservado; só textos, nenhuma lógica); IF7-2/IF8-2 medidos; telas Diagnóstico e Configurações só apresentação (comparar lógica/textos/RPC com `ce12bee`; `configuracoes/layout.tsx` 1 linha); 0 rolagem 375–1280 px; palavras longas; sem vazamento de CSS; acessibilidade. Agente: AG7-2 (importar a casca do Diário de componente cliente quebra o `next build`; `node --test` passa; só 1 linha em `diario/actions.ts`); AG7-3 (ESLint cobre as cascas; mutações); AG7-4 (as 4 mutações antes sobreviventes agora falham); nada de comportamento mudou; gates. Nada se corrige: só relatar. Atualizar o bloco "Para a 2ª conversa".
+
+## Lote 7 — SHAs congelados (09/11/2026)
+
+Base: `main` local `2bca379` (atribuição `LOTE-7.md`). Refresh de Git feito (fetch, worktrees, status limpo da Interface). `origin/main` `06de045`.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `d786814494b967b8c59d14aeff9d725ed6e5ea90` | QL-1 gate puro |
+| Interface | `092a5c3d7c17ec6f1bd389afa9e933c098d65888` | QL-2 rota `POST /auth/qa-entrar` |
+| Interface | `707e93f6d5ae90c29de63711624845ddca49f918` | QL-3 formulário em `/entrar` |
+| Interface | `2e044a062082f58c2dc7168145e12f018ba22583` | QL-4 `.env.example` e STATUS (topo) |
+
+Nota do Orquestrador: `lib/auth/qa-login-gate.test.ts` não está no script `npm test` (o `package.json` ficou fora da escrita da Interface); a Verificação deve rodá-lo diretamente. A inclusão no script é ajuste do Orquestrador na integração.
