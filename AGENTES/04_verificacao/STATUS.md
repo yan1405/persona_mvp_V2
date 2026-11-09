@@ -1,7 +1,17 @@
 # Status — Persona — Verificação Independente
 
 Estado: DONE
-Resumo: Lote 2 revisado (08/11/2026). Vigentes: Backend `33373ae` (Rodada 2), Agente `72b0e60` e Interface `d3dfa63` (Rodada 4; `9abf927`, `14ad969` e `d71f2a7` viraram histórico); `4b4650d`, `cba617a` e `e6b3e5c` viraram histórico. Parecer A/B/C sobre as 11 observações em `PARECER_OBSERVACOES_LOTE2.md`. As seções do Lote 1 abaixo são histórico e não aprovam estes SHAs. `Estado: DONE` vale para esta rodada de verificação (relatórios completos), não para o produto.
+Resumo: Lote 2 revisado (08/11/2026). Vigentes na Rodada 5: Backend `1349a0a`, Agente `ae00dd4` e Interface `a5a18aa`. SHAs anteriores permanecem como histórico. `Estado: DONE` vale para os relatórios desta rodada, não para banco, tela autenticada, Preview ou produto final.
+
+## Lote 2 — Rodada 5
+
+| Entrega | SHA | Relatório | Resultado | Gate sugerido |
+|---|---|---|---|---|
+| 01 Interface | `a5a18aae940134385f9cd0e5c04586e957874e0f` | `RELATORIO_interface_a5a18aa.md` | IF5-1 e IF2-2 corrigidos por CSS; 32/32, lint, typecheck e build 0; tela autenticada PENDING | liberar para integração local com ressalva de aceite visual |
+| 02 Backend | `1349a0acda404a0f64b94678369ab100873d0fe3` | `RELATORIO_backend_1349a0a.md` | BK3-1/BK3-2 saneados; SQL executável idêntico; banco real PENDING | liberar documentação para integração local; não aprova aplicação |
+| 03 Agente NVIDIA | `ae00dd49d741a0bc4149abfad86b19118450f494` | `RELATORIO_agente-nvidia_ae00dd4.md` | AG4-1 fechado por teste; 76/76, lint, typecheck e build 0; produto inalterado | liberar para integração local com ressalvas S4 e gates externos |
+
+Execução independente em checkout isolado, sem `.env`: Interface 32/32 e Agente 76/76; lint, typecheck e build com saída 0 nos dois. Backend revisado por diff e hash normalizado: SQL executável idêntico. Nenhum segredo, arquivo proibido ou ação externa.
 
 ## Lote 2 — Rodada 4: Interface `d3dfa63` e Agente `72b0e60` (08/11/2026)
 

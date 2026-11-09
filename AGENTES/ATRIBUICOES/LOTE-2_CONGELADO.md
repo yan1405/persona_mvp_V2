@@ -1,5 +1,17 @@
 # Lote 2 — SHAs congelados para a Verificação
 
+## Rodada 5 — IF5-1, AG4-1 e saneamento Backend (08/11/2026)
+
+Snapshot do Orquestrador após a pausa dos escritores: worktrees limpos, HEAD igual ao SHA abaixo, um commit por papel sobre o SHA vigente da rodada anterior, caminhos dentro da atribuição da Rodada 5, `git diff --check` limpo, trailer de coautoria e varredura de segredos sem ocorrência. Nenhum merge, push, banco, SQL, chave, Preview ou Production.
+
+| Entrega | SHA congelado | Substitui | Escopo |
+|---|---|---|---|
+| 01 Interface | `a5a18aae940134385f9cd0e5c04586e957874e0f` | `d3dfa633630f672f7301fadfecdd78d8f186fc5c` | IF5-1 e IF2-2; 3 arquivos, somente CSS/status/documentação |
+| 02 Backend | `1349a0acda404a0f64b94678369ab100873d0fe3` | `33373ae2f0d909da0dfad67584ed0ab8db654ec1` | BK3-1/BK3-2 documentais; SQL executável com SHA-256 normalizado idêntico antes/depois |
+| 03 Agente NVIDIA | `ae00dd49d741a0bc4149abfad86b19118450f494` | `72b0e60d51c6c7142207f62cf2085356e4aa7a52` | AG4-1; somente `generate-version.test.ts` |
+
+Relatórios específicos: `RELATORIO_interface_a5a18aa.md`, `RELATORIO_backend_1349a0a.md` e `RELATORIO_agente-nvidia_ae00dd4.md`. Relatórios anteriores são histórico e não aprovam estes SHAs.
+
 Congelado pelo Orquestrador em 08/11/2026. Base: `acc1f4443939cdaf1d57d13b67fe8f929adf1e97` (`main` local; contém `02ec5df`). `origin/main` `06de045` não foi tocada. Cada SHA é o topo do branch do escritor, igual ao HEAD do worktree, com worktree sem alteração, 1 commit sobre a base, caminhos dentro da linha do papel em `LOTE-2.md`, nenhum arquivo proibido, `git diff --check` limpo, trailer de coautoria e zero padrões de segredo nas linhas adicionadas. Nenhum push, merge, migração, SQL ou chave. Um SHA é imutável: nova correção gera novo SHA e novo registro.
 
 | Entrega | Branch | SHA congelado | Arquivos | Linhas (vs. base) |

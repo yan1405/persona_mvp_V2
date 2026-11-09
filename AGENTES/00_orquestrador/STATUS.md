@@ -412,3 +412,11 @@ Interface `d3dfa633630f672f7301fadfecdd78d8f186fc5c` (sobre `14ad969`) e Agente 
 | Agente `72b0e60` | AG2-2 resolvido na parte com ramificação: extração idêntica ao corpo anterior (diff linha a linha, 34 linhas), 11 testes, 9 de 9 mutações de comportamento falham; nada de cliente alcança o módulo novo; `npm test` 75/75, lint, typecheck, build 0 | **AG4-1 (S3):** os testes não fixam os filtros de consulta (`user_id`, `status = confirmed`, `removed_at is null`); 3 mutações sobrevivem; RLS é a barreira real (HYPOTHESIS). AG2-3 (agora 2 módulos sem `server-only`), AG3-1 e AG4-2 (S4) abertos; `regenerateLiveQuestion` ignora o resultado (comportamento anterior) |
 
 Estado de integração: a `main` local tem `d71f2a7` e `9abf927`; `14ad969`, `d3dfa63` e `72b0e60` **não** foram integrados (sem autorização de Yan). `origin/main` `06de045`. Pendentes de Yan: aceitar ou corrigir IF5-1 e AG4-1; autorizar a integração local (merge simples dos dois, linhas disjuntas); depois rodada curta de S4 (BK3-1, BK3-2, AG2-3, AG3-1, AG4-2), IF2-2, IF2-3, IF3-2; aceite visual; chave NVIDIA rotacionada e Preview; método da B-1; ADR; parser do Live.
+
+## Lote 2 — Rodada 5 verificada (08/11/2026)
+
+Por continuidade autorizada por Yan, foram entregues e verificados três commits locais: Interface `a5a18aa` fecha IF5-1 e IF2-2; Agente `ae00dd4` fecha AG4-1 somente por teste; Backend `1349a0a` saneia BK3-1/BK3-2 sem alterar o SQL executável. Relatórios específicos em `AGENTES/04_verificacao/`; congelamento em `LOTE-2_CONGELADO.md`.
+
+Verificação independente: Interface 32/32, Agente 76/76, lint, typecheck e build 0; `diff --check` e varredura de segredos limpos; hash normalizado do SQL Backend antes/depois `3e5462f7729f2766f01a4fea4989ce0c2899dd7968b9a31c68063dce4c433af8`. Nenhum merge, push, banco, SQL remoto, chave ou deploy.
+
+Estado: os três SHAs estão liberados para uma futura integração local, mas **não foram integrados**. Permanecem PENDING: IF2-3 na fatia Configurações, AG2-3/AG3-1/AG4-2 (S4), parser A-1/A-7/L-1 em lote próprio, banco QA/RLS/R1, chave rotacionada, ADR, Preview, aceite visual e estratégia de publicação.
