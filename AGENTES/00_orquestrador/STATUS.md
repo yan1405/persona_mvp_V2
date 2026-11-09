@@ -503,3 +503,7 @@ Congelamento em `41b8b6a`. Relatórios: `RELATORIO_interface_lote6_7e33f8f.md`, 
 | Agente `b5ba514` (STATUS, topo) | liberar | AG8-2, AG7-5/6 (S4) |
 
 Execução: Interface `npm test` 32/32; Agente 105, 105, 107, 107; lint, typecheck, build 0. Lote 6 **não integrado** (aguarda autorização de Yan). Gate da Verificação é sugestão, não aprovação.
+
+## Lote 6 integrado (09/11/2026)
+
+Com autorização de Yan, Agente `b5ba514` e Interface `7e33f8f` entraram por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only` até `ebb10aa`. Gates no HEAD: `npm test` 107/107, lint, typecheck, build 0, `diff --check` limpo, zero segredo real. Textos "Groq" fora das telas (restam apenas imports de `lib/groq/` e o Artefatos, ainda em Groq até o M4). `origin/main` segue `06de045`; sem push, sem Preview, sem Production. Próximo: itens de Yan 5, 6, 7, 8, 11 e 12.
