@@ -150,3 +150,21 @@ Refresh completo de Git feito (`fetch`; worktrees limpos; HEADs iguais aos topos
 | 03 Agente | | 4 | `b409e7c512671e92021d7ebdf88257d1365ec4b5` (topo) | só `STATUS.md` (bloco da 2ª conversa) |
 
 Pontos para a Verificação — Interface: apresentação só (comparar lógica, textos e RPC de Score e Artefatos com `3f37693`); IF7-1 realmente corrige a palavra de 70 caracteres (a 375 e 768 px) e nas novas telas; 0 rolagem 375–1280 px; sem corte com palavras longas; sem vazamento de CSS; acessibilidade. Agente: AG6-2 (importar a análise do Score de componente cliente falha o build/lint; `node --test` segue passando; a mudança em `score/actions.ts` é só o import); AG6-3 (cerca tolerada, mas conteúdo continua estrito: mutações); M3: esquema/validação inalterados (`useful=false`, campos sem sustentação como `null`), nenhum Groq restante no Diário, `lib/groq/**` restante intacto, mutações em cópia, o que o usuário vê sem chave, quem chama `structure-evidence.ts`; gates. Nada se corrige: só relatar. Manter o bloco "Para a 2ª conversa" do STATUS atualizado.
+
+
+## Lote 6 — SHAs congelados (09/11/2026)
+
+Refresh completo de Git feito (`fetch`; worktrees limpos; HEADs iguais aos topos; `main` `8339c81`, `origin/main` `06de045`). Cada commit: filho do anterior, `git diff --check` limpo, coautoria presente, zero segredo. Nada integrado.
+
+| Papel | Branch | Ordem | SHA | Conteúdo |
+|---|---|---|---|---|
+| 01 Interface | `wt/interface-lote2` (base `ce12bee`) | 1 | `f80de4a4485d2d6ba1d41d510258ee6dd6bbfb19` | AG7-1: 5 textos "Groq" → termos neutros (`diario/[id]/page.tsx`) |
+| 01 Interface | | 2 | `44b191380985f5530e1206ced973336d3bf3b345` | IF7-2 (alvo 24 px) e IF8-2 (impressão), `globals.css` 1 linha |
+| 01 Interface | | 3 | `ff3df5706cb3d084497e3d71453a5e56aa052f6a` | tela Diagnóstico (+62 CSS) |
+| 01 Interface | | 4 | `7e33f8f37bd581ba496ce80305b4f35e6499c114` (topo) | tela Configurações, todas as rotas (+77 CSS, STATUS, FUNDACAO) |
+| 03 Agente | `wt/agente-lote2` (base `b409e7c`) | 1 | `ef46c80d3d35f70a6ff2bc1fb992e1cdbaac8285` | AG7-2: `structure-evidence-server.ts` com `server-only`, `diario/actions.ts` 1 linha |
+| 03 Agente | | 2 | `d6af7283cdbc413edd45f3d41d46fe5016046cc4` | AG7-3: cascas na barreira do ESLint |
+| 03 Agente | | 3 | `6389599a1595d04cb7f2ddbcd38bd1b572fe195c` | AG7-4: testes do corte de 2.000 caracteres e frases-chave |
+| 03 Agente | | 4 | `b5ba5149216ceff1f29359356be43958448a8798` (topo) | só `STATUS.md` |
+
+Pontos para a Verificação — Interface: AG7-1: `git grep -i groq` em `apps/web/app` antes/depois (nenhum "Groq" visível restante; significado preservado; só textos, nenhuma lógica); IF7-2/IF8-2 medidos; telas Diagnóstico e Configurações só apresentação (comparar lógica/textos/RPC com `ce12bee`; `configuracoes/layout.tsx` 1 linha); 0 rolagem 375–1280 px; palavras longas; sem vazamento de CSS; acessibilidade. Agente: AG7-2 (importar a casca do Diário de componente cliente quebra o `next build`; `node --test` passa; só 1 linha em `diario/actions.ts`); AG7-3 (ESLint cobre as cascas; mutações); AG7-4 (as 4 mutações antes sobreviventes agora falham); nada de comportamento mudou; gates. Nada se corrige: só relatar. Atualizar o bloco "Para a 2ª conversa".
