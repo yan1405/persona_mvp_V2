@@ -420,3 +420,15 @@ Por continuidade autorizada por Yan, foram entregues e verificados três commits
 Verificação independente: Interface 32/32, Agente 76/76, lint, typecheck e build 0; `diff --check` e varredura de segredos limpos; hash normalizado do SQL Backend antes/depois `3e5462f7729f2766f01a4fea4989ce0c2899dd7968b9a31c68063dce4c433af8`. Nenhum merge, push, banco, SQL remoto, chave ou deploy.
 
 Estado: os três SHAs estão liberados para uma futura integração local, mas **não foram integrados**. Permanecem PENDING: IF2-3 na fatia Configurações, AG2-3/AG3-1/AG4-2 (S4), parser A-1/A-7/L-1 em lote próprio, banco QA/RLS/R1, chave rotacionada, ADR, Preview, aceite visual e estratégia de publicação.
+
+## Lote 2 integrado e início do Lote 3 (08/11/2026)
+
+Decisões de Yan: corrigir IF5-1 e AG4-1 em paralelo; autorizar a integração local; liberar os S4; iniciar o primeiro lote de telas da Interface (ordem Início, Diário, Evidências, Live, Score, Artefatos, Diagnóstico, Configurações); **todo uso de LLM passa a ser NVIDIA**; lote próprio para o parser do Live.
+
+Nota de coordenação: uma sessão paralela do Orquestrador (trailer `OpenAI Codex`) já havia executado a Rodada 5 antes desta decisão (commit `02594cb`): Interface `a5a18aa` (IF5-1 e IF2-2), Agente `ae00dd4` (AG4-1) e Backend `1349a0a` (BK3-1/BK3-2, SQL executável idêntico por hash normalizado), com relatórios da Verificação. Esta sessão conferiu que os tips dos branches eram esses SHAs congelados e os integrou.
+
+**Integração local:** `integracao/lote2` recebeu, por `--no-ff`, `wt/interface-lote2` (`a5a18aa`, que inclui `14ad969` e `d3dfa63`), `wt/agente-lote2` (`ae00dd4`, que inclui `72b0e60`) e `wt/backend-lote2` (`1349a0a`); a `main` local avançou por `--ff-only` até `c08c337`. Gates no HEAD: `npm test` 76/76, lint, typecheck e build 0, `git diff --check` limpo, zero segredo real, SQL executável da B-1 idêntico ao de `33373ae` (hash normalizado sem comentários), `response-schema.ts` inalterado. Sem push, migração, SQL, chave, Preview ou Production; `origin/main` `06de045`.
+
+**Lote 3** (`LOTE-3.md`, `e06bf9f`): Interface (IF2-3 e IF3-2, tela Início, tela Diário, só apresentação); Agente (S4 AG2-3/AG3-1/AG4-2; parser do Live A-1/A-7/L-1; ADR "NVIDIA único" sem migrar código); Backend sem item novo. Cada commit passa por revisão independente antes de nova integração.
+
+Pendentes de Yan: aceite visual; banco QA, migrações Fase 9 e B-1, teste de RLS (R1) e método de aplicação; chave NVIDIA rotacionada e Preview; estratégia de publicação (P-1/P-2); migração do código de Diário/Score/Artefatos para NVIDIA depende do ADR.
