@@ -39,7 +39,7 @@ Recuperação (ownership, teto 8, ranking, determinismo) · mensagens (sem tools
 - A checagem de números olha o rascunho solicitado, não o texto dos argumentos; como o rascunho final usa só excertos literais, o risco é de conteúdo já existente.
 - Não integrado ao app: `lib/live/generate-live-response.ts` segue intocado; Groq não migrado; sem rate limit/retentativa próprios (o adaptador real ainda não existe — peso "Adaptador NVIDIA" fica pendente).
 - O módulo não é importado por nenhuma rota.
-- Defeito equivalente (A-1/A-7) segue no `parseLiveResponse` usado pelo Persona Live: `lib/live/response-schema.ts` é compartilhado **sem dono**; a correção lá é pedido ao Orquestrador (registrado no STATUS), não feita aqui.
+- A-1/A-7/L-1 no `parseLiveResponse` (Persona Live): corrigidos no lote do parser (Lote 3, `lib/live/response-schema.ts`, testes em `response-schema.test.ts`). O excerto precisa ter letra ou dígito, não pode cortar palavra ou número (`30%` → `3`, `1.000` → `1`), não pode remover negação anterior na **mesma oração** (fim de oração: `. , ; : ! ?` e quebra de linha; `.` e `,` entre dígitos não contam) e cada competência é checada isolada. Limites: negação léxica sem escopo sintático ("Nunca perdi um prazo e entreguei 12 relatórios" rejeita "entreguei 12 relatórios"), abreviação com letra isolada ("plano B.", L-2) e qualificador omitido sem negador. Falha sempre fechada (`invalid_output`); frequência real PENDING (exige evidências reais e modelo real).
 
 ## Pedido ao Orquestrador
 
