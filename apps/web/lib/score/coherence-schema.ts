@@ -36,9 +36,12 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+// AG6-3: sem response_format o modelo às vezes embrulha o JSON em uma única cerca Markdown; só isso é tolerado (texto fora da cerca continua inválido).
+const FENCED_JSON = /^```(?:json)?[ \t]*\r?\n([\s\S]*?)\r?\n?```$/i;
+
 export function parseCoherenceOutput(raw: string, permittedEvidenceIds: readonly string[]): CoherenceOutput {
   let value: unknown;
-  try { value = JSON.parse(raw); } catch { throw new Error("invalid_output"); }
+  try { value = JSON.parse(FENCED_JSON.exec(raw.trim())?.[1] ?? raw); } catch { throw new Error("invalid_output"); }
   if (!isRecord(value) || typeof value.summary !== "string" || !isRecord(value.criteria)) throw new Error("invalid_output");
   const summary = value.summary.trim();
   if (summary.length < 8 || summary.length > 480) throw new Error("invalid_output");

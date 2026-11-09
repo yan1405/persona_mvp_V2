@@ -115,3 +115,34 @@ test("saída inválida vira invalid_output e não carrega a chave", async () => 
   }
   assert.equal(code(await run([new Response("<html>", { status: 200 })])), "provider_error");
 });
+
+test("AG6-3: JSON dentro de cerca Markdown inteira é aceito e dá o mesmo resultado do JSON puro", async () => {
+  const json = JSON.stringify(output());
+  const plain = await run([ok(json)]);
+  for (const fenced of ["```json\n" + json + "\n```", "```\n" + json + "\n```", "  ```JSON\r\n" + json + "\r\n```\n\n", "```json\n" + JSON.stringify(output(), null, 2) + "```"]) {
+    const r = await run([ok(fenced)]);
+    assert.equal(r.calls.length, 1, fenced);
+    assert.deepEqual(r.value, plain.value, fenced);
+  }
+});
+
+test("AG6-3: a cerca não afrouxa a validação — conteúdo inválido ou texto fora da cerca continua invalid_output", async () => {
+  const json = JSON.stringify(output());
+  const c = output().criteria;
+  const bad = [
+    "```json\n" + JSON.stringify(output({ criteria: { ...c, alignment: criterion(60) } })) + "\n```", // nota fora de 0/25/50/75/100
+    "```json\n" + JSON.stringify(output({ criteria: { ...c, alignment: criterion(75, ["33333333-3333-4333-8333-333333333333"]) } })) + "\n```", // ID fora da entrada
+    "```json\n{\"summary\": \"Narrativa coerente\"}\n```",
+    "Aqui está a análise:\n```json\n" + json + "\n```",
+    "```json\n" + json + "\n```\nEspero ter ajudado.",
+    "```json\n" + json + "\n```\n```json\n" + json + "\n```",
+    "```json\n" + json,
+    "```json\n```",
+    "```js\n" + json + "\n```",
+  ];
+  for (const content of bad) {
+    const r = await run([ok(content)]);
+    assert.equal(code(r), "invalid_output", content);
+    assert.equal(r.calls.length, 1);
+  }
+});
