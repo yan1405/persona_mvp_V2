@@ -117,3 +117,19 @@ Refresh completo de Git feito (`fetch`; worktrees limpos; HEADs iguais aos SHAs;
 | 03 Agente | | 3 | `4d9aa79f6608730a34100d7d1302d152524b6ec8` (topo) | ADR_NVIDIA_UNICO.md (só documento) |
 
 Pontos para a Verificação — Interface: apresentação só (nenhuma mudança de lógica, RPC, textos ou mensagens em Início/Diário/Configurações: comparar com a base `a5a18aa`); zero rolagem horizontal 375–1280 px; sem regressão em telas não tocadas (globals.css cresceu +409 linhas: checar vazamento de seletores novos); acessibilidade; IF3-2 realmente não reproduz; gates. Agente: AG2-3 por mutação (import cliente falha o lint); parser: testes falham antes e passam depois (rodar os testes novos contra o parser antigo), o que muda para o usuário, regressões nas respostas válidas; ADR: inventário completo contra `git grep` de Groq/LLM, sem código; gates. Nada se corrige: só relatar.
+
+
+## Lote 4 — SHAs congelados (09/11/2026)
+
+Refresh completo de Git feito (`fetch`; worktrees limpos; HEADs iguais aos topos; `main` `eaae4a1`, `origin/main` `06de045`). Cada commit: filho do anterior, caminhos dentro de `LOTE-4.md`, `git diff --check` limpo, coautoria presente, zero segredo real (a única ocorrência é a chave sintética `nvapi-chave-sintetica-de-teste` dos testes). Nada integrado.
+
+| Papel | Branch | Ordem | SHA | Conteúdo |
+|---|---|---|---|---|
+| 01 Interface | `wt/interface-lote2` (base `e0be7e6`) | 1 | `45a399649c4f30e9ac7b02a445ea87eeda1a7dad` | S4: IF6-2 (`useId`), IF6-5 (−~100 linhas de CSS morto); IF6-1/IF6-3 no STATUS |
+| 01 Interface | | 2 | `ed879071abae773a387e806725c5fad68f0df6e7` | tela Evidências (`evidencias/page.tsx`, +108 CSS) |
+| 01 Interface | | 3 | `3f376937012717a8449730675e0a7ae3372c5cdb` (topo) | tela Live (`live/[id]/page.tsx`, `live-forms.tsx`, `live/page.tsx`, +270 CSS) |
+| 03 Agente | `wt/agente-lote2` (base `4d9aa79`) | 1 | `9adce279725c476bca197002e849e919978f9534` | AG5-1 (ESLint: `import()`, `require`, sufixos, barril) |
+| 03 Agente | | 2 | `13af232e700111564815aedb6d76da2c570816f8` | M1: `nvidia-client.ts` compartilhado + teste; `nvidia-chat.ts` reduzido |
+| 03 Agente | | 3 | `4dbb6e468afe3513253145eaa0996fb5701b28cb` (topo) | M2: Score (`coherence.ts`) de Groq para NVIDIA + `coherence.test.ts`; ADR atualizado |
+
+Pontos para a Verificação — Interface: apresentação só (comparar lógica, textos e RPC de Live e Evidências com `e0be7e6`; `live-forms.tsx` mudou 28 linhas); remoção de CSS morto realmente sem uso (cada classe contra `git grep` em todo `apps/web`, inclusive `.tsx` dinâmicos/template strings); `useId` não quebra SSR/hidratação nem o `aria-describedby`; 0 rolagem 375–1280 px; sem vazamento de CSS (`globals.css` +378 −103). Agente: M1 sem mudança de comportamento do Live (diff de `nvidia-chat.ts`, testes antigos intactos); barreira do ESLint por mutação (`import()`, `require`, `.js`, barril); M2: rubrica `coherence-v1` e discretização inalteradas, testes falham em mutações (ex.: aceitar ID fora da entrada, não discretizar, trocar erro por 0), nenhum uso restante de Groq no Score, `lib/groq/**` intocado; efeito do Score ficar `not_configured` sem chave (o que o usuário vê); gates. Nada se corrige: só relatar. Esta é a última rodada da conversa atual da Verificação: deixar "Para a 2ª conversa" no `AGENTES/04_verificacao/STATUS.md`.
