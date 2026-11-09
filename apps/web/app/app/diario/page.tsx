@@ -63,7 +63,7 @@ export default async function DiaryPage({
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" });
 
   return (
-    <main className="app-page diary-page">
+    <main className="app-page diary-page ds-surface">
       <section className="diary-capture" aria-labelledby="diary-title">
         <div className="diary-heading">
           <div>
@@ -71,11 +71,11 @@ export default async function DiaryPage({
             <h1 id="diary-title">O que aconteceu hoje?</h1>
             <p>Registre primeiro com suas palavras. A estrutura vem depois e só vira evidência quando você confirmar.</p>
           </div>
-          <div className="trace-compact" aria-label="Fluxo do registro">
-            <span data-current="true">Registro</span>
-            <span>Sugestão</span>
-            <span>Evidência</span>
-          </div>
+          <ol className="trace-compact" aria-label="Fluxo do registro">
+            <li data-current="true" aria-current="step">Registro</li>
+            <li>Sugestão</li>
+            <li>Evidência</li>
+          </ol>
         </div>
         <NewDailyLogForm today={today} />
       </section>

@@ -71,3 +71,4 @@ Receita de uma fatia: pôr `ds-surface` na raiz do `<main>`. Sob `.ds-surface`, 
 | Tela | O que mudou | Não incluído |
 |---|---|---|
 | Início (`app/app/inicio/page.tsx`) | bloco focal (rastreabilidade + próximo movimento), cartão do Score com dimensões, objetivo, registros recentes e competências | busca/AgentPrompt, atalhos de destino com contagens, "Atividade recente" (Agente e dados de outras áreas; decisão 4.3) |
+| Diário (`app/app/diario/page.tsx`, `diary-forms.tsx`) | cartão de captura, fluxo em `ol`, filtros, histórico em cartões com estado visível também em largura estreita | painel flutuante do registro e estados `carregando`/`conflito` (decisão 4.7; `[id]` segue escura) |
