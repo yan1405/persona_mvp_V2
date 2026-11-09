@@ -94,3 +94,12 @@ Ordem sugerida: M0 → M1 → M2 → M3 → M4 → M5 → M6, cada lote com revi
 ## 8. O que este ADR não faz
 
 Não altera código, dependências, variáveis, Vercel, banco nem textos de interface; não faz chamada a provedor; não define o modelo definitivo. As tarefas M1–M6 só começam por atribuição do Orquestrador.
+
+## 9. Andamento (Lote 4)
+
+| Lote | Estado | Observação |
+|---|---|---|
+| M0 | PROVISÓRIO | esquema no prompt + parser estrito; decisão final de Yan depois do G2 |
+| M1 | FEITO (local) | `lib/live/nvidia-client.ts` (`callNvidiaChat`); o cliente ficou em `lib/live/` por ser a pasta autorizada ao Agente |
+| M2 | FEITO (local) | Score em `lib/score/coherence.ts`; 12 s por tentativa mantidos do Groq (HYPOTHESIS: o modelo NVIDIA pode precisar de mais; medir no G2) |
+| M3–M6 | PENDENTE | Diário, Artefatos, Agente real, limpeza |
