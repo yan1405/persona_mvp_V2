@@ -1062,6 +1062,7 @@ select.text-field {
 .app-sidebar-nav {
   flex: 1;
   min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -1746,6 +1747,12 @@ select.text-field {
 @media (max-width: 1279px) {
   .diary-filters {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 449px) {
+  .diary-filters {
+    grid-template-columns: 1fr;
   }
 }
 
