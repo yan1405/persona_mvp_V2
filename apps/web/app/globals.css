@@ -3784,6 +3784,8 @@ select.text-field {
 .ds-surface .live-index-heading > div > p:last-child,
 .ds-surface .live-session-header > div > p:last-child { max-width: 40em; margin: var(--ds-space-2) 0 0; color: var(--ds-text-body); font-size: var(--ds-fs-body-sm); line-height: 1.5; overflow-wrap: anywhere; }
 
+.ds-surface .live-session-header .eyebrow { overflow-wrap: anywhere; }
+
 .ds-surface .live-session-header .back-link { min-height: 44px; margin-bottom: var(--ds-space-2); display: inline-flex; align-items: center; color: var(--ds-brand-strong); font-size: var(--ds-fs-body-sm); font-weight: 600; text-decoration: none; }
 .ds-surface .live-session-header .back-link:hover { text-decoration: underline; }
 .ds-surface .live-session-controls { min-width: 0; }
