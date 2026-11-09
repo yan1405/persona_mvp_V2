@@ -13,6 +13,16 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  // AG2-3: o núcleo do adaptador NVIDIA não tem "server-only" (precisa rodar em node --test); só o servidor pode importá-lo.
+  {
+    rules: {
+      "no-restricted-imports": ["error", { patterns: [{
+        regex: "(^|/)(nvidia-chat|generate-version)(\.ts)?$",
+        message: "Núcleo do Live é só de servidor: importe-o apenas de lib/live/** ou de app/app/live/actions.ts, nunca de componente ou código cliente.",
+      }] }],
+    },
+  },
+  { files: ["lib/live/**", "app/app/live/actions.ts"], rules: { "no-restricted-imports": "off" } },
 ]);
 
 export default eslintConfig;

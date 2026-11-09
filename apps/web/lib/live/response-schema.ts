@@ -39,6 +39,33 @@ export type LiveResponse = {
 
 function record(value: unknown): value is Record<string, unknown> { return typeof value === "object" && value !== null && !Array.isArray(value); }
 
+const HAS_CONTENT = /[\p{L}\p{N}]/u;
+const isWordChar = (char: string | undefined) => char !== undefined && HAS_CONTENT.test(char);
+const isDigit = (char: string | undefined) => char !== undefined && /\p{N}/u.test(char);
+const fold = (value: string) => value.normalize("NFD").replace(/[̀-ͯ]/g, "").toLocaleLowerCase("pt-BR");
+const NEGATOR = /(?:^|[^\p{L}\p{N}])(?:nao|nunca|sem|nem|jamais|nenhum|nenhuma)(?![\p{L}\p{N}])/u;
+// Fim de oração: . , ; : ! ? e quebra de linha; "." e "," entre dígitos (2.0, 1,5) fazem parte do número.
+const CLAUSE_END = /(?<!\d)[.,]|[.,](?!\d)|[;:!?\n]/g;
+
+// A-1/A-7/L-1: o excerto precisa ser uma unidade íntegra do campo (sem cortar palavra ou número) e não pode ter perdido uma negação
+// que o precede na mesma oração. Cada competência é checada isolada. shortcut: negação léxica por oração, sem escopo sintático
+// ("Nunca perdi um prazo e entreguei 12 relatórios" rejeita "entreguei…"); evoluir só com medição em evidências reais.
+function isGrounded(rawSource: string, rawExcerpt: string): boolean {
+  const source = rawSource.toLocaleLowerCase("pt-BR"), excerpt = rawExcerpt.toLocaleLowerCase("pt-BR");
+  for (let start = source.indexOf(excerpt); start >= 0; start = source.indexOf(excerpt, start + 1)) {
+    const end = start + excerpt.length, prev = source[start - 1], next = source[end], last = excerpt[excerpt.length - 1];
+    if (isWordChar(prev) && isWordChar(excerpt[0])) continue;
+    if (isWordChar(next) && isWordChar(last)) continue;
+    if (isDigit(last) && (next === "%" || ((next === "." || next === ",") && isDigit(source[end + 1])))) continue; // 30% -> 3; 1.000 -> 1
+    if (isDigit(excerpt[0]) && (prev === "." || prev === ",") && isDigit(source[start - 2])) continue; // 1.000 -> 000
+    const before = source.slice(0, start);
+    const clauseStart = [...before.matchAll(CLAUSE_END)].at(-1);
+    const clause = clauseStart ? before.slice((clauseStart.index ?? 0) + 1) : before;
+    if (!NEGATOR.test(fold(clause)) || NEGATOR.test(fold(excerpt))) return true;
+  }
+  return false;
+}
+
 export function parseLiveResponse(raw: string, evidences: LiveEvidenceInput[]): LiveResponse {
   let value: unknown;
   try { value = JSON.parse(raw); } catch { throw new Error("invalid_output"); }
@@ -52,9 +79,9 @@ export function parseLiveResponse(raw: string, evidences: LiveEvidenceInput[]): 
       || typeof argument.source_field !== "string" || !fields.has(argument.source_field) || typeof argument.source_excerpt !== "string") throw new Error("invalid_output");
     const evidence = byId.get(argument.evidence_id);
     if (!evidence) throw new Error("invalid_output");
-    const source = argument.source_field === "competencies" ? evidence.competencies.join(" ") : evidence[argument.source_field as keyof Omit<LiveEvidenceInput, "id" | "competencies">];
-    if (!source || !source.toLocaleLowerCase("pt-BR").includes(argument.source_excerpt.trim().toLocaleLowerCase("pt-BR"))) throw new Error("invalid_output");
     const excerpt = argument.source_excerpt.trim();
+    const sources = argument.source_field === "competencies" ? evidence.competencies : [evidence[argument.source_field as keyof Omit<LiveEvidenceInput, "id" | "competencies">]];
+    if (!HAS_CONTENT.test(excerpt) || !sources.some((source) => source && isGrounded(source, excerpt))) throw new Error("invalid_output");
     return { text: excerpt, evidence_id: argument.evidence_id, source_field: argument.source_field as LiveArgument["source_field"], source_excerpt: excerpt };
   });
   const primary = typeof value.primary_evidence_id === "string" ? value.primary_evidence_id : null;
