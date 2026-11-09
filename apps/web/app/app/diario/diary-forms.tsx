@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useId } from "react";
 import { useFormStatus } from "react-dom";
 
 import {
@@ -28,28 +28,29 @@ function FormMessage({ state }: { state: DiaryActionState }) {
 }
 
 function LogFields({ values }: { values: LogValues }) {
+  const uid = useId();
   return (
     <>
-      <label className="field-label" htmlFor="daily-content">O que aconteceu hoje?</label>
+      <label className="field-label" htmlFor={`${uid}-content`}>O que aconteceu hoje?</label>
       <textarea
         className="text-field diary-editor"
-        id="daily-content"
+        id={`${uid}-content`}
         name="content"
         minLength={40}
         maxLength={2000}
         defaultValue={values.content}
         placeholder="Descreva uma situação, o que você fez e o que mudou. Use sua própria voz."
-        aria-describedby="daily-content-help"
+        aria-describedby={`${uid}-content-help`}
         required
       />
-      <p className="field-help" id="daily-content-help">40–2.000 caracteres. O texto original será preservado.</p>
+      <p className="field-help" id={`${uid}-content-help`}>40–2.000 caracteres. O texto original será preservado.</p>
 
       <div className="diary-meta-fields">
         <div>
-          <label className="field-label" htmlFor="daily-date">Data da experiência</label>
+          <label className="field-label" htmlFor={`${uid}-date`}>Data da experiência</label>
           <input
             className="text-field"
-            id="daily-date"
+            id={`${uid}-date`}
             name="occurredOn"
             type="date"
             defaultValue={values.occurredOn}
@@ -57,10 +58,10 @@ function LogFields({ values }: { values: LogValues }) {
           />
         </div>
         <div>
-          <label className="field-label" htmlFor="daily-context">Contexto opcional</label>
+          <label className="field-label" htmlFor={`${uid}-context`}>Contexto opcional</label>
           <input
             className="text-field"
-            id="daily-context"
+            id={`${uid}-context`}
             name="context"
             maxLength={160}
             defaultValue={values.context ?? ""}
