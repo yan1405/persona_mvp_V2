@@ -3903,7 +3903,7 @@ select.text-field {
   border-radius: var(--ds-radius-md);
 }
 
-.ds-surface .live-evidence-options input { width: 20px; height: 20px; accent-color: var(--ds-brand); }
+.ds-surface .live-evidence-options input { width: 24px; height: 24px; accent-color: var(--ds-brand); }
 .ds-surface .live-evidence-rank { color: var(--ds-text-muted); font-family: var(--ds-font-body); font-size: var(--ds-fs-caption); font-weight: 600; }
 .ds-surface .live-evidence-copy { min-width: 0; }
 .ds-surface .live-evidence-copy strong { color: var(--ds-text-strong); font-size: var(--ds-fs-body-sm); overflow-wrap: anywhere; }
