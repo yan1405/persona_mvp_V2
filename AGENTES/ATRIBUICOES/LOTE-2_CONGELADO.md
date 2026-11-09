@@ -133,3 +133,20 @@ Refresh completo de Git feito (`fetch`; worktrees limpos; HEADs iguais aos topos
 | 03 Agente | | 3 | `4dbb6e468afe3513253145eaa0996fb5701b28cb` (topo) | M2: Score (`coherence.ts`) de Groq para NVIDIA + `coherence.test.ts`; ADR atualizado |
 
 Pontos para a Verificação — Interface: apresentação só (comparar lógica, textos e RPC de Live e Evidências com `e0be7e6`; `live-forms.tsx` mudou 28 linhas); remoção de CSS morto realmente sem uso (cada classe contra `git grep` em todo `apps/web`, inclusive `.tsx` dinâmicos/template strings); `useId` não quebra SSR/hidratação nem o `aria-describedby`; 0 rolagem 375–1280 px; sem vazamento de CSS (`globals.css` +378 −103). Agente: M1 sem mudança de comportamento do Live (diff de `nvidia-chat.ts`, testes antigos intactos); barreira do ESLint por mutação (`import()`, `require`, `.js`, barril); M2: rubrica `coherence-v1` e discretização inalteradas, testes falham em mutações (ex.: aceitar ID fora da entrada, não discretizar, trocar erro por 0), nenhum uso restante de Groq no Score, `lib/groq/**` intocado; efeito do Score ficar `not_configured` sem chave (o que o usuário vê); gates. Nada se corrige: só relatar. Esta é a última rodada da conversa atual da Verificação: deixar "Para a 2ª conversa" no `AGENTES/04_verificacao/STATUS.md`.
+
+
+## Lote 5 — SHAs congelados (09/11/2026)
+
+Refresh completo de Git feito (`fetch`; worktrees limpos; HEADs iguais aos topos; `main` `9f4c845`, `origin/main` `06de045`). Cada commit: filho do anterior, `git diff --check` limpo, coautoria presente, zero segredo. Nada integrado.
+
+| Papel | Branch | Ordem | SHA | Conteúdo |
+|---|---|---|---|---|
+| 01 Interface | `wt/interface-lote2` (base `3f37693`) | 1 | `3da5f586db03e8f220e64813031bb9923b84abc5` | IF7-1 (`overflow-wrap` no eyebrow do Live) e texto de IF6-3 |
+| 01 Interface | | 2 | `1eef0a4dd87d664fb426596f051a13b85a7a1b66` | tela Score (`score/page.tsx`, +68 CSS) |
+| 01 Interface | | 3 | `ce12bee4b1bcaefc6080b584448713136b9e7dbd` (topo) | tela Artefatos (`artefatos/page.tsx`, `artefatos/[id]/page.tsx`, +130 CSS) |
+| 03 Agente | `wt/agente-lote2` (base `4dbb6e4`) | 1 | `31c1800ab8c432644d527f28850d6c2f2e0871a5` | AG6-2: `analyze-coherence.ts` com `server-only`; **também alterou `app/app/score/actions.ts` (1 linha de import), fora da lista literal de caminhos** |
+| 03 Agente | | 2 | `ca6bf9fdf7b172a66316d1ddd6972183a3f54b1d` | AG6-3: cerca Markdown tolerada em `coherence-schema.ts` + testes |
+| 03 Agente | | 3 | `02bebe9727d9d7c7ee013a39445180764beba31c` | M3: Diário (`structure-evidence.ts`) de Groq para NVIDIA + 144 linhas de teste |
+| 03 Agente | | 4 | `b409e7c512671e92021d7ebdf88257d1365ec4b5` (topo) | só `STATUS.md` (bloco da 2ª conversa) |
+
+Pontos para a Verificação — Interface: apresentação só (comparar lógica, textos e RPC de Score e Artefatos com `3f37693`); IF7-1 realmente corrige a palavra de 70 caracteres (a 375 e 768 px) e nas novas telas; 0 rolagem 375–1280 px; sem corte com palavras longas; sem vazamento de CSS; acessibilidade. Agente: AG6-2 (importar a análise do Score de componente cliente falha o build/lint; `node --test` segue passando; a mudança em `score/actions.ts` é só o import); AG6-3 (cerca tolerada, mas conteúdo continua estrito: mutações); M3: esquema/validação inalterados (`useful=false`, campos sem sustentação como `null`), nenhum Groq restante no Diário, `lib/groq/**` restante intacto, mutações em cópia, o que o usuário vê sem chave, quem chama `structure-evidence.ts`; gates. Nada se corrige: só relatar. Manter o bloco "Para a 2ª conversa" do STATUS atualizado.
