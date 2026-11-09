@@ -41,10 +41,10 @@ Lote 4 · item 3 — tela Live migrada à Fundação (HEAD sobre `ed87907`): **i
 
 **SHAs vigentes do Lote 4** (ordem de commit): (1) S4 do Lote 3 `45a399649c4f30e9ac7b02a445ea87eeda1a7dad`; (2) Evidências `ed879071abae773a387e806725c5fad68f0df6e7`; (3) Live: o SHA completo está no handoff (um commit não pode conter o próprio hash). Antes: Início `4f21907`, Diário `e0be7e6`, IF2-3 `a15ed1b`.
 
-**Telas já migradas à Fundação:** Início, Diário, Evidências (biblioteca), Live (índice e sessão). Tabela em `docs/redesign/interface/FUNDACAO_LOTE2.md` §7.
+**Telas já migradas à Fundação:** Início, Diário, Evidências (biblioteca), Live (índice e sessão), Score (Lote 5, item 2; harness estático com palavras longas sem espaço, 10 larguras de painel de 343 a 1024 px × 4 variantes: 0 corte, 0 estouro, 0 alvo < 44 px; marcação real PENDING), Artefatos (Lote 5, item 3: lista, filtros e `/[id]` com editor, fontes e versões; `/novo` segue legada; mesmo harness, 4 variantes: 0 corte, 0 estouro, 0 alvo < 44 px; o harness achou o `.empty-state` sem quebra de palavra e `.ds-surface .empty-state` passou a ter `overflow-wrap: anywhere`; impressão do PDF conferida só pelo CSS: `.artifact-print-sheet h2` mantém cor e fonte). Tabela em `docs/redesign/interface/FUNDACAO_LOTE2.md` §7.
 
 **O que falta:**
-- Telas: Score, Artefatos, Diagnóstico e Configurações (continuam escuras/legadas); `/app/evidencias/[id]` e `/app/diario/[id]` (detalhe).
+- Telas: `/app/artefatos/novo`, Diagnóstico e Configurações (continuam escuras/legadas); `/app/evidencias/[id]` e `/app/diario/[id]` (detalhe).
 - Painel/gaveta flutuante do registro, da evidência e estados `carregando`/`conflito` (decisão 4.7; usar portal fora de `.ds-surface`, ver IF6-3).
 - IF6-4 / IF3-2: causa não tratada, a barra lateral só é `sticky` na vertical (não vira problema nas telas medidas, mas não foi corrigida).
 - Verificação em tela real logada (dados reais, leitor de tela, Safari/VoiceOver, teclado) e aceite visual de Yan: tudo PENDING.
@@ -53,7 +53,7 @@ Lote 4 · item 3 — tela Live migrada à Fundação (HEAD sobre `ed87907`): **i
 **Armadilhas.**
 - Todo CSS de tela migrada vive sob `.ds-surface`; um seletor sem `ds-` vaza para telas legadas (conferir com o diff de `globals.css`). Os primitivos legados (`.eyebrow`, `.text-field`, `.button-*`, `.inline-notice`, `.form-*`, `.empty-state`) são repintados claros só dentro de `.ds-surface`.
 - `.ds-surface` tem `container-type: inline-size`: larguras se medem por `@container` (painel de 256 px de barra ≥ 1100, trilho 76 px < 1100, barra superior < 640); `position: fixed` fica contido no `<main>`; unidades `cq*` medem o `<main>`.
-- `.app-content` tem `overflow: clip` e não tem `min-width: 0`: conteúdo largo faz a janela rolar em vez de cortar; use `minmax(0, 1fr)` nas grades.
+- `.app-content` tem `overflow: clip` e não tem `min-width: 0`: em telas legadas conteúdo largo faz a janela rolar, mas em `.ds-surface` (`container-type: inline-size`, IF6-3) o excesso é **cortado em silêncio**, sem rolagem: use `minmax(0, 1fr)` nas grades e `overflow-wrap: anywhere` em texto de usuário (nome da empresa, títulos; IF7-1).
 - Desvios do DS por contraste: borda de campo `--ds-n-400` (3,7:1) e anel de foco `--ds-focus-ring` (indigo-600; indigo-300 no painel focal escuro).
 - Edição: o índice git é LF e o working tree às vezes CRLF; `.tsx` pode exigir edição ciente de CRLF. Heredocs com acento/aspas podem falhar no Bash: gere scripts com a ferramenta Write.
 - Medição: harness estático (HTML transcrito do JSX + CSS real do build, 22 larguras de 375 a 1280 px; rolagem horizontal, corte contra o painel, descendente fora do cartão, `sticky` da barra, contraste, controles < 44 px, texto < 12 px, `id` duplicado, saltos de título, contagem de `main`/`h1`). Ele reproduz a marcação, não os componentes React: marcação real e dados reais seguem PENDING.
