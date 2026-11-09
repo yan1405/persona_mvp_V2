@@ -6,7 +6,7 @@ export default function SettingsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="settings-page">
+    <main className="settings-page">
       <header className="settings-heading">
         <p className="eyebrow">Controle da conta</p>
         <h1>Configurações</h1>
@@ -19,6 +19,6 @@ export default function SettingsLayout({
         <SettingsNavigation />
         <div className="settings-content">{children}</div>
       </div>
-    </section>
+    </main>
   );
 }
