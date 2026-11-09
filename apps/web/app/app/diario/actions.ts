@@ -8,7 +8,7 @@ import {
   validateSuggestion,
   type SuggestionInput,
 } from "@/lib/diary/validation";
-import { StructureEvidenceError, structureEvidence } from "@/lib/groq/structure-evidence";
+import { StructureEvidenceError, structureEvidence } from "@/lib/groq/structure-evidence-server";
 import { recordConsistencyIfChanged } from "@/lib/score/record-consistency";
 import { createClient } from "@/lib/supabase/server";
 
