@@ -1,5 +1,8 @@
 import Image from "next/image";
+import { headers } from "next/headers";
 import Link from "next/link";
+
+import { isQaPasswordLoginEnabled } from "@/lib/auth/qa-login-gate";
 
 function MicrosoftMark() {
   return (
@@ -15,9 +18,10 @@ function MicrosoftMark() {
 export default async function SignInPage({
   searchParams,
 }: {
-  searchParams: Promise<{ conta?: string }>;
+  searchParams: Promise<{ conta?: string; erro?: string }>;
 }) {
-  const { conta } = await searchParams;
+  const { conta, erro } = await searchParams;
+  const qaLogin = isQaPasswordLoginEnabled(process.env, (await headers()).get("host"));
 
   return (
     <main className="login-shell">
@@ -91,6 +95,20 @@ export default async function SignInPage({
             <p className="auth-note">
               Você será redirecionado ao ambiente oficial da Microsoft.
             </p>
+
+            {qaLogin && (
+              <form action="/auth/qa-entrar" method="post" className="qa-login">
+                <p className="auth-note">Acesso de QA local (conta descartável).</p>
+                {erro === "qa" && (
+                  <p className="form-error" role="alert">Não foi possível entrar.</p>
+                )}
+                <label className="field-label" htmlFor="qa-email">E-mail</label>
+                <input className="text-field" id="qa-email" name="email" type="email" autoComplete="username" maxLength={254} required />
+                <label className="field-label" htmlFor="qa-password">Senha</label>
+                <input className="text-field" id="qa-password" name="password" type="password" autoComplete="current-password" maxLength={200} required />
+                <button className="button-secondary" type="submit">Entrar (QA)</button>
+              </form>
+            )}
 
             <div className="auth-divider" />
 
