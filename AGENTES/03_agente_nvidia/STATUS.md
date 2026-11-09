@@ -26,4 +26,6 @@ Riscos abertos: `regenerateLiveQuestion` ainda descarta a mensagem de erro (agor
 
 **Lote 3, item 2 (parser do Live: A-1, A-7, L-1).** `lib/live/response-schema.ts` agora exige excerto com letra ou dígito, sem cortar palavra/número, sem perder negação na mesma oração (fim de oração inclui vírgula e quebra de linha) e com competências isoladas; 6 testes novos em `response-schema.test.ts` (falham 5/6 no parser anterior; 5 mutações falham). Sem chamada real: frequência em produção PENDING. A-1/A-7/L-1 deixam de estar abertos no parser; L-2 e os limites do contrato seguem declarados.
 
+**Lote 3, item 3 (ADR "NVIDIA único").** `docs/redesign/agent/ADR_NVIDIA_UNICO.md` (PROPOSTO): inventário dos 5 usos de LLM (Live, Diário, Score, Artefatos, Agente), diferenças Groq × NVIDIA, plano M0–M6 em lotes pequenos com testes, riscos e gates G0–G7 de Yan. Sem código migrado, sem chamada real.
+
 Gates humanos: chave NVIDIA nova, chamada real de aceite, ADR Groq→NVIDIA, push/Preview/Production.
