@@ -1,0 +1,14 @@
+# Lote 5 — Telas Score e Artefatos, ressalvas do Lote 4 e M3 do ADR (09/11/2026)
+
+Base: `main` local `168c251` (Lotes 1–4 integrados; `origin/main` `06de045`). Decisão de Yan (09/11/2026): "Sim, Lote 5". Executam as **segundas conversas** (`p2-interface`, `p2-agente`); as primeiras ficam paradas.
+
+Proibidos para todos: push, merge em `main`, Preview, Production, banco, SQL, migração aplicada, chave/credencial, chamada a provedor real. Um commit por item, SHA completo no handoff, commit local com `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`. Cada papel continua na sua branch `wt/*-lote2`; o Orquestrador resolve a divergência com a `main` na integração.
+
+| Papel | Itens (um commit por item, nesta ordem) | Escrita autorizada | Aceite |
+|---|---|---|---|
+| 01 Interface (`p2-interface`) | (1) **IF7-1**: `overflow-wrap: anywhere` no nome da empresa de `.live-session-header .eyebrow` (e corrigir o texto de IF6-3 no STATUS/`FUNDACAO_LOTE2.md`); (2) tela **Score** na Fundação; (3) tela **Artefatos** na Fundação (lista, filtros e editor) | linha atual + `apps/web/app/app/score/**` e `apps/web/app/app/artefatos/**` **somente marcação/CSS**, `apps/web/components/**` | só apresentação (nenhuma mudança em `actions.ts`, `lib/**`, RPC, validação, dados ou textos); 0 rolagem horizontal 375–1280 px; sem corte, inclusive com palavras longas; acessibilidade; sem vazamento de CSS; `npm test`, lint, typecheck, build, `diff --check` limpos; STATUS sem `VERIFIED` próprio |
+| 03 Agente NVIDIA (`p2-agente`) | (1) **AG6-2**: casca `server-only` para o Score, como no Live (`generate-live-response.ts`), sem quebrar `node --test`; (2) **AG6-3**: tolerar JSON dentro de cercas Markdown no parser do Score (e só se couber sem afrouxar a validação estrita do conteúdo), com testes que falham antes e passam depois; (3) **M3** do ADR: Diário (`lib/groq/structure-evidence.ts`) de Groq para NVIDIA sobre o cliente compartilhado, com `fetch` simulado, mesmo esquema/validação de saída (`useful=false`, campos sem sustentação como `null`), sem fallback entre provedores | linha atual + `apps/web/lib/score/**` (itens 1 e 2), `apps/web/lib/groq/structure-evidence.ts` e seus testes e o ponto de chamada mínimo (item 3), `apps/web/package.json` (só `scripts.test`), `eslint.config.*`, `docs/redesign/agent/**` | testes que falham antes e passam depois; mutação em cópia fora do repo; sem chamada real; `npm test`, lint, typecheck, build sem `.env`, `diff --check` limpos; dizer o que o usuário vê sem chave (`not_configured`) |
+| 02 Backend (`p2-backend`) | sem item | — | aguarda o banco de QA de Yan |
+| 04 Verificação (`p2-verificacao`) | verificar cada SHA | `AGENTES/04_verificacao/**` | relatório por SHA; nunca corrige |
+
+Fora do Lote 5: M4 (Artefatos), M5, M6, telas Diagnóstico e Configurações, textos "Groq" na interface (junto de M3/M4, lote da Interface seguinte), banco QA/RLS/R1, chave NVIDIA, Preview, publicação.
