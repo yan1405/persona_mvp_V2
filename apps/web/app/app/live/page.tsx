@@ -13,7 +13,7 @@ export default async function LivePage() {
   const { data, error } = await supabase.from("live_sessions").select("id, target_role, company, status, updated_at, live_questions(count)").order("updated_at", { ascending: false }).limit(30);
   const sessions = (data ?? []) as Session[];
   return (
-    <main className="app-page live-index-page">
+    <main className="app-page live-index-page ds-surface">
       <header className="live-index-heading"><div><p className="eyebrow">Persona Live</p><h1>Fatos prontos para a conversa</h1><p>Prepare uma oportunidade, autorize seu repertório e transforme perguntas em respostas sustentadas.</p></div><span className="live-manual-tag">Modo manual</span></header>
       <section className="live-new-session" aria-labelledby="new-live-title"><div className="section-heading-row"><div><p className="eyebrow">Nova preparação</p><h2 id="new-live-title">Qual conversa você vai enfrentar?</h2></div><span className="history-count">Contexto primeiro</span></div><NewLiveSessionForm /></section>
       <section className="live-history" aria-labelledby="live-history-title"><div className="section-heading-row"><div><p className="eyebrow">Histórico</p><h2 id="live-history-title">Sessões recentes</h2></div><span className="history-count">{sessions.length} de até 30</span></div>
