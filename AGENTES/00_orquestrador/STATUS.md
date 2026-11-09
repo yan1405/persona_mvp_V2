@@ -462,3 +462,7 @@ Lote 3 (Interface `e0be7e6`, Agente `4d9aa79`) integrado por Yan na `main` local
 | Agente `4dbb6e4` (M2, Score na NVIDIA) | liberar com ressalvas | AG6-3 (HYPOTHESIS, possível S3): sem `response_format` o JSON pode vir com cercas e virar `invalid_output`; AG6-4: Score agora exige `NVIDIA_API_KEY`; AG6-2: sem `server-only` no Score; AG6-5/6/7 (S4) |
 
 Execução: Interface `npm test` 32/32, Agente 82/90/96; lint, typecheck, build 0. Lote 4 **não integrado** (aguarda autorização de Yan). Próximo: segundas conversas por agente (títulos "Persona 2 — <papel>"), depois lembrar Yan dos itens 5, 6, 7, 8, 11 e 12.
+
+## Lote 4 integrado (09/11/2026)
+
+Com autorização de Yan, Interface `3f37693` (S4, Evidências, Live) e Agente `4dbb6e4` (AG5-1, M1, M2 Score na NVIDIA) foram integrados por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only` até `168c251`. Gates no HEAD: `npm test` 96/96, lint, typecheck, build 0, `diff --check` limpo, zero segredo real. Sem push, migração, SQL, chave, Preview ou Production; `origin/main` `06de045`. Segundas conversas abertas (p2-interface, p2-agente, p2-backend, p2-verificacao); as antigas ficam paradas. Próximo: Lote 5 (IF7-1 e telas Score/Artefatos/Diagnóstico/Configurações; AG6-2, AG6-3 e M3 Diário).
