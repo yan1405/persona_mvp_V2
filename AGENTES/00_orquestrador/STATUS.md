@@ -507,3 +507,16 @@ Execução: Interface `npm test` 32/32; Agente 105, 105, 107, 107; lint, typeche
 ## Lote 6 integrado (09/11/2026)
 
 Com autorização de Yan, Agente `b5ba514` e Interface `7e33f8f` entraram por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only` até `ebb10aa`. Gates no HEAD: `npm test` 107/107, lint, typecheck, build 0, `diff --check` limpo, zero segredo real. Textos "Groq" fora das telas (restam apenas imports de `lib/groq/` e o Artefatos, ainda em Groq até o M4). `origin/main` segue `06de045`; sem push, sem Preview, sem Production. Próximo: itens de Yan 5, 6, 7, 8, 11 e 12.
+
+## Lote 7 verificado (09/11/2026)
+
+Congelamento em `610d1e7`. Relatório: `RELATORIO_interface_lote7_2e044a0.md`. **Sem S1 ou S2; nenhum cabeçalho forjado liga o gate; 404 em produção provado com `next build` + `next start`.** HTML de `/entrar` com o gate desligado idêntico ao da base.
+
+| SHA | Gate sugerido | Ressalvas |
+|---|---|---|
+| Interface `d786814` (QL-1) | liberar | QL7-3 (S4): `NODE_ENV` com outra grafia liga o gate |
+| Interface `092a5c3` (QL-2) | liberar com ressalvas | QL7-1 (S4) rota distinguível de 404 comum; QL7-2 (S3 preexistente) |
+| Interface `707e93f` (QL-3) | liberar | — |
+| Interface `2e044a0` (QL-4, topo) | liberar com ressalvas | QL7-5: teste do gate fora do `npm test` (Orquestrador inclui na integração) |
+
+**QL7-2 (S3, preexistente, produção):** `getSafeNextPath` aceita `/\t/evil.example.com`, que vira redirect para domínio externo após o login Microsoft (`auth/iniciar` e `auth/callback`). Fora do diff do Lote 7; **tratar antes de Preview/Production** (lote próprio). QL7-4 (S4): servidor ouve em todas as interfaces; usar `next dev -H 127.0.0.1` com a flag ligada. Execução: `npm test` 107/107, teste do gate 3/3, lint, typecheck, build 0. Lote 7 **não integrado** (aguarda autorização de Yan).
