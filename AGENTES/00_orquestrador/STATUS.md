@@ -466,3 +466,19 @@ Execução: Interface `npm test` 32/32, Agente 82/90/96; lint, typecheck, build 
 ## Lote 4 integrado (09/11/2026)
 
 Com autorização de Yan, Interface `3f37693` (S4, Evidências, Live) e Agente `4dbb6e4` (AG5-1, M1, M2 Score na NVIDIA) foram integrados por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only` até `168c251`. Gates no HEAD: `npm test` 96/96, lint, typecheck, build 0, `diff --check` limpo, zero segredo real. Sem push, migração, SQL, chave, Preview ou Production; `origin/main` `06de045`. Segundas conversas abertas (p2-interface, p2-agente, p2-backend, p2-verificacao); as antigas ficam paradas. Próximo: Lote 5 (IF7-1 e telas Score/Artefatos/Diagnóstico/Configurações; AG6-2, AG6-3 e M3 Diário).
+
+## Lote 5 verificado (09/11/2026)
+
+Congelamento em `aa49de0`. Relatórios: `RELATORIO_interface_lote5_ce12bee.md`, `RELATORIO_agente-nvidia_lote5_b409e7c.md`. Sem S1/S2; dois S3 no Agente. A linha de `app/app/score/actions.ts` alterada em AG6-2 é consequência direta do item (troca de import para a casca `server-only`); **registrada aqui como incluída na atribuição do Lote 5**.
+
+| SHA | Gate sugerido | Ressalvas |
+|---|---|---|
+| Interface `3da5f58` (IF7-1) | liberar | defeito reproduzido na base (297 px cortados a 375 px) e corrigido |
+| Interface `1eef0a4` (Score) | liberar com ressalvas | aceite visual PENDING |
+| Interface `ce12bee` (Artefatos) | liberar com ressalvas | IF8-1 editor medido por marcação transcrita; IF8-2 impressão não medida; IF8-3 `overflow-wrap` em `.empty-state` |
+| Agente `31c1800` (AG6-2) | liberar | build quebra se cliente importa a casca; AG7-3 (S4): ESLint não cobre a casca |
+| Agente `ca6bf9f` (AG6-3) | liberar | 8/8 mutações morrem |
+| Agente `02bebe9` (M3 Diário na NVIDIA) | liberar com ressalvas | **AG7-1 (S3):** 5 textos "Groq" na tela do Diário (`diario/[id]/page.tsx` linhas 45, 46, 48, 204, 239) agora são falsos; **não promover a Preview/Production antes de trocar**; **AG7-2 (S3):** o núcleo perdeu `server-only` (barreira só no ESLint); AG7-4/5/6 (S4) |
+| Agente `b409e7c` (STATUS) | liberar | — |
+
+Execução: Interface `npm test` 32/32; Agente 96, 98, 105, 105; lint, typecheck, build 0. Lote 5 **não integrado** (aguarda autorização de Yan). Proposta de Lote 6: AG7-2 (Agente: casca `server-only` do Diário), AG7-1 (Interface: textos neutros "a IA"/"o provedor de IA"), telas Diagnóstico e Configurações, IF7-2 e IF8-2; M4 (Artefatos) depois.

@@ -1,7 +1,26 @@
 # Status — Persona — Verificação Independente
 
 Estado: DONE
-Resumo: Lote 4 revisado (09/11/2026): seis SHAs verificados um a um, Interface (`45a3996`, `ed87907`, `3f37693`) e Agente (`9adce27`, `13af232`, `4dbb6e4`), sem S1, S2 ou S3 confirmado. Vigentes: Backend `1349a0a` (Lote 2, Rodada 5), Interface `3f37693` e Agente `4dbb6e4` (Lote 4). SHAs anteriores permanecem como histórico. `Estado: DONE` vale para os relatórios desta rodada, não para banco, tela autenticada, Preview ou produto final.
+Resumo: Lote 5 revisado (09/11/2026): sete SHAs verificados um a um, Interface (`3da5f58`, `1eef0a4`, `ce12bee`) e Agente (`31c1800`, `ca6bf9f`, `02bebe9`, `b409e7c`), sem S1 ou S2; dois S3 no Agente (AG7-1 textos "Groq" no Diário depois do M3; AG7-2 núcleo do Diário sem `server-only`). Vigentes: Backend `1349a0a` (Lote 2, Rodada 5), Interface `ce12bee` e Agente `b409e7c` (Lote 5). SHAs anteriores permanecem como histórico. `Estado: DONE` vale para os relatórios desta rodada, não para banco, tela autenticada, Preview ou produto final.
+
+## Lote 5 — Interface (3 commits) e Agente (4 commits) (09/11/2026)
+
+Base de cada papel: Interface `3f37693`, Agente `4dbb6e4` (Lote 4, integrado localmente). Cada SHA é filho do anterior e foi verificado em checkout isolado, sem `.env`, builds em sequência com `HEAD` conferido. Os relatórios cobrem todos os SHAs de cada papel; os de `3f37693` e `4dbb6e4` são histórico.
+
+| Entrega | SHA | Relatório | Resultado | Gate sugerido |
+|---|---|---|---|---|
+| 01 Interface | `3da5f586db03e8f220e64813031bb9923b84abc5` (IF7-1) | `RELATORIO_interface_lote5_ce12bee.md` | defeito reproduzido na base (297 px cortados a 375 px) e corrigido: 0 cortes em 96 medições; texto de IF6-3 correto | liberar para integração local |
+| 01 Interface | `1eef0a4dd87d664fb426596f051a13b85a7a1b66` (Score) | idem | só a classe `ds-surface` no TSX (md5 idêntico); 0 rolagens, cortes e vazamentos; contraste, alvos e foco sem problema | liberar com ressalvas (aceite visual e tela real PENDING) |
+| 01 Interface | `ce12bee4b1bcaefc6080b584448713136b9e7dbd` (Artefatos, topo) | idem | idem, lista e detalhe (3 abas); 0 de 624 casos com rolagem/corte; CSS: 0 removidas, 1 alterada (`.ds-surface .empty-state`), 139 novas todas com `ds-`; impressão não medida | liberar com ressalvas |
+| 03 Agente NVIDIA | `31c1800ab8c432644d527f28850d6c2f2e0871a5` (AG6-2) | `RELATORIO_agente-nvidia_lote5_b409e7c.md` | importar a casca de um cliente quebra o `next build`; ESLint não pega a casca (AG7-3); a linha em `score/actions.ts` é só o import (S4 de processo) | liberar para integração local |
+| 03 Agente NVIDIA | `ca6bf9fdf7b172a66316d1ddd6972183a3f54b1d` (AG6-3) | idem | uma cerca inteira aceita, conteúdo estrito; 8 de 8 mutações morrem; sem backtracking relevante | liberar para integração local |
+| 03 Agente NVIDIA | `02bebe9727d9d7c7ee013a39445180764beba31c` (M3) | idem | esquema, validação e prompt (13 frases) inalterados; sem Groq no núcleo do Diário; 22 de 26 mutações morrem; **AG7-1 (S3)** 5 textos "Groq" na tela do Diário; **AG7-2 (S3)** sem `server-only`; AG7-4 (S4) 4 mutações sobrevivem | liberar com ressalvas (não promover a Preview antes de AG7-1) |
+| 03 Agente NVIDIA | `b409e7c512671e92021d7ebdf88257d1365ec4b5` (STATUS, topo) | idem | só `STATUS.md`; contagens conferem (105 testes, 7 novos, 5 textos "Groq") | liberar para integração local |
+
+Execução (sem `.env`, builds em sequência): Interface `npm test` 32/32 nos três; Agente 96, 98, 105, 105; `next typegen`, lint (0 avisos), typecheck e build com saída 0 nos sete. Medições da Interface com Chrome headless local (sem servidor); mutações e sondas em cópias fora do repositório; verificação isolada devolvida a `a5a18aa`, limpa.
+
+Não verificado: telas reais autenticadas, editor real (marcação transcrita), impressão, leitor de tela, aceite visual de Yan, chamada real à NVIDIA, chave, qualidade do JSON do modelo sem `response_format` estrito no Diário, latência (até ~24 s), banco, Preview e Production. Nada foi corrigido, aplicado, integrado ou commitado por mim.
+
 
 ## Lote 4 — Interface (3 commits) e Agente (3 commits) (09/11/2026)
 
@@ -48,14 +67,14 @@ Não verificado: telas reais autenticadas (a amostra transcreve a marcação e u
 - Nenhuma tela real autenticada foi vista; toda medição é de amostra transcrita.
 
 **Histórico de relatórios** (em `AGENTES/04_verificacao/`; só o mais novo de cada papel vale para o SHA vigente).
-- Interface: `a5a18aa`, `d3dfa63`, `14ad969`, `d71f2a7`, `e6b3e5c`, `abcf288`, `8240cf3`, `8c5ef15`, `d4a1e3b`, Lote 3 `e0be7e6`, **Lote 4 `3f37693`**.
-- Agente NVIDIA: `ae00dd4`, `72b0e60`, `9abf927`, `cba617a`, `42dbddf`, `489ec0d`, `6a6b8f0`, `f4edecf`, Lote 3 `4d9aa79`, **Lote 4 `4dbb6e4`**.
+- Interface: `a5a18aa`, `d3dfa63`, `14ad969`, `d71f2a7`, `e6b3e5c`, `abcf288`, `8240cf3`, `8c5ef15`, `d4a1e3b`, Lote 3 `e0be7e6`, Lote 4 `3f37693`, **Lote 5 `ce12bee`** (`RELATORIO_interface_lote5_ce12bee.md`).
+- Agente NVIDIA: `ae00dd4`, `72b0e60`, `9abf927`, `cba617a`, `42dbddf`, `489ec0d`, `6a6b8f0`, `f4edecf`, Lote 3 `4d9aa79`, Lote 4 `4dbb6e4`, **Lote 5 `b409e7c`** (`RELATORIO_agente-nvidia_lote5_b409e7c.md`).
 - Backend: `1349a0a`, `33373ae`, `4b4650d`, `7aeb658`, `4a37131`, `ee6ac3f`, `ffd4289`.
 - Outros: `PARECER_OBSERVACOES_LOTE2.md`, `PLANO_LOTE1.md`, `HANDOFF_2026-11-05.md`, `AGENTS.md`.
 
-**SHAs vigentes.** Backend `1349a0acda404a0f64b94678369ab100873d0fe3` (Lote 2, Rodada 5). Interface `3f376937012717a8449730675e0a7ae3372c5cdb` (Lote 4; antes `e0be7e6`, `4f21907`, `a15ed1b`). Agente `4dbb6e468afe3513253145eaa0996fb5701b28cb` (Lote 4; antes `4d9aa79`, `952ec70`, `b7b21a4`, `ae00dd4`). Base citada pelo `LOTE-4.md`: `main` local `ff94688` (Lote 3 integrado); `origin/main` `06de045`. Confirme com `git log` antes de afirmar qualquer base.
+**SHAs vigentes.** Backend `1349a0acda404a0f64b94678369ab100873d0fe3` (Lote 2, Rodada 5). Interface `ce12bee4b1bcaefc6080b584448713136b9e7dbd` (Lote 5; antes `1eef0a4`, `3da5f58`, `3f37693`, `ed87907`, `45a3996`, `e0be7e6`). Agente `b409e7c512671e92021d7ebdf88257d1365ec4b5` (Lote 5; antes `02bebe9`, `ca6bf9f`, `31c1800`, `4dbb6e4`, `13af232`, `9adce27`, `4d9aa79`). Base citada pelo `LOTE-4.md`: `main` local `ff94688` (Lote 3 integrado); `origin/main` `06de045`. Confirme com `git log` antes de afirmar qualquer base.
 
-**Abertos para o próximo lote (todos S4, nenhum bloqueia).** IF7-1 (corte silencioso no `eyebrow` do cabeçalho da sessão e frase do STATUS de Interface), IF7-2 (checkboxes de 20 px), IF6-4/IF3-2 (barra lateral só `sticky` na vertical); AG6-1 (template sem expressão passa na barreira), AG6-2 (sem `server-only` no Score), AG6-5 (4 mutações sobrevivem). HYPOTHESIS: AG6-3 (JSON do modelo sem `response_format`), AG6-6, AG6-7. Pendências de Yan: aceite visual de Início, Diário, Evidências e Live; `NVIDIA_API_KEY` no ambiente do Score; G1–G7 do ADR.
+**Abertos para o próximo lote.** S3: AG7-1 (cinco textos "Groq" em `diario/[id]/page.tsx`, da Interface; não promover a Preview antes), AG7-2 (núcleo do Diário sem `server-only`; casca sugerida). S4: IF7-2 (checkboxes de 20 px), IF8-1/IF8-2/IF8-3 (editor só transcrito, impressão não medida, `.empty-state`), IF6-4/IF3-2 (barra lateral), AG6-1 (template sem expressão), AG7-3 (ESLint não cobre a casca do Score), AG7-4 (4 mutações sobrevivem), AG7-5 (regex da cerca duplicada), AG7-6 (núcleo NVIDIA ainda em `lib/groq/`). HYPOTHESIS/PENDING: JSON do modelo no Diário sem `response_format` estrito; latência até ~24 s; M4 (Artefatos) ainda em Groq. Pendências de Yan: aceite visual de Início, Diário, Evidências, Live, Score e Artefatos; `NVIDIA_API_KEY` no ambiente; G1–G7 do ADR.
 
 **Próximo passo provável.** Quando o Orquestrador congelar o Lote 5, abra `AGENTES/ATRIBUICOES/LOTE-2_CONGELADO.md` e o `LOTE-N.md` do lote, copie `l4/seq.sh` trocando os SHAs e rode; siga a ordem Interface (gates, CSS dead/scope, harness, diferencial, a11y) e Agente (diff, diferencial, mutações, ESLint); escreva um relatório por papel cobrindo todos os SHAs e atualize este STATUS (topo, `Resumo:` e este bloco).
 
