@@ -39,9 +39,10 @@ function LogFields({ values }: { values: LogValues }) {
         maxLength={2000}
         defaultValue={values.content}
         placeholder="Descreva uma situação, o que você fez e o que mudou. Use sua própria voz."
+        aria-describedby="daily-content-help"
         required
       />
-      <p className="field-help">40–2.000 caracteres. O texto original será preservado.</p>
+      <p className="field-help" id="daily-content-help">40–2.000 caracteres. O texto original será preservado.</p>
 
       <div className="diary-meta-fields">
         <div>
