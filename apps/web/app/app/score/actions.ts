@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { analyzeCoherence, CoherenceAnalysisError } from "@/lib/score/coherence";
+import { analyzeCoherence, CoherenceAnalysisError } from "@/lib/score/analyze-coherence";
 import { COHERENCE_RUBRIC_VERSION } from "@/lib/score/coherence-schema";
 import { getNarrativeScoreData } from "@/lib/score/data";
 import { recordConsistencyIfChanged } from "@/lib/score/record-consistency";
