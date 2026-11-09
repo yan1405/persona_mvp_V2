@@ -432,3 +432,18 @@ Nota de coordenação: uma sessão paralela do Orquestrador (trailer `OpenAI Cod
 **Lote 3** (`LOTE-3.md`, `e06bf9f`): Interface (IF2-3 e IF3-2, tela Início, tela Diário, só apresentação); Agente (S4 AG2-3/AG3-1/AG4-2; parser do Live A-1/A-7/L-1; ADR "NVIDIA único" sem migrar código); Backend sem item novo. Cada commit passa por revisão independente antes de nova integração.
 
 Pendentes de Yan: aceite visual; banco QA, migrações Fase 9 e B-1, teste de RLS (R1) e método de aplicação; chave NVIDIA rotacionada e Preview; estratégia de publicação (P-1/P-2); migração do código de Diário/Score/Artefatos para NVIDIA depende do ADR.
+
+## Lote 3 verificado (08/11/2026)
+
+Congelamento em `af32d50`. Relatórios: `RELATORIO_interface_lote3_e0be7e6.md`, `RELATORIO_agente-nvidia_lote3_4d9aa79.md`. Gates sugeridos pela Verificação (não aprovam nada):
+
+| SHA | Gate |
+|---|---|
+| Interface `a15ed1b` (IF2-3) | liberar |
+| Interface `4f21907` (Início) | liberar com ressalvas (IF6-1 texto visível novo; aceite visual PENDING) |
+| Interface `e0be7e6` (Diário) | liberar com ressalvas (IF6-2/IF6-3 S4) |
+| Agente `b7b21a4` (AG2-3/AG3-1/AG4-2) | liberar (AG5-1 S4: regra não pega `import()` dinâmico, `require`, `.js`, barril) |
+| Agente `952ec70` (parser A-1/A-7/L-1) | liberar com ressalvas: **AG5-2 (S3)** falso positivo quando a negação não vem separada por pontuação (5 de 15 frases sintéticas); o parser só aceita menos respostas que antes; frequência real PENDING |
+| Agente `4d9aa79` (ADR NVIDIA único) | liberar (documento; G0–G7 PENDING) |
+
+Execução: Interface `npm test` 32/32, Agente 76/76 (`b7b21a4`) e 82/82 (`952ec70`, `4d9aa79`); lint, typecheck, build 0. Nada integrado; `origin/main` `06de045`. Pendente de Yan: autorizar a integração local (Agente `952ec70` exige aceitar o AG5-2 por escrito), aceitar o ADR (G0) e os gates G1–G7, aceite visual.

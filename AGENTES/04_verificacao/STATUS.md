@@ -1,7 +1,24 @@
 # Status — Persona — Verificação Independente
 
 Estado: DONE
-Resumo: Lote 2 revisado (08/11/2026). Vigentes na Rodada 5: Backend `1349a0a`, Agente `ae00dd4` e Interface `a5a18aa`. SHAs anteriores permanecem como histórico. `Estado: DONE` vale para os relatórios desta rodada, não para banco, tela autenticada, Preview ou produto final.
+Resumo: Lote 3 revisado (08/11/2026): seis SHAs verificados um a um, Interface (`a15ed1b`, `4f21907`, `e0be7e6`) e Agente (`b7b21a4`, `952ec70`, `4d9aa79`). Vigentes: Backend `1349a0a` (Lote 2, Rodada 5), Interface `e0be7e6` e Agente `4d9aa79` (Lote 3). SHAs anteriores permanecem como histórico. `Estado: DONE` vale para os relatórios desta rodada, não para banco, tela autenticada, Preview ou produto final.
+
+## Lote 3 — Interface (3 commits) e Agente (3 commits) (08/11/2026)
+
+Base de cada papel: Interface `a5a18aa`, Agente `ae00dd4`. Cada SHA é filho do anterior e foi verificado em checkout isolado, sem `.env`, builds em sequência com `HEAD` conferido. Os relatórios cobrem os três SHAs de cada papel; os de `a5a18aa` e `ae00dd4` são histórico.
+
+| Entrega | SHA | Relatório | Resultado | Gate sugerido |
+|---|---|---|---|---|
+| 01 Interface | `a15ed1b650371e9f798c02dd9d81815237f3fec1` (IF2-3, IF3-2) | `RELATORIO_interface_lote3_e0be7e6.md` | IF2-3 resolvido (um `<main>` por rota); IF3-2 não reproduz nas telas tocadas (reproduzi na base só quando a tela já transborda); `npm test` 32/32, lint, typecheck, build 0 | liberar para integração local |
+| 01 Interface | `4f2190768b5001117e965c9fce3f1b3b60338059` (Início) | idem | só apresentação (um texto passou de `aria-label` a título visível, IF6-1, S4); 0 rolagens, cortes e vazamentos em 96 casos (24 larguras de 375 a 1280 px); 0 diferenças de estilo computado nas telas não migradas e em 252 combinações de classe legadas; contraste, foco por teclado e alvos conferidos na amostra | liberar com ressalvas (aceite visual e tela real PENDING) |
+| 01 Interface | `e0be7e6be2fc39889a0b6598d1d500f1fa1a4561` (Diário, topo) | idem | só apresentação (`aria-describedby` no editor); 0 rolagens/cortes/vazamentos em 48 casos; o Diário antigo transbordava a 375 px e agora não; achados S4 IF6-2 a IF6-5 (ID fixo, `container-type`, causa do IF3-2 não tratada, CSS morto) | liberar com ressalvas (aceite visual e tela real PENDING) |
+| 03 Agente NVIDIA | `b7b21a49057e143ccf259dde678cd3949b0f8b3c` (AG2-3, AG3-1, AG4-2) | `RELATORIO_agente-nvidia_lote3_4d9aa79.md` | AG2-3: import estático do núcleo NVIDIA em cliente falha o lint e `node --test` segue 76/76; não pega `import()`, `require`, `.js`, "barril" nem cliente em `lib/live` (AG5-1, S4); AG3-1: teste pendurado cai em 61 s; AG4-2 registrado | liberar para integração local |
+| 03 Agente NVIDIA | `952ec70b65b2793e07f06c22909073e42e08bb71` (parser A-1/A-7/L-1) | idem | testes novos 5/6 vermelhos no parser antigo e 6/6 no novo; o novo só aceita menos que o antigo; 23/23 respostas válidas sem negação anterior aceitas; L-1 reduzido a S3 (AG5-2: 5 de 15 frases com negação sem vírgula ainda recusadas); 2 de 14 mutações sobrevivem (AG5-3); `npm test` 82/82 | liberar com ressalvas (aceitar AG5-2 e medir com evidências reais antes de Production) |
+| 03 Agente NVIDIA | `4d9aa79f6608730a34100d7d1302d152524b6ec8` (ADR, topo) | idem | só documento; inventário completo contra `git grep` (5 usos de LLM, 16 arquivos, 0 fora de `apps/web`); parâmetros conferem com o código; imprecisões S4 (AG5-5) | liberar (documento; aceite G0 e gates G1–G7 são de Yan) |
+
+Execução (sem `.env`, builds em sequência): Interface `npm test` 32/32 nos três; Agente 76/76, 82/82, 82/82; `next typegen`, lint, typecheck e build com saída 0 nos seis. Mutações do lint e do parser em cópias fora do repositório; servidor HTTP local de 127.0.0.1 encerrado; verificação isolada devolvida a `a5a18aa`, limpa.
+
+Não verificado: telas reais autenticadas (a amostra transcreve a marcação e usa o CSS real do build), leitor de tela e Safari, aceite visual de Yan (`AGENTS.md` §6.1), chamada real à NVIDIA, chave, latência, frequência real de `invalid_output` e de AG5-2, banco, Preview e Production. Nada foi corrigido, aplicado, integrado ou commitado por mim.
 
 ## Lote 2 — Rodada 5
 
