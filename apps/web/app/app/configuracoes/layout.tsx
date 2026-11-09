@@ -6,7 +6,7 @@ export default function SettingsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="settings-page">
+    <main className="app-page settings-page ds-surface">
       <header className="settings-heading">
         <p className="eyebrow">Controle da conta</p>
         <h1>Configurações</h1>

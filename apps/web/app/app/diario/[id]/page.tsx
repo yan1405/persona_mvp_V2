@@ -42,10 +42,10 @@ const noticeMessages: Record<string, string> = {
   generated: "Sugestão criada. Revise cada campo antes de confirmar.",
   "no-suggestion": "A IA não encontrou uma experiência estruturável sem inventar informações. Use o modo manual ou detalhe melhor o registro.",
   "not_configured": "A estruturação por IA ainda não está configurada. O modo manual continua disponível.",
-  timeout: "A Groq demorou mais que o limite. Seu registro permanece salvo; tente novamente ou use o modo manual.",
-  rate_limit: "O limite temporário da Groq foi atingido. Tente mais tarde ou use o modo manual.",
+  timeout: "A IA demorou mais que o limite. Seu registro permanece salvo; tente novamente ou use o modo manual.",
+  rate_limit: "O limite temporário do provedor de IA foi atingido. Tente mais tarde ou use o modo manual.",
   invalid_output: "A resposta não passou na validação. Nenhuma evidência foi criada.",
-  provider_error: "A Groq está indisponível. Seu registro permanece salvo e editável.",
+  provider_error: "O provedor de IA está indisponível. Seu registro permanece salvo e editável.",
   "generation-running": "Já existe uma estruturação em andamento para este registro.",
   "generation-failed": "Não foi possível iniciar a estruturação.",
   rejected: "Sugestão rejeitada. O registro original foi preservado.",
@@ -201,7 +201,7 @@ export default async function DiaryDetailPage({
                       <span>{String(suggestions.length - index).padStart(2, "0")}</span>
                       <div>
                         <strong>{suggestion.title || (suggestion.origin === "manual" ? "Estrutura manual" : "Estruturação")}</strong>
-                        <small>{suggestion.origin === "ai" ? "Groq" : "Manual"} · {statusLabels[suggestion.status]}</small>
+                        <small>{suggestion.origin === "ai" ? "IA" : "Manual"} · {statusLabels[suggestion.status]}</small>
                       </div>
                     </Link>
                   </li>
@@ -236,7 +236,7 @@ export default async function DiaryDetailPage({
                 ) : selected?.status === "generating" ? (
                   <div className="state-panel" aria-live="polite">
                     <strong>Estruturando o relato</strong>
-                    <p>Aguarde a resposta da Groq. O texto original já está salvo.</p>
+                    <p>Aguarde a resposta da IA. O texto original já está salvo.</p>
                   </div>
                 ) : selected?.status === "no_suggestion" ? (
                   <div className="state-panel">
