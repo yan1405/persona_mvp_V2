@@ -2,30 +2,54 @@
 
 Estado: WAITING_APPROVAL
 
-Lote 2 (base `acc1f44`, branch `wt/agente-lote2`). Entrega: testes do adaptador do Persona Live com provedor simulado, `lib/agent` no `npm test` e comparação Groq × NVIDIA. Sem chave, sem chamada externa, sem push.
+Branch `wt/agente-lote2` (worktree `C:\Users\yansi\Projetos\persona-wt\lote2-agente`). Sem push, sem chave, sem chamada externa em nenhum lote. Handoff compacto vai na resposta final; não criar arquivo de handoff.
 
-| Tarefa | Estado | Evidência |
+## Para a 2ª conversa (retomar sem o histórico)
+
+**Estado.** Lotes 2, 3 e 4 entregues e verificados/integrados na `main` local até `4d9aa79` (Lote 3). O Lote 4 (3 commits abaixo) aguarda congelamento, revisão independente e integração pelo Orquestrador, só com autorização de Yan. Decisões de Yan já tomadas: **tudo usa NVIDIA** (ADR aceito, G0), parser do Live em lote próprio (feito), AG5-2 aceito.
+
+**SHAs vigentes (ordem cronológica, todos locais).**
+
+| Lote | SHA | Conteúdo |
 |---|---|---|
-| Testes do adaptador (`nvidia-chat.test.ts`, 10 casos) | DONE | sucesso, sem chave, timeout, 429, 5xx/rede, 4xx, saída inválida, chave só no cabeçalho, nº de tentativas |
-| Erro da server action | DONE (parcial) | `describeLiveFailure` testada (mensagem por código, `fail_live_question` só no modo inicial); a action em si exige Next/Supabase e **não** é testada |
-| `npm test` inclui `lib/agent` e o novo teste | DONE | só o valor de `scripts.test` |
-| AG2-1 (rodada 2): timeout e `signal` fixados | DONE | `NVIDIA_TIMEOUT_MS`/`NVIDIA_MAX_ATTEMPTS` exportadas e asseridas; cada tentativa leva `AbortSignal` não abortado criado com 15 s (espião em `AbortSignal.timeout`); aborto real exercitado (12 testes). Mutações em cópia (sem `signal`; 30_000 literal; constante 30_000; 3 tentativas) agora falham |
-| AG2-2 (rodada 3): orquestração de `generateVersion` testável | DONE | corpo movido sem alteração para `lib/live/generate-version.ts` (`runGenerateVersion`, dependências injetadas); `actions.ts` ficou com a casca (`authenticatedClient` + chamada). 11 testes com fakes: sessão inativa, sem evidências, alternative sem outra, `finish_live_question` (answered/gap, sem duplicatas), `fail_live_question` só no modo inicial, falha do rpc → `invalid_output`. 6 mutações em cópia falham |
-| Comparação Groq × NVIDIA | DONE | `docs/redesign/agent/COMPARACAO_LIVE_GROQ_NVIDIA.md` |
+| 2 | `cba617a` · `9abf927` · `72b0e60` · `ae00dd4` | testes do adaptador Live; timeout/`signal` (AG2-1); `runGenerateVersion` testável (AG2-2); fakes de autorização (feito por outro agente, AG4-1) |
+| 3 | `b7b21a4` · `952ec70` · `4d9aa79` | barreira ESLint + `--test-timeout` (AG2-3/AG3-1/AG4-2); parser do Live (A-1/A-7/L-1); ADR NVIDIA único |
+| 4 | `9adce279725c476bca197002e849e919978f9534` · `13af232e700111564815aedb6d76da2c570816f8` · **este commit (M2)**, SHA completo no handoff | AG5-1 (import dinâmico/require/sufixo/barril); M1 cliente NVIDIA compartilhado; M2 Score na NVIDIA |
 
-SHAs anteriores (congelados, não reescritos): `cba617abe33860d94e338dfb93ee14a67f60499e`, `9abf92762285c50dc4c20c58624b8f4a794d0001`. Novo SHA informado no handoff.
+**O que existe hoje.**
+- `lib/live/nvidia-client.ts`: `callNvidiaChat({ messages, temperature, maxTokens, timeoutMs? })`; erro `NvidiaError` com cinco códigos (`not_configured`, `timeout`, `rate_limit`, `invalid_output`, `provider_error`); 2 tentativas (429, 5xx, rede/timeout), 4xx ≠ 429 não repete; chave só no cabeçalho `Authorization`; modelo `NVIDIA_MODEL` ou `z-ai/glm-5.3-flash`.
+- `lib/live/nvidia-chat.ts`: Live (temp. 0,5, 1.024 tokens, 15 s) sobre o cliente; `generate-live-response.ts` é a casca com `server-only`; `generate-version.ts` guarda a orquestração testável de `app/app/live/actions.ts`.
+- `lib/score/coherence.ts`: **Score na NVIDIA** (temp. 0,1, 1.600 tokens, 12 s por tentativa, esquema no prompt + `parseCoherenceOutput`, rubrica `coherence-v1` e notas 0/25/50/75/100 inalteradas, sem `response_format`, sem fallback para Groq). Formato é o **M0 provisório**; a decisão final é de Yan depois do G2.
+- `lib/live/response-schema.ts`: parser do Live com A-1/A-7/L-1 corrigidos (excerto íntegro, sem cortar número/palavra, negação por oração com vírgula/quebra de linha como fim de oração, competências isoladas). Limites e L-2 declarados em `docs/redesign/agent/CONTRATO_AGENTE.md`.
+- ESLint (`apps/web/eslint.config.mjs`): `no-restricted-imports` + `no-restricted-syntax` proíbem importar `nvidia-chat`, `nvidia-client`, `generate-version` e `coherence` (também por `import()` literal, `require` literal, sufixos `.ts/.js/.mjs/.cjs` e pasta/index de `lib/live`) fora de `lib/live/**`, `lib/score/coherence.ts`, `lib/score/coherence.test.ts`, `app/app/live/actions.ts` e `app/app/score/actions.ts`. **Arquivo novo que precise importar o núcleo tem de entrar nessa lista.** Limites declarados no config: caminho montado em execução, alias novo, componente dentro das pastas liberadas.
+- `npm test` = 96 testes no commit M2; `scripts.test` usa `--test-timeout=60000`.
 
-Decisão refatoração: núcleo movido para `lib/live/nvidia-chat.ts` (sem `server-only`); `generate-live-response.ts` virou casca de reexportação. Comportamento igual; `LiveGenerationError` deixou de usar parameter property (não roda em `node --test`).
+**O que falta (ordem do ADR, `docs/redesign/agent/ADR_NVIDIA_UNICO.md`).**
+1. **M3 Diário** (`lib/groq/structure-evidence.ts`) e **M4 Artefatos** (`lib/groq/generate-artifact.ts`) ainda usam Groq (`groq-sdk`, `GROQ_API_KEY`, `GROQ_MODEL`, JSON Schema estrito do provedor). Os textos "Groq" em `app/app/diario/[id]/page.tsx` (5) são da Interface.
+2. **M5** provedor real para `lib/agent/**` (hoje sem chamador) e **M6** remover `groq-sdk`/`GROQ_*` (dependência e lockfile = gate de Yan). `.env.example` ainda lista `GROQ_*` e precisa de `NVIDIA_API_KEY`/`NVIDIA_MODEL` já presentes; atualizar no M6 (fora das minhas pastas hoje).
+3. **Gates de Yan (G1–G7):** chave NVIDIA nova só no Preview; uma chamada real por superfície com dados sintéticos (G2); qualidade e taxa de `invalid_output` por superfície (G3); limite de duração da função na Vercel frente ao pior caso (G4); Preview (G5); remoção do `groq-sdk` (G6); Production só com `NVIDIA_API_KEY` presente antes do push (G7).
+4. **Riscos abertos:** `regenerateLiveQuestion` descarta a mensagem de erro e a casca de `askLiveQuestion`/`regenerateLiveQuestion` (redirect, `revalidatePath`, RPC `create_live_question`) segue sem teste; `max_tokens` 1.024 do Live pode truncar JSON (HYPOTHESIS); segunda tentativa sem pausa em 429; Score com 12 s × 2 tentativas na NVIDIA nunca foi medido; sem schema estrito do provedor aumenta `invalid_output` (PENDING); L-2.
 
-Riscos abertos: `regenerateLiveQuestion` ainda descarta a mensagem de erro (agora provado: `runGenerateVersion` a devolve, a action a ignora); `askLiveQuestion`/`regenerateLiveQuestion` (casca: redirect, revalidatePath, RPC `create_live_question`) seguem sem teste; latência/limite da função, taxa de `invalid_output` e `max_tokens` 1.024 dependem de chamada real (PENDING); parser do Live (G5) intocado: **A-1/A-7/L-1 do parser seguem abertos, fora deste SHA** (AG2-4). A guarda `server-only` está na casca `generate-live-response.ts`, não em `nvidia-chat.ts` (AG2-3); AG2-2 segue como ressalva.
-**Lote 3, item 1 (AG2-3, AG3-1, AG4-2).** AG2-3: regra `no-restricted-imports` em `apps/web/eslint.config.mjs` proíbe importar `nvidia-chat` e `generate-version` fora de `lib/live/**` e de `app/app/live/actions.ts`; provado com componente `"use client"` simulado (3 formas de import falham o lint; `lib/live` e `actions.ts` passam). Limite: não detecta a diretiva `"use client"`, e um componente colocado dentro de `lib/live/` escaparia. AG3-1: `scripts.test` usa `--test-timeout=60000`. AG4-2 (arquivos novos do Lote 2 e destino da extração):
-- `apps/web/lib/live/nvidia-chat.ts` (núcleo do adaptador, sem `server-only`) e `nvidia-chat.test.ts`;
-- `apps/web/lib/live/generate-version.ts` (`runGenerateVersion`, extraído de `generateVersion` em `app/app/live/actions.ts`, que ficou com a casca) e `generate-version.test.ts`;
-- `apps/web/lib/live/generate-live-response.ts` virou casca com `server-only` que reexporta `nvidia-chat.ts`;
-- `docs/redesign/agent/COMPARACAO_LIVE_GROQ_NVIDIA.md`.
+**Armadilhas.**
+- `node --experimental-strip-types --test`: **sem** parameter properties (`constructor(readonly x)`), sem `enum`, imports relativos **com `.ts`**, alias `@/` não resolve e `server-only` não existe fora do Next. Por isso os núcleos testáveis não importam `server-only`; a barreira é o ESLint.
+- Depois de `npm ci` rode `npx next typegen` (senão `typecheck` falha por `LayoutProps`). Nunca `npm install` (altera lockfile).
+- Editar arquivos com script Python: abrir com `newline=""` e preservar CRLF/LF; os avisos "LF will be replaced by CRLF" do Git são inofensivos.
+- Heredoc grande no Bash com aspas misturadas já quebrou o parser da ferramenta; para arquivos de teste use a ferramenta de escrita.
+- Mutação por ESLint sem escrever no repo: `printf '...' | npx eslint --stdin --stdin-filename components/x.tsx`.
+- Chaves nos testes são sintéticas (`nvapi-chave-sintetica-de-teste`); a varredura de segredo as acusa, é esperado.
+- Escrita: só a linha do Agente em `AGENTES/ATRIBUICOES/LOTE-N.md` do lote vigente; outro arquivo = parar e pedir ao Orquestrador. Não editar `AGENTES/` de outro papel, `00_orquestrador`, `ATRIBUICOES`, `PROMPTS`.
+- Proibido sempre: push, merge/rebase com a `main`, Preview, Production, banco/SQL, chave real, chamada a provedor, dependência nova. Commit local com `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`.
+- Validação padrão por commit: `npm test`, `npm run lint`, `npm run typecheck`, `npm run build` (sem `.env`), `git diff --check`, varredura de segredo, diff só nos caminhos autorizados.
 
-**Lote 3, item 2 (parser do Live: A-1, A-7, L-1).** `lib/live/response-schema.ts` agora exige excerto com letra ou dígito, sem cortar palavra/número, sem perder negação na mesma oração (fim de oração inclui vírgula e quebra de linha) e com competências isoladas; 6 testes novos em `response-schema.test.ts` (falham 5/6 no parser anterior; 5 mutações falham). Sem chamada real: frequência em produção PENDING. A-1/A-7/L-1 deixam de estar abertos no parser; L-2 e os limites do contrato seguem declarados.
+## Histórico por lote
 
-**Lote 3, item 3 (ADR "NVIDIA único").** `docs/redesign/agent/ADR_NVIDIA_UNICO.md` (PROPOSTO): inventário dos 5 usos de LLM (Live, Diário, Score, Artefatos, Agente), diferenças Groq × NVIDIA, plano M0–M6 em lotes pequenos com testes, riscos e gates G0–G7 de Yan. Sem código migrado, sem chamada real.
+**Lote 2 (base `acc1f44`).** Adaptador testado com `fetch` simulado (`nvidia-chat.test.ts`); `lib/agent` no `npm test`; `docs/redesign/agent/COMPARACAO_LIVE_GROQ_NVIDIA.md`. AG2-1: `NVIDIA_TIMEOUT_MS`/`NVIDIA_MAX_ATTEMPTS` exportadas, `AbortSignal` por tentativa fixado, aborto real exercitado, 4 mutações falham. AG2-2: `runGenerateVersion` (corpo movido sem alteração para `lib/live/generate-version.ts`, 11 testes com fakes, 6 mutações falham).
 
-Gates humanos: chave NVIDIA nova, chamada real de aceite, ADR Groq→NVIDIA, push/Preview/Production.
+**Lote 3.** AG2-3: regra `no-restricted-imports`; AG3-1: `--test-timeout=60000`; AG4-2: arquivos novos registrados. Parser do Live (A-1, A-7, L-1): 6 testes em `response-schema.test.ts` (5 falham no parser anterior; 5 mutações falham). ADR NVIDIA único: inventário dos 5 usos de LLM, plano M0–M6, riscos, gates G0–G7.
+
+**Lote 4.**
+- AG5-1: a regra cobre `import()` literal, `require` literal, sufixos e `lib/live` como pasta/index; provado por `eslint --stdin` com componente cliente (9 formas falham; `lib/live`, `coherence.ts`, `actions.ts` e a casca passam).
+- M1: `callNvidiaChat` generalizado de `nvidia-chat.ts`; Live sem mudança de comportamento (os 12 testes antigos passam sem edição); 8 testes novos do cliente; 6 mutações em cópia falham (timeout ignorado, sem `signal`, temperatura fixa, `max_tokens` fixo, chave no corpo, repetição de 4xx).
+- M2: Score migrado; 6 testes em `coherence.test.ts` (rubrica `coherence-v1` e notas discretas, sucesso, `not_configured` sem fallback para `GROQ_API_KEY`, timeout, 429, 5xx/rede, 4xx, saída inválida incluindo ID fora da entrada, nota fora de 0/25/50/75/100, critério ausente e nenhuma evidência citada); 8 mutações em cópia falham (sem esquema no prompt, temperatura, timeout, `max_tokens`, ID fora da entrada, erro do provedor vira `invalid_output`, sem `NvidiaError`, rubrica alterada). Sem chamada real: PENDING.
+
+Gates humanos: chave NVIDIA nova, chamada real de aceite (G2), qualidade por superfície (G3), limite da função (G4), push/Preview/Production, remoção do `groq-sdk`.

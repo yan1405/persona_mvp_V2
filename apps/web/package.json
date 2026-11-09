@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test --test-timeout=60000 lib/auth/redirect.test.ts lib/onboarding/validation.test.ts lib/diary/validation.test.ts lib/groq/evidence-schema.test.ts lib/evidence/validation.test.ts lib/score/score.test.ts lib/live/live.test.ts lib/live/nvidia-chat.test.ts lib/live/nvidia-client.test.ts lib/live/generate-version.test.ts lib/live/response-schema.test.ts lib/artifacts/artifact.test.ts lib/settings/validation.test.ts lib/agent/agent.test.ts"
+    "test": "node --experimental-strip-types --test --test-timeout=60000 lib/auth/redirect.test.ts lib/onboarding/validation.test.ts lib/diary/validation.test.ts lib/groq/evidence-schema.test.ts lib/evidence/validation.test.ts lib/score/score.test.ts lib/live/live.test.ts lib/live/nvidia-chat.test.ts lib/live/nvidia-client.test.ts lib/score/coherence.test.ts lib/live/generate-version.test.ts lib/live/response-schema.test.ts lib/artifacts/artifact.test.ts lib/settings/validation.test.ts lib/agent/agent.test.ts"
   },
   "dependencies": {
     "@carbon/icons-react": "^11.85.0",

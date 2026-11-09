@@ -2,9 +2,9 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
-const SERVER_CORE_FILE = "(^|/)(nvidia-chat|nvidia-client|generate-version)(\.[cm]?[jt]s)?$";
+const SERVER_CORE_FILE = "(^|/)(nvidia-chat|nvidia-client|generate-version|coherence)(\.[cm]?[jt]s)?$";
 const SERVER_CORE_BARREL = "(^|/)lib/live(/index(\.[cm]?[jt]s)?)?$";
-const SERVER_CORE_MESSAGE = "Núcleo do LLM é só de servidor: importe-o apenas de lib/live/**, lib/score/coherence.ts ou app/app/live/actions.ts, nunca de componente ou código cliente.";
+const SERVER_CORE_MESSAGE = "Núcleo do LLM é só de servidor: importe-o apenas de lib/live/**, lib/score/coherence.ts, app/app/live/actions.ts ou app/app/score/actions.ts, nunca de componente ou código cliente.";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -36,7 +36,7 @@ const eslintConfig = defineConfig([
       ],
     },
   },
-  { files: ["lib/live/**", "lib/score/coherence.ts", "app/app/live/actions.ts"], rules: { "no-restricted-imports": "off", "no-restricted-syntax": "off" } },
+  { files: ["lib/live/**", "lib/score/coherence.ts", "lib/score/coherence.test.ts", "app/app/live/actions.ts", "app/app/score/actions.ts"], rules: { "no-restricted-imports": "off", "no-restricted-syntax": "off" } },
 ]);
 
 export default eslintConfig;
