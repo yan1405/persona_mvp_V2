@@ -486,3 +486,20 @@ Execução: Interface `npm test` 32/32; Agente 96, 98, 105, 105; lint, typecheck
 ## Lote 5 integrado e Lote 6 aberto (09/11/2026)
 
 Com autorização de Yan, Interface `ce12bee` e Agente `b409e7c` entraram por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only` até `46cd869`. Gates no HEAD: `npm test` 105/105, lint, typecheck, build 0, `diff --check` limpo, zero segredo real. `origin/main` `06de045`; sem push, migração, SQL, chave, Preview ou Production. Lote 6 em `LOTE-6.md`: Interface (AG7-1 textos "Groq", IF7-2, IF8-2, telas Diagnóstico e Configurações), Agente (AG7-2 casca `server-only` do Diário, AG7-3, AG7-4). Registrado: a linha de `score/actions.ts` do AG6-2 faz parte da atribuição.
+
+## Lote 6 verificado (09/11/2026)
+
+Congelamento em `41b8b6a`. Relatórios: `RELATORIO_interface_lote6_7e33f8f.md`, `RELATORIO_agente-nvidia_lote6_b5ba514.md`. **Sem S1, S2 ou S3 novo.** Os dois S3 do Lote 5 estão resolvidos: AG7-1 (textos "Groq") na Interface e AG7-2 (casca `server-only` do Diário) no Agente. **Os dois ramos devem entrar juntos** (`git merge-tree 7e33f8f b5ba514` sem conflito); o ramo do Agente isolado ainda tem os cinco textos "Groq".
+
+| SHA | Gate sugerido | Ressalvas |
+|---|---|---|
+| Interface `f80de4a` (AG7-1) | liberar | cinco textos; fecha o S3 na Interface |
+| Interface `44b1913` (IF7-2, IF8-2) | liberar | checkboxes do Live 24x24 px; impressão idêntica à base |
+| Interface `ff3df57` (Diagnóstico) | liberar com ressalvas | aceite visual de Yan e tela real PENDING; IF9-5 foco por Tab real não testado |
+| Interface `7e33f8f` (Configurações, topo) | liberar com ressalvas | IF9-4 `app-page` limita a 1280 px (conferir em monitor largo); IF9-1/2/3/6 (S4) |
+| Agente `ef46c80` (AG7-2) | liberar | build quebra se cliente importa a casca |
+| Agente `d6af728` (AG7-3) | liberar | barreira ESLint cobre as três cascas; AG6-1 (S4) aberto |
+| Agente `6389599` (AG7-4) | liberar | 31 de 33 mutações morrem; AG8-1 (S4) |
+| Agente `b5ba514` (STATUS, topo) | liberar | AG8-2, AG7-5/6 (S4) |
+
+Execução: Interface `npm test` 32/32; Agente 105, 105, 107, 107; lint, typecheck, build 0. Lote 6 **não integrado** (aguarda autorização de Yan). Gate da Verificação é sugestão, não aprovação.
