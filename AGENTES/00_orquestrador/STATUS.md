@@ -482,3 +482,7 @@ Congelamento em `aa49de0`. Relatórios: `RELATORIO_interface_lote5_ce12bee.md`, 
 | Agente `b409e7c` (STATUS) | liberar | — |
 
 Execução: Interface `npm test` 32/32; Agente 96, 98, 105, 105; lint, typecheck, build 0. Lote 5 **não integrado** (aguarda autorização de Yan). Proposta de Lote 6: AG7-2 (Agente: casca `server-only` do Diário), AG7-1 (Interface: textos neutros "a IA"/"o provedor de IA"), telas Diagnóstico e Configurações, IF7-2 e IF8-2; M4 (Artefatos) depois.
+
+## Lote 5 integrado e Lote 6 aberto (09/11/2026)
+
+Com autorização de Yan, Interface `ce12bee` e Agente `b409e7c` entraram por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only` até `46cd869`. Gates no HEAD: `npm test` 105/105, lint, typecheck, build 0, `diff --check` limpo, zero segredo real. `origin/main` `06de045`; sem push, migração, SQL, chave, Preview ou Production. Lote 6 em `LOTE-6.md`: Interface (AG7-1 textos "Groq", IF7-2, IF8-2, telas Diagnóstico e Configurações), Agente (AG7-2 casca `server-only` do Diário, AG7-3, AG7-4). Registrado: a linha de `score/actions.ts` do AG6-2 faz parte da atribuição.
