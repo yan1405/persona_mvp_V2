@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useId, useState } from "react";
 
 import { askLiveQuestion, authorizeAndActivate, createLiveSession, type LiveActionState } from "./actions";
 
@@ -11,23 +11,24 @@ function Message({ state }: { state: LiveActionState }) {
 }
 
 export function NewLiveSessionForm() {
+  const uid = useId();
   const [state, action, pending] = useActionState(createLiveSession, initialState);
   return (
     <form action={action} className="live-context-form">
       <div>
-        <label className="field-label" htmlFor="live-target">Vaga ou objetivo</label>
-        <input className="text-field" id="live-target" name="targetRole" minLength={4} maxLength={120} required placeholder="Ex.: Consultor de IA" aria-invalid={Boolean(state.fieldErrors?.targetRole)} />
-        {state.fieldErrors?.targetRole && <p className="field-error">{state.fieldErrors.targetRole}</p>}
+        <label className="field-label" htmlFor={`${uid}-target`}>Vaga ou objetivo</label>
+        <input className="text-field" id={`${uid}-target`} name="targetRole" minLength={4} maxLength={120} required placeholder="Ex.: Consultor de IA" aria-invalid={Boolean(state.fieldErrors?.targetRole)} aria-describedby={state.fieldErrors?.targetRole ? `${uid}-target-error` : undefined} />
+        {state.fieldErrors?.targetRole && <p className="field-error" id={`${uid}-target-error`}>{state.fieldErrors.targetRole}</p>}
       </div>
       <div>
-        <label className="field-label" htmlFor="live-company">Empresa</label>
-        <input className="text-field" id="live-company" name="company" minLength={2} maxLength={120} required placeholder="Ex.: Empresa da entrevista" aria-invalid={Boolean(state.fieldErrors?.company)} />
-        {state.fieldErrors?.company && <p className="field-error">{state.fieldErrors.company}</p>}
+        <label className="field-label" htmlFor={`${uid}-company`}>Empresa</label>
+        <input className="text-field" id={`${uid}-company`} name="company" minLength={2} maxLength={120} required placeholder="Ex.: Empresa da entrevista" aria-invalid={Boolean(state.fieldErrors?.company)} aria-describedby={state.fieldErrors?.company ? `${uid}-company-error` : undefined} />
+        {state.fieldErrors?.company && <p className="field-error" id={`${uid}-company-error`}>{state.fieldErrors.company}</p>}
       </div>
       <div className="live-context-description">
-        <label className="field-label" htmlFor="live-description">Descrição da oportunidade <span>opcional</span></label>
-        <textarea className="text-field" id="live-description" name="description" maxLength={2000} rows={4} placeholder="Cole responsabilidades ou temas que podem aparecer na conversa." aria-invalid={Boolean(state.fieldErrors?.description)} />
-        {state.fieldErrors?.description && <p className="field-error">{state.fieldErrors.description}</p>}
+        <label className="field-label" htmlFor={`${uid}-description`}>Descrição da oportunidade <span>opcional</span></label>
+        <textarea className="text-field" id={`${uid}-description`} name="description" maxLength={2000} rows={4} placeholder="Cole responsabilidades ou temas que podem aparecer na conversa." aria-invalid={Boolean(state.fieldErrors?.description)} aria-describedby={state.fieldErrors?.description ? `${uid}-description-error` : undefined} />
+        {state.fieldErrors?.description && <p className="field-error" id={`${uid}-description-error`}>{state.fieldErrors.description}</p>}
       </div>
       <Message state={state} />
       <footer><span>Você escolherá as evidências antes de iniciar.</span><button className="button-primary" disabled={pending} type="submit">{pending ? "Criando…" : "Preparar sessão"}</button></footer>
@@ -62,12 +63,13 @@ export function EvidenceSelectionForm({ sessionId, evidences, resume }: { sessio
 }
 
 export function LiveQuestionForm({ sessionId }: { sessionId: string }) {
+  const uid = useId();
   const [state, action, pending] = useActionState(askLiveQuestion.bind(null, sessionId), initialState);
   return (
     <form action={action} className="live-question-form">
-      <label className="field-label" htmlFor="live-question">Pergunta da entrevista</label>
-      <div><textarea className="text-field" id="live-question" name="question" minLength={8} maxLength={500} rows={3} required placeholder="Ex.: Conte sobre uma situação em que você precisou explicar uma solução complexa." /><button className="button-primary" disabled={pending} type="submit">{pending ? "Recuperando fatos…" : "Preparar resposta"}</button></div>
-      <p className="field-help">O Persona consulta somente as evidências autorizadas nesta sessão.</p>
+      <label className="field-label" htmlFor={`${uid}-question`}>Pergunta da entrevista</label>
+      <div><textarea className="text-field" id={`${uid}-question`} name="question" minLength={8} maxLength={500} rows={3} required placeholder="Ex.: Conte sobre uma situação em que você precisou explicar uma solução complexa." aria-describedby={`${uid}-question-help`} /><button className="button-primary" disabled={pending} type="submit">{pending ? "Recuperando fatos…" : "Preparar resposta"}</button></div>
+      <p className="field-help" id={`${uid}-question-help`}>O Persona consulta somente as evidências autorizadas nesta sessão.</p>
       <Message state={state} />
     </form>
   );

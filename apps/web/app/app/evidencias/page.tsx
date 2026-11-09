@@ -78,7 +78,7 @@ export default async function EvidenceLibraryPage({ searchParams }: { searchPara
   const hasFilters = Boolean(filters.q || filters.view || filters.competency || filters.from || filters.to || filters.level || filters.state);
 
   return (
-    <main className="app-page evidence-page">
+    <main className="app-page evidence-page ds-surface">
       <header className="evidence-heading">
         <div>
           <p className="eyebrow">Evidências</p>
@@ -113,8 +113,8 @@ export default async function EvidenceLibraryPage({ searchParams }: { searchPara
         </div>
 
         <nav className="saved-filters" aria-label="Filtros salvos">
-          <Link data-active={filters.view !== "review"} href="/app/evidencias">Todas</Link>
-          <Link data-active={filters.view === "review"} href="/app/evidencias?view=review">Para revisar</Link>
+          <Link aria-current={filters.view !== "review" ? "page" : undefined} data-active={filters.view !== "review"} href="/app/evidencias">Todas</Link>
+          <Link aria-current={filters.view === "review" ? "page" : undefined} data-active={filters.view === "review"} href="/app/evidencias?view=review">Para revisar</Link>
         </nav>
 
         <form className="evidence-filters" method="get" role="search">
