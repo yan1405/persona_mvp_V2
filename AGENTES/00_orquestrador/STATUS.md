@@ -447,3 +447,18 @@ Congelamento em `af32d50`. Relatórios: `RELATORIO_interface_lote3_e0be7e6.md`, 
 | Agente `4d9aa79` (ADR NVIDIA único) | liberar (documento; G0–G7 PENDING) |
 
 Execução: Interface `npm test` 32/32, Agente 76/76 (`b7b21a4`) e 82/82 (`952ec70`, `4d9aa79`); lint, typecheck, build 0. Nada integrado; `origin/main` `06de045`. Pendente de Yan: autorizar a integração local (Agente `952ec70` exige aceitar o AG5-2 por escrito), aceitar o ADR (G0) e os gates G1–G7, aceite visual.
+
+## Lote 3 integrado e Lote 4 verificado (09/11/2026)
+
+Lote 3 (Interface `e0be7e6`, Agente `4d9aa79`) integrado por Yan na `main` local (`ff94688`; `npm test` 82/82, lint, typecheck, build 0), com AG5-2 aceito por escrito e ADR "NVIDIA único" (G0) aceito. Lote 4 congelado em `39adea7`; relatórios `RELATORIO_interface_lote4_3f37693.md` e `RELATORIO_agente-nvidia_lote4_4dbb6e4.md`. Nenhum S1/S2/S3 confirmado.
+
+| SHA | Gate sugerido | Ressalvas |
+|---|---|---|
+| Interface `45a3996` (S4) | liberar | — |
+| Interface `ed87907` (Evidências) | liberar com ressalvas | aceite visual PENDING |
+| Interface `3f37693` (Live) | liberar com ressalvas | IF7-1 (S4): palavra de 70 caracteres sem espaço no nome da empresa é cortada em silêncio (`overflow-wrap`); IF7-2 (S4): 5 checkboxes de 20 px |
+| Agente `9adce27` (AG5-1) | liberar | AG6-1 (S4) |
+| Agente `13af232` (M1) | liberar | Live idêntico em 20 cenários simulados; 12/12 mutações falham |
+| Agente `4dbb6e4` (M2, Score na NVIDIA) | liberar com ressalvas | AG6-3 (HYPOTHESIS, possível S3): sem `response_format` o JSON pode vir com cercas e virar `invalid_output`; AG6-4: Score agora exige `NVIDIA_API_KEY`; AG6-2: sem `server-only` no Score; AG6-5/6/7 (S4) |
+
+Execução: Interface `npm test` 32/32, Agente 82/90/96; lint, typecheck, build 0. Lote 4 **não integrado** (aguarda autorização de Yan). Próximo: segundas conversas por agente (títulos "Persona 2 — <papel>"), depois lembrar Yan dos itens 5, 6, 7, 8, 11 e 12.

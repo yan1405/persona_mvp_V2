@@ -1,7 +1,63 @@
 # Status — Persona — Verificação Independente
 
 Estado: DONE
-Resumo: Lote 3 revisado (08/11/2026): seis SHAs verificados um a um, Interface (`a15ed1b`, `4f21907`, `e0be7e6`) e Agente (`b7b21a4`, `952ec70`, `4d9aa79`). Vigentes: Backend `1349a0a` (Lote 2, Rodada 5), Interface `e0be7e6` e Agente `4d9aa79` (Lote 3). SHAs anteriores permanecem como histórico. `Estado: DONE` vale para os relatórios desta rodada, não para banco, tela autenticada, Preview ou produto final.
+Resumo: Lote 4 revisado (09/11/2026): seis SHAs verificados um a um, Interface (`45a3996`, `ed87907`, `3f37693`) e Agente (`9adce27`, `13af232`, `4dbb6e4`), sem S1, S2 ou S3 confirmado. Vigentes: Backend `1349a0a` (Lote 2, Rodada 5), Interface `3f37693` e Agente `4dbb6e4` (Lote 4). SHAs anteriores permanecem como histórico. `Estado: DONE` vale para os relatórios desta rodada, não para banco, tela autenticada, Preview ou produto final.
+
+## Lote 4 — Interface (3 commits) e Agente (3 commits) (09/11/2026)
+
+Base de cada papel: Interface `e0be7e6`, Agente `4d9aa79` (Lote 3, já integrado localmente pelo Orquestrador). Cada SHA é filho do anterior e foi verificado em checkout isolado, sem `.env`, builds em sequência com `HEAD` conferido. Os relatórios cobrem os três SHAs de cada papel; os de `e0be7e6` e `4d9aa79` são histórico.
+
+| Entrega | SHA | Relatório | Resultado | Gate sugerido |
+|---|---|---|---|---|
+| 01 Interface | `45a399649c4f30e9ac7b02a445ea87eeda1a7dad` (S4: IF6-2, IF6-5, IF6-1, IF6-3) | `RELATORIO_interface_lote4_3f37693.md` | IF6-5: as 15 classes removidas têm 0 usos em `apps/web` e 0 diferenças de estilo nas telas medidas; IF6-2: `useId` sem `id` duplicado (o antigo duplicava com dois formulários), `for` e `aria-describedby` válidos, SSR estável; `npm test` 32/32, lint, typecheck e build 0 | liberar para integração local |
+| 01 Interface | `ed879071abae773a387e806725c5fad68f0df6e7` (Evidências) | idem | só apresentação (`ds-surface`, `aria-current`); 0 rolagens, cortes e vazamentos em 96 casos (24 larguras × 4 estados); 0 diferenças de estilo nas telas legadas e em 302 elementos de um "zoo" | liberar com ressalvas (aceite visual e tela real PENDING) |
+| 01 Interface | `3f376937012717a8449730675e0a7ae3372c5cdb` (Live, topo) | idem | só apresentação e acessibilidade; 0 rolagens e 0 cortes com texto realista (96 casos); contraste do Live antigo (4 textos a 3,73:1) corrigido; foco real por teclado em 154 paradas. **IF7-1 (S4):** o excesso nas telas `ds-surface` é cortado em silêncio, não rola (nome de empresa com 70 caracteres seguidos); IF7-2 (S4): checkboxes de 20 px | liberar com ressalvas (aceite visual e tela real PENDING) |
+| 03 Agente NVIDIA | `9adce279725c476bca197002e849e919978f9534` (AG5-1) | `RELATORIO_agente-nvidia_lote4_4dbb6e4.md` | a barreira pega `import()`, `require`, `.js/.mjs/.cjs` e o barril: 15 de 15 sondas esperadas bloqueiam, 4 de 4 controles liberam; AG6-1 (S4): template sem expressão passa; 82/82, lint, typecheck e build 0 | liberar para integração local |
+| 03 Agente NVIDIA | `13af232e700111564815aedb6d76da2c570816f8` (M1) | idem | Live sem mudança de comportamento: 20 cenários idênticos ao `nvidia-chat.ts` antigo (chamadas, cabeçalhos, corpo, timeouts, códigos); 12 testes antigos sem edição; 12 de 12 mutações do cliente falham; 90/90 | liberar para integração local |
+| 03 Agente NVIDIA | `4dbb6e468afe3513253145eaa0996fb5701b28cb` (M2, topo) | idem | Score na NVIDIA: rubrica `coherence-v1` e notas 0/25/50/75/100 inalteradas (esquema fora do diff); sem Groq no Score, `lib/groq/**` intacto; as três mutações pedidas (ID fora da entrada, sem discretização, erro vira nota 0) falham; 30 de 34 mutações mortas (4 inofensivas, AG6-5); sem chave o usuário vê a mensagem genérica "análise não atualizada" e o Score anterior fica; 96/96 | liberar com ressalvas (AG6-3 HYPOTHESIS: JSON do modelo sem `response_format`; AG6-4: chave `NVIDIA_API_KEY` no ambiente; AG6-2: sem `server-only`; G2–G4 de Yan) |
+
+Execução (sem `.env`, builds em sequência): Interface `npm test` 32/32 nos três; Agente 82/82, 90/90, 96/96; `next typegen`, lint (0 avisos), typecheck e build com saída 0 nos seis. Sondas ESLint, mutações, diferencial do Live e renderização de `useId` em cópias fora do repositório; servidor HTTP local de 127.0.0.1 encerrado; verificação isolada devolvida a `a5a18aa`, limpa.
+
+Não verificado: telas reais autenticadas (a amostra transcreve a marcação e usa o CSS real do build), hidratação no navegador, leitor de tela e Safari, aceite visual de Yan (`AGENTS.md` §6.1), chamada real à NVIDIA, chave, latência frente a 12 s, frequência real de `invalid_output`, limite de função da Vercel, banco, Preview e Production. Nada foi corrigido, aplicado, integrado ou commitado por mim.
+
+## Para a 2ª conversa (retomar sem o histórico)
+
+**Papel e regras vigentes.** Persona — Verificação Independente do monorepo `persona_mvp_v2`. Tarefas chegam por mensagem da sessão "Auditoria do novo projeto de agentes" (Orquestrador). Não corrijo, não faço merge/push, não aplico migração, não rodo SQL, não uso chave ou `.env`, não chamo provedor, **não aprovo visual** (aceite é de Yan, `AGENTS.md` §6.1). Backend: só leitura. Vocabulário VERIFIED/APPROVED/HYPOTHESIS/PENDING/BLOCKER; severidades S1–S4, nunca rebaixadas sem evidência; um relatório vale só para o SHA citado. Sem `rm -rf` (bloqueado), sem junção no `node_modules` (use `cp -r`). Execução só em `C:\Users\yansi\Projetos\persona-wt\verificacao-lote2` com `git checkout --detach <sha>`, um SHA por vez, e **devolver a `a5a18aa`, limpa**. Nada no worktree da sessão nem nos dos escritores.
+
+**Onde ficam os relatórios.** `AGENTES/04_verificacao/` do checkout principal, **sem commit**. Escrever direto nesse caminho é bloqueado por hook: escreva na pasta de notas (`...\side-session-notes\local_15d89d4c-...\verificacao\`), depois `cp` + `cmp` para o principal. As ferramentas reutilizáveis estão em `verificacao\ferramentas\` (copiadas; os caminhos do `scratchpad` dentro dos scripts precisam ser ajustados).
+
+**Método de medição (o que funcionou).**
+1. *Gates:* `l4/seq.sh` faz, por SHA, `git checkout --detach`, `npx next typegen`, `npm test`, `npm run lint`, `npm run typecheck`, `npm run build` (em `apps/web`, sem `.env`), registra `HEAD` antes e depois e copia `.next/static/{chunks,media}` para um diretório por SHA. Rode em segundo plano, **um SHA por vez**.
+2. *Tela (Interface):* páginas estáticas geradas por `gen6.py` (herda `gen5.py` e `gen3.py`) com a marcação **transcrita dos `page.tsx`** (versão antiga sem `ds-surface` e versão nova) mais o **CSS real do build** de cada SHA, servidas por `python -I -m http.server` e medidas em `iframe` com `scrolling=no` (`runner5.html`: `runScroll`, `diffStyles`, `runA11y`). 24 larguras de 360 a 1280 px. Métricas: `scrollWidth` contra a janela, **corte** contra a borda do painel, descendente fora do cartão, `sticky` da barra.
+3. *Diferencial de estilo:* `diffStyles(pagina, varianteA, varianteB, larguras)` compara todas as propriedades computadas e a caixa; use sempre um **controle positivo** (por exemplo o Início antigo contra o novo, 99 elementos mudam) e o "zoo" (`classes_all.txt`, todas as classes estáticas não-`ds`).
+4. *Escopo do CSS:* `cssdiff.cjs` (postcss) compara regras do CSS compilado entre SHAs (removidas, adicionadas, alteradas); todo seletor novo deve conter `ds-`. `cssscope.py` faz o mesmo no fonte.
+5. *Acessibilidade:* contraste calculado no navegador com o fundo composto; foco com **Tab real** (`browser_batch`: `key Tab` com `repeat` e um ouvinte `focusin`), nunca `focus()` programático; alvos, `id` duplicado, saltos de título.
+6. *`useId`/SSR:* `ssr.cjs` transpila os `.tsx` com TypeScript e renderiza com `react-dom/server` (`actions` simuladas, `useActionState` com e sem erros); compara `id`, `for`, `aria-describedby`, duplicados e estabilidade.
+7. *Agente:* cópia fora do repositório; `mut_ag.py` (34 mutações com `node --experimental-strip-types --test`), `diff.test.ts` (módulo antigo contra o novo, mesmo provedor simulado) e sondas ESLint em cópia de `apps/web` com `node_modules` copiado (`probe.cjs` lê `eslint --format json`).
+
+**Armadilhas.**
+- **Builds em paralelo no mesmo checkout** misturam `HEAD` e CSS (um "antes" virou a base). Sempre em sequência, com `HEAD` conferido.
+- **Rolagem sozinha engana nas telas `ds-surface`:** o `container-type: inline-size` do `<main>` faz o excesso ser **cortado** (a janela não rola). Meça `clipped` também e confirme com um elemento largo injetado (IF7-1).
+- Teste texto **realista** (com espaços) e **extremo** (palavra única de 136 caracteres) separadamente; só o realista decide o gate, o extremo vira S4.
+- `git grep -w` acha `ds-score-empty` ao procurar `score-empty` (o hífen é fronteira de palavra).
+- O bloco "coluna alta" da amostra tem contraste 1,15:1: é artefato do harness, ignore.
+- `sticky`: no `runScroll`, `asideTop 76` significa barra fixa; `-300` significa que rolou junto.
+- Painel do navegador oculto ou sem desenhar: varreduras longas estouram o tempo e `key` falha ("não desenhou"); divida em blocos e tire um `screenshot` antes de teclar.
+- Heredoc no Bash engole `\` e acentos: gere scripts com a ferramenta Write. Conferir contagens antes de copiar o relatório (já corrigi 62/24, 17/14 e 48/24 em rodadas anteriores).
+- As ramificações de Interface (testes 32) e Agente (82 a 96) têm bases diferentes; não compare os totais entre papéis.
+- Nenhuma tela real autenticada foi vista; toda medição é de amostra transcrita.
+
+**Histórico de relatórios** (em `AGENTES/04_verificacao/`; só o mais novo de cada papel vale para o SHA vigente).
+- Interface: `a5a18aa`, `d3dfa63`, `14ad969`, `d71f2a7`, `e6b3e5c`, `abcf288`, `8240cf3`, `8c5ef15`, `d4a1e3b`, Lote 3 `e0be7e6`, **Lote 4 `3f37693`**.
+- Agente NVIDIA: `ae00dd4`, `72b0e60`, `9abf927`, `cba617a`, `42dbddf`, `489ec0d`, `6a6b8f0`, `f4edecf`, Lote 3 `4d9aa79`, **Lote 4 `4dbb6e4`**.
+- Backend: `1349a0a`, `33373ae`, `4b4650d`, `7aeb658`, `4a37131`, `ee6ac3f`, `ffd4289`.
+- Outros: `PARECER_OBSERVACOES_LOTE2.md`, `PLANO_LOTE1.md`, `HANDOFF_2026-11-05.md`, `AGENTS.md`.
+
+**SHAs vigentes.** Backend `1349a0acda404a0f64b94678369ab100873d0fe3` (Lote 2, Rodada 5). Interface `3f376937012717a8449730675e0a7ae3372c5cdb` (Lote 4; antes `e0be7e6`, `4f21907`, `a15ed1b`). Agente `4dbb6e468afe3513253145eaa0996fb5701b28cb` (Lote 4; antes `4d9aa79`, `952ec70`, `b7b21a4`, `ae00dd4`). Base citada pelo `LOTE-4.md`: `main` local `ff94688` (Lote 3 integrado); `origin/main` `06de045`. Confirme com `git log` antes de afirmar qualquer base.
+
+**Abertos para o próximo lote (todos S4, nenhum bloqueia).** IF7-1 (corte silencioso no `eyebrow` do cabeçalho da sessão e frase do STATUS de Interface), IF7-2 (checkboxes de 20 px), IF6-4/IF3-2 (barra lateral só `sticky` na vertical); AG6-1 (template sem expressão passa na barreira), AG6-2 (sem `server-only` no Score), AG6-5 (4 mutações sobrevivem). HYPOTHESIS: AG6-3 (JSON do modelo sem `response_format`), AG6-6, AG6-7. Pendências de Yan: aceite visual de Início, Diário, Evidências e Live; `NVIDIA_API_KEY` no ambiente do Score; G1–G7 do ADR.
+
+**Próximo passo provável.** Quando o Orquestrador congelar o Lote 5, abra `AGENTES/ATRIBUICOES/LOTE-2_CONGELADO.md` e o `LOTE-N.md` do lote, copie `l4/seq.sh` trocando os SHAs e rode; siga a ordem Interface (gates, CSS dead/scope, harness, diferencial, a11y) e Agente (diff, diferencial, mutações, ESLint); escreva um relatório por papel cobrindo todos os SHAs e atualize este STATUS (topo, `Resumo:` e este bloco).
 
 ## Lote 3 — Interface (3 commits) e Agente (3 commits) (08/11/2026)
 
