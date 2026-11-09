@@ -63,3 +63,11 @@ Verificação visual (exige login Microsoft/Supabase para as rotas `/app/**`): e
 - Páginas públicas `/entrar`, `/termos`, `/privacidade`, no navegador embutido (`next start`), 375 e 1280 px: fonte Inter carrega (`document.fonts.check`); `/termos` e `/privacidade` sem rolagem horizontal; `/entrar` sem rolagem a 1280 px e +5 px a 375 px (pré-existente, item 6).
 - Casca: não há login, então a moldura foi avaliada numa página-harness estática (HTML do shell com o CSS real do build, fora do repositório) em 1280, 1000 e 375 px: 256 → 76 px → barra superior, painel escuro por padrão e claro com `.ds-surface`, 44×44 px em todos os alvos, sem rolagem horizontal. O harness não usa os componentes React nem a navegação real: **PENDING** — sessão real de `/app/**`, 1024/1440/1920 px, teclado com leitor de tela, aceite visual de Yan (`AGENTS.md` §6.1).
 - Não executado: `npm test` (nenhum arquivo de `lib/**` foi alterado), `auditar_tells_ia.py`.
+
+## 7. Telas migradas (Lote 3)
+
+Receita de uma fatia: pôr `ds-surface` na raiz do `<main>`. Sob `.ds-surface`, `globals.css` re-pinta os primitivos legados (`.eyebrow`, `.text-field`, `.button-primary/-secondary`, `.inline-notice`, `.form-*`, `.empty-state`) no tema claro, então formulários e listas legados não mudam de marcação. As demais telas continuam escuras e intactas. Larguras por `@container` (o painel varia com a barra lateral); grades `minmax(0, 1fr)`. Desvios do DS: borda de campo `n-400` (3,7:1) no lugar de `n-200` (1,6:1) e anel de foco `indigo-600` (`indigo-300` sobre o painel escuro).
+
+| Tela | O que mudou | Não incluído |
+|---|---|---|
+| Início (`app/app/inicio/page.tsx`) | bloco focal (rastreabilidade + próximo movimento), cartão do Score com dimensões, objetivo, registros recentes e competências | busca/AgentPrompt, atalhos de destino com contagens, "Atividade recente" (Agente e dados de outras áreas; decisão 4.3) |
