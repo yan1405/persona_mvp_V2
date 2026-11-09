@@ -18,4 +18,10 @@ SHAs anteriores (congelados, não reescritos): `cba617abe33860d94e338dfb93ee14a6
 Decisão refatoração: núcleo movido para `lib/live/nvidia-chat.ts` (sem `server-only`); `generate-live-response.ts` virou casca de reexportação. Comportamento igual; `LiveGenerationError` deixou de usar parameter property (não roda em `node --test`).
 
 Riscos abertos: `regenerateLiveQuestion` ainda descarta a mensagem de erro (agora provado: `runGenerateVersion` a devolve, a action a ignora); `askLiveQuestion`/`regenerateLiveQuestion` (casca: redirect, revalidatePath, RPC `create_live_question`) seguem sem teste; latência/limite da função, taxa de `invalid_output` e `max_tokens` 1.024 dependem de chamada real (PENDING); parser do Live (G5) intocado: **A-1/A-7/L-1 do parser seguem abertos, fora deste SHA** (AG2-4). A guarda `server-only` está na casca `generate-live-response.ts`, não em `nvidia-chat.ts` (AG2-3); AG2-2 segue como ressalva.
+**Lote 3, item 1 (AG2-3, AG3-1, AG4-2).** AG2-3: regra `no-restricted-imports` em `apps/web/eslint.config.mjs` proíbe importar `nvidia-chat` e `generate-version` fora de `lib/live/**` e de `app/app/live/actions.ts`; provado com componente `"use client"` simulado (3 formas de import falham o lint; `lib/live` e `actions.ts` passam). Limite: não detecta a diretiva `"use client"`, e um componente colocado dentro de `lib/live/` escaparia. AG3-1: `scripts.test` usa `--test-timeout=60000`. AG4-2 (arquivos novos do Lote 2 e destino da extração):
+- `apps/web/lib/live/nvidia-chat.ts` (núcleo do adaptador, sem `server-only`) e `nvidia-chat.test.ts`;
+- `apps/web/lib/live/generate-version.ts` (`runGenerateVersion`, extraído de `generateVersion` em `app/app/live/actions.ts`, que ficou com a casca) e `generate-version.test.ts`;
+- `apps/web/lib/live/generate-live-response.ts` virou casca com `server-only` que reexporta `nvidia-chat.ts`;
+- `docs/redesign/agent/COMPARACAO_LIVE_GROQ_NVIDIA.md`.
+
 Gates humanos: chave NVIDIA nova, chamada real de aceite, ADR Groq→NVIDIA, push/Preview/Production.
