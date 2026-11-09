@@ -16,7 +16,7 @@ export default async function ScorePage({ searchParams }: { searchParams: Promis
   const providerError = ["not_configured", "timeout", "rate_limit", "invalid_output", "provider_error"].includes(notice ?? "");
 
   return (
-    <main className="app-page score-page">
+    <main className="app-page score-page ds-surface">
       <header className="score-page-heading">
         <div><p className="eyebrow">Narrative Score</p><h1>Cálculo rastreável, sem nota mágica.</h1><p>Cada mudança guarda a origem, o período e os dados que a sustentam.</p></div>
         {current && <strong>{Math.round(current.total_score)}<small>/100</small></strong>}
