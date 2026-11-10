@@ -1,9 +1,9 @@
 export { Avatar, type AvatarProps, type AvatarTone } from "./avatar";
 export { Badge, Count, STATUSES, type BadgeProps, type CountProps, type StatusKey, type Tone } from "./badge";
-export { Button, type ButtonProps, type ButtonSize, type ButtonVariant } from "./button";
+export { Button, ButtonLink, type ButtonLinkProps, type ButtonProps, type ButtonSize, type ButtonVariant } from "./button";
 export { Chip, type ChipProps } from "./chip";
 export { Icon, ICON_NAMES, type IconName, type IconProps } from "./icon";
-export { IconButton, type IconButtonProps, type IconButtonVariant } from "./icon-button";
+export { IconButton, IconLink, type IconButtonProps, type IconButtonVariant, type IconLinkProps } from "./icon-button";
 export { Input, type InputProps } from "./input";
 export { Switch, type SwitchProps } from "./switch";
 export { Card, type CardProps } from "./card";
@@ -15,3 +15,8 @@ export { JourneyStepper, type JourneyState, type JourneyStep, type JourneySteppe
 export { ProgressBar, type ProgressBarProps } from "./progress-bar";
 export { ScoreRing, type ScoreRingProps } from "./score-ring";
 export { TRACE_KINDS, TraceLine, type TraceKind, type TraceLineProps, type TraceState, type TraceStep } from "./trace-line";
+export { AppHeader, type AppHeaderProps } from "./app-header";
+export { AppShell, type AppShellProps } from "./app-shell";
+export { Logo, type LogoProps } from "./logo";
+export { NavItem, type NavItemProps } from "./nav-item";
+export { NAV_DESTINATIONS, NAV_SETTINGS, Sidebar, type NavId, type SidebarProps } from "./sidebar";

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ButtonHTMLAttributes } from "react";
 
 import { cx } from "./cx";
@@ -24,6 +25,22 @@ export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> 
   fullWidth?: boolean;
   type?: "button" | "submit" | "reset";
 };
+
+export type ButtonLinkProps = Omit<ButtonProps, "type" | "onClick" | "disabled"> & { href: string };
+
+/** Mesmo visual do Button, mas é um link (navegação do Next). */
+export function ButtonLink({ variant = "solid", size = "md", icon, iconRight, fullWidth, className, children, href }: ButtonLinkProps) {
+  return (
+    <Link
+      href={href}
+      className={cx("dx-btn", VARIANT[variant], size !== "md" && "dx-btn--" + size, fullWidth && "dx-btn--full", className)}
+    >
+      {icon ? <Icon name={icon} size={ICON_SIZE[size]} /> : null}
+      {children}
+      {iconRight ? <Icon name={iconRight} size={ICON_SIZE[size]} /> : null}
+    </Link>
+  );
+}
 
 export function Button({
   variant = "solid",
