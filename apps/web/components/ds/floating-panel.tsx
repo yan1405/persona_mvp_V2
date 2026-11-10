@@ -21,6 +21,7 @@ export type FloatingPanelProps = {
   className?: string;
 };
 
+// O <dialog> fica montado mesmo fechado (o conteúdo só existe aberto): assim close() ainda o encontra no DOM e o navegador devolve o foco a quem abriu.
 // <dialog> modal nativo: prende o foco, Esc fecha, o resto da página fica inerte e o foco volta a quem abriu.
 export function FloatingPanel({ open, onClose, eyebrow, title, subtitle, width, children, footer, className }: FloatingPanelProps) {
   const id = useId();
@@ -44,7 +45,6 @@ export function FloatingPanel({ open, onClose, eyebrow, title, subtitle, width, 
     };
   }, [open, id]);
 
-  if (!open) return null;
   const vars = width != null ? ({ "--dx-panel-w": width } as CSSProperties) : undefined;
   return (
     <dialog
@@ -60,6 +60,8 @@ export function FloatingPanel({ open, onClose, eyebrow, title, subtitle, width, 
         if (e.target === e.currentTarget) onClose();
       }}
     >
+      {open ? (
+        <>
       <header className="dx-panel__head">
         <div className="dx-panel__titles">
           {eyebrow ? <span className="dx-panel__eyebrow">{eyebrow}</span> : null}
@@ -72,6 +74,8 @@ export function FloatingPanel({ open, onClose, eyebrow, title, subtitle, width, 
       </header>
       <div className="dx-panel__body">{children}</div>
       {footer ? <footer className="dx-panel__foot">{footer}</footer> : null}
+        </>
+      ) : null}
     </dialog>
   );
 }

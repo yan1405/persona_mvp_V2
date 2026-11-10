@@ -613,6 +613,7 @@ button.dx-chip.is-selected:hover {
 }
 
 .dx-field__input {
+  align-self: stretch;
   flex: 1;
   min-width: 0;
   border: 0;
