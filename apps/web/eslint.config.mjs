@@ -17,6 +17,15 @@ const restrict = (patterns) => ({
   ],
 });
 
+const HEX = String.raw`#[0-9a-fA-F]{3,8}\b`;
+const PX = String.raw`\b\d+(\.\d+)?px\b`;
+const FONT = String.raw`font-family\s*:\s*(?=\S)(?!['"]?(Inter|Plus Jakarta Sans)|var\(--ds-font-)`;
+const DS_ADHERENCE = [
+  ...["Literal[value", "TemplateElement[value.raw"].map((n) => ({ selector: n + "=/" + HEX + "/]", message: "Cor hexadecimal literal: use um token do DS (var(--ds-*)) em app/ds.css." })),
+  ...["Literal[value", "TemplateElement[value.raw"].map((n) => ({ selector: n + "=/" + PX + "/]", message: "Valor em px literal: use tokens de medida do DS (var(--ds-*)) ou números do React." })),
+  ...["Literal[value", "TemplateElement[value.raw"].map((n) => ({ selector: n + "=/" + FONT + "/i]", message: "Fonte fora do DS. Disponíveis: Inter e Plus Jakarta Sans (var(--ds-font-body) / var(--ds-font-display))." })),
+];
+
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
@@ -38,6 +47,20 @@ const eslintConfig = defineConfig([
   // As ações de Score e Diário podem importar a casca, nunca o núcleo.
   { files: ["app/app/score/actions.ts", "app/app/diario/actions.ts"], rules: restrict([[SERVER_CORE_FILE, SERVER_CORE_MESSAGE], [SERVER_CORE_BARREL, SERVER_CORE_MESSAGE]]) },
   { files: ["lib/live/**", "lib/score/coherence.ts", "lib/score/coherence.test.ts", "lib/score/analyze-coherence.ts", "lib/groq/structure-evidence.ts", "lib/groq/structure-evidence.test.ts", "lib/groq/structure-evidence-server.ts", "app/app/live/actions.ts"], rules: { "no-restricted-imports": "off", "no-restricted-syntax": "off" } },
+  // DS-6: aderência ao Design System (traduzida de docs/redesign/design-system/_adherence.oxlintrc.json) SÓ em components/ds/**:
+  // sem hex, sem px literal (use tokens --ds-* via classes dx-* em app/ds.css) e fontes só Inter / Plus Jakarta Sans.
+  // Este bloco repete a barreira do núcleo do LLM acima, porque no flat config a regra mais recente substitui a anterior para os mesmos arquivos.
+  // O CSS (app/ds.css) é coberto por components/ds/ds-adherence.test.ts (não há plugin de CSS no ESLint e a dependência nova está fora do escopo).
+  {
+    files: ["components/ds/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-imports": restrict([[SERVER_CORE_FILE, SERVER_CORE_MESSAGE], [SERVER_CORE_BARREL, SERVER_CORE_MESSAGE], [SERVER_SHELL_FILE, SERVER_SHELL_MESSAGE]])["no-restricted-imports"],
+      "no-restricted-syntax": ["error",
+        ...restrict([[SERVER_CORE_FILE, SERVER_CORE_MESSAGE], [SERVER_CORE_BARREL, SERVER_CORE_MESSAGE], [SERVER_SHELL_FILE, SERVER_SHELL_MESSAGE]])["no-restricted-syntax"].slice(1),
+        ...DS_ADHERENCE,
+      ],
+    },
+  },
 ]);
 
 export default eslintConfig;
