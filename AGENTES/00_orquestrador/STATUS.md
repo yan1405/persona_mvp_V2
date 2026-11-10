@@ -524,3 +524,7 @@ Congelamento em `610d1e7`. Relatório: `RELATORIO_interface_lote7_2e044a0.md`. *
 ## Lote 7 integrado (09/11/2026)
 
 Com autorização de Yan, Interface `2e044a0` entrou por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only`. O Orquestrador incluiu `lib/auth/qa-login-gate.test.ts` no script `npm test` (QL7-5). Gates no HEAD: `npm test` 110/110, lint, typecheck, build 0, `diff --check` limpo, zero segredo. `origin/main` `06de045`; sem push, Preview ou Production. Pendente (S3 antigo, produção): QL7-2 `getSafeNextPath` com redirect aberto — lote próprio antes de Preview.
+
+## Reconstrução sobre o Design System autorizada e Lote 8 aberto (10/11/2026)
+
+Yan: "Sim, reconstruir" (exclusão total do design antigo). Auditoria em `AUDITORIA_DESIGN_SYSTEM.md` (`9c349c6`); referência do DS copiada para `docs/redesign/design-system/` (`b16a8b0`, sem `uploads/` de terceiros). Lote 8 (`67ba7e8`): Interface DS-1 a DS-6 (núcleo do DS, galeria `/dev/ds` com 404 em produção, gate de aderência) e Backend BK4-1 (redirect aberto, S3). Sem tela existente alterada neste lote. Pendentes de Yan: telas sem mock (Entrar, Onboarding, Diagnóstico, Erro, Termos, Privacidade: desenhar ou derivar), desvios de acessibilidade A11/A12, itens 5 (adiado), 7 (consultas 1 e 2 e NOTICE), 8, 11 e 12. Assumi por padrão: Agente Persona não construído; desvios A11/A12 mantidos; telas sem mock derivadas dos componentes no Lote 9 salvo aviso de Yan.
