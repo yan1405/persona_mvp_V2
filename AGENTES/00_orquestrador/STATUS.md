@@ -520,3 +520,7 @@ Congelamento em `610d1e7`. Relatório: `RELATORIO_interface_lote7_2e044a0.md`. *
 | Interface `2e044a0` (QL-4, topo) | liberar com ressalvas | QL7-5: teste do gate fora do `npm test` (Orquestrador inclui na integração) |
 
 **QL7-2 (S3, preexistente, produção):** `getSafeNextPath` aceita `/\t/evil.example.com`, que vira redirect para domínio externo após o login Microsoft (`auth/iniciar` e `auth/callback`). Fora do diff do Lote 7; **tratar antes de Preview/Production** (lote próprio). QL7-4 (S4): servidor ouve em todas as interfaces; usar `next dev -H 127.0.0.1` com a flag ligada. Execução: `npm test` 107/107, teste do gate 3/3, lint, typecheck, build 0. Lote 7 **não integrado** (aguarda autorização de Yan).
+
+## Lote 7 integrado (09/11/2026)
+
+Com autorização de Yan, Interface `2e044a0` entrou por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only`. O Orquestrador incluiu `lib/auth/qa-login-gate.test.ts` no script `npm test` (QL7-5). Gates no HEAD: `npm test` 110/110, lint, typecheck, build 0, `diff --check` limpo, zero segredo. `origin/main` `06de045`; sem push, Preview ou Production. Pendente (S3 antigo, produção): QL7-2 `getSafeNextPath` com redirect aberto — lote próprio antes de Preview.
