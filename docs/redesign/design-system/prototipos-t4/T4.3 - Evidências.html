@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>T4.3 — Evidências do Persona</title>
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/colors.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/typography.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/effects.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#E9E8F0;font-family:var(--font-body);color:var(--text-strong)}
+a{color:var(--brand)}a:hover{color:var(--brand-strong)}
+.rv{position:relative;z-index:100;background:#E9E8F0;padding:14px 20px 12px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--n-100)}
+.rv-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rv-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--n-600);margin-right:4px;min-width:72px}
+.rv-sep{width:1px;height:24px;background:var(--n-200);margin:0 6px}
+.rv-title{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em;margin-right:8px}
+.rv-desc{margin:0;font-size:13px;color:var(--text-body);max-width:960px;text-wrap:pretty}
+.stage{padding:20px}
+.stage-frame{border-radius:12px;overflow:clip;box-shadow:var(--shadow-soft)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style></head>
+<body><div id="root"></div>
+<script type="text/babel" src="evidencias-panel.jsx"></script>
+<script type="text/babel" src="evidencias-screen.jsx"></script>
+<script type="text/babel">
+const { Chip } = window.PersonaDesignSystem_ff1a7b;
+const GROUPS = [
+  ['Biblioteca', [
+    ['vazia','Biblioteca vazia','Nenhuma evidência: “Nenhuma evidência ainda. Comece pelo Diário.” O único CTA de marca é “Registrar evidência”.'],
+    ['completa','Lista completa','As 4 evidências da §10 em grade de EvidenceCard (3 Documentadas, 1 Registrada). “4 confirmadas · 2 para revisar”. Links, URLs e idades: dados sintéticos para demonstração.'],
+    ['para-revisar','Para revisar','Chip de visão: as 2 sugestões da §10, vindas do registro de ontem no Diário. Confirmar e Descartar são ações explícitas da pessoa.'],
+    ['busca','Busca','Busca direta por “python”; sem chat e sem tabela.'],
+    ['filtros','Filtros abertos','Competência, período, nível e situação atrás de “Filtros”. Validada e Certificada só como indisponíveis.'],
+    ['sem-resultado','Filtro sem resultado','Liderança + Documentada não tem correspondência; “Limpar filtros”.'],
+    ['erro-leitura','Erro de leitura','Falha recuperável ao ler a biblioteca; nada foi perdido.'],
+  ]],
+  ['Registrar', [
+    ['nova-vazia','Nova vazia','Registro manual, etapa 1 de 2. A revisão antes de salvar é obrigatória.'],
+    ['nova-preenchida','Nova preenchida','Campos válidos (texto sintético); “Revisar antes de salvar” é o CTA de marca.'],
+    ['salvando','Salvando','Etapa de revisão; botão bloqueado como “Salvando…”.'],
+    ['falha-salvar','Falha ao salvar','Erro de escrita: campos preservados e nova tentativa disponível.'],
+  ]],
+  ['Detalhe', [
+    ['det-registrada','Registrada','Oficina de Python: 0 links. O único CTA de marca é “Adicionar link de prova”, na seção Provas (role o painel).'],
+    ['det-documentada','Documentada','Automação de relatórios: 2 links e 3 usos.'],
+    ['det-e2','Documentada · Evidência 2','Pitch de 5 minutos: 1 link. Destino da citação “Evidência 2” do Agente.'],
+    ['det-e3','Documentada · Evidência 3','Entrevistas com 8 usuários: 1 link. Destino da citação “Evidência 3” do Agente.'],
+    ['prova-ausente','Prova ausente','Seção Provas sem link: o nível é Registrada.'],
+    ['uso-vazio','Uso vazio','Evidência ainda não usada no Live nem em Artefatos.'],
+    ['link-adicionando','Adicionando link','Link válido sendo adicionado; Documentada deriva do link.'],
+    ['erro-escrita','Erro de escrita','Falha ao adicionar link: o endereço continua no campo.'],
+    ['link-removendo','Removendo link','Confirmação explícita antes de remover.'],
+    ['link-removido','Link removido','Último link removido: volta a Registrada.'],
+  ]],
+  ['Edição e estado', [
+    ['edicao-alterada','Edição não salva','Alterações não salvas sinalizadas.'],
+    ['conflito','Conflito','Alterada em outra aba; a versão da pessoa é mantida.'],
+    ['arquivada','Arquivada','Rastreabilidade preservada; “Restaurar evidência” disponível.'],
+    ['restaurada','Restaurada','Evidência de volta à biblioteca.'],
+    ['nao-encontrado','Não encontrada','Detalhe de evidência inexistente.'],
+    ['sem-permissao','Sem permissão','Evidência de outra conta.'],
+  ]],
+];
+const ALL = GROUPS.flatMap(g => g[1]);
+const VH = { 1440: 900, 1280: 800, 1024: 768 };
+const KEY = 'persona.t43.review';
+function Review() {
+  const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })();
+  const qs = new URLSearchParams(location.search);
+  const [v, setV] = React.useState(qs.get('s') || saved.v || 'completa');
+  const [w, setW] = React.useState(+qs.get('w') || saved.w || 1440);
+  const [agent, setAgent] = React.useState(qs.get('a') ? qs.get('a') === '1' : !!saved.agent);
+  const stageRef = React.useRef(null);
+  const [avail, setAvail] = React.useState(0);
+  React.useLayoutEffect(() => { const el = stageRef.current; if (!el) return; const f = () => setAvail(el.clientWidth - 40); f(); const ro = new ResizeObserver(f); ro.observe(el); return () => ro.disconnect(); }, []);
+  React.useEffect(() => { try { localStorage.setItem(KEY, JSON.stringify({ v, w, agent })); } catch (e) {} }, [v, w, agent]);
+  const h = VH[w] || 900;
+  const scale = avail > 0 ? Math.max(0.3, Math.min(1, avail / w)) : 1;
+  const cur = ALL.find(x => x[0] === v) || ALL[1];
+  return <>
+    <div className="rv">
+      <div className="rv-row"><span className="rv-title">T4.3 — Evidências do Persona</span>
+        <span className="rv-lbl">Largura</span>
+        {[1440, 1280, 1024].map(x => <Chip key={x} size="sm" selected={w === x} onClick={() => setW(x)}>{x + ' × ' + VH[x]}</Chip>)}
+        <span className="rv-sep"></span>
+        <span className="rv-lbl">Agente</span>
+        <Chip size="sm" selected={!agent} onClick={() => setAgent(false)}>Fechado</Chip>
+        <Chip size="sm" selected={agent} onClick={() => setAgent(true)}>Aberto</Chip>
+      </div>
+      {GROUPS.map(([g, items]) => <div key={g} className="rv-row"><span className="rv-lbl">{g}</span>{items.map(([id, label]) => <Chip key={id} size="sm" selected={v === id} onClick={() => setV(id)}>{label}</Chip>)}</div>)}
+      <p className="rv-desc">{cur[2]} Viewport simulado {w} × {h}; a área principal do AppShell é a única origem de rolagem.{scale < 1 ? ' Pré-visualização reduzida a ' + Math.round(scale * 100) + '%.' : ''}</p>
+    </div>
+    <div className="stage" ref={stageRef} data-screen-label={cur[1] + ' · ' + w}>
+      <div className="stage-frame" style={{ width: w, height: h, zoom: scale }}>
+        <EvidenciasScreen key={v + w} scenario={v} width={w} height={h} agentOpen={agent} onAgentToggle={setAgent} />
+      </div>
+    </div>
+  </>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Review />);
+</script>
+</body></html>

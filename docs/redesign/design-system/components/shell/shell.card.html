@@ -1,0 +1,90 @@
+<!-- @dsCard group="Components" viewport="1100x1000" name="AppShell" subtitle="Casca · cabeçalho fixo · 4 tiles · FocalCard · AgentPanel acoplado/folha · FloatingPanel à esquerda · 1024/1280/1440" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:16px 20px;background:#E9E8F0;font-family:var(--font-body);color:var(--text-strong)}.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}.bar .lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-right:4px}.sep{width:1px;height:24px;background:var(--n-200);margin:0 6px}.h2{margin:0 0 12px;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em}</style></head><body><div id="r"></div>
+<script type="text/babel">
+const NS = window.PersonaDesignSystem_ff1a7b;
+const { AppShell, DestinationGrid, DestinationTile, FocalJourney, EvidenceCard, Button, Chip, FloatingPanel, SectionIndex, TraceLine, Badge } = NS;
+const H = 820;
+const RESUME = { title: 'Registro de ontem', meta: '2 sugestões para revisar', action: 'Revisar sugestões' };
+const BADGES = { diario: { count: 2, label: '2 sugestões para revisar' } };
+const MSGS = [
+  { role: 'user', text: 'O que falta para meu score sair da base declarada?' },
+  { role: 'agent', text: 'Para a Coerência observada falta 1 evidência confirmada (hoje: 4 de 5). Revisar as 2 sugestões do Diário resolve esse ponto.', citations: ['Sugestões do Diário', 'Como é calculado'], actions: ['Revisar sugestões'] },
+];
+const EV = [
+  { title: 'Automação de relatórios semanais com IA generativa', competencies: ['Automação', 'Análise de dados'], level: 'Documentada', proofCount: 2 },
+  { title: 'Pitch de 5 minutos para banca de empreendedorismo', competencies: ['Comunicação', 'Storytelling'], level: 'Documentada', proofCount: 1 },
+  { title: 'Entrevistas com 8 usuários para validar o problema', competencies: ['Pesquisa com usuários', 'Análise'], level: 'Documentada', proofCount: 1 },
+  { title: 'Oficina de Python para calouros', competencies: ['Ensino', 'Liderança'], level: 'Registrada', proofCount: 0 },
+];
+const SUG = ['Organização do cronograma de entregas do semestre', 'Protótipo de interface para app de carreira'];
+const grid = { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 16 };
+
+function Inicio() {
+  return <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <DestinationGrid>
+      <DestinationTile tone="amber" title="Diário" status="Último registro ontem" icon="notebook-pen" />
+      <DestinationTile tone="green" title="Evidências" status="4 confirmadas" meta="2 para revisar" icon="badge-check" />
+      <DestinationTile tone="indigo" title="Persona Live" status="1 sessão encerrada" icon="mic" />
+      <DestinationTile tone="blue" title="Artefatos" status="1 revisado · 1 rascunho" icon="file-text" />
+    </DestinationGrid>
+    <FocalJourney />
+  </div>;
+}
+function Evidencias({ onOpen }) {
+  return <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+      <span style={{ fontSize: 14, color: 'var(--text-body)' }}>4 confirmadas · 2 para revisar</span>
+      <Button variant="brand" icon="plus">Registrar evidência</Button>
+    </div>
+    <section id="sec-revisar"><h2 className="h2">Para revisar</h2><div style={grid}>{SUG.map(t => <EvidenceCard key={t} variant="suggestion" title={t} origin="Diário" updatedAt="ontem" level="Registrada" proofCount={0} />)}</div></section>
+    <section id="sec-confirmadas"><h2 className="h2">Confirmadas</h2><div style={grid}>{EV.map((e, i) => <EvidenceCard key={e.title} {...e} origin="Diário" onOpen={() => onOpen(i + 1)} />)}</div></section>
+  </div>;
+}
+const Sec = ({ id, title, children }) => <section id={id} style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingBottom: 20, marginBottom: 20, borderBottom: '1px solid var(--divider)' }}><h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 700 }}>{title}</h3>{children}</section>;
+function Detail({ n }) {
+  const e = EV[n - 1];
+  return <div style={{ display: 'grid', gridTemplateColumns: '140px minmax(0,1fr)', gap: 20, alignItems: 'start' }}>
+    <SectionIndex items={[{ id: 'd-resumo', label: 'Resumo' }, { id: 'd-provas', label: 'Provas', meta: e.proofCount + (e.proofCount === 1 ? ' link' : ' links') }, { id: 'd-rastro', label: 'Rastreabilidade' }]} style={{ position: 'sticky', top: 0 }} />
+    <div>
+      <Sec id="d-resumo" title="Resumo"><div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}><Badge status={e.level === 'Documentada' ? 'documentada' : 'registrada'} />{e.competencies.map(c => <Chip key={c} size="sm">{c}</Chip>)}</div></Sec>
+      <Sec id="d-provas" title="Provas"><span style={{ fontSize: 14 }}>{e.proofCount ? e.proofCount + (e.proofCount === 1 ? ' link de prova validado.' : ' links de prova validados.') : 'Sem link de prova. Um link a torna Documentada.'}</span></Sec>
+      <Sec id="d-rastro" title="Rastreabilidade"><TraceLine title="Origem e uso" orientation="vertical" steps={[{ kind: 'registro', label: 'Registro de origem', meta: 'Texto original preservado' }, { kind: 'evidencia', label: 'Evidência confirmada', meta: e.level }, e.proofCount ? { kind: 'prova', label: e.proofCount + (e.proofCount === 1 ? ' link de prova' : ' links de prova') } : { kind: 'prova', label: 'Sem link de prova', state: 'gap' }]} /></Sec>
+    </div>
+  </div>;
+}
+
+function App() {
+  const q = new URLSearchParams(location.search);
+  const [w, setW] = React.useState(+q.get('w') || 1280);
+  const [mode, setMode] = React.useState(q.get('m') || 'inicio');
+  const [agent, setAgent] = React.useState(q.get('a') === '1');
+  const [panel, setPanel] = React.useState(+q.get('p') || 0);
+  const [avail, setAvail] = React.useState([window.innerWidth - 40, window.innerHeight - 76]);
+  React.useEffect(() => { const f = () => setAvail([window.innerWidth - 40, window.innerHeight - 76]); addEventListener('resize', f); return () => removeEventListener('resize', f); }, []);
+  window.__shell = { setW, setMode, setAgent, setPanel };
+  const scale = Math.min(1, avail[0] / w, Math.max(0.3, avail[1] / H));
+  const C = (on, label, fn) => <Chip key={label} size="sm" selected={on} onClick={fn}>{label}</Chip>;
+  return <div>
+    <div className="bar">
+      <span className="lbl">Largura</span>{[1024, 1280, 1440].map(x => C(w === x, x + ' px', () => setW(x)))}
+      <span className="sep"></span><span className="lbl">Conteúdo</span>{C(mode === 'inicio', 'Início', () => { setMode('inicio'); setPanel(0); })}{C(mode === 'evidencias', 'Evidências', () => setMode('evidencias'))}
+      <span className="sep"></span>{C(agent, 'AgentPanel', () => setAgent(!agent))}{C(!!panel, 'FloatingPanel', () => { setMode('evidencias'); setPanel(panel ? 0 : 1); })}
+    </div>
+    <div style={{ width: w * scale, height: H * scale }}>
+      <div id="frame" style={{ width: w, height: H, transform: 'scale(' + scale + ')', transformOrigin: '0 0', borderRadius: 12, overflow: 'hidden' }}>
+        <AppShell height={H} active={mode} onNavigate={id => (id === 'inicio' || id === 'evidencias') && (setMode(id), setPanel(0))} title={mode === 'inicio' ? 'Início' : 'Evidências'}
+          resume={RESUME} badges={BADGES} agentOpen={agent} onAgentToggle={setAgent} agentMessages={MSGS}
+          panel={mode === 'evidencias' ? <FloatingPanel contained width={600} open={!!panel} onClose={() => setPanel(0)} eyebrow={'Evidência ' + panel} title={panel ? EV[panel - 1].title : ''} footer={<Button variant="outline" icon="mic">Testar no Live</Button>}>{panel ? <Detail n={panel} /> : null}</FloatingPanel> : null}>
+          {mode === 'inicio' ? <Inicio /> : <Evidencias onOpen={setPanel} />}
+        </AppShell>
+      </div>
+    </div>
+  </div>;
+}
+ReactDOM.createRoot(document.getElementById('r')).render(<App />);
+</script></body></html>

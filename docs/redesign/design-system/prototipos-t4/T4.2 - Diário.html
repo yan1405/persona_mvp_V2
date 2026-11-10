@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>T4.2 — Diário do Persona</title>
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/colors.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/typography.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/tokens/effects.css">
+<link rel="stylesheet" href="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="_ds/persona-design-system-ff1a7bce-a6f2-4fa9-af99-a6196b748678/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#E9E8F0;font-family:var(--font-body);color:var(--text-strong)}
+a{color:var(--brand)}a:hover{color:var(--brand-strong)}
+.rv{position:relative;z-index:100;background:#E9E8F0;padding:14px 20px 12px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--n-100)}
+.rv-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rv-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--n-600);margin-right:4px;min-width:72px}
+.rv-sep{width:1px;height:24px;background:var(--n-200);margin:0 6px}
+.rv-title{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em;margin-right:8px}
+.rv-desc{margin:0;font-size:13px;color:var(--text-body);max-width:960px;text-wrap:pretty}
+.stage{padding:20px}
+.stage-frame{border-radius:12px;overflow:clip;box-shadow:var(--shadow-soft)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style></head>
+<body><div id="root"></div>
+<script type="text/babel" src="diario-panel.jsx"></script>
+<script type="text/babel" src="diario-screen.jsx"></script>
+<script type="text/babel">
+const { Chip } = window.PersonaDesignSystem_ff1a7b;
+const GROUPS = [
+  ['Captura', [
+    ['editor-vazio', 'Editor vazio', 'Editor em foco, vazio; contador pede 40 caracteres. Histórico com 4 registros em 2 semanas (contagem literal da §10); os textos são dados sintéticos para demonstração.'],
+    ['editor-preenchido', 'Editor preenchido', 'Texto válido; “Salvar registro” é o único CTA de marca da tela.'],
+    ['criando', 'Criando registro', 'Salvando: botão bloqueado como “Salvando…”, texto preservado no editor.'],
+    ['salvar-falha', 'Falha ao salvar', 'Erro recuperável: o texto continua no editor e “Salvar registro” segue disponível para tentar de novo.'],
+  ]],
+  ['Histórico', [
+    ['historico-vazio', 'Histórico vazio', 'Nenhum registro. O vazio aponta para o editor; sem CTA concorrente.'],
+    ['historico', 'Com registros + Filtros', 'Grade de EntryCard; busca e período atrás de “Filtros”.'],
+    ['sem-resultado', 'Sem resultado', 'Busca sintética sem registro correspondente (dados sintéticos para demonstração); “Limpar filtros”.'],
+    ['carregando', 'Carregando', 'Leitura do histórico em andamento; editor utilizável.'],
+    ['erro-leitura', 'Erro de leitura', 'Falha recuperável ao ler o histórico; editor continua funcionando.'],
+  ]],
+  ['Sugestões', [
+    ['registro-criado', 'Registro criado', 'Depois de salvar: detalhe aberto e ação nomeada “Gerar sugestões”. Nada é gerado sozinho.'],
+    ['gerando', 'Gerando', 'A IA lê o registro; estruturação manual continua disponível.'],
+    ['nenhuma-util', 'Nenhuma útil', 'A IA não achou ação ou resultado concreto; propõe estruturar manualmente.'],
+    ['pendente', 'Pendentes', 'Registro de ontem: as 2 sugestões literais da §10 (massa fictícia do documento) em EvidenceCard, com Confirmar e Descartar. Texto do registro: dados sintéticos para demonstração.'],
+    ['descartada', 'Descartada', '1 sugestão descartada (com Desfazer), 1 pendente.'],
+    ['confirmada', 'Confirmada', '1 confirmada por você (agora em Evidências, Registrada); TraceLine atualiza.'],
+    ['falha-ia', 'Falha da IA', 'IA indisponível: registro salvo, modo manual disponível; editor, busca e filtros seguem ativos.'],
+    ['manual', 'Estruturar manualmente', 'Estruturação manual, sem IA. O texto original continua visível acima.'],
+  ]],
+  ['Edição e exclusão', [
+    ['conflito', 'Edição com conflito', 'Alteração não salva + conflito com outra aba; a versão da pessoa é mantida.'],
+    ['exclusao-bloqueada', 'Exclusão bloqueada', 'Registro sintético que originou uma evidência confirmada (dados sintéticos para demonstração); exclusão bloqueada com o motivo.'],
+    ['exclusao-confirmar', 'Confirmar exclusão', 'Registro sem evidência confirmada: confirmação explícita antes de excluir.'],
+    ['exclusao-falha', 'Falha na exclusão', 'Falha fechada: nada foi excluído, o registro continua salvo.'],
+  ]],
+];
+const ALL = GROUPS.flatMap(g => g[1]);
+const VH = { 1440: 900, 1280: 800, 1024: 768 };
+const KEY = 'persona.t42.review';
+function Review() {
+  const saved = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })();
+  const qs = new URLSearchParams(location.search);
+  const [v, setV] = React.useState(qs.get('s') || saved.v || 'editor-vazio');
+  const [w, setW] = React.useState(+qs.get('w') || saved.w || 1440);
+  const [agent, setAgent] = React.useState(qs.get('a') ? qs.get('a') === '1' : !!saved.agent);
+  const stageRef = React.useRef(null);
+  const [avail, setAvail] = React.useState(0);
+  React.useLayoutEffect(() => { const el = stageRef.current; if (!el) return; const f = () => setAvail(el.clientWidth - 40); f(); const ro = new ResizeObserver(f); ro.observe(el); return () => ro.disconnect(); }, []);
+  React.useEffect(() => { try { localStorage.setItem(KEY, JSON.stringify({ v, w, agent })); } catch (e) {} }, [v, w, agent]);
+  const h = VH[w] || 900;
+  const scale = avail > 0 ? Math.max(0.3, Math.min(1, avail / w)) : 1;
+  const cur = ALL.find(x => x[0] === v) || ALL[0];
+  return <>
+    <div className="rv">
+      <div className="rv-row"><span className="rv-title">T4.2 — Diário do Persona</span>
+        <span className="rv-lbl">Largura</span>
+        {[1440, 1280, 1024].map(x => <Chip key={x} size="sm" selected={w === x} onClick={() => setW(x)}>{x + ' × ' + VH[x]}</Chip>)}
+        <span className="rv-sep"></span>
+        <span className="rv-lbl">Agente</span>
+        <Chip size="sm" selected={!agent} onClick={() => setAgent(false)}>Fechado</Chip>
+        <Chip size="sm" selected={agent} onClick={() => setAgent(true)}>Aberto</Chip>
+      </div>
+      {GROUPS.map(([g, items]) => <div key={g} className="rv-row"><span className="rv-lbl">{g}</span>{items.map(([id, label]) => <Chip key={id} size="sm" selected={v === id} onClick={() => setV(id)}>{label}</Chip>)}</div>)}
+      <p className="rv-desc">{cur[2]} Viewport simulado {w} × {h}; a área principal do AppShell é a única origem de rolagem.{scale < 1 ? ' Pré-visualização reduzida a ' + Math.round(scale * 100) + '%.' : ''}</p>
+    </div>
+    <div className="stage" ref={stageRef} data-screen-label={cur[1] + ' · ' + w}>
+      <div className="stage-frame" style={{ width: w, height: h, zoom: scale }}>
+        <DiarioScreen key={v + w} scenario={v} width={w} height={h} agentOpen={agent} onAgentToggle={setAgent} />
+      </div>
+    </div>
+  </>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Review />);
+</script>
+</body></html>

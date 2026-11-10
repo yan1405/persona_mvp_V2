@@ -1,0 +1,21 @@
+<!-- @dsCard group="Components" viewport="700x1940" name="DraftPanel" subtitle="Persona Live · Rascunho sugerido · duração-alvo e controles · pronto, foco, processando, lacuna, erro, encerrada" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:var(--bg-app);font-family:var(--font-body);color:var(--text-strong)}.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin:0 0 8px}.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}.col{display:flex;flex-direction:column;gap:20px}</style></head><body><div id="r"></div>
+<script type="text/babel">
+const NS = window.PersonaDesignSystem_ff1a7b;
+const { DraftPanel } = NS;
+const T = 'Um exemplo real é a automação de relatórios semanais com IA generativa. Nesse trabalho usei automação e análise de dados, e a evidência está documentada com 2 links de prova.';
+function App(){return <div className="col">
+<div><p className="lbl">Padrão · preenchido (comportamental, 30–45 s)</p><DraftPanel text={T} sources={['Evidência 1']} /></div>
+<div><p className="lbl">Foco · Encurtar</p><DraftPanel text={T} sources={['Evidência 1']} focused /></div>
+<div><p className="lbl">Processando</p><DraftPanel state="processing" /></div>
+<div><p className="lbl">Lacuna · sem rascunho</p><DraftPanel state="gap" /></div>
+<div><p className="lbl">Erro · falha parcial</p><DraftPanel state="error" /></div>
+<div><p className="lbl">Desabilitado · sessão encerrada</p><DraftPanel state="closed" text={T} sources={['Evidência 1']} /></div>
+</div>}
+ReactDOM.createRoot(document.getElementById('r')).render(<App />);
+</script></body></html>

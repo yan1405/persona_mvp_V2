@@ -1,0 +1,25 @@
+<!-- @dsCard group="Components" viewport="700x600" name="SectionIndex" subtitle="Índice de âncoras “Nesta página” · não é aba · padrão, foco, seção sem conteúdo" -->
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;padding:20px;background:var(--bg-app);font-family:var(--font-body);color:var(--text-strong)}.lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin:0 0 8px}.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}.col{display:flex;flex-direction:column;gap:20px}</style></head><body><div id="r"></div>
+<script type="text/babel">
+const NS = window.PersonaDesignSystem_ff1a7b;
+const { SectionIndex, Badge } = NS;
+const ITEMS = [{id:'s-resumo',label:'Resumo'},{id:'s-provas',label:'Provas',meta:'2 links'},{id:'s-uso',label:'Uso',meta:'2'},{id:'s-versoes',label:'Versões',disabled:true,meta:'nenhuma'}];
+const TXT = { 's-resumo':'Automação de relatórios semanais com IA generativa · Automação · Análise de dados · Documentada.', 's-provas':'2 links de prova validados.', 's-uso':'Resposta STAR · Problema resolvido com dados. Pitch pessoal · Rascunho.' };
+const box = { background:'var(--surface-card)', borderRadius:22, boxShadow:'var(--shadow-soft)', padding:20 };
+function App(){const [a,setA]=React.useState('s-resumo');return <div className="col">
+<div style={{...box,display:'grid',gridTemplateColumns:'170px minmax(0,1fr)',gap:24}}>
+  <div><p className="lbl">Padrão · clique rola</p><SectionIndex items={ITEMS} activeId={a} onSelect={setA} /></div>
+  <div style={{height:260,overflowY:'auto',overflowX:'hidden',paddingRight:8,minWidth:0}}>{ITEMS.filter(i=>!i.disabled).map(i=><section key={i.id} id={i.id} style={{minHeight:200,borderBottom:'1px solid var(--divider)',paddingBottom:16,marginBottom:16}}><h3 style={{margin:'0 0 8px',fontFamily:'var(--font-display)',fontSize:16}}>{i.label}</h3><p style={{margin:0,fontSize:14,lineHeight:1.55,color:'var(--text-body)'}}>{TXT[i.id]}</p></section>)}</div>
+</div>
+<div className="g2">
+  <div style={box}><p className="lbl">Foco</p><SectionIndex items={ITEMS} activeId="s-resumo" focusedId="s-provas" /></div>
+  <div style={box}><p className="lbl">Ativo em Uso · Versões sem conteúdo</p><SectionIndex items={ITEMS} activeId="s-uso" /></div>
+</div>
+</div>}
+ReactDOM.createRoot(document.getElementById('r')).render(<App />);
+</script></body></html>
