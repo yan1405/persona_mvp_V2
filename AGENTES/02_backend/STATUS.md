@@ -96,3 +96,9 @@ Commits novos sobre `4a37131865586be802f25511ce8f6969ad09109e` (imutável, sem a
 - BK-6 (relatório §4 alinhado às 12 chaves do passo 9 e às mensagens do passo 1b), BK-7 (`HANDOFF_LOTE1.md` reescrito como snapshot único) e BK-8 (cabeçalho do SQL sem e-mails; "contas descartáveis existentes no QA") corrigidos em texto. Nada marcado VERIFIED antes da Verificação.
 - Gate da rodada 3: aguarda parecer da Verificação sobre o commit de fechamento e aprovação de Yan.
 - Registro histórico superado: B-1 ainda aparecia como decisão A/B/C. No Lote 2, Yan escolheu a opção A; continuam pendentes R1 (`HYPOTHESIS`) e qualquer execução em banco, migração ou QA.
+
+## Lote 8 — BK4-1 (S3 QL7-2, redirect aberto)
+- `getSafeNextPath` (`apps/web/lib/auth/redirect.ts`) agora rejeita caracteres de controle (U+0000–U+001F, U+007F), `\`, equivalentes codificados `%00 %09 %0a %0d %5c` (sem diferenciar maiúsculas), `//` inicial, espaço inicial e qualquer valor que, resolvido contra origem fixa, mude de origem; tudo cai no `fallback`.
+- `redirect.test.ts`: 6 testes. Na base falham 3 (controle, variantes codificadas/espaço, fallback informado); no topo 6/6.
+- `auth/iniciar`, `auth/callback` e `auth/qa-entrar` só consomem o helper: sem mudança. O `next` do `reauth=delete_account` passa pelo mesmo helper em `iniciar` e `callback`.
+- `npm test` 115/115, lint, typecheck e build com saída 0. Estado: WAITING_APPROVAL; nada VERIFIED antes da Verificação (forma por forma). Sem banco, SQL, push ou `.env`.
