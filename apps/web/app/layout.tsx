@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./ds.css";
 
 // Fontes variáveis (OFL-1.1), subconjunto latin. Licença e hashes: docs/redesign/interface/LICENCAS_FONTES.md.
 const inter = localFont({
