@@ -181,3 +181,17 @@ Base: `main` local `2bca379` (atribuição `LOTE-7.md`). Refresh de Git feito (f
 | Interface | `2e044a062082f58c2dc7168145e12f018ba22583` | QL-4 `.env.example` e STATUS (topo) |
 
 Nota do Orquestrador: `lib/auth/qa-login-gate.test.ts` não está no script `npm test` (o `package.json` ficou fora da escrita da Interface); a Verificação deve rodá-lo diretamente. A inclusão no script é ajuste do Orquestrador na integração.
+
+## Lote 8 — SHAs congelados (10/11/2026)
+
+Base: `main` local `36da9be`. Refresh de Git feito (fetch, worktrees limpos, `merge-tree` entre os dois ramos sem conflito). `origin/main` `06de045`.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `1d5bcf596dcce7f8bb742a56cd8f8f68c2a626fb` | DS-1 primitivos |
+| Interface | `10e49e4e1016124c524befeb2842cb642a677b09` | DS-2 superfícies e jornada |
+| Interface | `6875d5eaaeb185131fef34a0171da4f29fb0ac24` | DS-3 navegação e casca |
+| Interface | `03b533e947d89e05ef8100fbb8cbfe3d952c0843` | DS-4 painel, índice, fluxo e cartões |
+| Interface | `1c5947298a91483ad11dd4270bf8492168b75af5` | DS-5 galeria `/dev/ds` |
+| Interface | `ee64fe6da8b154a743a290a41c45db4e3e1a123e` | DS-6 aderência e STATUS (topo) |
+| Backend | `173a265e088444054159e44ede5535e696614357` | BK4-1 redirect aberto (topo) |
