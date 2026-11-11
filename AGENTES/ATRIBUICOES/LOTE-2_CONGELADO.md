@@ -261,3 +261,13 @@ Base: `main` local `90f543a`. Refresh de Git feito (fetch, worktree da Interface
 | Interface | `0fa2555467960174a3147bc27608831f8c304d98` | L-2 Persona Live sem chat |
 | Interface | `a480ae131f45f51878f5f18a3c1295676ce5d360` | L-3 Narrative Score com painel de explicação (`?abrir=calculo`) |
 | Interface | `6827d8697e123a8fb1c1150ba7a9f86dcded08d6` | STATUS (topo) |
+
+## Lote 11, rodada B — SHAs congelados (11/11/2026)
+
+Base: `main` local `e45cc37`. Refresh de Git feito (fetch, worktree da Interface limpo; diff sobre `6827d86` só em `components/ds`, `app/ds.css`, `app/app/artefatos` e AGENTES/docs). `origin/main` `06de045`; Preview `preview/reconstrucao-ds` em `c88f304`. Obs. da Interface: `?tab=` do detalhe de Artefato sumiu; CSS de impressão de currículo/portfólio agora em `ds.css` (`dx-ws__sheet`) e não foi exercitado (verificar impressão).
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `d165933b64ce0e69a7f5313a5f335d86afb18464` | L-4 lista de Artefatos em grade de `ArtifactCard` |
+| Interface | `6f2ecbcc3f88ef68e3ad50607d73e77d44509e75` | L-5 `/artefatos/novo` e `/artefatos/[id]` como workspace |
+| Interface | `4ae44bb89cd143ec53ec42830218ff485c9a9264` | STATUS (topo) |
