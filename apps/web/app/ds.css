@@ -3585,3 +3585,17 @@ button:hover > .dx-card-top > .dx-icon {
   --color-text-muted: var(--ds-text-muted);
   --color-accent-bright: var(--ds-brand-strong);
 }
+
+/* C9-11/C9-12: o rótulo do botão primário legado fica claro sobre o violeta (o remapeamento acima o deixava escuro)
+   e as mensagens de erro, sucesso e perigo trocam os tons claros fixos do legado pelas tintas do DS. */
+.dx-shell__content:not(:has(.ds-surface)) .button-primary {
+  color: var(--ds-text-on-brand);
+}
+
+.dx-shell__content:not(:has(.ds-surface)) :is(.field-error, .form-error, .field-error-list, .danger-zone summary, .button-danger, .button-danger:hover:not(:disabled)) {
+  color: var(--ds-red-ink);
+}
+
+.dx-shell__content:not(:has(.ds-surface)) :is(.form-success, .inline-notice, .evidence-level[data-level="documented"]) {
+  color: var(--ds-green-ink);
+}
