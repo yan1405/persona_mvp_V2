@@ -220,3 +220,11 @@ Base: `main` local `0a9b533`. Refresh de Git feito (fetch, worktree da Interface
 | Interface | `4282aa24a3cf6f369d46aad5635709c9b9c9a879` | C9-3 anel de foco do logo |
 | Interface | `18a01f91ddc5ffc5ab05d84f2ca945827377dfa4` | C9-8 gate de aderência |
 | Interface | `f2c7533b4734e30d1b516868212a6dd8e1a7498c` | STATUS (topo) |
+
+## Lote 9, rodada 3 — SHA congelado (11/11/2026)
+
+Base: `main` local `cb6947e`. Refresh de Git feito (fetch, worktree da Interface limpo; diff de código só `apps/web/app/ds.css`, +14 linhas). Merge `b127288` só trouxe docs. `origin/main` `06de045`.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `9e16e18fd53a210f5440ceea2438154037531db8` | C9-11 botão primário legado a 5,70:1; C9-12 erro/sucesso/aviso/perigo legíveis (topo) |
