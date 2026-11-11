@@ -6,6 +6,8 @@ import { createClient } from "@/lib/supabase/server";
 
 import { OnboardingForm } from "./onboarding-form";
 
+export const metadata = { title: "Seu perfil | Persona" };
+
 export default async function OnboardingPage() {
   if (!isSupabaseConfigured()) {
     redirect("/auth/erro?codigo=configuracao");

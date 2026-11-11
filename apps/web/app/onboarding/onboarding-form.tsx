@@ -202,7 +202,7 @@ export function OnboardingForm({ defaultName, email }: OnboardingFormProps) {
             </div>
             <input type="hidden" name="professionalMoment" value={draft.professionalMoment} />
             {errors.professionalMoment ? (
-              <p className="dx-ob__error" id="moment-error" role="alert">
+              <p className="dx-ob__error" id="moment-error">
                 {errors.professionalMoment}
               </p>
             ) : null}
@@ -244,7 +244,7 @@ export function OnboardingForm({ defaultName, email }: OnboardingFormProps) {
               .
             </p>
             {errors.productConsent ? (
-              <p className="dx-ob__error" role="alert">
+              <p className="dx-ob__error">
                 {errors.productConsent}
               </p>
             ) : null}

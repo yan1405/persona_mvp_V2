@@ -13,7 +13,7 @@ export type AppHeaderProps = {
   searchName?: string;
 };
 
-// "Buscar ou perguntar" é o único campo do cabeçalho. Não há botão do Agente: o Agente Persona não existe neste produto.
+// "Buscar nas suas evidências" é o único campo do cabeçalho. Não há botão do Agente: o Agente Persona não existe neste produto.
 export function AppHeader({ title, onMenu, searchValue, onSearchChange, onSearch, searchAction, searchName = "q" }: AppHeaderProps) {
   return (
     <div className="dx-header-wrap">
@@ -42,8 +42,8 @@ export function AppHeader({ title, onMenu, searchValue, onSearchChange, onSearch
             variant="search"
             name={searchName}
             type="search"
-            placeholder="Buscar ou perguntar"
-            aria-label="Buscar ou perguntar"
+            placeholder="Buscar nas suas evidências"
+            aria-label="Buscar nas suas evidências"
             autoComplete="off"
             value={searchValue}
             onChange={onSearchChange ? (e) => onSearchChange(e.target.value) : undefined}

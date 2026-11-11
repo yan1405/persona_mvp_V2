@@ -275,7 +275,7 @@ export function Gallery() {
               <Input label="Nome" placeholder="Como quer ser chamado" hint="Aparece no seu perfil." />
               <Input label="E-mail" defaultValue="pessoa@exemplo.com" error="Informe um e-mail válido." />
               <Input label="Desativado" defaultValue="Somente leitura" disabled />
-              <Input variant="search" aria-label="Buscar ou perguntar" placeholder="Buscar ou perguntar" />
+              <Input variant="search" aria-label="Buscar nas suas evidências" placeholder="Buscar nas suas evidências" />
             </div>
           </Group>
 

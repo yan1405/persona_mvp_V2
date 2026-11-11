@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ButtonLink, Button, Card, FocalCard, Icon, Input, Logo } from "@/components/ds";
 import { isQaPasswordLoginEnabled } from "@/lib/auth/qa-login-gate";
 
+
+export const metadata = { title: "Entrar | Persona" };
 const TRUST = [
   "Você revisa toda sugestão antes de ela virar evidência.",
   "O Persona não inventa experiências, resultados ou números.",
