@@ -228,3 +228,25 @@ Base: `main` local `cb6947e`. Refresh de Git feito (fetch, worktree da Interface
 | Papel | SHA completo | Item |
 |---|---|---|
 | Interface | `9e16e18fd53a210f5440ceea2438154037531db8` | C9-11 botão primário legado a 5,70:1; C9-12 erro/sucesso/aviso/perigo legíveis (topo) |
+
+## Lote 10, rodada A — SHAs congelados (11/11/2026)
+
+Base: `main` local `c88f304`. Refresh de Git feito (fetch, worktree da Interface limpo; diff de código só em `components/ds`, `app/ds.css`, `app/dev/ds`, `app/app/inicio` e `app/app/diario`, 9 arquivos). `origin/main` `06de045`; branch de Preview `preview/reconstrucao-ds` em `c88f304` (sem o código desta rodada).
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `e65813b9ada150b426708b8ea15c1e371569210e` | I-1 Início como T4.1 |
+| Interface | `5ac6dcfc2cb349745d71d354dd6eeef6dd1d8c08` | I-2 lista do Diário em grade de `EntryCard` |
+| Interface | `bdec7b34e57938b580b0cfd8b191446da6e133a7` | I-3 painel flutuante do Diário (rota direta `/app/diario/[id]` → `/app/diario?abrir=<id>`); fecha C9-12 |
+| Interface | `d0d32257410e5ee76b94ebea728b4287ad85f421` | STATUS (topo) |
+
+## Lote 10, rodada B — SHAs congelados (11/11/2026)
+
+Base: `main` local `d624447`. Refresh de Git feito (fetch, worktree da Interface limpo; diff da rodada B sobre `d0d3225` só em `app/app/evidencias`, `app/app/diario`, `app/app/inicio` e docs/AGENTES da Interface, 10 arquivos). `origin/main` `06de045`.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `8846441967e59d04eb50a9c8b2a03d8bbc05a4ff` | I-4 lista de Evidências em grade de `EvidenceCard` |
+| Interface | `d6501a610cb6c1e2c074f7f32a4564559631f478` | I-5 painel flutuante da Evidência (rota direta `/app/evidencias/[id]` → `?abrir=<id>`; Carbon removido) |
+| Interface | `e0e97d0c395ac1c56a475ec80a794d79d366f410` | I-6 formulários do Diário e das Evidências com `Input`/`Textarea`/`Button` do DS |
+| Interface | `7e40a777ec52bd817ad86159b920b804bb02dfd1` | STATUS (topo) |
