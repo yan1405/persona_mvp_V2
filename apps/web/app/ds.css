@@ -4342,3 +4342,68 @@ a:hover > .dx-card-top > .dx-icon {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* L-3: Narrative Score (um único FocalCard). */
+.dx-score__focal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-6);
+}
+
+.dx-score__focal-copy {
+  display: flex;
+  flex: 1 1 18rem;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+  min-width: 0;
+}
+
+.dx-score__focal-title {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-fs-h2-sm);
+  font-weight: var(--ds-fw-bold);
+  line-height: var(--ds-lh-130);
+  color: var(--ds-text-on-focal);
+}
+
+.dx-score__focal-text,
+.dx-score__focal-meta {
+  margin: 0;
+  color: var(--ds-text-on-focal-muted);
+  font-size: var(--ds-fs-body);
+  line-height: var(--ds-lh-150);
+}
+
+.dx-score__pair {
+  display: flex;
+  gap: var(--ds-space-6);
+  margin: 0;
+}
+
+.dx-score__pair > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+}
+
+.dx-score__pair dt {
+  color: var(--ds-text-on-focal-muted);
+  font-size: var(--ds-fs-label);
+  font-weight: var(--ds-fw-semibold);
+}
+
+.dx-score__pair dd {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-fs-h2-sm);
+  font-weight: var(--ds-fw-bold);
+  color: var(--ds-text-on-focal);
+}
+
+.dx-score__dims {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+}
