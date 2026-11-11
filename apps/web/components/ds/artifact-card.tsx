@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Badge, type StatusKey } from "./badge";
 import { cx } from "./cx";
 import { Icon, type IconName } from "./icon";
@@ -19,13 +21,15 @@ export type ArtifactCardProps = {
   updated?: string;
   sources?: string[];
   onOpen?: () => void;
+  /** Rota de detalhe: o cartão vira link. */
+  href?: string;
   disabled?: boolean;
   disabledText?: string;
   error?: string;
   className?: string;
 };
 
-export function ArtifactCard({ type = "star", title, objective, status = "rascunho", updated, sources = [], onOpen, disabled, disabledText = "Gerando rascunho…", error, className }: ArtifactCardProps) {
+export function ArtifactCard({ type = "star", title, objective, status = "rascunho", updated, sources = [], onOpen, href, disabled, disabledText = "Gerando rascunho…", error, className }: ArtifactCardProps) {
   const t = ARTIFACT_TYPES[type] || ARTIFACT_TYPES.star;
   const interactive = !!onOpen && !disabled;
   const cls = cx("dx-art", t.tint, disabled && "dx-art--disabled", error && "dx-art--error", className);
@@ -62,6 +66,13 @@ export function ArtifactCard({ type = "star", title, objective, status = "rascun
       ) : null}
     </>
   );
+  if (href && !disabled) {
+    return (
+      <Link href={href} className={cls} aria-label={"Abrir " + t.label + ": " + (title || "sem título")}>
+        {inner}
+      </Link>
+    );
+  }
   return interactive ? (
     <button type="button" className={cls} onClick={onOpen} aria-label={"Abrir " + t.label + ": " + (title || "sem título")}>
       {inner}
