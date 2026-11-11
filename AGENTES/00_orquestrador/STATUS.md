@@ -528,3 +528,15 @@ Com autorização de Yan, Interface `2e044a0` entrou por `--no-ff` em `integraca
 ## Reconstrução sobre o Design System autorizada e Lote 8 aberto (10/11/2026)
 
 Yan: "Sim, reconstruir" (exclusão total do design antigo). Auditoria em `AUDITORIA_DESIGN_SYSTEM.md` (`9c349c6`); referência do DS copiada para `docs/redesign/design-system/` (`b16a8b0`, sem `uploads/` de terceiros). Lote 8 (`67ba7e8`): Interface DS-1 a DS-6 (núcleo do DS, galeria `/dev/ds` com 404 em produção, gate de aderência) e Backend BK4-1 (redirect aberto, S3). Sem tela existente alterada neste lote. Pendentes de Yan: telas sem mock (Entrar, Onboarding, Diagnóstico, Erro, Termos, Privacidade: desenhar ou derivar), desvios de acessibilidade A11/A12, itens 5 (adiado), 7 (consultas 1 e 2 e NOTICE), 8, 11 e 12. Assumi por padrão: Agente Persona não construído; desvios A11/A12 mantidos; telas sem mock derivadas dos componentes no Lote 9 salvo aviso de Yan.
+
+## Lote 8 verificado (10/11/2026)
+
+Congelamento em `30b88a4`. Relatórios: `RELATORIO_interface_lote8_ee64fe6.md`, `RELATORIO_backend_lote8_173a265.md`. **Sem S1, S2 ou S3 novo.** O S3 QL7-2 (redirect aberto) fecha no Backend (`173a265`): 3 de 6 testes falham na base, 6/6 no topo, fuzz de 400.000 valores com 158 escapes no código antigo e 0 no novo. Interface: 6 SHAs, nenhum arquivo fora dos caminhos autorizados, nenhuma tela existente alterada, `/dev/ds` com 404 em `next start` com `NODE_ENV=production`, `VERCEL` e `VERCEL_ENV`, sem componente do Agente (exceto a variante `Avatar ai`, DS8-8).
+
+| SHA | Gate sugerido |
+|---|---|
+| Interface `1d5bcf5`, `10e49e4`, `6875d5e`, `03b533e` (DS-1 a DS-4) | liberar |
+| Interface `1c59472` (DS-5), `ee64fe6` (DS-6, topo) | liberar com ressalvas (S4) |
+| Backend `173a265` (BK4-1) | liberar |
+
+Tratamento do Orquestrador: DS8-1 (testes `gate.test.ts` e `ds-adherence.test.ts` fora do `npm test`) — incluir na integração. Para o Lote 9 (Interface): DS8-8 remover `Avatar variant="ai"`; DS8-4 alinhar padding do Button ao `Button.jsx` (14/18/22) ou documentar; DS8-3 tokens de alfa e tipografia; DS8-6 alvos de 44 px no TraceLine e no logotipo; DS8-2 reforçar o gate de aderência (rgb/hsl/nomeadas). DS8-5 (contraste do `Count`) nasce no DS: decisão de Yan junto com A11/A12. DS8-7 (404 carrega título no payload) aceito. Lote 8 **não integrado** (aguarda autorização de Yan).
