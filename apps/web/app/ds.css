@@ -4282,3 +4282,63 @@ a:hover > .dx-card-top > .dx-icon {
   font-size: var(--ds-fs-label);
   line-height: var(--ds-lh-145);
 }
+
+/* L-2: Persona Live. */
+.dx-live__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-2);
+}
+
+.dx-live__controls > form {
+  display: contents;
+}
+
+.dx-live__questions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dx-live__question {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+  min-width: 0;
+  scroll-margin-top: var(--ds-space-6);
+}
+
+.dx-live__question-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-2);
+}
+
+.dx-live__question-title {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-fs-card-title);
+  font-weight: var(--ds-fw-bold);
+  line-height: var(--ds-lh-130);
+  color: var(--ds-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.dx-live__pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-space-4);
+  align-items: start;
+}
+
+@media (min-width: 64rem) {
+  .dx-live__pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
