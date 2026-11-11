@@ -155,7 +155,7 @@ export async function DiaryDetail({ id, query }: { id: string; query: DetailQuer
                     <div className="dx-dp__head">
                       <h4 className="dx-dp__h dx-dp__h--sm">{selected.title || "Preencha a estrutura."}</h4>
                       <form action={rejectSuggestion.bind(null, selected.id, id)}>
-                        <PendingButton className="button-text" pendingLabel="Rejeitando…">
+                        <PendingButton variant="ghost" pendingLabel="Rejeitando…">
                           Rejeitar sugestão
                         </PendingButton>
                       </form>
@@ -215,7 +215,7 @@ export async function DiaryDetail({ id, query }: { id: string; query: DetailQuer
                 <input name="confirmDeletion" type="checkbox" value="yes" required />
                 Entendo que o registro será removido permanentemente.
               </label>
-              <PendingButton className="button-danger" pendingLabel="Excluindo…">
+              <PendingButton pendingLabel="Excluindo…">
                 Excluir registro
               </PendingButton>
             </form>

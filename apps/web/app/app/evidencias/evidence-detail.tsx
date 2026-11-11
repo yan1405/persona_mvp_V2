@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { Badge, Icon, TraceLine } from "@/components/ds";
+import { Badge, Button, Icon, TraceLine } from "@/components/ds";
 import { evidenceLevel } from "@/lib/evidence/validation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -88,9 +88,9 @@ export async function EvidenceDetail({ id, query }: { id: string; query: Evidenc
             </h3>
             <p className="dx-dp__text">Ela não aparece nas visões ativas, mas sua estrutura e provas foram preservadas.</p>
             <form action={restoreEvidence.bind(null, id)}>
-              <button className="button-secondary" type="submit">
+              <Button variant="outline" size="sm" type="submit">
                 Restaurar evidência
-              </button>
+              </Button>
             </form>
           </section>
         )}
@@ -144,9 +144,9 @@ export async function EvidenceDetail({ id, query }: { id: string; query: Evidenc
                   <span className="dx-dp__version-meta">{hostname(source.url)}</span>
                   {!archived && (
                     <form action={removeEvidenceLink.bind(null, source.id, id)}>
-                      <button className="button-text" type="submit">
+                      <Button variant="ghost" size="sm" type="submit">
                         Remover
-                      </button>
+                      </Button>
                     </form>
                   )}
                 </li>
@@ -175,9 +175,9 @@ export async function EvidenceDetail({ id, query }: { id: string; query: Evidenc
             </h3>
             <p className="dx-dp__text">A estrutura e as provas serão preservadas. A evidência sairá da Biblioteca ativa e poderá ser restaurada pelo filtro Arquivadas.</p>
             <form action={archiveEvidence.bind(null, id)}>
-              <button className="button-danger" type="submit">
+              <Button variant="outline" size="sm" type="submit">
                 Arquivar evidência
-              </button>
+              </Button>
             </form>
           </section>
         )}

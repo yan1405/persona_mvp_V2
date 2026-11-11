@@ -4042,3 +4042,42 @@ a:hover > .dx-card-top > .dx-icon {
   border: var(--ds-bw) solid var(--ds-border-subtle);
   border-radius: var(--ds-radius-sm);
 }
+
+/* I-6: formulários do Diário e das Evidências (Input, Textarea e Button do DS). */
+.dx-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+  min-width: 0;
+}
+
+.dx-form__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-space-4);
+}
+
+.dx-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-3);
+}
+
+.dx-form__actions--end {
+  justify-content: flex-end;
+}
+
+.dx-form__hint {
+  flex: 1 1 14rem;
+  color: var(--ds-text-body);
+  font-size: var(--ds-fs-label);
+  line-height: var(--ds-lh-140);
+}
+
+@media (min-width: 40rem) {
+  .dx-form__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
