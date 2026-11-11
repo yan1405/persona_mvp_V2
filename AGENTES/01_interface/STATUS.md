@@ -1,5 +1,18 @@
 # Status — Persona — Migração de Interface
 
+## Estado vigente — 11/11/2026 — Lote 12 rodada B
+
+Estado: DELIVERED, pendente de Verificação Independente e aceite visual de Yan. Trabalho local em `wt/interface-lote2`; nenhum merge, push, Preview/Production, banco, SQL, migração, credencial ou chamada a provedor real.
+
+- **M-4 — remoção do design antigo:** `808ab07c6ff51b84ae9356068d2b6d2d9344caeb`. Removidos o CSS legado de `globals.css`, a adaptação transitória de telas legadas em `ds.css`, `/dev/ds/legado`, Geist Mono do layout, `@carbon/icons-react` dos manifests e os cinco SVGs residuais de `public/`. Plus Jakarta Sans, Inter, `public/brand` e `public/fonts` foram preservados.
+- **M-5 — varredura e gate final:** `53fe3d1f4cdba44167c21e23d525d166a1dcf7fa`. O ESLint cobre todos os 91 arquivos TS/TSX de `app/**` e `components/**`, exceto a galeria local; o teste cobre `app/ds.css` e `app/globals.css`, aceita hex/px somente em declarações de tokens e mantém casos sujos de CSS e TSX.
+- **Varredura zero:** classe `.ds-surface` 0; Carbon 0; Geist/font-geist 0; `font-mono` 0; classes `.legacy`/`legacy-*` 0; hex/px fora de tokens 0; `npm ls @carbon/icons-react --all` vazio. `border-left` ficou apenas no conector semântico de `TraceLine` e em sete resets responsivos; zero borda lateral colorida em cartão.
+- **Validações do escritor:** `npm test` 153/153, `npm run lint`, `npm run typecheck`, `npm run build` e `git diff --check` com saída 0. O build lista `/dev/ds` e `/dev/ds/onboarding`, mas não `/dev/ds/legado`. A auditoria `design-sem-cara-de-ia` varreu 153 arquivos; os sinais encontrados são tokens/efeitos deliberados do DS e uma fixture de teste, sem novo achado desta rodada.
+- **Riscos e gate:** telas autenticadas, dados reais, teclado/leitor de tela, cinco larguras e regressão visual após remover o CSS seguem PENDING para a Verificação; aprovação visual continua sendo exclusivamente de Yan. Nada foi autorrotulado `VERIFIED`.
+- **Percentuais de entrega/integração:** Lote 10 `100% / 0%`; Lote 11 `100% / 0%`; Lote 12 `100% / 0%` (era 60% antes de M-4/M-5).
+
+Próximo passo: Orquestrador congela os dois SHAs e encaminha M-4/M-5 para a varredura independente, capturas reais e gate humano.
+
 Estado: WAITING_APPROVAL (Lote 2 · 01 entregue: licença das fontes PROVADA e Fundação visual implementada; aguarda gate da Verificação e aceite visual de Yan). Nenhuma tela migrada.
 
 | Tarefa | Peso | Estado | Evidência |
