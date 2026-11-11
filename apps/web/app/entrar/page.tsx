@@ -1,19 +1,14 @@
-import Image from "next/image";
 import { headers } from "next/headers";
 import Link from "next/link";
 
+import { ButtonLink, Button, Card, FocalCard, Icon, Input, Logo } from "@/components/ds";
 import { isQaPasswordLoginEnabled } from "@/lib/auth/qa-login-gate";
 
-function MicrosoftMark() {
-  return (
-    <span className="microsoft-logo" aria-hidden="true">
-      <span />
-      <span />
-      <span />
-      <span />
-    </span>
-  );
-}
+const TRUST = [
+  "Você revisa toda sugestão antes de ela virar evidência.",
+  "O Persona não inventa experiências, resultados ou números.",
+  "Seus dados profissionais permanecem privados por padrão.",
+];
 
 export default async function SignInPage({
   searchParams,
@@ -24,106 +19,80 @@ export default async function SignInPage({
   const qaLogin = isQaPasswordLoginEnabled(process.env, (await headers()).get("host"));
 
   return (
-    <main className="login-shell">
-      <header className="login-header">
-        <div className="wordmark" aria-label="Persona">
-          <Image
-            className="wordmark-logo"
-            src="/brand/persona-logo-rica-dark.svg"
-            width={24}
-            height={24}
-            alt=""
-            priority
-          />
-          Persona
-        </div>
-        <span className="phase-label">Acesso antecipado</span>
-      </header>
+    <main className="dx-page">
+      <div className="dx-page__wrap">
+        <header className="dx-page__brand">
+          <Logo variant="lockup" height={32} title="Persona" />
+        </header>
 
-      <div className="login-grid">
-        <section className="positioning-panel" aria-labelledby="persona-title">
-          <div className="positioning-copy">
-            <p className="eyebrow">Evidências profissionais, não respostas prontas</p>
-            <h1 id="persona-title">Registre uma vez. Prove sempre.</h1>
-            <p>
-              O Persona organiza o que você viveu e recupera os fatos certos
-              quando chega a hora de demonstrar sua competência.
+        <div className="dx-signin__grid">
+          <FocalCard className="dx-signin__promise" aria-labelledby="persona-title">
+            <h1 className="dx-signin__headline" id="persona-title">
+              Registre uma vez. Prove sempre.
+            </h1>
+            <p className="dx-signin__promise-text">
+              O Persona organiza o que você viveu e recupera os fatos certos quando chega a hora de demonstrar sua competência.
             </p>
-          </div>
+            <ul className="dx-signin__trust" aria-label="Como o Persona trabalha">
+              {TRUST.map((line) => (
+                <li key={line}>
+                  <Icon name="circle-check" size={18} />
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </FocalCard>
 
-          <div className="evidence-trace" aria-label="Como o Persona trabalha">
-            <div className="trace-header">
-              <span>trajetória / exemplo</span>
-              <span className="trace-status">rastreável</span>
-            </div>
-            <div className="trace-content">
-              <article className="trace-step">
-                <span className="trace-index">01 / fonte</span>
-                <strong>Experiência registrada</strong>
-                <p>Conduzi uma oficina de IA para gestores e adaptei o plano ao grupo.</p>
-              </article>
-              <article className="trace-step" data-active="true">
-                <span className="trace-index">02 / argumento</span>
-                <strong>O que isso demonstra</strong>
-                <p>Comunicação, adaptação e capacidade de transformar conteúdo técnico.</p>
-              </article>
-              <article className="trace-step">
-                <span className="trace-index">03 / ativação</span>
-                <strong>Uso em entrevista</strong>
-                <p>Um rascunho curto, sustentado pela fonte e revisado por você.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section className="auth-panel" aria-labelledby="signin-title">
-          <div className="auth-card">
-            <h2 id="signin-title">Entre no Persona</h2>
+          <Card as="section" elevation="float" radius="lg" className="dx-signin__card" aria-labelledby="signin-title">
+            <h2 className="dx-signin__card-title" id="signin-title">
+              Entre no Persona.
+            </h2>
             {conta === "excluida" && (
-              <p className="settings-success" role="status">
+              <p className="dx-page__notice dx-page__notice--ok" role="status">
+                <Icon name="circle-check" size={16} />
                 Sua conta e os dados vinculados foram excluídos.
               </p>
             )}
-            <p className="auth-intro">
-              Use sua conta pessoal, profissional ou educacional da Microsoft.
-            </p>
+            <p className="dx-page__lead">Use sua conta pessoal, profissional ou educacional da Microsoft.</p>
 
-            <a className="microsoft-button" href="/auth/iniciar">
-              <MicrosoftMark />
+            <ButtonLink native href="/auth/iniciar" variant="brand" size="lg" fullWidth iconRight="arrow-right">
               Entrar com Microsoft
-            </a>
-            <p className="auth-note">
-              Você será redirecionado ao ambiente oficial da Microsoft.
-            </p>
+            </ButtonLink>
+            <p className="dx-page__note">Você será redirecionado ao ambiente oficial da Microsoft.</p>
 
             {qaLogin && (
-              <form action="/auth/qa-entrar" method="post" className="qa-login">
-                <p className="auth-note">Acesso de QA local (conta descartável).</p>
+              <form action="/auth/qa-entrar" method="post" className="dx-signin__qa">
+                <p className="dx-page__note">Acesso de QA local (conta descartável).</p>
                 {erro === "qa" && (
-                  <p className="form-error" role="alert">Não foi possível entrar.</p>
+                  <p className="dx-page__notice dx-page__notice--error" role="alert">
+                    <Icon name="triangle-alert" size={16} />
+                    Não foi possível entrar.
+                  </p>
                 )}
-                <label className="field-label" htmlFor="qa-email">E-mail</label>
-                <input className="text-field" id="qa-email" name="email" type="email" autoComplete="username" maxLength={254} required />
-                <label className="field-label" htmlFor="qa-password">Senha</label>
-                <input className="text-field" id="qa-password" name="password" type="password" autoComplete="current-password" maxLength={200} required />
-                <button className="button-secondary" type="submit">Entrar (QA)</button>
+                <Input label="E-mail" id="qa-email" name="email" type="email" autoComplete="username" maxLength={254} required />
+                <Input label="Senha" id="qa-password" name="password" type="password" autoComplete="current-password" maxLength={200} required />
+                <Button type="submit" variant="outline" fullWidth>
+                  Entrar (QA)
+                </Button>
               </form>
             )}
 
-            <div className="auth-divider" />
-
-            <ul className="trust-list">
-              <li>Você revisa toda sugestão antes de ela virar evidência.</li>
-              <li>O Persona não inventa experiências, resultados ou números.</li>
-              <li>Seus dados profissionais permanecem privados por padrão.</li>
-            </ul>
-
-            <nav className="legal-links" aria-label="Documentos legais">
-              <Link href="/termos">Termos</Link>
-              <Link href="/privacidade">Privacidade</Link>
+            <nav aria-label="Documentos legais">
+              <ul className="dx-page__legal">
+                <li>
+                  <Link className="dx-link" href="/termos">
+                    Termos
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dx-link" href="/privacidade">
+                    Privacidade
+                  </Link>
+                </li>
+              </ul>
             </nav>
-          </div>
-        </section>
+          </Card>
+        </div>
       </div>
     </main>
   );

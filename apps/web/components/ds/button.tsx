@@ -26,19 +26,24 @@ export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> 
   type?: "button" | "submit" | "reset";
 };
 
-export type ButtonLinkProps = Omit<ButtonProps, "type" | "onClick" | "disabled"> & { href: string };
+export type ButtonLinkProps = Omit<ButtonProps, "type" | "onClick" | "disabled"> & {
+  href: string;
+  /** Âncora comum, sem o Link do Next (sem prefetch): para rotas de servidor, como o início do login. */
+  native?: boolean;
+};
 
-/** Mesmo visual do Button, mas é um link (navegação do Next). */
-export function ButtonLink({ variant = "solid", size = "md", icon, iconRight, fullWidth, className, children, href }: ButtonLinkProps) {
+/** Mesmo visual do Button, mas é um link (navegação do Next; `native` para uma âncora comum). */
+export function ButtonLink({ variant = "solid", size = "md", icon, iconRight, fullWidth, className, children, href, native }: ButtonLinkProps) {
+  const Tag = native ? "a" : Link;
   return (
-    <Link
+    <Tag
       href={href}
       className={cx("dx-btn", VARIANT[variant], size !== "md" && "dx-btn--" + size, fullWidth && "dx-btn--full", className)}
     >
       {icon ? <Icon name={icon} size={ICON_SIZE[size]} /> : null}
       {children}
       {iconRight ? <Icon name={iconRight} size={ICON_SIZE[size]} /> : null}
-    </Link>
+    </Tag>
   );
 }
 
