@@ -540,3 +540,7 @@ Congelamento em `30b88a4`. Relatórios: `RELATORIO_interface_lote8_ee64fe6.md`, 
 | Backend `173a265` (BK4-1) | liberar |
 
 Tratamento do Orquestrador: DS8-1 (testes `gate.test.ts` e `ds-adherence.test.ts` fora do `npm test`) — incluir na integração. Para o Lote 9 (Interface): DS8-8 remover `Avatar variant="ai"`; DS8-4 alinhar padding do Button ao `Button.jsx` (14/18/22) ou documentar; DS8-3 tokens de alfa e tipografia; DS8-6 alvos de 44 px no TraceLine e no logotipo; DS8-2 reforçar o gate de aderência (rgb/hsl/nomeadas). DS8-5 (contraste do `Count`) nasce no DS: decisão de Yan junto com A11/A12. DS8-7 (404 carrega título no payload) aceito. Lote 8 **não integrado** (aguarda autorização de Yan).
+
+## Lote 8 integrado (10/11/2026)
+
+Com autorização de Yan, Backend `173a265` e Interface `ee64fe6` entraram por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only`. O Orquestrador incluiu `app/dev/ds/gate.test.ts` e `components/ds/ds-adherence.test.ts` no `npm test` (DS8-1). Gates no HEAD: `npm test` 123/123, lint, typecheck, build 0, `diff --check` limpo, zero segredo. S3 QL7-2 fechado. `origin/main` `06de045`; sem push, Preview ou Production. Próximo: Lote 9 (casca em uso, Entrar, Onboarding, Erro, Termos, Privacidade e correções DS8).
