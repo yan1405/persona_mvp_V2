@@ -4407,3 +4407,226 @@ a:hover > .dx-card-top > .dx-icon {
   flex-direction: column;
   gap: var(--ds-space-3);
 }
+
+/* L-5: workspace de Artefatos (criação e detalhe). */
+.dx-pick {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-space-3);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.dx-pick__opt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+  padding: var(--ds-space-4);
+  border: var(--ds-bw) solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-card);
+  cursor: pointer;
+}
+
+.dx-pick__opt:has(input:checked) {
+  border-color: var(--ds-brand-strong);
+  background: var(--ds-brand-soft);
+}
+
+.dx-pick__opt:has(input:focus-visible) {
+  outline: var(--ds-ring-w) solid var(--ds-focus-ring);
+  outline-offset: var(--ds-ring-gap);
+}
+
+.dx-pick__opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dx-pick__name {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  color: var(--ds-text-strong);
+  font-size: var(--ds-fs-body);
+  font-weight: var(--ds-fw-bold);
+}
+
+.dx-pick__text {
+  color: var(--ds-text-body);
+  font-size: var(--ds-fs-label);
+  line-height: var(--ds-lh-140);
+}
+
+.dx-ws {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-space-5);
+  min-width: 0;
+}
+
+.dx-ws__main,
+.dx-ws__side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+  min-width: 0;
+}
+
+.dx-ws__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-2);
+  color: var(--ds-text-body);
+  font-size: var(--ds-fs-label);
+}
+
+.dx-ws__status--error {
+  color: var(--ds-text-strong);
+  font-weight: var(--ds-fw-bold);
+}
+
+.dx-ws__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-3);
+}
+
+.dx-ws__title {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+  min-width: 0;
+}
+
+.dx-ws__num {
+  color: var(--ds-text-muted);
+  font-size: var(--ds-fs-label);
+  font-weight: var(--ds-fw-bold);
+}
+
+.dx-ws__order {
+  display: flex;
+  gap: var(--ds-space-1);
+}
+
+.dx-ws__down .dx-icon {
+  transform: rotate(180deg);
+}
+
+.dx-ws__ai {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2);
+}
+
+.dx-ws__ai > form {
+  display: contents;
+}
+
+.dx-ws__src {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dx-ws__src li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+  padding: var(--ds-space-3);
+  border: var(--ds-bw) solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-sm);
+  color: var(--ds-text-body);
+  font-size: var(--ds-fs-label);
+  line-height: var(--ds-lh-145);
+}
+
+.dx-ws__src strong {
+  color: var(--ds-text-strong);
+}
+
+.dx-ws__src q {
+  color: var(--ds-text-body);
+}
+
+.dx-ws__src-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-3);
+}
+
+.dx-ws__versions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dx-ws__version {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+  min-width: 0;
+}
+
+.dx-ws__sheet {
+  display: none;
+}
+
+@media (min-width: 40rem) {
+  .dx-pick {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dx-ws__versions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .dx-ws {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    align-items: start;
+  }
+
+  .dx-ws__side {
+    position: sticky;
+    top: var(--ds-space-4);
+  }
+}
+
+@media print {
+  .dx-shell__head,
+  .dx-shell aside,
+  .dx-ws__screen {
+    display: none !important;
+  }
+
+  .dx-shell,
+  .dx-shell__frame,
+  .dx-shell__content,
+  .dx-shell__main,
+  .dx-shell__scroll {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .dx-ws__sheet {
+    display: block !important;
+  }
+}
