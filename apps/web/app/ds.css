@@ -4003,3 +4003,42 @@ a:hover > .dx-card-top > .dx-icon {
   color: var(--ds-text-body);
   font-size: var(--ds-fs-body);
 }
+
+/* I-5: fatos e provas no painel da Evidência. */
+.dx-dp__facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+  margin: 0;
+}
+
+.dx-dp__facts > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+}
+
+.dx-dp__facts dt {
+  color: var(--ds-text-muted);
+  font-size: var(--ds-fs-label);
+  font-weight: var(--ds-fw-semibold);
+}
+
+.dx-dp__facts dd {
+  margin: 0;
+  color: var(--ds-text-strong);
+  font-size: var(--ds-fs-body);
+  line-height: var(--ds-lh-150);
+  overflow-wrap: anywhere;
+}
+
+.dx-dp__proof {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-2);
+  padding: var(--ds-space-3);
+  border: var(--ds-bw) solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-sm);
+}

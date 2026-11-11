@@ -2,6 +2,7 @@ import { Badge, ButtonLink, Button, Card, EvidenceCard, Icon, Input } from "@/co
 import { evidenceLevel } from "@/lib/evidence/validation";
 import { createClient } from "@/lib/supabase/server";
 
+import { EvidenceDetail } from "./evidence-detail";
 import { NewEvidenceForm } from "./evidence-forms";
 
 type EvidenceSearchParams = {
@@ -14,6 +15,7 @@ type EvidenceSearchParams = {
   state?: string;
   new?: string;
   notice?: string;
+  abrir?: string;
 };
 
 type EvidenceRow = {
@@ -89,7 +91,7 @@ export default async function EvidenceLibraryPage({ searchParams }: { searchPara
         </ButtonLink>
       </header>
 
-      {filters.notice === "archived" && (
+      {filters.notice === "archived" && !filters.abrir && (
         <p className="dx-page__notice dx-page__notice--ok" role="status">
           <Icon name="circle-check" size={16} />
           Evidência arquivada. Ela continua disponível pelo filtro de estado.
@@ -197,7 +199,7 @@ export default async function EvidenceLibraryPage({ searchParams }: { searchPara
                     proofCount={sourceCount}
                     origin={evidence.source_log_id ? "Diário" : "Manual"}
                     updatedAt={dateFormatter.format(new Date(evidence.updated_at))}
-                    href={`/app/evidencias/${evidence.id}`}
+                    href={`/app/evidencias?abrir=${evidence.id}`}
                   />
                 </li>
               );
@@ -205,6 +207,7 @@ export default async function EvidenceLibraryPage({ searchParams }: { searchPara
           </ul>
         )}
       </section>
+      {filters.abrir ? <EvidenceDetail id={filters.abrir} query={{ notice: filters.notice }} /> : null}
     </main>
   );
 }
