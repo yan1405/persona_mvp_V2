@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { Badge, ButtonLink, Button, Card, EvidenceCard, Icon, Input } from "@/components/ds";
 import { evidenceLevel } from "@/lib/evidence/validation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -78,124 +77,132 @@ export default async function EvidenceLibraryPage({ searchParams }: { searchPara
   const hasFilters = Boolean(filters.q || filters.view || filters.competency || filters.from || filters.to || filters.level || filters.state);
 
   return (
-    <main className="app-page evidence-page ds-surface">
-      <header className="evidence-heading">
-        <div>
-          <p className="eyebrow">Evidências</p>
-          <h1>Biblioteca profissional</h1>
-          <p>Consulte fatos que você confirmou e veja quais já possuem uma prova vinculada.</p>
+    <main className="dx-home">
+      <header className="dx-home__head">
+        <div className="dx-home__greeting">
+          <p className="dx-page__eyebrow">Evidências</p>
+          <h1 className="dx-home__title">Biblioteca profissional.</h1>
+          <p className="dx-home__text">Consulte fatos que você confirmou e veja quais já possuem uma prova vinculada.</p>
         </div>
-        <Link className="button-primary evidence-new-link" href="/app/evidencias?new=1#new-evidence">Registrar evidência</Link>
+        <ButtonLink variant="brand" icon="plus" href="/app/evidencias?new=1#new-evidence">
+          Registrar evidência
+        </ButtonLink>
       </header>
 
-      {filters.notice === "archived" && <p className="inline-notice" role="status">Evidência arquivada. Ela continua disponível pelo filtro de estado.</p>}
-
-      {filters.new === "1" && (
-        <section className="evidence-create" id="new-evidence" aria-labelledby="new-evidence-title">
-          <div className="section-heading-row">
-            <div>
-              <p className="eyebrow">Registro manual</p>
-              <h2 id="new-evidence-title">O que esta experiência demonstra?</h2>
-            </div>
-            <Link className="filter-clear" href="/app/evidencias">Fechar</Link>
-          </div>
-          <NewEvidenceForm />
-        </section>
+      {filters.notice === "archived" && (
+        <p className="dx-page__notice dx-page__notice--ok" role="status">
+          <Icon name="circle-check" size={16} />
+          Evidência arquivada. Ela continua disponível pelo filtro de estado.
+        </p>
       )}
 
-      <section className="evidence-library" aria-labelledby="evidence-list-title">
-        <div className="section-heading-row">
-          <div>
-            <p className="eyebrow">Acervo</p>
-            <h2 id="evidence-list-title">Evidências confirmadas</h2>
-          </div>
-          <span className="history-count">{evidences.length} de até 100</span>
+      {filters.new === "1" && (
+        <Card padding={24} className="dx-home__block">
+          <section className="dx-home__section" id="new-evidence" aria-labelledby="new-evidence-title">
+            <div className="dx-home__section-head">
+              <h2 className="dx-home__h2" id="new-evidence-title">
+                O que esta experiência demonstra?
+              </h2>
+              <ButtonLink variant="ghost" size="sm" icon="x" href="/app/evidencias">
+                Fechar
+              </ButtonLink>
+            </div>
+            <NewEvidenceForm />
+          </section>
+        </Card>
+      )}
+
+      <section className="dx-home__section" aria-labelledby="evidence-list-title">
+        <div className="dx-home__section-head">
+          <h2 className="dx-home__h2" id="evidence-list-title">
+            Evidências confirmadas.
+          </h2>
+          <span className="dx-home__row-meta">{evidences.length} de até 100</span>
         </div>
 
-        <nav className="saved-filters" aria-label="Filtros salvos">
-          <Link aria-current={filters.view !== "review" ? "page" : undefined} data-active={filters.view !== "review"} href="/app/evidencias">Todas</Link>
-          <Link aria-current={filters.view === "review" ? "page" : undefined} data-active={filters.view === "review"} href="/app/evidencias?view=review">Para revisar</Link>
-        </nav>
+        <div className="dx-filters" role="group" aria-label="Filtros salvos">
+          <ButtonLink variant={filters.view !== "review" ? "solid" : "outline"} size="sm" href="/app/evidencias">
+            Todas
+          </ButtonLink>
+          <ButtonLink variant={filters.view === "review" ? "solid" : "outline"} size="sm" href="/app/evidencias?view=review">
+            Para revisar
+          </ButtonLink>
+        </div>
 
-        <form className="evidence-filters" method="get" role="search">
+        <form className="dx-filters" method="get" role="search" aria-label="Filtrar evidências">
           {filters.view && <input name="view" type="hidden" value={filters.view} />}
-          <label>
-            <span className="sr-only">Buscar evidências</span>
-            <input className="text-field" name="q" defaultValue={filters.q} placeholder="Buscar título, contexto ou competência" />
-          </label>
-          <label>
-            <span className="sr-only">Competência</span>
-            <select className="text-field" name="competency" defaultValue={filters.competency ?? ""}>
-              <option value="">Todas as competências</option>
-              {competencies.map((item) => <option key={item} value={item}>{item}</option>)}
-            </select>
-          </label>
-          <label>
-            <span className="sr-only">Nível</span>
-            <select className="text-field" name="level" defaultValue={filters.level ?? "all"}>
-              <option value="all">Todos os níveis</option>
-              <option value="registered">Registradas</option>
-              <option value="documented">Documentadas</option>
-            </select>
-          </label>
-          <label>
-            <span className="sr-only">Estado</span>
-            <select className="text-field" name="state" defaultValue={requestedState}>
-              <option value="confirmed">Ativas</option>
-              <option value="archived">Arquivadas</option>
-              <option value="all">Todos os estados</option>
-            </select>
-          </label>
-          <label>
-            <span className="sr-only">Data inicial</span>
-            <input className="text-field" name="from" type="date" defaultValue={filters.from} />
-          </label>
-          <label>
-            <span className="sr-only">Data final</span>
-            <input className="text-field" name="to" type="date" defaultValue={filters.to} />
-          </label>
-          <button className="button-secondary" type="submit">Aplicar</button>
-          {hasFilters && <Link className="filter-clear" href="/app/evidencias">Limpar</Link>}
+          <Input variant="search" name="q" aria-label="Buscar evidências" placeholder="Buscar título, contexto ou competência" defaultValue={filters.q} />
+          <select className="dx-select" name="competency" aria-label="Competência" defaultValue={filters.competency ?? ""}>
+            <option value="">Todas as competências</option>
+            {competencies.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+          <select className="dx-select" name="level" aria-label="Nível" defaultValue={filters.level ?? "all"}>
+            <option value="all">Todos os níveis</option>
+            <option value="registered">Registradas</option>
+            <option value="documented">Documentadas</option>
+          </select>
+          <select className="dx-select" name="state" aria-label="Estado" defaultValue={requestedState}>
+            <option value="confirmed">Ativas</option>
+            <option value="archived">Arquivadas</option>
+            <option value="all">Todos os estados</option>
+          </select>
+          <Input name="from" type="date" aria-label="Data inicial" defaultValue={filters.from} />
+          <Input name="to" type="date" aria-label="Data final" defaultValue={filters.to} />
+          <Button variant="outline" size="sm" type="submit" icon="filter">
+            Aplicar
+          </Button>
+          {hasFilters && (
+            <ButtonLink variant="ghost" size="sm" icon="x" href="/app/evidencias">
+              Limpar
+            </ButtonLink>
+          )}
         </form>
 
         {error ? (
-          <div className="empty-state" role="alert">
-            <strong>Não foi possível carregar a Biblioteca.</strong>
-            <p>Atualize a página. Nenhuma evidência salva foi alterada.</p>
-          </div>
+          <Card padding={24} className="dx-home__block">
+            <div className="dx-home__section" role="alert">
+              <Badge tone="danger" icon="triangle-alert">
+                Biblioteca indisponível
+              </Badge>
+              <p className="dx-home__text">Não foi possível carregar a Biblioteca. Atualize a página. Nenhuma evidência salva foi alterada.</p>
+            </div>
+          </Card>
         ) : !rawEvidences.length ? (
-          <div className="empty-state">
-            <strong>Nenhuma evidência registrada</strong>
-            <p>Confirme uma sugestão no Diário ou registre uma experiência diretamente.</p>
-            <Link href="/app/evidencias?new=1#new-evidence">Registrar primeira evidência</Link>
+          <div className="dx-empty">
+            <p className="dx-empty__title">Nenhuma evidência registrada.</p>
+            <p className="dx-home__text">Confirme uma sugestão no Diário ou registre uma experiência diretamente.</p>
           </div>
         ) : !evidences.length ? (
-          <div className="empty-state">
-            <strong>Nenhuma evidência com estes filtros</strong>
-            <p>Limpe a busca ou amplie o período para recuperar outros fatos.</p>
-            <Link href="/app/evidencias">Limpar filtros</Link>
+          <div className="dx-empty" role="status">
+            <p className="dx-empty__title">Nenhuma evidência encontrada.</p>
+            <p className="dx-home__text">Limpe a busca ou amplie o período para recuperar outros fatos.</p>
+            <ButtonLink variant="outline" size="sm" icon="x" href="/app/evidencias">
+              Limpar filtros
+            </ButtonLink>
           </div>
         ) : (
-          <ol className="evidence-list">
+          <ul className="dx-grid">
             {evidences.map((evidence) => {
               const sourceCount = evidence.evidence_sources?.length ?? 0;
               return (
                 <li key={evidence.id}>
-                  <Link href={`/app/evidencias/${evidence.id}`}>
-                    <div className="evidence-list-main">
-                      <strong>{evidence.title}</strong>
-                      <p>{evidence.context}</p>
-                      <span>{evidence.competencies.slice(0, 3).join(" · ")}</span>
-                    </div>
-                    <span className="evidence-origin">{evidence.source_log_id ? "Diário" : "Manual"}</span>
-                    <span className="evidence-level" data-level={sourceCount ? "documented" : "registered"}>{evidenceLevel(sourceCount)}</span>
-                    <time dateTime={evidence.updated_at}>{dateFormatter.format(new Date(evidence.updated_at))}</time>
-                    <span aria-hidden>→</span>
-                  </Link>
+                  <EvidenceCard
+                    title={evidence.title}
+                    competencies={evidence.competencies.slice(0, 3)}
+                    level={evidenceLevel(sourceCount) === "Documentada" ? "Documentada" : "Registrada"}
+                    proofCount={sourceCount}
+                    origin={evidence.source_log_id ? "Diário" : "Manual"}
+                    updatedAt={dateFormatter.format(new Date(evidence.updated_at))}
+                    href={`/app/evidencias/${evidence.id}`}
+                  />
                 </li>
               );
             })}
-          </ol>
+          </ul>
         )}
       </section>
     </main>

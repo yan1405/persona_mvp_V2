@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useId } from "react";
 
 import { Badge } from "./badge";
@@ -19,7 +20,7 @@ type Common = {
 };
 
 export type EvidenceCardProps =
-  | (Common & { variant?: "grid"; onOpen?: () => void })
+  | (Common & { variant?: "grid"; onOpen?: () => void; /** Rota de detalhe: o cartão vira link. */ href?: string })
   | (Common & { variant: "suggestion"; onConfirm?: () => void; onDiscard?: () => void; confirmVariant?: ButtonVariant })
   | (Common & { variant: "selectable"; reason?: string; selected?: boolean; onSelectedChange?: (value: boolean) => void; disabled?: boolean });
 
@@ -138,20 +139,27 @@ export function EvidenceCard(props: EvidenceCardProps) {
     );
   }
   if (props.variant === "selectable") return <Selectable {...props} />;
-  const { title, competencies, level, proofCount, origin, updatedAt, onOpen, className } = props;
+  const { title, competencies, level, proofCount, origin, updatedAt, onOpen, href, className } = props;
   const inner = (
     <>
       <span className="dx-card-top">
         <LevelBadge level={level} />
-        {onOpen ? <Icon name="arrow-up-right" size={18} /> : null}
+        {onOpen || href ? <Icon name="arrow-up-right" size={18} /> : null}
       </span>
-      {onOpen ? <span className="dx-card-title">{title}</span> : <h3 className="dx-card-title">{title}</h3>}
+      {onOpen || href ? <span className="dx-card-title">{title}</span> : <h3 className="dx-card-title">{title}</h3>}
       <Competencies list={competencies} emptyText="Nenhuma competência registrada." />
       <span className="dx-card-rule">
         <Meta origin={origin} updatedAt={updatedAt} proofCount={proofCount} />
       </span>
     </>
   );
+  if (href) {
+    return (
+      <Link href={href} className={cx("dx-ev", className)} aria-label={"Abrir evidência: " + title}>
+        {inner}
+      </Link>
+    );
+  }
   return onOpen ? (
     <button type="button" className={cx("dx-ev", className)} onClick={onOpen}>
       {inner}
