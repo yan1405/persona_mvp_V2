@@ -25,3 +25,14 @@ Relatório da Verificação: `AGENTES/04_verificacao/RELATORIO_interface_lote9_1
 | **C9-8 (S4)** | Fechar as lacunas do gate de aderência apontadas (CSS em linha única, `bold`, `pt`, escape; TS: cor nomeada, `px` numérico, `fontFamily`, `fontWeight`/`lineHeight`/`letterSpacing`) e incluir as telas novas (`app/entrar`, `app/onboarding`, `app/auth/erro`, `app/termos`, `app/privacidade`) no alcance do gate, com teste de caso sujo. | Teste dos casos sujos falha na versão anterior e passa na nova; `npm run lint` com 0 avisos |
 
 Tratados pelo Orquestrador na integração: C9-4 (`origin.test.ts` no `npm test`). Aceitos como S4: C9-5 (mesmo `<title>`), C9-7 (protocolo do redirect de QA segue `X-Forwarded-Proto`, gate só local), C9-9 ("perguntar" ainda sem Agente), C9-10 (vários `role="alert"` no onboarding: tratar se sobrar tempo). **C9-6 (botão Microsoft sem logotipo):** decisão de Yan (a regra de marca da Microsoft recomenda o logotipo; o DS não tem o ícone).
+
+## Rodada 3 do Lote 9 — regressão C9-11 (11/11/2026)
+
+Relatório: `AGENTES/04_verificacao/RELATORIO_interface_lote9r2_f2c7533.md`. Rodada 2: C9-1 (S2) e C9-2 (S3) **fechados**; C9-3 e C9-8 liberados. Veredito da série: integrar com ressalvas, sem S1/S2. **Dois S3 abertos** nas três telas legadas (`diario/[id]`, `evidencias/[id]`, `artefatos/novo`) dentro do shell novo: **C9-11** (regressão da rodada 2: o botão primário passou de 5,46:1 para 3,09:1 por causa do remapeamento de `--color-text-primary` em `344cafb`) e **C9-12** (erro/sucesso/aviso/botão de perigo com 1,1–1,8:1, preexistente).
+
+Decisão do Orquestrador (por escrito, como a Verificação pediu): **C9-11 é corrigido antes de integrar** (regressão nossa). **C9-12 fica aceito como S3 aberto até a migração dessas três telas (Lotes 10–12)**, sem integração a Preview/Production antes disso (o app não é publicado). Prazo: fechar na migração de Diário (detalhe), Evidências (detalhe) e Artefatos (novo).
+
+| Item | O que fazer | Aceite |
+|---|---|---|
+| **C9-11 (S3)** | Restaurar o contraste do botão primário das 3 telas legadas (≥ 4,5:1) sem desfazer o ganho do C9-1 (texto/rótulo/link/campo continuam ≥ 4,5:1); ajuste de cor no mesmo bloco de `ds.css`; sem tocar as telas. Se possível, aproveitar para melhorar de graça a legibilidade de erro/sucesso/aviso nessas 3 telas (C9-12) sem reescrevê-las. | Contraste medido do botão primário ≥ 4,5:1 em 375 e 1280 com as classes reais; medições do C9-1 inalteradas; `npm test`, lint, typecheck e build passam; novo SHA |
+Tratados pelo Orquestrador na integração: C9-4 (`origin.test.ts` no `npm test`). Aceitos como S4: C9-5, C9-7, C9-9, C9-10, C9-13, C9-14, C9-15.

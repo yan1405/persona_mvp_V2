@@ -208,3 +208,15 @@ Base: `main` local `71e35b0`. Refresh de Git feito (fetch, worktree da Interface
 | Interface | `d50d2a7af479e65f7ed72f9d92264c82017724c0` | C-4 `/onboarding` |
 | Interface | `c83ea53e0c0a99dad38329fc1a05844803e6cab1` | C-5 `/auth/erro` |
 | Interface | `122e8609f74e2829fe7c58435abdd5c8077330d4` | C-6 `/termos`, `/privacidade` e STATUS (topo) |
+
+## Lote 9, rodada 2 — SHAs congelados (11/11/2026)
+
+Base: `main` local `0a9b533`. Refresh de Git feito (fetch, worktree da Interface limpo, diff da rodada só em `components/ds`, `ds.css`, `eslint.config.mjs` e `app/dev/ds/legado`). A série C-1..C-6 (já verificada) permanece nos mesmos SHAs; o merge `24b7a2c` só trouxe docs da `main`. `origin/main` `06de045`.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `344cafb708f2c91e148ba0284cf7d420de140598` | C9-1 telas legadas legíveis no painel do AppShell (S2) |
+| Interface | `c957171e62c924af49f3d43e0b6802c524dabd28` | C9-2 gaveta do celular fecha (S3) |
+| Interface | `4282aa24a3cf6f369d46aad5635709c9b9c9a879` | C9-3 anel de foco do logo |
+| Interface | `18a01f91ddc5ffc5ab05d84f2ca945827377dfa4` | C9-8 gate de aderência |
+| Interface | `f2c7533b4734e30d1b516868212a6dd8e1a7498c` | STATUS (topo) |

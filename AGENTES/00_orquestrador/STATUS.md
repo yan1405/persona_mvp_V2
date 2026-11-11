@@ -544,3 +544,7 @@ Tratamento do Orquestrador: DS8-1 (testes `gate.test.ts` e `ds-adherence.test.ts
 ## Lote 8 integrado (10/11/2026)
 
 Com autorização de Yan, Backend `173a265` e Interface `ee64fe6` entraram por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only`. O Orquestrador incluiu `app/dev/ds/gate.test.ts` e `components/ds/ds-adherence.test.ts` no `npm test` (DS8-1). Gates no HEAD: `npm test` 123/123, lint, typecheck, build 0, `diff --check` limpo, zero segredo. S3 QL7-2 fechado. `origin/main` `06de045`; sem push, Preview ou Production. Próximo: Lote 9 (casca em uso, Entrar, Onboarding, Erro, Termos, Privacidade e correções DS8).
+
+## Lote 9 verificado, rodada 2 (11/11/2026)
+
+Relatórios: `RELATORIO_interface_lote9_122e860.md` e `RELATORIO_interface_lote9r2_f2c7533.md` (congelamentos `adf254d` e `3e63cdc`). C-2 foi retido (S2 C9-1: telas legadas ilegíveis no shell novo; S3 C9-2: gaveta do celular); a rodada 2 fechou os dois. Abertos: **C9-11 (S3)** regressão do botão primário (3,09:1) — corrigir antes de integrar (rodada 3); **C9-12 (S3)** feedback ilegível nas três telas legadas — aceito por escrito até a migração delas. Série C-1..C-6 + rodada 2: `npm test` 146/146, lint, typecheck, build 0. Aguarda rodada 3 e autorização de Yan para integrar. Pendente de Yan: logotipo da Microsoft no botão (C9-6).
