@@ -291,3 +291,13 @@ Base: `main` local `5488006`. Refresh de Git feito (fetch, worktree da Interface
 |---|---|---|
 | Interface | `003261ecfa9866f2ce1c6afe8841a23b0af7d103` | C10-1 foco determinístico (`FloatingPanel returnFocusTo`), C10-2 filtros preservados (`panel-href.ts`), I10-4 checkbox 24 px; também Evidências e Score |
 | Interface | `d2ebbfb6560f30ca9ce084621868a60c34817764` | STATUS (topo) |
+
+## Lote 12, rodada B — SHAs congelados (11/11/2026)
+
+Base: `main` local `2b091c7`. Refresh de Git feito (fetch, worktree da Interface limpo; diff sobre `d2ebbfb` em 15 arquivos: `globals.css` (4.369 → 119 linhas), `layout.tsx`, `ds.css`, `dev/ds/legado/page.tsx` (removido), `eslint.config.mjs`, `ds-adherence.ts/.test.ts`, `package.json`/`package-lock.json` (só a remoção do Carbon), 5 SVG de `public/` removidos e STATUS; sem `lib/**`, `actions.ts`, `.env*`, migrações ou rotas). **Proveniência:** a Interface informa que M-4 e M-5 foram commitados por **outra sessão no mesmo worktree** (conteúdo idêntico ao que ela tinha); trailer `Co-Authored-By` presente nos três; a Verificação trata o conjunto como um só (`d2ebbfb..560608b`). Amostra do Orquestrador: grep de `ds-surface` (classe), `@carbon`, `Geist`, `font-mono` no HEAD = 0 (só tokens `--ds-surface-*`).
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `808ab07c6ff51b84ae9356068d2b6d2d9344caeb` | M-4 remoção do design legado (CSS antigo, `/dev/ds/legado`, Geist Mono, Carbon, SVG de `public/`) |
+| Interface | `53fe3d1f4cdba44167c21e23d525d166a1dcf7fa` | M-5 gate de aderência ampliado |
+| Interface | `560608b014e832b5a6b3d21ce6e6bfad7d550ab4` | STATUS/registro do Lote 12 (topo) |
