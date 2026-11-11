@@ -91,7 +91,8 @@
 .dx-chip:focus-visible,
 .dx-switch:focus-visible,
 .dx-nav:focus-visible,
-.dx-link:focus-visible {
+.dx-link:focus-visible,
+.dx-side__logo-full a:focus-visible {
   outline: var(--ds-ring-w) solid var(--ds-brand-strong);
   outline-offset: var(--ds-ring-gap);
   box-shadow: 0 0 0 var(--ds-ring-w) var(--ds-focus-ring);
