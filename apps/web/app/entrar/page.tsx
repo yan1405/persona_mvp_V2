@@ -62,7 +62,7 @@ export default async function SignInPage({
 
             {qaLogin && (
               <form action="/auth/qa-entrar" method="post" className="dx-signin__qa">
-                <p className="dx-page__note">Acesso de QA local (conta descartável).</p>
+                <p className="dx-page__note">{process.env.VERCEL_ENV === "preview" ? "Acesso de QA (conta descartável)." : "Acesso de QA local (conta descartável)."}</p>
                 {erro === "qa" && (
                   <p className="dx-page__notice dx-page__notice--error" role="alert">
                     <Icon name="triangle-alert" size={16} />

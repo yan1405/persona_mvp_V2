@@ -28,3 +28,19 @@ test("host precisa ser exatamente local", () => {
     assert.equal(isQaPasswordLoginEnabled(on, host), false, host);
   }
 });
+
+test("QA remoto exige Preview, opt-in, conta e domínio do próprio deploy", () => {
+  const host = "persona-preview.vercel.app";
+  const preview = {
+    VERCEL_ENV: "preview",
+    VERCEL_URL: host,
+    PERSONA_QA_PREVIEW_LOGIN: "1",
+    PERSONA_QA_PREVIEW_EMAIL: "qa@example.com",
+    NODE_ENV: "production",
+  };
+  assert.equal(isQaPasswordLoginEnabled(preview, host), true);
+  assert.equal(isQaPasswordLoginEnabled(preview, "persona-mvp-v2.vercel.app"), false);
+  assert.equal(isQaPasswordLoginEnabled({ ...preview, VERCEL_ENV: "production" }, host), false);
+  assert.equal(isQaPasswordLoginEnabled({ ...preview, PERSONA_QA_PREVIEW_LOGIN: undefined }, host), false);
+  assert.equal(isQaPasswordLoginEnabled({ ...preview, PERSONA_QA_PREVIEW_EMAIL: " " }, host), false);
+});

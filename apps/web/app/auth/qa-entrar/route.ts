@@ -6,13 +6,19 @@ import { createRouteClient } from "@/lib/supabase/server";
 
 import { QA_LOGIN_DESTINATION, qaRedirectOrigin } from "./origin";
 
-// Somente QA local (ver qa-login-gate.ts). Nunca registrar e-mail, senha ou token.
+// Nunca registrar e-mail, senha ou token.
 export async function POST(request: NextRequest) {
   if (!isQaPasswordLoginEnabled(process.env, request.headers.get("host"))) {
     return new NextResponse(null, { status: 404 });
   }
 
-  const origin = qaRedirectOrigin(request.url, request.headers.get("host"));
+  const preview = process.env.VERCEL_ENV === "preview";
+  const origin = preview
+    ? `https://${process.env.VERCEL_URL}`
+    : qaRedirectOrigin(request.url, request.headers.get("host"));
+  if (preview && request.headers.get("origin") !== origin) {
+    return new NextResponse(null, { status: 403 });
+  }
   const fail = () => NextResponse.redirect(new URL("/entrar?erro=qa", origin), 303);
 
   const form = await request.formData().catch(() => null);
@@ -23,6 +29,10 @@ export async function POST(request: NextRequest) {
     typeof password !== "string" || password.length < 1 || password.length > 200 ||
     !isSupabaseConfigured()
   ) {
+    return fail();
+  }
+
+  if (preview && email.trim().toLowerCase() !== process.env.PERSONA_QA_PREVIEW_EMAIL?.trim().toLowerCase()) {
     return fail();
   }
 
