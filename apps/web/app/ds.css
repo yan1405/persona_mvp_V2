@@ -3546,3 +3546,21 @@ button:hover > .dx-card-top > .dx-icon {
 .dx-status .dx-btn {
   justify-self: stretch;
 }
+
+/* /termos e /privacidade */
+.dx-reading {
+  display: grid;
+  gap: var(--ds-space-4);
+  justify-items: start;
+  padding: var(--ds-space-6);
+}
+
+.dx-reading .dx-page__lead {
+  max-width: 40rem;
+}
+
+@media (min-width: 56rem) {
+  .dx-reading {
+    padding: var(--ds-space-10);
+  }
+}
