@@ -263,7 +263,6 @@ export function Gallery() {
                 <Avatar name="Bruno Lima" tone="green" status="online" />
                 <Avatar name="Carla Dias" tone="amber" size={56} status="away" />
                 <Avatar name="Diego Reis" tone="rose" size={32} />
-                <Avatar variant="ai" size={48} />
               </div>
             </Spec>
           </Group>

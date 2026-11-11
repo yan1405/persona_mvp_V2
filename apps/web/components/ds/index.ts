@@ -5,6 +5,7 @@ export { Chip, type ChipProps } from "./chip";
 export { Icon, ICON_NAMES, type IconName, type IconProps } from "./icon";
 export { IconButton, IconLink, type IconButtonProps, type IconButtonVariant, type IconLinkProps } from "./icon-button";
 export { Input, type InputProps } from "./input";
+export { Textarea, type TextareaProps } from "./textarea";
 export { Switch, type SwitchProps } from "./switch";
 export { Card, type CardProps } from "./card";
 export { DestinationGrid, DestinationTile, type DestinationTileProps, type TileTone } from "./destination";

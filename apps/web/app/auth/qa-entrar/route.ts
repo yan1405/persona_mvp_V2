@@ -1,9 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 import { isQaPasswordLoginEnabled } from "@/lib/auth/qa-login-gate";
-import { getSafeNextPath } from "@/lib/auth/redirect";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createRouteClient } from "@/lib/supabase/server";
+
+import { QA_LOGIN_DESTINATION, qaRedirectOrigin } from "./origin";
 
 // Somente QA local (ver qa-login-gate.ts). Nunca registrar e-mail, senha ou token.
 export async function POST(request: NextRequest) {
@@ -11,7 +12,7 @@ export async function POST(request: NextRequest) {
     return new NextResponse(null, { status: 404 });
   }
 
-  const { origin } = new URL(request.url);
+  const origin = qaRedirectOrigin(request.url, request.headers.get("host"));
   const fail = () => NextResponse.redirect(new URL("/entrar?erro=qa", origin), 303);
 
   const form = await request.formData().catch(() => null);
@@ -29,6 +30,5 @@ export async function POST(request: NextRequest) {
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return fail();
 
-  const next = getSafeNextPath(String(form?.get("next") ?? ""), "/app");
-  return applyAuthCookies(NextResponse.redirect(new URL(next, origin), 303));
+  return applyAuthCookies(NextResponse.redirect(new URL(QA_LOGIN_DESTINATION, origin), 303));
 }
