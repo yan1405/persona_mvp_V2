@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Badge, type StatusKey } from "./badge";
 import { cx } from "./cx";
 import { Icon, type IconName } from "./icon";
@@ -21,12 +23,14 @@ export type EntryCardProps = {
   statusLabel?: string;
   statusIcon?: IconName;
   onOpen?: () => void;
+  /** Rota de detalhe: o cartão vira link (também funciona sem JavaScript). */
+  href?: string;
   /** Verbo do nome acessível do botão (padrão "Abrir"). */
   openLabel?: string;
   className?: string;
 };
 
-export function EntryCard({ kind = "registro", date, title, meta, status, statusLabel, statusIcon, onOpen, openLabel, className }: EntryCardProps) {
+export function EntryCard({ kind = "registro", date, title, meta, status, statusLabel, statusIcon, onOpen, href, openLabel, className }: EntryCardProps) {
   const k = KIND[kind] || KIND.registro;
   const badge = status ? <Badge status={status}>{statusLabel}</Badge> : statusLabel ? <Badge tone="neutral" icon={statusIcon || null}>{statusLabel}</Badge> : null;
   const inner = (
@@ -41,13 +45,20 @@ export function EntryCard({ kind = "registro", date, title, meta, status, status
             {date ? <span>{date}</span> : null}
           </span>
         </span>
-        {onOpen ? <Icon name="arrow-up-right" size={18} /> : null}
+        {onOpen || href ? <Icon name="arrow-up-right" size={18} /> : null}
       </span>
       <span className="dx-card-title">{title || "Sem título"}</span>
       <span className={cx("dx-entry__meta", !meta && "is-empty")}>{meta || "Sem detalhes registrados."}</span>
       {badge ? <span className="dx-card-rule">{badge}</span> : null}
     </>
   );
+  if (href) {
+    return (
+      <Link href={href} className={cx("dx-entry", className)} aria-label={(openLabel || "Abrir") + ": " + (title || k.label)}>
+        {inner}
+      </Link>
+    );
+  }
   return onOpen ? (
     <button type="button" className={cx("dx-entry", className)} onClick={onOpen} aria-label={(openLabel || "Abrir") + ": " + (title || k.label)}>
       {inner}

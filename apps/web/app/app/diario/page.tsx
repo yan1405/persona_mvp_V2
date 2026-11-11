@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { Badge, Button, ButtonLink, Card, EntryCard, Icon, Input, type StatusKey } from "@/components/ds";
 import { createClient } from "@/lib/supabase/server";
 
 import { NewDailyLogForm } from "./diary-forms";
@@ -20,7 +19,14 @@ const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
 });
 
 function summary(content: string) {
-  return content.length > 150 ? `${content.slice(0, 147)}…` : content;
+  return content.length > 120 ? `${content.slice(0, 117)}…` : content;
+}
+
+function cardStatus(state: string | undefined): { status?: StatusKey; statusLabel: string; statusIcon?: "badge-check" | "triangle-alert" | "clock" } {
+  if (state === "for_review") return { status: "para-revisar", statusLabel: "Sugestão para revisar" };
+  if (state === "confirmed") return { statusLabel: "Evidência confirmada", statusIcon: "badge-check" };
+  if (state === "failed") return { statusLabel: "Falha de estruturação", statusIcon: "triangle-alert" };
+  return { statusLabel: "Sem sugestões ainda", statusIcon: "clock" };
 }
 
 export default async function DiaryPage({
@@ -62,99 +68,98 @@ export default async function DiaryPage({
 
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" });
 
+  const hasFilters = Boolean(filters.q || filters.from || filters.to || filters.state);
+
   return (
-    <main className="app-page diary-page ds-surface">
-      <section className="diary-capture" aria-labelledby="diary-title">
-        <div className="diary-heading">
-          <div>
-            <p className="eyebrow">Diário</p>
-            <h1 id="diary-title">O que aconteceu hoje?</h1>
-            <p>Registre primeiro com suas palavras. A estrutura vem depois e só vira evidência quando você confirmar.</p>
-          </div>
-          <ol className="trace-compact" aria-label="Fluxo do registro">
-            <li data-current="true" aria-current="step">Registro</li>
-            <li>Sugestão</li>
-            <li>Evidência</li>
-          </ol>
-        </div>
-        <NewDailyLogForm today={today} />
-      </section>
+    <main className="dx-home">
+      <header className="dx-home__greeting">
+        <p className="dx-page__eyebrow">Diário</p>
+        <h1 className="dx-home__title" id="diary-title">
+          Registre o que aconteceu hoje.
+        </h1>
+        <p className="dx-home__text">Escreva primeiro com suas palavras. A estrutura vem depois e só vira evidência quando você confirmar.</p>
+      </header>
 
-      <section className="diary-history" aria-labelledby="history-title">
-        <div className="section-heading-row">
-          <div>
-            <p className="eyebrow">Histórico</p>
-            <h2 id="history-title">Registros recentes</h2>
-          </div>
-          <span className="history-count">{logs.length} de até 100</span>
+      <Card padding={24} className="dx-home__block">
+        <section aria-labelledby="diary-title">
+          <NewDailyLogForm today={today} />
+        </section>
+      </Card>
+
+      <section className="dx-home__section" aria-labelledby="history-title">
+        <div className="dx-home__section-head">
+          <h2 className="dx-home__h2" id="history-title">
+            Histórico.
+          </h2>
+          <span className="dx-home__row-meta">{logs.length} de até 100</span>
         </div>
 
-        {filters.notice === "deleted" && <p className="inline-notice" role="status">Registro excluído.</p>}
+        {filters.notice === "deleted" && (
+          <p className="dx-page__notice dx-page__notice--ok" role="status">
+            <Icon name="circle-check" size={16} />
+            Registro excluído.
+          </p>
+        )}
 
-        <form className="diary-filters" method="get" role="search">
-          <label>
-            <span className="sr-only">Buscar no Diário</span>
-            <input className="text-field" name="q" defaultValue={filters.q} placeholder="Buscar no texto ou contexto" />
-          </label>
-          <label>
-            <span className="sr-only">Data inicial</span>
-            <input className="text-field" name="from" type="date" defaultValue={filters.from} />
-          </label>
-          <label>
-            <span className="sr-only">Data final</span>
-            <input className="text-field" name="to" type="date" defaultValue={filters.to} />
-          </label>
-          <label>
-            <span className="sr-only">Estado</span>
-            <select className="text-field" name="state" defaultValue={filters.state ?? "all"}>
-              <option value="all">Todos os estados</option>
-              <option value="for_review">Para revisar</option>
-              <option value="confirmed">Confirmados</option>
-              <option value="failed">Falha de estruturação</option>
-              <option value="raw">Sem sugestão</option>
-            </select>
-          </label>
-          <button className="button-secondary" type="submit">Aplicar filtros</button>
-          {(filters.q || filters.from || filters.to || filters.state) && <Link className="filter-clear" href="/app/diario">Limpar</Link>}
+        <form className="dx-filters" method="get" role="search" aria-label="Filtrar o histórico">
+          <Input variant="search" name="q" aria-label="Buscar no Diário" placeholder="Buscar no texto ou contexto" defaultValue={filters.q} />
+          <Input name="from" type="date" aria-label="Data inicial" defaultValue={filters.from} />
+          <Input name="to" type="date" aria-label="Data final" defaultValue={filters.to} />
+          <select className="dx-select" name="state" aria-label="Estado" defaultValue={filters.state ?? "all"}>
+            <option value="all">Todos os estados</option>
+            <option value="for_review">Para revisar</option>
+            <option value="confirmed">Confirmados</option>
+            <option value="failed">Falha de estruturação</option>
+            <option value="raw">Sem sugestão</option>
+          </select>
+          <Button variant="outline" size="sm" type="submit" icon="filter">
+            Aplicar filtros
+          </Button>
+          {hasFilters && (
+            <ButtonLink variant="ghost" size="sm" icon="x" href="/app/diario">
+              Limpar
+            </ButtonLink>
+          )}
         </form>
 
         {error ? (
-          <div className="empty-state" role="alert">
-            <strong>Não foi possível carregar seus registros.</strong>
-            <p>Atualize a página. O erro não altera o que já foi salvo.</p>
-          </div>
+          <Card padding={24} className="dx-home__block">
+            <div className="dx-home__section" role="alert">
+              <Badge tone="danger" icon="triangle-alert">
+                Histórico indisponível
+              </Badge>
+              <p className="dx-home__text">Não foi possível carregar seus registros. Atualize a página. O erro não altera o que já foi salvo.</p>
+            </div>
+          </Card>
         ) : !rawLogs?.length ? (
-          <div className="empty-state">
-            <strong>Nenhum registro ainda</strong>
-            <p>Use o editor acima para criar a primeira entrada do seu histórico profissional.</p>
+          <div className="dx-empty">
+            <p className="dx-empty__title">Nenhum registro ainda.</p>
+            <p className="dx-home__text">Use o editor acima para criar a primeira entrada do seu histórico profissional.</p>
           </div>
         ) : !logs.length ? (
-          <div className="empty-state">
-            <strong>Nenhum resultado com estes filtros</strong>
-            <p>Limpe a busca ou amplie o período.</p>
-            <Link href="/app/diario">Limpar filtros</Link>
+          <div className="dx-empty" role="status">
+            <p className="dx-empty__title">Nenhum registro encontrado.</p>
+            <p className="dx-home__text">Limpe a busca ou amplie o período.</p>
+            <ButtonLink variant="outline" size="sm" icon="x" href="/app/diario">
+              Limpar filtros
+            </ButtonLink>
           </div>
         ) : (
-          <ol className="diary-list">
-            {logs.map((log) => {
-              const suggestionState = latestState.get(log.id);
-              return (
-                <li key={log.id}>
-                  <Link href={`/app/diario/${log.id}`}>
-                    <time dateTime={log.occurred_on}>{dateFormatter.format(new Date(`${log.occurred_on}T00:00:00Z`))}</time>
-                    <div>
-                      <strong>{log.context || "Sem contexto declarado"}</strong>
-                      <p>{summary(log.content)}</p>
-                    </div>
-                    <span className="log-state" data-state={suggestionState || log.status}>
-                      {suggestionState === "for_review" ? "Para revisar" : suggestionState === "confirmed" ? "Evidência confirmada" : suggestionState === "failed" ? "Falha" : "Registro"}
-                    </span>
-                    <span aria-hidden>→</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ol>
+          <ul className="dx-grid">
+            {logs.map((log) => (
+              <li key={log.id}>
+                <EntryCard
+                  kind="registro"
+                  date={dateFormatter.format(new Date(`${log.occurred_on}T00:00:00Z`))}
+                  title={summary(log.content)}
+                  meta={log.context ?? undefined}
+                  href={`/app/diario/${log.id}`}
+                  openLabel="Abrir registro"
+                  {...cardStatus(latestState.get(log.id))}
+                />
+              </li>
+            ))}
+          </ul>
         )}
       </section>
     </main>

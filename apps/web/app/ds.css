@@ -2789,22 +2789,22 @@ a.dx-index__item:focus-visible {
   gap: calc(var(--ds-space-3) * 1.15);
 }
 
-button.dx-ev,
-button.dx-entry,
-button.dx-art {
+:is(button, a).dx-ev,
+:is(button, a).dx-entry,
+:is(button, a).dx-art {
   cursor: pointer;
 }
 
-button.dx-ev:hover,
-button.dx-entry:hover,
-button.dx-art:hover {
+:is(button, a).dx-ev:hover,
+:is(button, a).dx-entry:hover,
+:is(button, a).dx-art:hover {
   transform: translateY(calc(var(--ds-space-1) * -0.5));
   box-shadow: var(--ds-shadow-float);
 }
 
-button.dx-ev:focus-visible,
-button.dx-entry:focus-visible,
-button.dx-art:focus-visible {
+:is(button, a).dx-ev:focus-visible,
+:is(button, a).dx-entry:focus-visible,
+:is(button, a).dx-art:focus-visible {
   outline: var(--ds-ring-w) solid var(--ds-brand-strong);
   outline-offset: var(--ds-ring-gap);
   box-shadow: 0 0 0 var(--ds-ring-w) var(--ds-focus-ring);
@@ -2824,7 +2824,8 @@ button.dx-art:focus-visible {
   transition: transform var(--ds-dur-micro) var(--ds-ease-out);
 }
 
-button:hover > .dx-card-top > .dx-icon {
+button:hover > .dx-card-top > .dx-icon,
+a:hover > .dx-card-top > .dx-icon {
   transform: translate(calc(var(--ds-space-1) * 0.5), calc(var(--ds-space-1) * -0.5));
 }
 
@@ -3806,5 +3807,79 @@ button:hover > .dx-card-top > .dx-icon {
 @media (max-width: 30rem) {
   .dx-home__dims {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* I-2/I-4: grade de cartões, filtros e estado vazio das listas. */
+.dx-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dx-grid > li {
+  display: flex;
+  min-width: 0;
+}
+
+.dx-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-3);
+}
+
+.dx-filters .dx-field {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.dx-select {
+  box-sizing: border-box;
+  min-height: var(--ds-space-10);
+  padding: 0 var(--ds-space-3);
+  border: var(--ds-bw) solid var(--ds-border-strong);
+  border-radius: var(--ds-radius-sm);
+  background: var(--ds-surface-card);
+  color: var(--ds-text-strong);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-fs-body);
+}
+
+.dx-select:focus-visible {
+  outline: var(--ds-ring-w) solid var(--ds-brand-strong);
+  outline-offset: var(--ds-ring-gap);
+}
+
+.dx-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ds-space-2);
+  padding: var(--ds-space-6);
+  border: var(--ds-bw) dashed var(--ds-border-strong);
+  border-radius: var(--ds-radius-md);
+}
+
+.dx-empty__title {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-fs-card-title);
+  font-weight: var(--ds-fw-bold);
+  color: var(--ds-text-strong);
+}
+
+@media (min-width: 40rem) {
+  .dx-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .dx-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
