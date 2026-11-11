@@ -58,13 +58,15 @@ const eslintConfig = defineConfig([
   // As ações de Score e Diário podem importar a casca, nunca o núcleo.
   { files: ["app/app/score/actions.ts", "app/app/diario/actions.ts"], rules: restrict([[SERVER_CORE_FILE, SERVER_CORE_MESSAGE], [SERVER_CORE_BARREL, SERVER_CORE_MESSAGE]]) },
   { files: ["lib/live/**", "lib/score/coherence.ts", "lib/score/coherence.test.ts", "lib/score/analyze-coherence.ts", "lib/groq/structure-evidence.ts", "lib/groq/structure-evidence.test.ts", "lib/groq/structure-evidence-server.ts", "app/app/live/actions.ts"], rules: { "no-restricted-imports": "off", "no-restricted-syntax": "off" } },
-  // DS-6 / C9-8: aderência ao Design System (traduzida de docs/redesign/design-system/_adherence.oxlintrc.json) em components/ds/** e nas telas novas
-  // (entrar, onboarding, auth/erro, termos, privacidade, layout de /app):
+  // DS-6 / C9-8 / M-5: aderência ao Design System (traduzida de docs/redesign/design-system/_adherence.oxlintrc.json)
+  // em toda a interface, exceto a galeria local:
   // sem hex, sem px literal (use tokens --ds-* via classes dx-* em app/ds.css) e fontes só Inter / Plus Jakarta Sans.
   // Este bloco repete a barreira do núcleo do LLM acima, porque no flat config a regra mais recente substitui a anterior para os mesmos arquivos.
-  // O CSS (app/ds.css) é coberto por components/ds/ds-adherence.test.ts (não há plugin de CSS no ESLint e a dependência nova está fora do escopo).
+  // O CSS de app/** e components/** é coberto por components/ds/ds-adherence.test.ts (não há plugin de CSS no ESLint
+  // e a dependência nova está fora do escopo).
   {
-    files: ["components/ds/**/*.{ts,tsx}", "app/entrar/**/*.{ts,tsx}", "app/onboarding/**/*.{ts,tsx}", "app/auth/erro/**/*.{ts,tsx}", "app/termos/**/*.{ts,tsx}", "app/privacidade/**/*.{ts,tsx}", "app/app/layout.tsx"],
+    files: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+    ignores: ["app/dev/ds/**"],
     rules: {
       "no-restricted-imports": restrict([[SERVER_CORE_FILE, SERVER_CORE_MESSAGE], [SERVER_CORE_BARREL, SERVER_CORE_MESSAGE], [SERVER_SHELL_FILE, SERVER_SHELL_MESSAGE]])["no-restricted-imports"],
       "no-restricted-syntax": ["error",
@@ -72,6 +74,21 @@ const eslintConfig = defineConfig([
         ...DS_ADHERENCE,
       ],
     },
+  },
+  // Mantém as exceções de servidor acima sem abrir mão do gate visual nas três actions permitidas.
+  {
+    files: ["app/app/score/actions.ts", "app/app/diario/actions.ts"],
+    rules: {
+      "no-restricted-imports": restrict([[SERVER_CORE_FILE, SERVER_CORE_MESSAGE], [SERVER_CORE_BARREL, SERVER_CORE_MESSAGE]])["no-restricted-imports"],
+      "no-restricted-syntax": ["error",
+        ...restrict([[SERVER_CORE_FILE, SERVER_CORE_MESSAGE], [SERVER_CORE_BARREL, SERVER_CORE_MESSAGE]])["no-restricted-syntax"].slice(1),
+        ...DS_ADHERENCE,
+      ],
+    },
+  },
+  {
+    files: ["app/app/live/actions.ts"],
+    rules: { "no-restricted-imports": "off", "no-restricted-syntax": ["error", ...DS_ADHERENCE] },
   },
   // O teste e as regras de aderência contêm, de propósito, os casos sujos (hex, px, rgb...): só eles ficam fora de DS_ADHERENCE.
   {

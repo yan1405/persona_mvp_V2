@@ -43,8 +43,8 @@ export function cssViolations(source: string): CssViolation[] {
     const line = i + 1;
     const add = (rule: string) => out.push({ line, rule, text: text.trim() });
     const isToken = /^\s*--[\w-]+\s*:/.test(text);
-    if (HEX.test(text)) add("hex");
     if (isToken) return; // a camada de tokens é a única origem de cor, medida e tipografia
+    if (HEX.test(text)) add("hex");
     if (FN_COLOR.test(text)) add("cor-funcional");
     if (PX.test(text) || PX_CONCAT.test(text) || UNIT.test(text)) add("px");
     if (ESCAPE.test(text.replace(STRINGS, " "))) add("escape");

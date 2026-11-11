@@ -4,10 +4,11 @@ import test from "node:test";
 import { Linter } from "eslint";
 import { cssViolations } from "./ds-adherence.ts";
 
-// Aderência do Design System (docs/redesign/design-system/_adherence.oxlintrc.json): o CSS (app/ds.css e a galeria)
-// passa por cssViolations; os TSX de components/ds/** passam pelo ESLint (DS_ADHERENCE em eslint.config.mjs).
+// Aderência do Design System (docs/redesign/design-system/_adherence.oxlintrc.json): todo CSS de app/** e
+// components/**, exceto a galeria, passa por cssViolations; todo TS/TSX dessas árvores passa pelo ESLint
+// (DS_ADHERENCE em eslint.config.mjs).
 // Cada regra tem caso sujo abaixo: se um dia a regra deixar de pegar, o teste falha.
-const FILES = ["../../app/ds.css", "../../app/dev/ds/gallery.css"];
+const FILES = ["../../app/ds.css", "../../app/globals.css"];
 
 for (const rel of FILES) {
   test(rel + ": sem cor literal, px, font abreviado nem tipografia em número fora dos tokens", () => {
@@ -53,6 +54,7 @@ for (const [rule, css] of DIRTY_CSS) {
 test("CSS limpo não gera falso positivo (token, var, transparent, selectores com nome de cor)", () => {
   const clean = [
     ":root {",
+    "  --hex: #fff;",
     "  --a: rgb(1 2 3);",
     "  --b: 12px;",
     "  --c: 600;",
