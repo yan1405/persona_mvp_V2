@@ -4700,7 +4700,7 @@ a:hover > .dx-card-top > .dx-icon {
 
 @media (min-width: 64rem) {
   .dx-set {
-    grid-template-columns: 16rem minmax(0, 1fr);
+    grid-template-columns: 11rem minmax(0, 1fr);
     align-items: start;
   }
 
