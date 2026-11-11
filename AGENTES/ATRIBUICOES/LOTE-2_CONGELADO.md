@@ -271,3 +271,33 @@ Base: `main` local `e45cc37`. Refresh de Git feito (fetch, worktree da Interface
 | Interface | `d165933b64ce0e69a7f5313a5f335d86afb18464` | L-4 lista de Artefatos em grade de `ArtifactCard` |
 | Interface | `6f2ecbcc3f88ef68e3ad50607d73e77d44509e75` | L-5 `/artefatos/novo` e `/artefatos/[id]` como workspace |
 | Interface | `4ae44bb89cd143ec53ec42830218ff485c9a9264` | STATUS (topo) |
+
+## Lote 12, rodada A — SHAs congelados (11/11/2026)
+
+Base: `main` local `24488d8`. Refresh de Git feito (fetch, worktree da Interface limpo; diff sobre `4ae44bb` só em `app/app/configuracoes`, `app/app/diagnostico`, `app/error.tsx`, `app/app/error.tsx`, `app/not-found.tsx`, `app/ds.css` e AGENTES/docs; sem `lib/**`, `actions.ts`, `.env*` ou migrações). `origin/main` `06de045`; Preview `preview/reconstrucao-ds` em `c88f304`. Obs. da Interface: navegação de Configurações por links de rota (não `SectionIndex`); layout ≥ 1440 px de T4.7 não conferido. **Pendente nesta rodada:** correções C10-1/C10-2 do Lote 10 (foco do painel e filtros) vêm em commits próprios.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `c8ab536e6887c1430cbc4582614dbd1d8ff2c9c4` | M-1 Diagnóstico com `StepFlow`/`Chip`/`Textarea` |
+| Interface | `0c96ed079e7378e3b1e4cbc9f765f1d7c088da08` | M-2 Configurações (perfil, dados, conta) |
+| Interface | `c106c844df4a6cefe5dec698361e40bfc7d5e3f1` | M-3 `not-found`, `error` e `app/error` |
+| Interface | `c1a949cdf476da077631fa1d643d7c276cf2c839` | STATUS (topo) |
+
+## Correção do Lote 10 (C10-1, C10-2, I10-4) — SHAs congelados (11/11/2026)
+
+Base: `main` local `5488006`. Refresh de Git feito (fetch, worktree da Interface limpo; diff sobre `c1a949c` em `diario/{diary-panel,page}`, `evidencias/{evidence-panel,page}`, `score/score-panel`, `app/panel-href.ts` e `.test.ts` novos, `ds.css`, `components/ds/floating-panel.tsx` e `apps/web/package.json` (só a inclusão do novo teste no script `test`); sem `lib/**`, `actions.ts`, `.env*` ou migrações). A Interface informa: foco real com Esc em navegador **não** coberto (só estático); a Verificação deve refazer o caso dos 5 de 7 e os filtros.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `003261ecfa9866f2ce1c6afe8841a23b0af7d103` | C10-1 foco determinístico (`FloatingPanel returnFocusTo`), C10-2 filtros preservados (`panel-href.ts`), I10-4 checkbox 24 px; também Evidências e Score |
+| Interface | `d2ebbfb6560f30ca9ce084621868a60c34817764` | STATUS (topo) |
+
+## Lote 12, rodada B — SHAs congelados (11/11/2026)
+
+Base: `main` local `2b091c7`. Refresh de Git feito (fetch, worktree da Interface limpo; diff sobre `d2ebbfb` em 15 arquivos: `globals.css` (4.369 → 119 linhas), `layout.tsx`, `ds.css`, `dev/ds/legado/page.tsx` (removido), `eslint.config.mjs`, `ds-adherence.ts/.test.ts`, `package.json`/`package-lock.json` (só a remoção do Carbon), 5 SVG de `public/` removidos e STATUS; sem `lib/**`, `actions.ts`, `.env*`, migrações ou rotas). **Proveniência:** a Interface informa que M-4 e M-5 foram commitados por **outra sessão no mesmo worktree** (conteúdo idêntico ao que ela tinha); trailer `Co-Authored-By` presente nos três; a Verificação trata o conjunto como um só (`d2ebbfb..560608b`). Amostra do Orquestrador: grep de `ds-surface` (classe), `@carbon`, `Geist`, `font-mono` no HEAD = 0 (só tokens `--ds-surface-*`).
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `808ab07c6ff51b84ae9356068d2b6d2d9344caeb` | M-4 remoção do design legado (CSS antigo, `/dev/ds/legado`, Geist Mono, Carbon, SVG de `public/`) |
+| Interface | `53fe3d1f4cdba44167c21e23d525d166a1dcf7fa` | M-5 gate de aderência ampliado |
+| Interface | `560608b014e832b5a6b3d21ce6e6bfad7d550ab4` | STATUS/registro do Lote 12 (topo) |
