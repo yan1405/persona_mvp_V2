@@ -282,3 +282,12 @@ Base: `main` local `24488d8`. Refresh de Git feito (fetch, worktree da Interface
 | Interface | `0c96ed079e7378e3b1e4cbc9f765f1d7c088da08` | M-2 Configurações (perfil, dados, conta) |
 | Interface | `c106c844df4a6cefe5dec698361e40bfc7d5e3f1` | M-3 `not-found`, `error` e `app/error` |
 | Interface | `c1a949cdf476da077631fa1d643d7c276cf2c839` | STATUS (topo) |
+
+## Correção do Lote 10 (C10-1, C10-2, I10-4) — SHAs congelados (11/11/2026)
+
+Base: `main` local `5488006`. Refresh de Git feito (fetch, worktree da Interface limpo; diff sobre `c1a949c` em `diario/{diary-panel,page}`, `evidencias/{evidence-panel,page}`, `score/score-panel`, `app/panel-href.ts` e `.test.ts` novos, `ds.css`, `components/ds/floating-panel.tsx` e `apps/web/package.json` (só a inclusão do novo teste no script `test`); sem `lib/**`, `actions.ts`, `.env*` ou migrações). A Interface informa: foco real com Esc em navegador **não** coberto (só estático); a Verificação deve refazer o caso dos 5 de 7 e os filtros.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `003261ecfa9866f2ce1c6afe8841a23b0af7d103` | C10-1 foco determinístico (`FloatingPanel returnFocusTo`), C10-2 filtros preservados (`panel-href.ts`), I10-4 checkbox 24 px; também Evidências e Score |
+| Interface | `d2ebbfb6560f30ca9ce084621868a60c34817764` | STATUS (topo) |
