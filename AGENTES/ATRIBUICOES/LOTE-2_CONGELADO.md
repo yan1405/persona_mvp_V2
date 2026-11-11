@@ -195,3 +195,16 @@ Base: `main` local `36da9be`. Refresh de Git feito (fetch, worktrees limpos, `me
 | Interface | `1c5947298a91483ad11dd4270bf8492168b75af5` | DS-5 galeria `/dev/ds` |
 | Interface | `ee64fe6da8b154a743a290a41c45db4e3e1a123e` | DS-6 aderência e STATUS (topo) |
 | Backend | `173a265e088444054159e44ede5535e696614357` | BK4-1 redirect aberto (topo) |
+
+## Lote 9 — SHAs congelados (11/11/2026)
+
+Base: `main` local `71e35b0`. Refresh de Git feito (fetch, worktree da Interface limpo, diff só em caminhos autorizados). `origin/main` `06de045`.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `f4e4236c980693f48134f9015eda9532af502e37` | C-1 correções do núcleo do DS |
+| Interface | `74147b9d626b3fa2dfafef0d734868b5d19428a7` | C-2 casca em `/app` |
+| Interface | `decb5fca85e6d62e12a1ff567569aaca0a80bf9d` | C-3 `/entrar` e login de QA |
+| Interface | `d50d2a7af479e65f7ed72f9d92264c82017724c0` | C-4 `/onboarding` |
+| Interface | `c83ea53e0c0a99dad38329fc1a05844803e6cab1` | C-5 `/auth/erro` |
+| Interface | `122e8609f74e2829fe7c58435abdd5c8077330d4` | C-6 `/termos`, `/privacidade` e STATUS (topo) |
