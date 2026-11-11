@@ -126,3 +126,11 @@ Português, curto, direto, com: o que aconteceu; o que ficou pendente; **percent
 - Divergência não fast-forward no worktree da Interface (docs na `main`): usar `git merge main` (sem rebase, para preservar SHAs verificados).
 - Não misture `localhost` e `127.0.0.1` no login de QA (cookie por host).
 - Subir branch de Preview expõe 188 commits ao repositório **público**: a varredura de segredo de 11/11 não achou segredo real, mas refaça a varredura antes de cada novo envio e confirme que `qa-*.sql` continuam fora do Git.
+
+---
+
+## Adendo (11/11/2026, após o handoff)
+
+- **Lote 12 rodada A congelada** (`LOTE-2_CONGELADO.md`, main `c5ef2b4`): M-1 `c8ab536e6887c1430cbc4582614dbd1d8ff2c9c4`, M-2 `0c96ed079e7378e3b1e4cbc9f765f1d7c088da08`, M-3 `c106c844df4a6cefe5dec698361e40bfc7d5e3f1`, STATUS `c1a949cdf476da077631fa1d643d7c276cf2c839`. A Interface foi instruída a fazer **primeiro C10-1/C10-2** (correções do Lote 10) e só depois M-4/M-5 (rodada B). Mensagens à Interface e à Verificação estão "queued" (entregues quando o turno atual de cada uma acabar).
+- Fila da Verificação: Lote 10 B → Lote 11 A → Lote 11 B → Lote 12 A → re-verificação das correções C10-1/C10-2.
+- Main local atual: `c5ef2b4` (só docs além do Lote 9).
