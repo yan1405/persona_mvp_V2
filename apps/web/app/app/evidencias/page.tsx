@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 
 import { EvidenceDetail } from "./evidence-detail";
 import { NewEvidenceForm } from "./evidence-forms";
+import { EVIDENCE_FILTERS, openHref } from "../panel-href";
 
 type EvidenceSearchParams = {
   q?: string;
@@ -199,7 +200,7 @@ export default async function EvidenceLibraryPage({ searchParams }: { searchPara
                     proofCount={sourceCount}
                     origin={evidence.source_log_id ? "Diário" : "Manual"}
                     updatedAt={dateFormatter.format(new Date(evidence.updated_at))}
-                    href={`/app/evidencias?abrir=${evidence.id}`}
+                    href={openHref("/app/evidencias", evidence.id, filters, EVIDENCE_FILTERS)}
                   />
                 </li>
               );

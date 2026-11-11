@@ -1,19 +1,20 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { FloatingPanel } from "@/components/ds";
 
-// Painel flutuante ancorado na Biblioteca. A rota guarda o estado (?abrir=); fechar devolve o foco ao cartão que abriu.
+import { closeHref, EVIDENCE_FILTERS } from "../panel-href";
+
+// Painel flutuante ancorado na Biblioteca. A rota guarda o estado (?abrir=); fechar volta com os mesmos filtros
+// e devolve o foco ao cartão que abriu (returnFocusTo), sem temporizador.
 export function EvidencePanel({ id, title, eyebrow, subtitle, children }: { id: string; title: string; eyebrow: string; subtitle?: string; children: ReactNode }) {
   const router = useRouter();
-  const close = () => {
-    router.replace("/app/evidencias", { scroll: false });
-    window.setTimeout(() => document.querySelector<HTMLElement>(`a[href="/app/evidencias?abrir=${id}"]`)?.focus(), 50);
-  };
+  const params = useSearchParams();
+  const close = () => router.replace(closeHref("/app/evidencias", params, EVIDENCE_FILTERS), { scroll: false });
   return (
-    <FloatingPanel open onClose={close} eyebrow={eyebrow} title={title} subtitle={subtitle} width={600}>
+    <FloatingPanel open onClose={close} returnFocusTo={`a[href*="abrir=${id}"]`} eyebrow={eyebrow} title={title} subtitle={subtitle} width={600}>
       {children}
     </FloatingPanel>
   );

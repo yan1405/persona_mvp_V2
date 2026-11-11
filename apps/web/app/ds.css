@@ -4000,8 +4000,16 @@ a:hover > .dx-card-top > .dx-icon {
   display: flex;
   align-items: flex-start;
   gap: var(--ds-space-2);
+  padding-block: var(--ds-space-2);
   color: var(--ds-text-body);
   font-size: var(--ds-fs-body);
+}
+
+.dx-dp__check input {
+  flex-shrink: 0;
+  width: var(--ds-space-6);
+  height: var(--ds-space-6);
+  accent-color: var(--ds-brand-strong);
 }
 
 /* I-5: fatos e provas no painel da Evidência. */

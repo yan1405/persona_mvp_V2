@@ -16,6 +16,8 @@ export type FloatingPanelProps = {
   subtitle?: string;
   /** Largura máxima (número); em telas estreitas ocupa a largura menos as margens. */
   width?: number;
+  /** Seletor do elemento que recebe o foco ao fechar (ex.: o cartão que abriu); sem ele, volta a quem estava em foco ao abrir. */
+  returnFocusTo?: string;
   children?: ReactNode;
   footer?: ReactNode;
   className?: string;
@@ -23,18 +25,21 @@ export type FloatingPanelProps = {
 
 // O <dialog> fica montado mesmo fechado (o conteúdo só existe aberto): assim close() ainda o encontra no DOM e o navegador devolve o foco a quem abriu.
 // <dialog> modal nativo: prende o foco, Esc fecha, o resto da página fica inerte e o foco volta a quem abriu.
-export function FloatingPanel({ open, onClose, eyebrow, title, subtitle, width, children, footer, className }: FloatingPanelProps) {
+export function FloatingPanel({ open, onClose, eyebrow, title, subtitle, width, returnFocusTo, children, footer, className }: FloatingPanelProps) {
   const id = useId();
   const ref = useRef<HTMLDialogElement>(null);
   const closeRef = useRef(onClose);
+  const returnRef = useRef(returnFocusTo);
 
   useEffect(() => {
     closeRef.current = onClose;
+    returnRef.current = returnFocusTo;
   });
 
   useEffect(() => {
     const dialog = ref.current;
     if (!open || !dialog) return;
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const me = { id, close: () => closeRef.current() };
     if (ACTIVE.current && ACTIVE.current.id !== id) ACTIVE.current.close();
     ACTIVE.current = me;
@@ -42,6 +47,9 @@ export function FloatingPanel({ open, onClose, eyebrow, title, subtitle, width, 
     return () => {
       if (ACTIVE.current === me) ACTIVE.current = null;
       if (dialog.open) dialog.close();
+      // Determinístico: o <dialog> pode já ter saído do DOM, então o foco volta explicitamente (sem temporizador).
+      const target = (returnRef.current ? document.querySelector<HTMLElement>(returnRef.current) : null) ?? (opener?.isConnected ? opener : null);
+      target?.focus();
     };
   }, [open, id]);
 

@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 
 import { DiaryDetail } from "./diary-detail";
 import { NewDailyLogForm } from "./diary-forms";
+import { DIARY_FILTERS, openHref } from "../panel-href";
 
 type DiarySearchParams = {
   q?: string;
@@ -156,7 +157,7 @@ export default async function DiaryPage({
                   date={dateFormatter.format(new Date(`${log.occurred_on}T00:00:00Z`))}
                   title={summary(log.content)}
                   meta={log.context ?? undefined}
-                  href={`/app/diario?abrir=${log.id}`}
+                  href={openHref("/app/diario", log.id, filters, DIARY_FILTERS)}
                   openLabel="Abrir registro"
                   {...cardStatus(latestState.get(log.id))}
                 />
