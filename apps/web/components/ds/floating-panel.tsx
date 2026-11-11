@@ -60,6 +60,7 @@ export function FloatingPanel({ open, onClose, eyebrow, title, subtitle, width, 
       className={cx("dx-panel", className)}
       style={vars}
       aria-labelledby={id + "-t"}
+      aria-modal="true"
       onCancel={(e) => {
         e.preventDefault();
         onClose();

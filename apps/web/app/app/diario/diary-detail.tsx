@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { Badge, Icon, type Tone } from "@/components/ds";
+import { Badge, Icon, SectionIndex, TraceLine, type Tone, type TraceStep } from "@/components/ds";
 import { createClient } from "@/lib/supabase/server";
 
 import { createManualSuggestion, deleteDailyLog, generateSuggestion, rejectSuggestion } from "./actions";
@@ -82,6 +82,12 @@ export async function DiaryDetail({ id, query }: { id: string; query: DetailQuer
   const notice = query.notice ? noticeMessages[query.notice] : null;
   const noticeError = query.notice ? errorNotices.has(query.notice) : false;
   const base = `/app/diario?abrir=${id}`;
+  const failedSuggestion = selected?.status === "failed";
+  const trace: TraceStep[] = [
+    { kind: "registro", label: `Registro de ${formatDate(log.occurred_on)}`, meta: "Texto preservado" },
+    selected ? { kind: "sugestao", label: statusLabels[selected.status].label, meta: selected.origin === "ai" ? "Sugestão da IA" : "Manual", state: failedSuggestion ? "error" : "done" } : { kind: "sugestao", label: "Nenhuma sugestão", state: "gap" },
+    hasEvidence ? { kind: "evidencia", label: evidences?.[0]?.title ?? "Evidência confirmada" } : { kind: "evidencia", label: "Ainda não confirmada", state: "gap" },
+  ];
 
   return (
     <DiaryPanel id={id} eyebrow="Registro do Diário" title={`Registro de ${formatDate(log.occurred_on)}.`} subtitle={log.context || "Experiência sem contexto declarado"}>
@@ -93,7 +99,18 @@ export async function DiaryDetail({ id, query }: { id: string; query: DetailQuer
           </p>
         )}
 
-        <section className="dx-dp__section" aria-labelledby="record-heading">
+        <SectionIndex title="Neste registro" items={[{ id: "dp-original", label: "Texto original", meta: formatDate(log.occurred_on) }, { id: "dp-registro", label: "Editar registro" }, { id: "dp-sugestoes", label: hasEvidence ? "Evidência originada" : "Sugestões", meta: String(suggestions.length) }]} />
+
+        <section className="dx-dp__section" id="dp-original" aria-labelledby="original-heading">
+          <h3 className="dx-dp__h" id="original-heading">
+            Texto original.
+          </h3>
+          <p className="dx-dp__text">Como você escreveu, sem alterações.</p>
+          <p className="dx-dp__original">{log.content}</p>
+          <TraceLine title="Rastreabilidade" orientation="vertical" steps={trace} />
+        </section>
+
+        <section className="dx-dp__section" id="dp-registro" aria-labelledby="record-heading">
           <div className="dx-dp__head">
             <h3 className="dx-dp__h" id="record-heading">
               Editar registro.
@@ -106,7 +123,7 @@ export async function DiaryDetail({ id, query }: { id: string; query: DetailQuer
           <EditDailyLogForm id={id} values={{ content: log.content, context: log.context, occurredOn: log.occurred_on }} />
         </section>
 
-        <section className="dx-dp__section" aria-labelledby="suggestions-heading">
+        <section className="dx-dp__section" id="dp-sugestoes" aria-labelledby="suggestions-heading">
           <div className="dx-dp__head">
             <h3 className="dx-dp__h" id="suggestions-heading">
               Sugestões separadas da fonte.

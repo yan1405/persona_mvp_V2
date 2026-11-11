@@ -4719,3 +4719,13 @@ a:hover > .dx-card-top > .dx-icon {
   border-radius: var(--ds-radius-xs);
   background: var(--ds-n-0);
 }
+
+/* N-3: texto original no painel do Diário. */
+.dx-dp__original {
+  margin: 0;
+  color: var(--ds-text-strong);
+  font-size: var(--ds-fs-body);
+  line-height: var(--ds-lh-150);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}

@@ -16,7 +16,7 @@ export default async function StartPage({ searchParams }: { searchParams: Promis
     supabase.from("daily_logs").select("id, content, occurred_on, status").neq("status", "archived").order("occurred_on", { ascending: false }).limit(4),
     getNarrativeScoreData(supabase),
   ]);
-  const firstName = profile?.display_name?.split(" ")[0] ?? "você";
+  const firstName = profile?.display_name?.split(" ")[0] || null;
   const current = score.current;
   const competencyCounts = new Map<string, number>();
   score.evidences.forEach((evidence) => evidence.competencies.forEach((item) => competencyCounts.set(item, (competencyCounts.get(item) ?? 0) + 1)));
@@ -56,7 +56,7 @@ export default async function StartPage({ searchParams }: { searchParams: Promis
       <header className="dx-home__head">
         <div className="dx-home__greeting">
           <p className="dx-page__eyebrow">Visão narrativa</p>
-          <h1 className="dx-home__title">{firstName}, esta é a história que seus dados sustentam hoje.</h1>
+          <h1 className="dx-home__title">{firstName ? `${firstName}, esta é` : "Esta é"} a história que seus dados sustentam hoje.</h1>
           <p className="dx-home__status" role="status">
             {activeLogCount} {activeLogCount === 1 ? "registro ativo" : "registros ativos"} e {evidenceCount} {evidenceCount === 1 ? "evidência confirmada" : "evidências confirmadas"}.
           </p>
@@ -174,7 +174,7 @@ export default async function StartPage({ searchParams }: { searchParams: Promis
                     <Link className="dx-home__row-link" href={`/app/diario/${log.id}`}>
                       {log.content}
                     </Link>
-                    <time className="dx-home__row-meta">{date.format(new Date(`${log.occurred_on}T12:00:00`))}</time>
+                    <time className="dx-home__row-meta" dateTime={log.occurred_on}>{date.format(new Date(`${log.occurred_on}T12:00:00`))}</time>
                   </li>
                 ))}
               </ol>
