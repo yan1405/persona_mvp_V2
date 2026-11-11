@@ -16,13 +16,6 @@ const plusJakartaSans = localFont({
   weight: "500 800",
 });
 
-// Papel técnico (mono) ainda sem fonte aprovada no Design System: mantém Geist Mono.
-const geistMono = localFont({
-  src: "../node_modules/next/dist/next-devtools/server/font/geist-mono-latin.woff2",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
 export const metadata: Metadata = {
   title: "Persona — Registre uma vez. Prove sempre.",
   description:
@@ -33,9 +26,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${plusJakartaSans.variable}`}
     >
-      <body className="min-h-full">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
