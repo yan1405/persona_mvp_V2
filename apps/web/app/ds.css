@@ -385,8 +385,8 @@
   height: var(--ds-count-h);
   padding: 0 calc(var(--ds-space-1) * 1.5);
   border-radius: var(--ds-radius-pill);
-  background: var(--dx-count-bg, var(--ds-brand));
-  color: var(--ds-n-0);
+  background: var(--dx-count-bg, var(--ds-brand-soft));
+  color: var(--dx-count-fg, var(--ds-brand-strong));
   font-family: var(--ds-font-body);
   font-size: var(--ds-fs-count);
   font-weight: var(--ds-fw-bold);
@@ -394,23 +394,28 @@
 }
 
 .dx-count--success {
-  --dx-count-bg: var(--ds-green-500);
+  --dx-count-bg: var(--ds-green-soft);
+  --dx-count-fg: var(--ds-green-ink);
 }
 
 .dx-count--warning {
-  --dx-count-bg: var(--ds-amber-500);
+  --dx-count-bg: var(--ds-amber-soft);
+  --dx-count-fg: var(--ds-amber-ink);
 }
 
 .dx-count--danger {
-  --dx-count-bg: var(--ds-red-500);
+  --dx-count-bg: var(--ds-red-soft);
+  --dx-count-fg: var(--ds-red-ink);
 }
 
 .dx-count--info {
-  --dx-count-bg: var(--ds-blue-500);
+  --dx-count-bg: var(--ds-blue-soft);
+  --dx-count-fg: var(--ds-blue-ink);
 }
 
 .dx-count--ink {
-  --dx-count-bg: var(--ds-ink);
+  --dx-count-bg: var(--ds-n-100);
+  --dx-count-fg: var(--ds-ink);
 }
 
 /* Chip */
