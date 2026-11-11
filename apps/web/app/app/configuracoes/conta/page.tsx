@@ -1,4 +1,6 @@
 import { redirect } from "next/navigation";
+
+import { Badge, Button, Card } from "@/components/ds";
 import { signOut } from "@/lib/settings/actions";
 import { createClient } from "@/lib/supabase/server";
 
@@ -9,57 +11,46 @@ export const metadata = {
 export default async function SettingsAccountPage() {
   const supabase = await createClient();
   const { data: authData } = await supabase.auth.getClaims();
-  
+
   if (!authData?.claims) {
     redirect("/entrar");
   }
 
-  const email =
-    typeof authData.claims.email === "string"
-      ? authData.claims.email
-      : "Conta Microsoft conectada";
+  const email = typeof authData.claims.email === "string" ? authData.claims.email : "Conta Microsoft conectada";
 
   return (
-    <section className="settings-section">
-      <header>
-        <h2>Conta e acesso</h2>
-        <p>
-          Gerencie sua sessão ativa e o provedor de identidade conectado.
-        </p>
-      </header>
-      
-      <div className="account-row">
-        <div>
-          <span className="settings-section-index">01</span>
-          <h3>Conta Microsoft</h3>
-        </div>
-        <div className="account-provider">
-          <div>
-            <p>Microsoft Entra ID</p>
-            <p>{email}</p>
+    <div className="dx-set__stack">
+      <Card padding={24} className="dx-home__block">
+        <section className="dx-home__section" aria-labelledby="provider-title">
+          <h2 className="dx-home__h2" id="provider-title">
+            Conta Microsoft.
+          </h2>
+          <p className="dx-home__text">Gerencie sua sessão ativa e o provedor de identidade conectado.</p>
+          <div className="dx-ws__src-row">
+            <div>
+              <strong>Microsoft Entra ID</strong>
+              <p className="dx-home__text">{email}</p>
+            </div>
+            <Badge tone="success" icon="circle-check">
+              Conectado
+            </Badge>
           </div>
-          <span className="account-status">
-            Conectado
-          </span>
-        </div>
-      </div>
+        </section>
+      </Card>
 
-      <div className="account-row">
-        <div>
-          <span className="settings-section-index">02</span>
-          <h3>Sessão atual</h3>
-        </div>
-        <div>
-          <p>
-          Encerre sua sessão atual para proteger sua conta ao sair.
-          </p>
+      <Card padding={24} className="dx-home__block">
+        <section className="dx-home__section" aria-labelledby="session-title">
+          <h2 className="dx-home__h2" id="session-title">
+            Sessão atual.
+          </h2>
+          <p className="dx-home__text">Encerre sua sessão atual para proteger sua conta ao sair.</p>
           <form action={signOut}>
-            <button type="submit" className="button-secondary">
+            <Button variant="outline" type="submit" icon="log-out">
               Encerrar sessão
-            </button>
+            </Button>
           </form>
-        </div>
-      </div>
-    </section>
+        </section>
+      </Card>
+    </div>
   );
 }

@@ -1,7 +1,8 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import Link from "next/link";
+
+import { Badge, Button, ButtonLink, Card, Icon, Input } from "@/components/ds";
 import { deleteAccount, type SettingsActionState } from "@/lib/settings/actions";
 
 const initialState: SettingsActionState = { status: "idle" };
@@ -29,89 +30,70 @@ export function SettingsDataForm({ reauthenticated }: { reauthenticated: boolean
   }
 
   return (
-    <div className="settings-data-sections">
-      <section>
-        <span className="settings-section-index">01</span>
-        <h3>Exportar dados</h3>
-        <p>
-          Baixe um JSON com perfil, Diário, evidências, Narrative Score, Persona Live e Artefatos, incluindo fontes e versões.
-        </p>
-        <button
-          className="button-secondary"
-          disabled={exportStatus === "loading"}
-          onClick={exportData}
-          type="button"
-        >
-          {exportStatus === "loading" ? "Preparando arquivo..." : "Exportar meus dados"}
-        </button>
-        {exportStatus === "error" && (
-          <p className="field-error" role="alert">
-            Não foi possível preparar a exportação. Tente novamente.
-          </p>
-        )}
-      </section>
-
-      <section className="settings-danger-zone">
-        <span className="settings-section-index">02</span>
-        <h3>Excluir conta</h3>
-        <p>
-          A exclusão é irreversível. Perfil, Diário, evidências, Score, sessões Live e Artefatos serão apagados e não poderão ser recuperados.
-        </p>
-
-        {!reauthenticated ? (
-          <Link
-            className="button-danger"
-            href="/auth/iniciar?reauth=delete_account&next=/app/configuracoes/dados"
-          >
-            Confirmar identidade com Microsoft
-          </Link>
-        ) : (
-          <form action={formAction} className="delete-confirmation">
-            <p className="settings-success" role="status">
-              Identidade confirmada. Esta autorização expira em cinco minutos.
+    <>
+      <Card padding={24} className="dx-home__block">
+        <section className="dx-home__section" aria-labelledby="export-title">
+          <h2 className="dx-home__h2" id="export-title">
+            Exportar dados.
+          </h2>
+          <p className="dx-home__text">Baixe um JSON com perfil, Diário, evidências, Narrative Score, Persona Live e Artefatos, incluindo fontes e versões.</p>
+          <div>
+            <Button variant="outline" icon="download" disabled={exportStatus === "loading"} onClick={exportData}>
+              {exportStatus === "loading" ? "Preparando arquivo…" : "Exportar meus dados"}
+            </Button>
+          </div>
+          {exportStatus === "error" && (
+            <p className="dx-page__notice dx-page__notice--error" role="alert">
+              <Icon name="triangle-alert" size={16} />
+              Não foi possível preparar a exportação. Tente novamente.
             </p>
-            <div>
-              <label className="field-label" htmlFor="confirmation">
-                Digite EXCLUIR para confirmar
-              </label>
-              <input
-                className="text-field"
-                id="confirmation"
-                name="confirmation"
-                type="text"
-                placeholder="EXCLUIR"
-                value={confirmText}
-                onChange={(e) => setConfirmText(e.target.value)}
-                required
-                autoComplete="off"
-              />
-            </div>
+          )}
+        </section>
+      </Card>
 
-            {state.status === "error" && (
-              <p className="field-error" role="alert">
-                {state.message}
+      <Card padding={24} className="dx-home__block">
+        <section className="dx-home__section" aria-labelledby="delete-title">
+          <div className="dx-home__section-head">
+            <h2 className="dx-home__h2" id="delete-title">
+              Excluir conta.
+            </h2>
+            <Badge tone="danger" icon="triangle-alert">
+              Irreversível
+            </Badge>
+          </div>
+          <p className="dx-home__text">A exclusão é irreversível. Perfil, Diário, evidências, Score, sessões Live e Artefatos serão apagados e não poderão ser recuperados.</p>
+
+          {!reauthenticated ? (
+            <div>
+              <ButtonLink variant="outline" icon="lock" href="/auth/iniciar?reauth=delete_account&next=/app/configuracoes/dados" native>
+                Confirmar identidade com Microsoft
+              </ButtonLink>
+            </div>
+          ) : (
+            <form action={formAction} className="dx-form">
+              <p className="dx-page__notice dx-page__notice--ok" role="status">
+                <Icon name="circle-check" size={16} />
+                Identidade confirmada. Esta autorização expira em cinco minutos.
               </p>
-            )}
-
-            <div>
-              <button
-                type="submit"
-                className="button-danger"
-                disabled={pending || confirmText !== "EXCLUIR"}
-              >
-                {pending ? "Excluindo conta..." : "Excluir conta permanentemente"}
-              </button>
-              <Link
-                className="button-secondary"
-                href="/app/configuracoes/dados"
-                aria-disabled={pending}
-              >
-                Cancelar
-              </Link>
-            </div>
-          </form>
-        )}
-      </section>
-    </div>
+              <Input label="Digite EXCLUIR para confirmar" name="confirmation" type="text" placeholder="EXCLUIR" value={confirmText} onChange={(e) => setConfirmText(e.target.value)} required autoComplete="off" />
+              {state.status === "error" && (
+                <p className="dx-page__notice dx-page__notice--error" role="alert">
+                  <Icon name="triangle-alert" size={16} />
+                  {state.message}
+                </p>
+              )}
+              <div className="dx-form__actions">
+                <ButtonLink variant="ghost" href="/app/configuracoes/dados">
+                  Cancelar
+                </ButtonLink>
+                <Button variant="solid" type="submit" icon="trash-2" disabled={pending || confirmText !== "EXCLUIR"}>
+                  {pending ? "Excluindo conta…" : "Excluir conta permanentemente"}
+                </Button>
+              </div>
+            </form>
+          )}
+        </section>
+      </Card>
+    </>
   );
 }

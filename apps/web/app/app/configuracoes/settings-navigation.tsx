@@ -1,36 +1,34 @@
 "use client";
 
-import { Locked, Logout, User } from "@carbon/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const items = [
-  { href: "/app/configuracoes", label: "Perfil e preferências", icon: User },
-  { href: "/app/configuracoes/dados", label: "Dados e privacidade", icon: Locked },
-  { href: "/app/configuracoes/conta", label: "Conta e acesso", icon: Logout },
+import { Icon, type IconName } from "@/components/ds";
+
+const items: { href: string; label: string; icon: IconName }[] = [
+  { href: "/app/configuracoes", label: "Perfil e preferências", icon: "user" },
+  { href: "/app/configuracoes/dados", label: "Dados e privacidade", icon: "lock" },
+  { href: "/app/configuracoes/conta", label: "Conta e acesso", icon: "log-out" },
 ];
 
 export function SettingsNavigation() {
   const pathname = usePathname();
-
   return (
-    <nav className="settings-nav" aria-label="Seções de configurações">
-      {items.map(({ href, label, icon: Icon }) => {
-        const active =
-          pathname === href ||
-          (href === "/app/configuracoes" && pathname === "/app/configuracoes/");
-        return (
-          <Link
-            aria-current={active ? "page" : undefined}
-            data-active={active}
-            href={href}
-            key={href}
-          >
-            <Icon aria-hidden size={18} />
-            {label}
-          </Link>
-        );
-      })}
+    <nav className="dx-index dx-set__nav" aria-label="Seções de configurações">
+      <span className="dx-index__title">Nesta área</span>
+      <ul className="dx-set__list">
+        {items.map(({ href, label, icon }) => {
+          const active = pathname === href || (href === "/app/configuracoes" && pathname === "/app/configuracoes/");
+          return (
+            <li key={href}>
+              <Link className="dx-set__link" aria-current={active ? "page" : undefined} href={href}>
+                <Icon name={icon} size={18} />
+                {label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   );
 }

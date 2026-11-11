@@ -1,23 +1,19 @@
 import { SettingsNavigation } from "./settings-navigation";
 
-export default function SettingsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function SettingsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="app-page settings-page ds-surface">
-      <header className="settings-heading">
-        <p className="eyebrow">Controle da conta</p>
-        <h1>Configurações</h1>
-        <p>
-          Atualize seu contexto profissional e controle os dados vinculados à sua conta.
-        </p>
+    <main className="dx-home">
+      <header className="dx-home__head">
+        <div className="dx-home__greeting">
+          <p className="dx-page__eyebrow">Controle da conta</p>
+          <h1 className="dx-home__title">Configurações.</h1>
+          <p className="dx-home__text">Atualize seu contexto profissional e controle os dados vinculados à sua conta.</p>
+        </div>
       </header>
 
-      <div className="settings-layout">
+      <div className="dx-set">
         <SettingsNavigation />
-        <div className="settings-content">{children}</div>
+        <div className="dx-set__content">{children}</div>
       </div>
     </main>
   );
