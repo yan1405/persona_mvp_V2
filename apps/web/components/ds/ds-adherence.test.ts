@@ -32,10 +32,20 @@ const DIRTY_CSS: Array<[string, string]> = [
   ["font-weight-literal", ".a {\n  font-weight: 600;\n}"],
   ["line-height-literal", ".a {\n  line-height: 1.4;\n}"],
   ["letter-spacing-literal", ".a {\n  letter-spacing: -0.02em;\n}"],
+  // C9-8: lacunas apontadas pela Verificação (a versão anterior deixava passar estas)
+  ["cor-nomeada", ".a{color:red}"],
+  ["font-family", ".a{font-family:Arial,sans-serif}"],
+  ["font-weight-literal", ".a{font-weight:700;color:var(--x)}"],
+  ["font-weight-literal", ".a {\n  font-weight: bold;\n}"],
+  ["line-height-literal", ".a{line-height:1.4}"],
+  ["letter-spacing-literal", ".a{letter-spacing:-.02em}"],
+  ["px", ".a {\n  margin: 12pt;\n}"],
+  ["px", ".a {\n  margin: 3mm;\n}"],
+  ["escape", ".a {\n  margin: 12\\70x;\n}"],
 ];
 
 for (const [rule, css] of DIRTY_CSS) {
-  test("caso sujo de CSS pego: " + rule + " — " + css.split("\n")[1].trim(), () => {
+  test("caso sujo de CSS pego: " + rule + " — " + css.replace(/\s*\n\s*/g, " "), () => {
     assert.ok(cssViolations(css).some((v) => v.rule === rule), "regra " + rule + " não pegou");
   });
 }
@@ -72,6 +82,16 @@ const DIRTY_TSX = [
   'const a = n + "px";',
   "const a = `${n}px`;",
   'const a = "font-family: Arial";',
+  // C9-8
+  'const a = { color: "red" };',
+  'const a = { backgroundColor: "RebeccaPurple" };',
+  "const a = { width: 12 };",
+  "const a = { marginTop: -8 };",
+  'const a = { fontFamily: "Arial" };',
+  "const a = { fontWeight: 600 };",
+  'const a = { fontWeight: "bold" };',
+  "const a = { lineHeight: 1.4 };",
+  'const a = { letterSpacing: "-0.02em" };',
 ];
 
 test("ESLint do DS pega cada caso sujo de TSX e deixa o código limpo passar", async () => {
@@ -80,7 +100,7 @@ test("ESLint do DS pega cada caso sujo de TSX e deixa o código limpo passar", a
   const cfg = [{ rules: { "no-restricted-syntax": ["error", ...mod.DS_ADHERENCE] as never } }];
   const missed = DIRTY_TSX.filter((code) => linter.verify(code, cfg, "x.js").length === 0);
   assert.deepEqual(missed, []);
-  for (const clean of ['const a = "var(--ds-text-strong)";', "const a = { width: 12 };", 'const a = "dx-card dx-card--sm";']) {
+  for (const clean of ['const a = "var(--ds-text-strong)";', "const a = { width: 0 };", 'const a = { fontWeight: "var(--ds-fw-bold)" };', 'const a = { color: "var(--ds-text-strong)" };', 'const a = "dx-card dx-card--sm";']) {
     assert.deepEqual(linter.verify(clean, cfg, "x.js"), [], clean);
   }
 });
