@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import Image from "next/image";
 import Link from "next/link";
 
 import { ButtonLink, Button, Card, FocalCard, Icon, Input, Logo } from "@/components/ds";
@@ -56,6 +57,9 @@ export default async function SignInPage({
             <p className="dx-page__lead">Use sua conta pessoal, profissional ou educacional da Microsoft.</p>
 
             <ButtonLink native href="/auth/iniciar" variant="brand" size="lg" fullWidth iconRight="arrow-right">
+              <span className="dx-signin__ms">
+                <Image src="/brand/microsoft.svg" alt="" width={20} height={20} />
+              </span>
               Entrar com Microsoft
             </ButtonLink>
             <p className="dx-page__note">Você será redirecionado ao ambiente oficial da Microsoft.</p>

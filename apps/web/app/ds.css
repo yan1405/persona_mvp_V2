@@ -4709,3 +4709,13 @@ a:hover > .dx-card-top > .dx-icon {
     top: var(--ds-space-4);
   }
 }
+
+/* N-1: logotipo da Microsoft no botão de entrada (sobre quadro claro, como pedem as diretrizes da marca). */
+.dx-signin__ms {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ds-space-1);
+  border-radius: var(--ds-radius-xs);
+  background: var(--ds-n-0);
+}
