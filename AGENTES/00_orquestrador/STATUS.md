@@ -552,3 +552,7 @@ Relatórios: `RELATORIO_interface_lote9_122e860.md` e `RELATORIO_interface_lote9
 ## Lote 9, rodada 3 verificada (11/11/2026)
 
 Relatório: `RELATORIO_interface_lote9r3_9e16e18.md` (congelamento `71a6223`). C9-11 **fechado** (botão primário 3,09 → 5,70:1). C9-12 reduzido (1,1–1,8 → 7,2–9,6:1); resta S3 residual em 2 títulos de painel do Diário (`.success-panel strong` 1,46:1, `.error-panel strong` 1,82:1), aceito até os Lotes 10–12. C9-1 sem regressão; telas com `ds-surface` sem diferença. Veredito da série C-1..C-6 + rodadas 2 e 3 (topo `9e16e18`): **integrar com ressalvas, sem S1/S2 e sem S3 de regressão**. `npm test` 146/146, lint, typecheck, build 0. Integração aguarda autorização de Yan; na integração o Orquestrador inclui `lib/auth/origin.test.ts` (C9-4) no `npm test`.
+
+## Lote 9 integrado (11/11/2026)
+
+Com autorização de Yan, a série da Interface (topo `9e16e18`: C-1..C-6 e rodadas 2 e 3) entrou por `--no-ff` em `integracao/lote2` e a `main` local avançou por `--ff-only`. O Orquestrador incluiu `app/auth/qa-entrar/origin.test.ts` no `npm test` (C9-4). Gates no HEAD: `npm test` 149/149, lint, typecheck, build 0, `diff --check` limpo, zero segredo. `origin/main` `06de045`; sem push, Preview ou Production. S3 residual aceito (2 títulos de painel do Diário) até os Lotes 10–12. Próximo: Lote 10 (Início, Diário, Evidências).
