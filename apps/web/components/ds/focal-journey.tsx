@@ -1,4 +1,4 @@
-import { Button } from "./button";
+import { Button, ButtonLink } from "./button";
 import { cx } from "./cx";
 import { FocalCard } from "./focal-card";
 import { Icon, type IconName } from "./icon";
@@ -11,11 +11,13 @@ export type FocalJourneyProps = {
   ctaLabel: string;
   ctaIcon?: IconName;
   onCta?: () => void;
+  /** Com `href` a ação é um link (telas de servidor); sem ele, um botão. */
+  ctaHref?: string;
   className?: string;
 };
 
 /** O único bloco escuro do Início. Duas colunas só com o contêiner >= 1000 px; abaixo, empilhado. */
-export function FocalJourney({ title, steps, nextText, ctaLabel, ctaIcon = "arrow-right", onCta, className }: FocalJourneyProps) {
+export function FocalJourney({ title, steps, nextText, ctaLabel, ctaIcon = "arrow-right", onCta, ctaHref, className }: FocalJourneyProps) {
   return (
     <div className={cx("dx-journey", className)}>
       <FocalCard>
@@ -32,9 +34,15 @@ export function FocalJourney({ title, steps, nextText, ctaLabel, ctaIcon = "arro
               </span>
               <span className="dx-journey__next-text">{nextText}</span>
             </div>
-            <Button variant="brand" size="lg" iconRight={ctaIcon} onClick={onCta} className="dx-journey__cta">
-              {ctaLabel}
-            </Button>
+            {ctaHref ? (
+              <ButtonLink variant="brand" size="lg" iconRight={ctaIcon} href={ctaHref} className="dx-journey__cta">
+                {ctaLabel}
+              </ButtonLink>
+            ) : (
+              <Button variant="brand" size="lg" iconRight={ctaIcon} onClick={onCta} className="dx-journey__cta">
+                {ctaLabel}
+              </Button>
+            )}
           </section>
         </div>
       </FocalCard>
