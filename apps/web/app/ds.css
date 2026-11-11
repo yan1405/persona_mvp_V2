@@ -3515,3 +3515,34 @@ button:hover > .dx-card-top > .dx-icon {
 .dx-ob__choice {
   padding: var(--ds-space-5);
 }
+
+/* /auth/erro */
+.dx-page__eyebrow {
+  margin: 0;
+  color: var(--ds-brand-strong);
+  font-size: var(--ds-fs-overline);
+  font-weight: var(--ds-fw-bold);
+  letter-spacing: var(--ds-ls-xs);
+  text-transform: uppercase;
+}
+
+.dx-status {
+  display: grid;
+  gap: var(--ds-space-4);
+  justify-items: start;
+}
+
+.dx-status__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ds-hit);
+  height: var(--ds-hit);
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-indigo-50);
+  color: var(--ds-brand-strong);
+}
+
+.dx-status .dx-btn {
+  justify-self: stretch;
+}
