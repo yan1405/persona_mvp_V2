@@ -93,7 +93,8 @@ export function AppShell({ children, sidebarCollapsed, height, contentAs = "main
         aria-label="Navegação"
         onClose={closeDrawer}
         onClick={(e) => {
-          if (e.target === e.currentTarget) closeDrawer();
+          // Fundo da gaveta ou qualquer link dentro dela (destinos, "Registrar agora", logo): fecha e o foco volta ao gatilho.
+          if (e.target === e.currentTarget || (e.target as HTMLElement).closest("a[href]")) closeDrawer();
         }}
       >
         <Sidebar
