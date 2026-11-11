@@ -1,10 +1,17 @@
 import { redirect } from "next/navigation";
 
-import { AppShell } from "@/components/shell/app-shell";
+import { AppShell } from "@/components/ds";
 import { getCurrentProfile } from "@/lib/auth/current-profile";
 import { createClient } from "@/lib/supabase/server";
 
-import { AppNavigation } from "./app-navigation";
+const hrefs = {
+  inicio: "/app/inicio",
+  diario: "/app/diario",
+  evidencias: "/app/evidencias",
+  live: "/app/live",
+  artefatos: "/app/artefatos",
+  configuracoes: "/app/configuracoes",
+} as const;
 
 export default async function ProductLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const profile = await getCurrentProfile();
@@ -16,5 +23,10 @@ export default async function ProductLayout({ children }: Readonly<{ children: R
   }
   if (!profile.onboarding_completed_at) redirect("/onboarding");
 
-  return <AppShell nav={<AppNavigation />}>{children}</AppShell>;
+  // contentAs="div": as telas internas (legado, Lotes 10 a 12) ainda trazem o próprio <main>.
+  return (
+    <AppShell hrefs={hrefs} registerHref="/app/diario" searchAction="/app/evidencias" searchName="q" contentAs="div">
+      {children}
+    </AppShell>
+  );
 }

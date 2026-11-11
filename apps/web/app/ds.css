@@ -2339,6 +2339,32 @@ a.dx-nav:hover {
   font-family: var(--ds-font-body);
 }
 
+.dx-skip {
+  position: absolute;
+  top: var(--ds-space-2);
+  left: var(--ds-space-2);
+  z-index: 100;
+  padding: var(--ds-space-3) var(--ds-space-4);
+  border-radius: var(--ds-radius-pill);
+  background: var(--ds-n-900);
+  color: var(--ds-n-0);
+  font-family: var(--ds-font-body);
+  font-size: var(--ds-fs-btn-md);
+  font-weight: var(--ds-fw-semibold);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.dx-skip:focus-visible {
+  transform: none;
+  outline: var(--ds-ring-w) solid var(--ds-focus-ring);
+  outline-offset: var(--ds-ring-gap);
+}
+
+.dx-shell__main:focus {
+  outline: none;
+}
+
 .dx-shell__frame {
   display: flex;
   gap: var(--ds-shell-gap);

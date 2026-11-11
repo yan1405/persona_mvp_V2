@@ -1,9 +1,10 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import { AppHeader, type AppHeaderProps } from "./app-header";
-import { Sidebar, type SidebarProps } from "./sidebar";
+import { NAV_DESTINATIONS, NAV_SETTINGS, Sidebar, type NavId, type SidebarProps } from "./sidebar";
 
 export type AppShellProps = Pick<SidebarProps, "active" | "hrefs" | "onNavigate" | "onRegister" | "registerHref" | "resume" | "onResume" | "badges"> &
   Pick<AppHeaderProps, "title" | "searchValue" | "onSearchChange" | "onSearch" | "searchAction" | "searchName"> & {
@@ -12,11 +13,25 @@ export type AppShellProps = Pick<SidebarProps, "active" | "hrefs" | "onNavigate"
     sidebarCollapsed?: boolean;
     /** Altura do shell (número). Sem valor ocupa a altura da janela. */
     height?: number;
+    /** Elemento do conteúdo. `div` quando a página já traz o próprio <main> (telas ainda não migradas); o padrão é <main>. */
+    contentAs?: "main" | "div";
   };
+
+// Destino ativo pela rota: o item cuja rota é igual à atual ou prefixo dela. Sem `active` explícito e com `hrefs`.
+function activeFromPath(pathname: string | null, hrefs: SidebarProps["hrefs"]): NavId | undefined {
+  if (!pathname || !hrefs) return undefined;
+  return [...NAV_DESTINATIONS, NAV_SETTINGS].find((d) => {
+    const href = hrefs[d.id];
+    return href ? pathname === href || pathname.startsWith(href + "/") : false;
+  })?.id;
+}
 
 // Barra lateral branca flutuante (raio 22) + painel (raio 28) sobre --ds-bg-app. A largura vem do próprio shell
 // (container query), então funciona dentro de qualquer contêiner. Abaixo de 40 rem a navegação vira uma gaveta <dialog>.
-export function AppShell({ children, sidebarCollapsed, height, title, searchValue, onSearchChange, onSearch, searchAction, searchName, onNavigate, ...sidebar }: AppShellProps) {
+export function AppShell({ children, sidebarCollapsed, height, contentAs = "main", title, searchValue, onSearchChange, onSearch, searchAction, searchName, onNavigate, ...sidebarProps }: AppShellProps) {
+  const pathname = usePathname();
+  const sidebar = { ...sidebarProps, active: sidebarProps.active ?? activeFromPath(pathname, sidebarProps.hrefs) };
+  const Content = contentAs;
   const rootRef = useRef<HTMLDivElement>(null);
   const drawerRef = useRef<HTMLDialogElement>(null);
   const [size, setSize] = useState<{ narrow: boolean; phone: boolean } | null>(null);
@@ -50,9 +65,12 @@ export function AppShell({ children, sidebarCollapsed, height, title, searchValu
 
   return (
     <div ref={rootRef} className="dx-shell" style={height != null ? { height } : undefined}>
+      <a className="dx-skip" href="#conteudo">
+        Ir para o conteúdo
+      </a>
       <div className="dx-shell__frame">
         <Sidebar {...sidebar} onNavigate={onNavigate} collapsed={collapsed} onToggle={(next) => setManual(next)} />
-        <main className="dx-shell__main">
+        <Content className="dx-shell__main" id="conteudo" tabIndex={-1}>
           <div className="dx-shell__scroll" onScroll={(e) => setScrolled(e.currentTarget.scrollTop > 0)}>
             <div className="dx-shell__head" data-scrolled={scrolled}>
               <AppHeader
@@ -67,7 +85,7 @@ export function AppShell({ children, sidebarCollapsed, height, title, searchValu
             </div>
             <div className="dx-shell__content">{children}</div>
           </div>
-        </main>
+        </Content>
       </div>
       <dialog
         ref={drawerRef}
