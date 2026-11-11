@@ -27,3 +27,5 @@ export { EvidenceCard, type EvidenceCardProps, type EvidenceLevel } from "./evid
 export { FloatingPanel, type FloatingPanelProps } from "./floating-panel";
 export { SectionIndex, type SectionIndexItem, type SectionIndexProps } from "./section-index";
 export { StepFlow, type StepFlowProps } from "./step-flow";
+export { ArgumentPanel, type ArgumentItem, type ArgumentPanelProps } from "./argument-panel";
+export { DRAFT_DURATIONS, DraftPanel, type DraftPanelProps } from "./draft-panel";

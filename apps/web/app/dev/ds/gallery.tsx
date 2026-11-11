@@ -5,6 +5,7 @@ import { useState, type ReactNode } from "react";
 import {
   AppHeader,
   AppShell,
+  ArgumentPanel,
   ArtifactCard,
   Avatar,
   Badge,
@@ -16,6 +17,7 @@ import {
   DestinationGrid,
   DestinationTile,
   DimensionRow,
+  DraftPanel,
   EntryCard,
   EvidenceCard,
   FloatingPanel,
@@ -51,6 +53,7 @@ const SECTIONS = [
   { id: "campos", label: "Campos" },
   { id: "superficies", label: "Superfícies" },
   { id: "jornada", label: "Jornada e score" },
+  { id: "live", label: "Persona Live" },
   { id: "rastro", label: "Rastreabilidade" },
   { id: "navegacao", label: "Navegação" },
   { id: "shell", label: "Shell" },
@@ -357,6 +360,31 @@ export function Gallery() {
                 <DimensionRow label="Dimensão C" notEvaluated />
                 <DimensionRow label="Dimensão D" error="Não foi possível calcular agora." />
                 <DimensionRow label="Dimensão E" disabled />
+              </div>
+            </Spec>
+          </Group>
+
+          <Group id="live" title="Persona Live">
+            <Spec title="ArgumentPanel: sustentado, lacuna, processando, erro e somente leitura">
+              <div className="dxg__grid dxg__grid--wide">
+                <ArgumentPanel
+                  question="Conte sobre um projeto em equipe."
+                  items={[{ fact: "Organizou o cronograma de entregas do grupo.", action: "Dividiu tarefas e acompanhou prazos.", result: "Entregas no prazo.", competencies: ["Organização"], source: "Evidência de exemplo · ação", level: "registrada" }]}
+                  avoid="liderança formal de equipe."
+                />
+                <ArgumentPanel state="gap" missing={["Um resultado mensurável"]} registerHref="#" />
+                <ArgumentPanel state="processing" />
+                <ArgumentPanel state="error" onRetry={() => undefined} />
+                <ArgumentPanel state="closed" items={[{ fact: "Fato de exemplo.", source: "Evidência de exemplo · ação" }]} />
+              </div>
+            </Spec>
+            <Spec title="DraftPanel: pronto, processando, lacuna, erro e encerrado">
+              <div className="dxg__grid dxg__grid--wide">
+                <DraftPanel text="Rascunho de exemplo, apoio para a sua resposta." sources={["Evidência de exemplo"]} actions={<><Button variant="outline" size="sm" icon="minus">Encurtar</Button><Button variant="outline" size="sm" icon="plus">Aprofundar</Button><Button variant="solid" size="sm" icon="file-text">Salvar nos Artefatos</Button></>} />
+                <DraftPanel state="processing" />
+                <DraftPanel state="gap" />
+                <DraftPanel state="error" onRetry={() => undefined} />
+                <DraftPanel state="closed" text="Rascunho de exemplo." closedActions={<Button variant="outline" size="sm" icon="copy">Duplicar sessão</Button>} />
               </div>
             </Spec>
           </Group>

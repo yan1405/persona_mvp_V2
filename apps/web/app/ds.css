@@ -4081,3 +4081,204 @@ a:hover > .dx-card-top > .dx-icon {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* L-1: ArgumentPanel e DraftPanel (Persona Live). */
+.dx-arg,
+.dx-draft {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-4);
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: var(--ds-space-5);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-card);
+  box-shadow: var(--ds-shadow-soft);
+  font-family: var(--ds-font-body);
+}
+
+.dx-arg__head,
+.dx-draft__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-2);
+}
+
+.dx-arg__title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-fs-card-title);
+  font-weight: var(--ds-fw-bold);
+  letter-spacing: var(--ds-ls-sm);
+  color: var(--ds-text-strong);
+}
+
+.dx-arg__title .dx-icon {
+  color: var(--ds-brand-strong);
+}
+
+.dx-arg__question,
+.dx-arg__text,
+.dx-arg__status {
+  margin: 0;
+  color: var(--ds-text-body);
+  font-size: var(--ds-fs-body);
+  line-height: var(--ds-lh-150);
+}
+
+.dx-arg__lead {
+  margin: 0;
+  color: var(--ds-text-strong);
+  font-size: var(--ds-fs-body);
+  font-weight: var(--ds-fw-semibold);
+  line-height: var(--ds-lh-145);
+}
+
+.dx-arg__stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ds-space-3);
+}
+
+.dx-arg__error {
+  display: flex;
+  gap: var(--ds-space-2);
+  margin: 0;
+  color: var(--ds-red-ink);
+  font-size: var(--ds-fs-body);
+  font-weight: var(--ds-fw-semibold);
+  line-height: var(--ds-lh-145);
+}
+
+.dx-arg__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+  min-width: 0;
+}
+
+.dx-arg__item + .dx-arg__item {
+  padding-top: var(--ds-space-4);
+  border-top: var(--ds-bw) solid var(--ds-border-subtle);
+}
+
+.dx-arg__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+}
+
+.dx-arg__label {
+  color: var(--ds-text-muted);
+  font-size: var(--ds-fs-label);
+  font-weight: var(--ds-fw-semibold);
+}
+
+.dx-arg__fact {
+  color: var(--ds-text-strong);
+  font-size: var(--ds-fs-body);
+  font-weight: var(--ds-fw-semibold);
+  line-height: var(--ds-lh-140);
+}
+
+.dx-arg__list {
+  margin: 0;
+  padding-left: var(--ds-space-5);
+  color: var(--ds-text-body);
+  line-height: var(--ds-lh-150);
+}
+
+.dx-arg__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-2);
+}
+
+.dx-arg__source {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-1);
+  color: var(--ds-brand-strong);
+  font-size: var(--ds-fs-label);
+  font-weight: var(--ds-fw-semibold);
+  overflow-wrap: anywhere;
+}
+
+.dx-arg__quote {
+  margin: 0;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-fs-label);
+  line-height: var(--ds-lh-145);
+}
+
+.dx-arg__avoid {
+  display: flex;
+  gap: var(--ds-space-2);
+  margin: 0;
+  padding: var(--ds-space-3);
+  border-radius: var(--ds-radius-xs);
+  background: var(--ds-amber-soft);
+  color: var(--ds-amber-ink);
+  font-size: var(--ds-fs-label);
+  line-height: var(--ds-lh-145);
+}
+
+.dx-draft__text {
+  margin: 0;
+  color: var(--ds-text-strong);
+  font-size: var(--ds-fs-body);
+  line-height: var(--ds-lh-150);
+  text-wrap: pretty;
+}
+
+.dx-draft__sources {
+  color: var(--ds-text-muted);
+  font-size: var(--ds-fs-label);
+}
+
+.dx-draft__sources b {
+  color: var(--ds-text-body);
+  font-weight: var(--ds-fw-semibold);
+}
+
+.dx-draft__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-3);
+  padding-top: var(--ds-space-4);
+  border-top: var(--ds-bw) solid var(--ds-border-subtle);
+}
+
+.dx-draft__foot--col {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.dx-draft__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2);
+}
+
+.dx-draft__actions > form {
+  display: contents;
+}
+
+.dx-draft__note,
+.dx-draft__closed {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-1);
+  color: var(--ds-text-muted);
+  font-size: var(--ds-fs-label);
+  line-height: var(--ds-lh-145);
+}
