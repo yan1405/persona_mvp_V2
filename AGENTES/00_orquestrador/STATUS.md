@@ -548,3 +548,7 @@ Com autorização de Yan, Backend `173a265` e Interface `ee64fe6` entraram por `
 ## Lote 9 verificado, rodada 2 (11/11/2026)
 
 Relatórios: `RELATORIO_interface_lote9_122e860.md` e `RELATORIO_interface_lote9r2_f2c7533.md` (congelamentos `adf254d` e `3e63cdc`). C-2 foi retido (S2 C9-1: telas legadas ilegíveis no shell novo; S3 C9-2: gaveta do celular); a rodada 2 fechou os dois. Abertos: **C9-11 (S3)** regressão do botão primário (3,09:1) — corrigir antes de integrar (rodada 3); **C9-12 (S3)** feedback ilegível nas três telas legadas — aceito por escrito até a migração delas. Série C-1..C-6 + rodada 2: `npm test` 146/146, lint, typecheck, build 0. Aguarda rodada 3 e autorização de Yan para integrar. Pendente de Yan: logotipo da Microsoft no botão (C9-6).
+
+## Lote 9, rodada 3 verificada (11/11/2026)
+
+Relatório: `RELATORIO_interface_lote9r3_9e16e18.md` (congelamento `71a6223`). C9-11 **fechado** (botão primário 3,09 → 5,70:1). C9-12 reduzido (1,1–1,8 → 7,2–9,6:1); resta S3 residual em 2 títulos de painel do Diário (`.success-panel strong` 1,46:1, `.error-panel strong` 1,82:1), aceito até os Lotes 10–12. C9-1 sem regressão; telas com `ds-surface` sem diferença. Veredito da série C-1..C-6 + rodadas 2 e 3 (topo `9e16e18`): **integrar com ressalvas, sem S1/S2 e sem S3 de regressão**. `npm test` 146/146, lint, typecheck, build 0. Integração aguarda autorização de Yan; na integração o Orquestrador inclui `lib/auth/origin.test.ts` (C9-4) no `npm test`.
