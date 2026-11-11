@@ -1,6 +1,7 @@
 import { Badge, Button, ButtonLink, Card, EntryCard, Icon, Input, type StatusKey } from "@/components/ds";
 import { createClient } from "@/lib/supabase/server";
 
+import { DiaryDetail } from "./diary-detail";
 import { NewDailyLogForm } from "./diary-forms";
 
 type DiarySearchParams = {
@@ -9,6 +10,8 @@ type DiarySearchParams = {
   to?: string;
   state?: string;
   notice?: string;
+  abrir?: string;
+  suggestion?: string;
 };
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -153,7 +156,7 @@ export default async function DiaryPage({
                   date={dateFormatter.format(new Date(`${log.occurred_on}T00:00:00Z`))}
                   title={summary(log.content)}
                   meta={log.context ?? undefined}
-                  href={`/app/diario/${log.id}`}
+                  href={`/app/diario?abrir=${log.id}`}
                   openLabel="Abrir registro"
                   {...cardStatus(latestState.get(log.id))}
                 />
@@ -162,6 +165,7 @@ export default async function DiaryPage({
           </ul>
         )}
       </section>
+      {filters.abrir ? <DiaryDetail id={filters.abrir} query={{ suggestion: filters.suggestion, notice: filters.notice }} /> : null}
     </main>
   );
 }

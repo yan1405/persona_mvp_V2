@@ -3883,3 +3883,123 @@ a:hover > .dx-card-top > .dx-icon {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+/* I-3: conteúdo do painel do Diário (seções empilhadas dentro do FloatingPanel). */
+.dx-dp {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-6);
+  min-width: 0;
+}
+
+.dx-dp__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+  min-width: 0;
+}
+
+.dx-dp__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-2);
+}
+
+.dx-dp__h {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-fs-card-title);
+  font-weight: var(--ds-fw-bold);
+  line-height: var(--ds-lh-130);
+  color: var(--ds-text-strong);
+}
+
+.dx-dp__h--sm {
+  font-size: var(--ds-fs-body);
+}
+
+.dx-dp__text {
+  margin: 0;
+  color: var(--ds-text-body);
+  font-size: var(--ds-fs-body);
+  line-height: var(--ds-lh-150);
+}
+
+.dx-dp__count {
+  color: var(--ds-text-muted);
+  font-size: var(--ds-fs-label);
+  font-weight: var(--ds-fw-semibold);
+}
+
+.dx-dp__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2);
+}
+
+.dx-dp__versions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dx-dp__version {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+  padding: var(--ds-space-3);
+  border: var(--ds-bw) solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-sm);
+  background: var(--ds-surface-card);
+  color: var(--ds-text-body);
+  text-decoration: none;
+}
+
+.dx-dp__version[aria-current="true"] {
+  border-color: var(--ds-brand-strong);
+  background: var(--ds-n-25);
+}
+
+.dx-dp__version:focus-visible {
+  outline: var(--ds-ring-w) solid var(--ds-brand-strong);
+  outline-offset: var(--ds-ring-gap);
+}
+
+.dx-dp__version-title {
+  color: var(--ds-text-strong);
+  font-weight: var(--ds-fw-semibold);
+}
+
+.dx-dp__version-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-2);
+  font-size: var(--ds-fs-label);
+}
+
+.dx-dp__review {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+}
+
+.dx-dp__delete {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ds-space-3);
+}
+
+.dx-dp__check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-space-2);
+  color: var(--ds-text-body);
+  font-size: var(--ds-fs-body);
+}
