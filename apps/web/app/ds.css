@@ -3447,3 +3447,71 @@ button:hover > .dx-card-top > .dx-icon {
     letter-spacing: var(--ds-ls-xl);
   }
 }
+
+.dx-field--area .dx-field__box {
+  height: auto;
+  align-items: stretch;
+  padding: calc(var(--ds-space-3) * 0.9) calc(var(--ds-space-3) * 1.15);
+}
+
+.dx-field__input--area {
+  resize: vertical;
+  min-height: calc(var(--ds-field-h) * 1.5);
+  line-height: var(--ds-lh-150);
+}
+
+/* /onboarding */
+.dx-ob__step {
+  display: grid;
+  gap: var(--ds-space-4);
+}
+
+.dx-ob__step[hidden] {
+  display: none;
+}
+
+.dx-ob__group {
+  display: grid;
+  gap: var(--ds-space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.dx-ob__group-label {
+  padding: 0;
+  color: var(--ds-text-strong);
+  font-size: var(--ds-fs-caption);
+  font-weight: var(--ds-fw-semibold);
+}
+
+.dx-ob__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2);
+}
+
+.dx-ob__choice {
+  display: grid;
+  gap: var(--ds-space-2);
+}
+
+.dx-ob__help {
+  margin: 0;
+  color: var(--ds-text-muted);
+  font-size: var(--ds-fs-caption);
+  line-height: var(--ds-lh-145);
+}
+
+.dx-ob__error {
+  display: flex;
+  gap: var(--ds-space-2);
+  margin: 0;
+  color: var(--ds-red-ink);
+  font-size: var(--ds-fs-overline);
+}
+
+.dx-ob__choice {
+  padding: var(--ds-space-5);
+}

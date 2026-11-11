@@ -1,4 +1,6 @@
-import { useId, type ReactNode } from "react";
+"use client";
+
+import { useEffect, useId, useRef, type ReactNode } from "react";
 
 import { Button, type ButtonVariant } from "./button";
 import { cx } from "./cx";
@@ -21,6 +23,8 @@ export type StepFlowProps = {
   disabled?: boolean;
   error?: string;
   saving?: boolean;
+  /** Nível do título (padrão 3). Use 1 quando o fluxo é a página inteira. O título recebe o foco a cada troca de etapa. */
+  headingLevel?: 1 | 2 | 3;
   className?: string;
 };
 
@@ -41,9 +45,18 @@ export function StepFlow({
   disabled,
   error,
   saving,
+  headingLevel = 3,
   className,
 }: StepFlowProps) {
   const id = useId();
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const shown = useRef(step);
+  useEffect(() => {
+    if (shown.current === step) return; // só quando a etapa muda (não no primeiro desenho)
+    shown.current = step;
+    titleRef.current?.focus();
+  }, [step]);
+  const Heading = ("h" + headingLevel) as "h3";
   const s = Math.max(1, Math.min(total, step));
   const blockNext = disabled || nextDisabled || saving;
   return (
@@ -65,9 +78,9 @@ export function StepFlow({
             <span key={i} className={cx("dx-flow__seg", i < s && "is-done")} />
           ))}
         </div>
-        <h3 id={id + "-t"} className="dx-flow__title">
+        <Heading ref={titleRef} id={id + "-t"} className="dx-flow__title" tabIndex={-1}>
           {title}
-        </h3>
+        </Heading>
         {description ? <p className="dx-flow__desc">{description}</p> : null}
       </header>
       {children ? (

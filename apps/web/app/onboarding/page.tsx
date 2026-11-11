@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { redirect } from "next/navigation";
 
+import { Logo } from "@/components/ds";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 
@@ -35,22 +35,14 @@ export default async function OnboardingPage() {
   }
 
   return (
-    <main className="onboarding-shell">
-      <header className="onboarding-header">
-        <div className="wordmark" aria-label="Persona">
-          <Image
-            src="/brand/persona-logo-rica-dark.svg"
-            className="wordmark-logo"
-            width={24}
-            height={24}
-            alt=""
-            priority
-          />
-          Persona
-        </div>
-        <span className="phase-label">Configuração inicial</span>
-      </header>
-      <OnboardingForm defaultName={defaultName} email={email} />
+    <main className="dx-page">
+      <div className="dx-page__wrap dx-page__wrap--form">
+        <header className="dx-page__brand">
+          <Logo variant="lockup" height={32} title="Persona" />
+          <span className="dx-page__note">Configuração inicial</span>
+        </header>
+        <OnboardingForm defaultName={defaultName} email={email} />
+      </div>
     </main>
   );
 }

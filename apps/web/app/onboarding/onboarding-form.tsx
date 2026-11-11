@@ -1,11 +1,84 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useRef, useState } from "react";
+
+import { Card, Chip, Input, StepFlow, Switch, Textarea } from "@/components/ds";
 
 import { completeOnboarding, type OnboardingActionState } from "./actions";
 
-const steps = ["Contexto", "Privacidade", "Rotina", "Primeiro registro"];
+const STEPS = [
+  { title: "Conte onde você está agora.", description: "Essas respostas dão contexto aos seus registros. Você poderá ajustá-las depois." },
+  { title: "Você decide como seus dados serão usados.", description: "O Persona guarda relatos profissionais privados para organizar evidências. Comunicações são uma escolha separada." },
+  { title: "Escolha um horário para registrar.", description: "O lembrete é opcional e poderá ser alterado nas preferências." },
+  {
+    title: "Conte o que aconteceu na prática.",
+    description: "Conte uma situação recente em que você resolveu um problema, entregou algo ou aprendeu. Escreva como lembrar; a estruturação vem depois.",
+  },
+] as const;
+const LAST = STEPS.length - 1;
+
+const MOMENTS = [
+  { value: "estudando", label: "Estudando e me preparando" },
+  { value: "inicio-carreira", label: "No início da carreira" },
+  { value: "transicao", label: "Mudando de área ou função" },
+  { value: "consolidacao", label: "Consolidando minha experiência" },
+  { value: "lideranca", label: "Assumindo liderança" },
+] as const;
+
+// Etapa de cada campo (para voltar à etapa certa quando o servidor devolve um erro).
+const FIELD_STEP: Record<string, number> = {
+  displayName: 0,
+  professionalMoment: 0,
+  mainObjective: 0,
+  productConsent: 1,
+  communicationsConsent: 1,
+  reminderTime: 2,
+  dailyLogContent: 3,
+};
+const FIELD_FOCUS: Record<string, string> = {
+  displayName: "displayName",
+  professionalMoment: "moment-group",
+  mainObjective: "mainObjective",
+  productConsent: "productConsent",
+  reminderTime: "reminderTime",
+  dailyLogContent: "dailyLogContent",
+};
+
 const initialOnboardingState: OnboardingActionState = { status: "idle" };
+
+type Draft = {
+  displayName: string;
+  professionalMoment: string;
+  mainObjective: string;
+  productConsent: boolean;
+  communicationsConsent: boolean;
+  reminderEnabled: boolean;
+  reminderTime: string;
+  dailyLogContent: string;
+};
+
+// Mesmas regras de lib/onboarding/validation.ts, só para avisar antes do envio (o servidor continua validando tudo).
+function validateStep(step: number, draft: Draft): Record<string, string> {
+  const errors: Record<string, string> = {};
+  if (step === 0) {
+    const name = draft.displayName.trim().length;
+    if (name < 2 || name > 80) errors.displayName = "Informe um nome entre 2 e 80 caracteres.";
+    if (!draft.professionalMoment) errors.professionalMoment = "Escolha o momento que mais se parece com o seu.";
+    const objective = draft.mainObjective.trim().length;
+    if (objective < 8 || objective > 180) errors.mainObjective = "Descreva seu objetivo em 8 a 180 caracteres.";
+  }
+  if (step === 1 && !draft.productConsent) {
+    errors.productConsent = "Este consentimento é necessário para salvar seu perfil e seus registros.";
+  }
+  if (step === 2 && draft.reminderEnabled && !/^\d{2}:\d{2}$/.test(draft.reminderTime)) {
+    errors.reminderTime = "Informe o horário do lembrete.";
+  }
+  if (step === 3) {
+    const log = draft.dailyLogContent.trim().length;
+    if (log < 40 || log > 2000) errors.dailyLogContent = "Escreva entre 40 e 2.000 caracteres para este primeiro registro.";
+  }
+  return errors;
+}
 
 type OnboardingFormProps = {
   defaultName: string;
@@ -14,267 +87,225 @@ type OnboardingFormProps = {
 
 export function OnboardingForm({ defaultName, email }: OnboardingFormProps) {
   const [step, setStep] = useState(0);
-  const [reminderEnabled, setReminderEnabled] = useState(false);
-  const [state, formAction, pending] = useActionState(
-    completeOnboarding,
-    initialOnboardingState,
-  );
+  // O rascunho fica em estado (campos controlados): um erro do servidor não apaga o que a pessoa escreveu.
+  const [draft, setDraft] = useState<Draft>({
+    displayName: defaultName,
+    professionalMoment: "",
+    mainObjective: "",
+    productConsent: false,
+    communicationsConsent: false,
+    reminderEnabled: false,
+    reminderTime: "18:00",
+    dailyLogContent: "",
+  });
+  const [localErrors, setLocalErrors] = useState<Record<string, string>>({});
+  const [state, formAction, pending] = useActionState(completeOnboarding, initialOnboardingState);
+  const [seenState, setSeenState] = useState(state);
   const formRef = useRef<HTMLFormElement>(null);
 
-  useEffect(() => {
-    formRef.current
-      ?.querySelector<HTMLElement>(`[data-onboarding-step="${step}"] h1`)
-      ?.focus();
-  }, [step]);
-
-  function continueToNextStep() {
-    const section = formRef.current?.querySelector<HTMLElement>(
-      `[data-onboarding-step="${step}"]`,
-    );
-    const controls = section?.querySelectorAll<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >("input, select, textarea");
-
-    for (const control of controls ?? []) {
-      if (!control.checkValidity()) {
-        control.reportValidity();
-        return;
-      }
+  // Erro do servidor: volta à primeira etapa com problema e foca o campo (ajuste de estado na renderização, sem efeito).
+  if (state !== seenState) {
+    setSeenState(state);
+    const keys = Object.keys(state.fieldErrors ?? {});
+    if (state.status === "error" && keys.length > 0) {
+      const target = Math.min(...keys.map((k) => FIELD_STEP[k] ?? LAST));
+      setStep(target);
+      setLocalErrors({});
     }
-
-    setStep((current) => Math.min(current + 1, steps.length - 1));
   }
 
-  function returnToPreviousStep() {
-    setStep((current) => Math.max(current - 1, 0));
+  const errors: Record<string, string> = { ...(state.fieldErrors ?? {}), ...localErrors };
+  const set = <K extends keyof Draft>(key: K, value: Draft[K]) => {
+    setDraft((current) => ({ ...current, [key]: value }));
+    setLocalErrors((current) => {
+      if (!(key in current)) return current;
+      const rest = { ...current };
+      delete rest[key];
+      return rest;
+    });
+  };
+
+  function focusFirst(found: Record<string, string>) {
+    const key = Object.keys(found)[0];
+    if (!key) return;
+    const id = FIELD_FOCUS[key] ?? key;
+    window.setTimeout(() => document.getElementById(id)?.focus(), 0);
   }
+
+  function advance() {
+    const found = validateStep(step, draft);
+    if (Object.keys(found).length > 0) {
+      setLocalErrors(found);
+      focusFirst(found);
+      return;
+    }
+    setLocalErrors({});
+    if (step < LAST) setStep(step + 1);
+    else formRef.current?.requestSubmit();
+  }
+
+  const current = STEPS[step];
+  const stepErrors = Object.keys(errors).some((k) => FIELD_STEP[k] === step);
+  const summary = state.status === "error" && state.message ? state.message : stepErrors ? "Revise os campos indicados para continuar." : undefined;
 
   return (
-    <div className="onboarding-layout">
-      <aside className="onboarding-progress" aria-label="Progresso do onboarding">
-        <p className="phase-label">Primeiro uso</p>
-        <ol>
-          {steps.map((label, index) => (
-            <li
-              key={label}
-              aria-current={index === step ? "step" : undefined}
-              data-state={index < step ? "complete" : index === step ? "current" : "future"}
-            >
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              {label}
-            </li>
-          ))}
-        </ol>
-        <p className="onboarding-account">
-          Conta Microsoft
-          <strong>{email}</strong>
-        </p>
-      </aside>
-
-      <form ref={formRef} action={formAction} className="onboarding-form">
-        <div className="onboarding-step-count" aria-live="polite">
-          Etapa {step + 1} de {steps.length}
+    <form
+      ref={formRef}
+      action={formAction}
+      noValidate
+      onSubmit={(event) => {
+        // Enter num campo não envia antes da última etapa: segue o mesmo caminho do botão Continuar.
+        if (step < LAST) {
+          event.preventDefault();
+          advance();
+        }
+      }}
+    >
+      <StepFlow
+        headingLevel={1}
+        step={step + 1}
+        total={STEPS.length}
+        title={current.title}
+        description={current.description}
+        onBack={() => {
+          setLocalErrors({});
+          setStep((value) => Math.max(0, value - 1));
+        }}
+        onNext={advance}
+        nextLabel={step === LAST ? "Salvar primeiro registro" : "Continuar"}
+        nextVariant={step === LAST ? "brand" : "solid"}
+        saving={pending}
+        disabled={pending}
+        error={summary}
+      >
+        <div className="dx-ob__step" hidden={step !== 0}>
+          <Input
+            label="Nome"
+            id="displayName"
+            name="displayName"
+            value={draft.displayName}
+            onChange={(e) => set("displayName", e.target.value)}
+            minLength={2}
+            maxLength={80}
+            autoComplete="name"
+            required
+            error={errors.displayName}
+          />
+          <fieldset className="dx-ob__group" aria-describedby={errors.professionalMoment ? "moment-error" : undefined}>
+            <legend className="dx-ob__group-label">Momento profissional</legend>
+            <div className="dx-ob__chips" id="moment-group" tabIndex={-1}>
+              {MOMENTS.map((m) => (
+                <Chip key={m.value} selected={draft.professionalMoment === m.value} onClick={() => set("professionalMoment", m.value)}>
+                  {m.label}
+                </Chip>
+              ))}
+            </div>
+            <input type="hidden" name="professionalMoment" value={draft.professionalMoment} />
+            {errors.professionalMoment ? (
+              <p className="dx-ob__error" id="moment-error" role="alert">
+                {errors.professionalMoment}
+              </p>
+            ) : null}
+          </fieldset>
+          <Textarea
+            label="Objetivo principal"
+            id="mainObjective"
+            name="mainObjective"
+            value={draft.mainObjective}
+            onChange={(e) => set("mainObjective", e.target.value)}
+            minLength={8}
+            maxLength={180}
+            rows={3}
+            placeholder="Ex.: preparar exemplos concretos para entrevistas"
+            hint="Em uma ou duas frases."
+            required
+            error={errors.mainObjective}
+          />
         </div>
 
-        <section data-onboarding-step="0" hidden={step !== 0}>
-          <p className="eyebrow">Contexto</p>
-          <h1 id="onboarding-context-title" tabIndex={-1}>
-            Onde você está agora?
-          </h1>
-          <p className="onboarding-intro">
-            Essas respostas dão contexto aos seus registros. Você poderá ajustá-las depois.
-          </p>
-
-          <div className="field-stack">
-            <label className="field-label" htmlFor="displayName">
-              Nome
-            </label>
-            <input
-              className="text-field"
-              id="displayName"
-              name="displayName"
-              defaultValue={defaultName}
-              minLength={2}
-              maxLength={80}
-              autoComplete="name"
-              required
-              aria-describedby={state.fieldErrors?.displayName ? "displayName-error" : undefined}
+        <div className="dx-ob__step" hidden={step !== 1}>
+          <Card bordered elevation="none" className="dx-ob__choice">
+            <Switch
+              id="productConsent"
+              label="Permitir o tratamento dos meus dados para usar o Persona"
+              checked={draft.productConsent}
+              onChange={(value) => set("productConsent", value)}
             />
-            {state.fieldErrors?.displayName && (
-              <p className="field-error" id="displayName-error">
-                {state.fieldErrors.displayName}
+            {draft.productConsent ? <input type="hidden" name="productConsent" value="on" /> : null}
+            <p className="dx-ob__help">
+              Necessário para salvar perfil e registros. Leia a{" "}
+              <a className="dx-link" href="/privacidade" target="_blank" rel="noreferrer">
+                Política de Privacidade
+              </a>{" "}
+              e os{" "}
+              <a className="dx-link" href="/termos" target="_blank" rel="noreferrer">
+                Termos
+              </a>
+              .
+            </p>
+            {errors.productConsent ? (
+              <p className="dx-ob__error" role="alert">
+                {errors.productConsent}
               </p>
-            )}
-
-            <label className="field-label" htmlFor="professionalMoment">
-              Momento profissional
-            </label>
-            <select
-              className="text-field"
-              id="professionalMoment"
-              name="professionalMoment"
-              defaultValue=""
-              required
-            >
-              <option value="" disabled>
-                Selecione uma opção
-              </option>
-              <option value="estudando">Estou estudando e me preparando</option>
-              <option value="inicio-carreira">Estou no início da carreira</option>
-              <option value="transicao">Estou mudando de área ou função</option>
-              <option value="consolidacao">Estou consolidando minha experiência</option>
-              <option value="lideranca">Estou assumindo responsabilidades de liderança</option>
-            </select>
-
-            <label className="field-label" htmlFor="mainObjective">
-              Objetivo principal
-            </label>
-            <textarea
-              className="text-field text-area-compact"
-              id="mainObjective"
-              name="mainObjective"
-              minLength={8}
-              maxLength={180}
-              rows={3}
-              placeholder="Ex.: preparar exemplos concretos para entrevistas"
-              required
+            ) : null}
+          </Card>
+          <Card bordered elevation="none" className="dx-ob__choice">
+            <Switch
+              id="communicationsConsent"
+              label="Receber novidades e convites de pesquisa"
+              checked={draft.communicationsConsent}
+              onChange={(value) => set("communicationsConsent", value)}
             />
-          </div>
-        </section>
+            {draft.communicationsConsent ? <input type="hidden" name="communicationsConsent" value="on" /> : null}
+            <p className="dx-ob__help">Opcional. Não interfere no uso do produto.</p>
+          </Card>
+        </div>
 
-        <section data-onboarding-step="1" hidden={step !== 1}>
-          <p className="eyebrow">Privacidade</p>
-          <h1 id="onboarding-privacy-title" tabIndex={-1}>
-            Você decide como seus dados serão usados.
-          </h1>
-          <p className="onboarding-intro">
-            O Persona guarda relatos profissionais privados para organizar evidências. Comunicações são uma escolha separada.
-          </p>
-
-          <div className="choice-list">
-            <label className="choice-row">
-              <input type="checkbox" name="productConsent" required />
-              <span>
-                <strong>Permitir o tratamento dos meus dados para usar o Persona</strong>
-                <small>
-                  Necessário para salvar perfil e registros. Leia a <a href="/privacidade" target="_blank" rel="noreferrer">Política de Privacidade</a> e os <a href="/termos" target="_blank" rel="noreferrer">Termos</a>.
-                </small>
-              </span>
-            </label>
-            <label className="choice-row">
-              <input type="checkbox" name="communicationsConsent" />
-              <span>
-                <strong>Receber novidades e convites de pesquisa</strong>
-                <small>Opcional. Não interfere no uso do produto.</small>
-              </span>
-            </label>
-          </div>
-          {state.fieldErrors?.productConsent && (
-            <p className="field-error">{state.fieldErrors.productConsent}</p>
-          )}
-        </section>
-
-        <section data-onboarding-step="2" hidden={step !== 2}>
-          <p className="eyebrow">Rotina</p>
-          <h1 id="onboarding-routine-title" tabIndex={-1}>
-            Quer reservar um horário para registrar?
-          </h1>
-          <p className="onboarding-intro">
-            O lembrete é opcional e poderá ser alterado nas preferências.
-          </p>
-
-          <label className="choice-row choice-row-single">
-            <input
-              type="checkbox"
-              name="reminderEnabled"
-              checked={reminderEnabled}
-              onChange={(event) => setReminderEnabled(event.target.checked)}
+        <div className="dx-ob__step" hidden={step !== 2}>
+          <Card bordered elevation="none" className="dx-ob__choice">
+            <Switch
+              id="reminderEnabled"
+              label="Ativar lembrete diário"
+              checked={draft.reminderEnabled}
+              onChange={(value) => set("reminderEnabled", value)}
             />
-            <span>
-              <strong>Ativar lembrete diário</strong>
-              <small>Uma pausa curta para registrar o que aconteceu no dia.</small>
-            </span>
-          </label>
+            {draft.reminderEnabled ? <input type="hidden" name="reminderEnabled" value="on" /> : null}
+            <p className="dx-ob__help">Uma pausa curta para registrar o que aconteceu no dia.</p>
+          </Card>
+          {draft.reminderEnabled ? (
+            <Input
+              label="Horário"
+              id="reminderTime"
+              name="reminderTime"
+              type="time"
+              value={draft.reminderTime}
+              onChange={(e) => set("reminderTime", e.target.value)}
+              required
+              error={errors.reminderTime}
+            />
+          ) : null}
+        </div>
 
-          {reminderEnabled && (
-            <div className="reminder-time">
-              <label className="field-label" htmlFor="reminderTime">
-                Horário
-              </label>
-              <input
-                className="text-field time-field"
-                id="reminderTime"
-                name="reminderTime"
-                type="time"
-                defaultValue="18:00"
-                required
-              />
-            </div>
-          )}
-        </section>
-
-        <section data-onboarding-step="3" hidden={step !== 3}>
-          <p className="eyebrow">Primeiro registro</p>
-          <h1 id="onboarding-daily-log-title" tabIndex={-1}>
-            O que aconteceu na prática?
-          </h1>
-          <p className="onboarding-intro">
-            Conte uma situação recente em que você resolveu um problema, entregou algo ou aprendeu. Escreva como lembrar; a estruturação vem depois.
-          </p>
-
-          <label className="field-label" htmlFor="dailyLogContent">
-            Daily Log
-          </label>
-          <textarea
-            className="text-field daily-log-field"
+        <div className="dx-ob__step" hidden={step !== 3}>
+          <Textarea
+            label="Daily Log"
             id="dailyLogContent"
             name="dailyLogContent"
+            value={draft.dailyLogContent}
+            onChange={(e) => set("dailyLogContent", e.target.value)}
             minLength={40}
             maxLength={2000}
             rows={9}
             placeholder="Ex.: hoje eu precisei revisar..."
+            hint="Entre 40 e 2.000 caracteres. Este texto será privado na sua conta."
             required
-            aria-describedby="daily-log-help"
+            error={errors.dailyLogContent}
           />
-          <p className="field-help" id="daily-log-help">
-            Entre 40 e 2.000 caracteres. Este texto será privado na sua conta.
-          </p>
-          {state.fieldErrors?.dailyLogContent && (
-            <p className="field-error">{state.fieldErrors.dailyLogContent}</p>
-          )}
-        </section>
-
-        <div className="onboarding-actions">
-          {step > 0 ? (
-            <button
-              className="button-secondary"
-              type="button"
-              onClick={returnToPreviousStep}
-              disabled={pending}
-            >
-              Voltar
-            </button>
-          ) : (
-            <span />
-          )}
-
-          {step < steps.length - 1 ? (
-            <button className="button-primary" type="button" onClick={continueToNextStep}>
-              Continuar
-            </button>
-          ) : (
-            <button className="button-primary" type="submit" disabled={pending}>
-              {pending ? "Salvando registro…" : "Salvar primeiro registro"}
-            </button>
-          )}
         </div>
-
-        {state.status === "error" && (
-          <p className="form-error" role="alert">
-            {state.message}
-          </p>
-        )}
-      </form>
-    </div>
+      </StepFlow>
+      <p className="dx-page__note">
+        Conta Microsoft: <strong>{email}</strong>
+      </p>
+    </form>
   );
 }
