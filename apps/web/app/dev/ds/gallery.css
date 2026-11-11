@@ -1,0 +1,188 @@
+/* Galeria do DS (somente dev). Mesmas regras do ds.css: só tokens --ds-*, sem hex nem px literal. */
+.dxg {
+  container-type: inline-size;
+  container-name: dxg;
+  min-height: 100dvh;
+  background: var(--ds-bg-app);
+  color: var(--ds-text-body);
+  font-family: var(--ds-font-body);
+}
+
+.dxg__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ds-space-6);
+  box-sizing: border-box;
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: var(--ds-space-4);
+}
+
+.dxg__aside {
+  min-width: 0;
+}
+
+.dxg__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-10);
+  min-width: 0;
+}
+
+.dxg__title {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-fs-h1);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ds-text-strong);
+}
+
+.dxg__lead {
+  margin: var(--ds-space-2) 0 0;
+  max-width: 48rem;
+  font-size: var(--ds-fs-body-sm);
+  line-height: 1.5;
+}
+
+.dxg__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-5);
+  min-width: 0;
+  scroll-margin-top: var(--ds-space-6);
+}
+
+.dxg__group > h2 {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ds-text-strong);
+}
+
+.dxg__spec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+  min-width: 0;
+}
+
+.dxg__spec > h3 {
+  margin: 0;
+  font-size: var(--ds-fs-caption);
+  font-weight: 700;
+  color: var(--ds-text-muted);
+}
+
+.dxg__note {
+  margin: 0;
+  max-width: 48rem;
+  font-size: var(--ds-fs-caption);
+  line-height: 1.45;
+  color: var(--ds-text-muted);
+}
+
+.dxg__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-3);
+  min-width: 0;
+}
+
+.dxg__row--top {
+  align-items: flex-start;
+}
+
+.dxg__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr));
+  gap: var(--ds-space-4);
+  min-width: 0;
+}
+
+.dxg__grid--wide {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22.5rem), 1fr));
+}
+
+.dxg__grid--icons {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 7.5rem), 1fr));
+  gap: var(--ds-space-2);
+}
+
+.dxg__icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-space-2);
+  min-width: 0;
+  padding: var(--ds-space-3) var(--ds-space-2);
+  border-radius: var(--ds-radius-sm);
+  background: var(--ds-surface-card);
+  color: var(--ds-text-strong);
+  font-size: var(--ds-fs-count);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.dxg__on-focal {
+  padding: var(--ds-space-5);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-focal);
+  color: var(--ds-n-0);
+}
+
+.dxg__frame {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  border: var(--ds-bw) solid var(--ds-border-strong);
+  border-radius: var(--ds-radius-md);
+}
+
+.dxg__frame--phone {
+  width: min(100%, 23.4375rem);
+}
+
+.dxg__frame--tablet {
+  width: min(100%, 48rem);
+}
+
+.dxg__frame--desktop {
+  width: min(100%, 80rem);
+}
+
+.dxg__stage {
+  display: flex;
+  min-width: 0;
+  padding: var(--ds-space-4);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-bg-app);
+}
+
+.dxg__stage--tall {
+  min-height: 36rem;
+}
+
+.dxg__target {
+  scroll-margin-top: var(--ds-space-6);
+  padding: var(--ds-space-4);
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-surface-card);
+}
+
+@container dxg (min-width: 64rem) {
+  .dxg__inner {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: var(--ds-space-8);
+    padding: var(--ds-space-8);
+  }
+
+  .dxg__aside {
+    position: sticky;
+    top: var(--ds-space-8);
+    align-self: start;
+  }
+}
