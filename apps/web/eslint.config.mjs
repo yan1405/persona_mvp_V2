@@ -20,9 +20,13 @@ const restrict = (patterns) => ({
 const HEX = String.raw`#[0-9a-fA-F]{3,8}\b`;
 const PX = String.raw`\b\d+(\.\d+)?px\b`;
 const FONT = String.raw`font-family\s*:\s*(?=\S)(?!['"]?(Inter|Plus Jakarta Sans)|var\(--ds-font-)`;
-const DS_ADHERENCE = [
+const COLOR_FN = String.raw`\b(rgba?|hsla?|hwb|lab|lch|oklab|oklch|color-mix)\(`;
+export const DS_ADHERENCE = [
   ...["Literal[value", "TemplateElement[value.raw"].map((n) => ({ selector: n + "=/" + HEX + "/]", message: "Cor hexadecimal literal: use um token do DS (var(--ds-*)) em app/ds.css." })),
-  ...["Literal[value", "TemplateElement[value.raw"].map((n) => ({ selector: n + "=/" + PX + "/]", message: "Valor em px literal: use tokens de medida do DS (var(--ds-*)) ou números do React." })),
+  ...["Literal[value", "TemplateElement[value.raw"].map((n) => ({ selector: n + "=/" + COLOR_FN + "/i]", message: "Cor funcional literal (rgb, hsl...): use um token do DS (var(--ds-*))." })),
+  ...["Literal[value", "TemplateElement[value.raw"].map((n) => ({ selector: n + "=/" + PX + "/i]", message: "Valor em px literal: use tokens de medida do DS (var(--ds-*)) ou números do React." })),
+  { selector: "BinaryExpression[operator='+'] > Literal[value=/^\\s*px\\b/i]", message: "px por concatenação: use tokens de medida do DS ou números do React." },
+  { selector: "TemplateLiteral > TemplateElement[value.raw=/^\\s*px\\b/i]", message: "px por interpolação: use tokens de medida do DS ou números do React." },
   ...["Literal[value", "TemplateElement[value.raw"].map((n) => ({ selector: n + "=/" + FONT + "/i]", message: "Fonte fora do DS. Disponíveis: Inter e Plus Jakarta Sans (var(--ds-font-body) / var(--ds-font-display))." })),
 ];
 
@@ -58,6 +62,15 @@ const eslintConfig = defineConfig([
       "no-restricted-syntax": ["error",
         ...restrict([[SERVER_CORE_FILE, SERVER_CORE_MESSAGE], [SERVER_CORE_BARREL, SERVER_CORE_MESSAGE], [SERVER_SHELL_FILE, SERVER_SHELL_MESSAGE]])["no-restricted-syntax"].slice(1),
         ...DS_ADHERENCE,
+      ],
+    },
+  },
+  // O teste e as regras de aderência contêm, de propósito, os casos sujos (hex, px, rgb...): só eles ficam fora de DS_ADHERENCE.
+  {
+    files: ["components/ds/ds-adherence.test.ts", "components/ds/ds-adherence.ts"],
+    rules: {
+      "no-restricted-syntax": ["error",
+        ...restrict([[SERVER_CORE_FILE, SERVER_CORE_MESSAGE], [SERVER_CORE_BARREL, SERVER_CORE_MESSAGE], [SERVER_SHELL_FILE, SERVER_SHELL_MESSAGE]])["no-restricted-syntax"].slice(1),
       ],
     },
   },

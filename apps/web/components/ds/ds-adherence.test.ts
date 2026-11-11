@@ -1,34 +1,86 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { Linter } from "eslint";
+import { cssViolations } from "./ds-adherence.ts";
 
-// Aderência do CSS do DS (app/ds.css e a galeria): o ESLint cobre os TSX de components/ds/**; aqui o CSS.
-// Regras (de docs/redesign/design-system/_adherence.oxlintrc.json): sem hex, sem px fora de declaração de token
-// (custom property), fontes só Inter / Plus Jakarta Sans (via var(--ds-font-*)).
+// Aderência do Design System (docs/redesign/design-system/_adherence.oxlintrc.json): o CSS (app/ds.css e a galeria)
+// passa por cssViolations; os TSX de components/ds/** passam pelo ESLint (DS_ADHERENCE em eslint.config.mjs).
+// Cada regra tem caso sujo abaixo: se um dia a regra deixar de pegar, o teste falha.
 const FILES = ["../../app/ds.css", "../../app/dev/ds/gallery.css"];
 
-function stripComments(css: string): string {
-  return css.replace(/\/\*[\s\S]*?\*\//g, "");
-}
-
 for (const rel of FILES) {
-  const css = stripComments(readFileSync(new URL(rel, import.meta.url), "utf8"));
-  const lines = css.split(/\r?\n/);
-
-  test(rel + ": nenhum hexadecimal literal", () => {
-    const hits = lines.map((l, i) => [i + 1, l] as const).filter(([, l]) => /#[0-9a-fA-F]{3,8}\b/.test(l));
-    assert.deepEqual(hits, []);
-  });
-
-  test(rel + ": px só em declaração de custom property (token)", () => {
-    const hits = lines.map((l, i) => [i + 1, l] as const).filter(([, l]) => /\b\d+(\.\d+)?px\b/.test(l) && !/^\s*--[\w-]+\s*:/.test(l));
-    assert.deepEqual(hits, []);
-  });
-
-  test(rel + ": font-family só por var(--ds-font-*) ou Inter / Plus Jakarta Sans", () => {
-    const hits = lines
-      .map((l, i) => [i + 1, l] as const)
-      .filter(([, l]) => /font-family\s*:/.test(l) && !/font-family\s*:\s*(var\(--ds-font-|['"]?(Inter|Plus Jakarta Sans))/.test(l));
-    assert.deepEqual(hits, []);
+  test(rel + ": sem cor literal, px, font abreviado nem tipografia em número fora dos tokens", () => {
+    assert.deepEqual(cssViolations(readFileSync(new URL(rel, import.meta.url), "utf8")), []);
   });
 }
+
+const DIRTY_CSS: Array<[string, string]> = [
+  ["hex", ".a {\n  color: #fff;\n}"],
+  ["hex", ".a {\n  background: url(\"data:image/svg+xml,%3Csvg fill='%23ff0000'/%3E\");\n}"],
+  ["cor-funcional", ".a {\n  color: rgb(1 2 3);\n}"],
+  ["cor-funcional", ".a {\n  color: rgba(1, 2, 3, 0.5);\n}"],
+  ["cor-funcional", ".a {\n  color: hsl(10 20% 30%);\n}"],
+  ["cor-funcional", ".a {\n  color: oklch(50% 0.1 20);\n}"],
+  ["cor-nomeada", ".a {\n  color: red;\n}"],
+  ["cor-nomeada", ".a {\n  border: var(--ds-bw) solid rebeccapurple;\n}"],
+  ["px", ".a {\n  margin: 12px;\n}"],
+  ["px", ".a {\n  margin: 12PX;\n}"],
+  ["px", ".a {\n  --x: 1;\n  margin: calc(var(--y) + 4px);\n}"],
+  ["font-abreviado", ".a {\n  font: 600 14px/1.4 Inter;\n}"],
+  ["font-family", ".a {\n  font-family: Arial, sans-serif;\n}"],
+  ["font-weight-literal", ".a {\n  font-weight: 600;\n}"],
+  ["line-height-literal", ".a {\n  line-height: 1.4;\n}"],
+  ["letter-spacing-literal", ".a {\n  letter-spacing: -0.02em;\n}"],
+];
+
+for (const [rule, css] of DIRTY_CSS) {
+  test("caso sujo de CSS pego: " + rule + " — " + css.split("\n")[1].trim(), () => {
+    assert.ok(cssViolations(css).some((v) => v.rule === rule), "regra " + rule + " não pegou");
+  });
+}
+
+test("CSS limpo não gera falso positivo (token, var, transparent, selectores com nome de cor)", () => {
+  const clean = [
+    ":root {",
+    "  --a: rgb(1 2 3);",
+    "  --b: 12px;",
+    "  --c: 600;",
+    "}",
+    ".dx-avatar--green .dx-x:hover:not(:disabled) {",
+    "  color: var(--ds-text-strong);",
+    "  background: transparent;",
+    "  font-family: var(--ds-font-body);",
+    "  font-weight: var(--ds-fw-semibold);",
+    "  line-height: var(--ds-lh-140);",
+    "  letter-spacing: 0;",
+    "  content: \"red\";",
+    "}",
+  ].join("\n");
+  assert.deepEqual(cssViolations(clean), []);
+});
+
+const eslintConfigPath = "../../eslint.config.mjs";
+const DIRTY_TSX = [
+  'const a = "#fff";',
+  "const a = `#ABC123`;",
+  'const a = "rgb(1 2 3)";',
+  'const a = "RGBA(1,2,3,.5)";',
+  'const a = "hsl(10 20% 30%)";',
+  'const a = "12px";',
+  'const a = "12PX";',
+  'const a = n + "px";',
+  "const a = `${n}px`;",
+  'const a = "font-family: Arial";',
+];
+
+test("ESLint do DS pega cada caso sujo de TSX e deixa o código limpo passar", async () => {
+  const mod = (await import(eslintConfigPath)) as { DS_ADHERENCE: Array<{ selector: string; message: string }> };
+  const linter = new Linter({ configType: "flat" });
+  const cfg = [{ rules: { "no-restricted-syntax": ["error", ...mod.DS_ADHERENCE] as never } }];
+  const missed = DIRTY_TSX.filter((code) => linter.verify(code, cfg, "x.js").length === 0);
+  assert.deepEqual(missed, []);
+  for (const clean of ['const a = "var(--ds-text-strong)";', "const a = { width: 12 };", 'const a = "dx-card dx-card--sm";']) {
+    assert.deepEqual(linter.verify(clean, cfg, "x.js"), [], clean);
+  }
+});
