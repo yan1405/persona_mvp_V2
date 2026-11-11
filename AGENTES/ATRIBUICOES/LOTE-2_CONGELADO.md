@@ -301,3 +301,16 @@ Base: `main` local `2b091c7`. Refresh de Git feito (fetch, worktree da Interface
 | Interface | `808ab07c6ff51b84ae9356068d2b6d2d9344caeb` | M-4 remoção do design legado (CSS antigo, `/dev/ds/legado`, Geist Mono, Carbon, SVG de `public/`) |
 | Interface | `53fe3d1f4cdba44167c21e23d525d166a1dcf7fa` | M-5 gate de aderência ampliado |
 | Interface | `560608b014e832b5a6b3d21ce6e6bfad7d550ab4` | STATUS/registro do Lote 12 (topo) |
+
+## Lote 13, rodada A (N-1 a N-5) — SHAs congelados (11/11/2026)
+
+Base: `main` local `101f30b`; a Interface fez `git merge origin/preview/persona-lote12` (`ef2db98`) e `main`. Refresh de Git feito (fetch, worktree da Interface limpo; diff sobre `ef2db98` só em `components/**`, `app/**`, `public/brand/microsoft.svg` (novo, N-1) e AGENTES/docs; sem `lib/**`, `actions.ts`, `route.ts`, `.env*` ou migrações). A Interface informa: C9-7 (rota de auth), C9-13/C9-14/DS8-7 (S4 aceitos), exclusão em painel flutuante e "Para revisar" no Início (exigiria consulta nova) **não** feitos; também alterou o placeholder da busca em `components/ds/app-header.tsx`. Nada capturado visualmente.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `c30856de3d7b71baa3e19f9f8b69082acf7250af` | N-2 `Count` escuro sobre claro (DS8-5) |
+| Interface | `5e84a2d23b9aafaee6b2b123917822f55d91bf6b` | N-1 logotipo da Microsoft no botão de entrada (C9-6) |
+| Interface | `9a6949bad14fea54b1ab01aca603fa7d1ba170f2` | N-3 painel do Diário (`SectionIndex`, Texto original, `TraceLine`, `aria-modal`), `datetime` e título do Início |
+| Interface | `35c4b325501b395d11136ecef0f8d746bd295dec` | N-4 Configurações em página única com `SectionIndex` (`/dados` e `/conta` redirecionam; reautenticação preservada) |
+| Interface | `6a2fb03f9e8564d47dfa036c158d737fbe3ad76e` | N-5 C9-5 títulos, C9-9 busca, C9-10 alertas |
+| Interface | `35956d705f9796cad277af561f703adc5c54fd1a` | STATUS (topo) |
