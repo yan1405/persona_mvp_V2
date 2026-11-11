@@ -250,3 +250,14 @@ Base: `main` local `d624447`. Refresh de Git feito (fetch, worktree da Interface
 | Interface | `d6501a610cb6c1e2c074f7f32a4564559631f478` | I-5 painel flutuante da Evidência (rota direta `/app/evidencias/[id]` → `?abrir=<id>`; Carbon removido) |
 | Interface | `e0e97d0c395ac1c56a475ec80a794d79d366f410` | I-6 formulários do Diário e das Evidências com `Input`/`Textarea`/`Button` do DS |
 | Interface | `7e40a777ec52bd817ad86159b920b804bb02dfd1` | STATUS (topo) |
+
+## Lote 11, rodada A — SHAs congelados (11/11/2026)
+
+Base: `main` local `90f543a`. Refresh de Git feito (fetch, worktree da Interface limpo; diff sobre `7e40a77` só em `components/ds`, `app/dev/ds`, `app/app/live`, `app/app/score` e AGENTES/docs, 13 arquivos; merge `2ec0b61` só trouxe docs da `main`). `origin/main` `06de045`; Preview `preview/reconstrucao-ds` em `c88f304`. Obs. da Interface: `/app/score?tab=` deixa de existir (página única); verificar links/redirects que o usavam.
+
+| Papel | SHA completo | Item |
+|---|---|---|
+| Interface | `4fc0f3b8d5b66e0bccf2c7fb1c8bea37fce8f6a4` | L-1 `ArgumentPanel` e `DraftPanel` na galeria |
+| Interface | `0fa2555467960174a3147bc27608831f8c304d98` | L-2 Persona Live sem chat |
+| Interface | `a480ae131f45f51878f5f18a3c1295676ce5d360` | L-3 Narrative Score com painel de explicação (`?abrir=calculo`) |
+| Interface | `6827d8697e123a8fb1c1150ba7a9f86dcded08d6` | STATUS (topo) |
