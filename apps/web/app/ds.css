@@ -4630,3 +4630,35 @@ a:hover > .dx-card-top > .dx-icon {
     display: block !important;
   }
 }
+
+/* M-1: perguntas do Diagnóstico (Chip em grupo). */
+.dx-diag__q {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-3);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.dx-diag__legend {
+  padding: 0;
+  color: var(--ds-text-strong);
+  font-size: var(--ds-fs-body);
+  font-weight: var(--ds-fw-semibold);
+  line-height: var(--ds-lh-145);
+}
+
+.dx-diag__opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2);
+}
+
+.dx-diag__opts .dx-chip {
+  height: auto;
+  padding-block: var(--ds-space-2);
+  text-align: left;
+  white-space: normal;
+}

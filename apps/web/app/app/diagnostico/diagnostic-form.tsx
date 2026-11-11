@@ -1,10 +1,17 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef, useState } from "react";
 
+import { Chip, Icon, StepFlow, Textarea } from "@/components/ds";
 import { DIAGNOSTIC_OPTIONS, DIAGNOSTIC_QUESTIONS } from "@/lib/score/diagnostic";
 
 import { saveDiagnostic, type DiagnosticActionState } from "./actions";
+
+const copy = [
+  { title: "Qual narrativa você quer construir?", description: "Seu objetivo orienta a leitura inicial. Ele pode mudar depois; aqui precisamos apenas de uma direção concreta." },
+  { title: "O quanto sua história já está clara?", description: "Responda pelo que você consegue explicar hoje, não pelo nível que gostaria de alcançar." },
+  { title: "Como essa narrativa aparece nos seus registros?", description: "As duas primeiras respostas formam a consistência declarada. As demais orientam suas próximas ações." },
+];
 
 export function DiagnosticForm({
   initialStep,
@@ -19,65 +26,87 @@ export function DiagnosticForm({
 }) {
   const initialState: DiagnosticActionState = { status: "idle", currentStep: initialStep, diagnosticId };
   const [state, action, pending] = useActionState(saveDiagnostic, initialState);
+  const [goal, setGoal] = useState(objective);
+  const [chosen, setChosen] = useState<Record<string, number>>(answers);
+  const formRef = useRef<HTMLFormElement>(null);
+  const intentRef = useRef<HTMLInputElement>(null);
   const step = state.currentStep;
 
-  const questionRows = (from: number, to: number) => DIAGNOSTIC_QUESTIONS.slice(from, to).map((question, index) => (
-    <fieldset className="diagnostic-question" key={question.id}>
-      <legend><span>{String(from + index + 1).padStart(2, "0")}</span>{question.text}</legend>
-      <div className="diagnostic-options">
-        {DIAGNOSTIC_OPTIONS.map((option) => (
-          <label key={option.value}>
-            <input name={question.id} type="radio" value={option.value} defaultChecked={answers[question.id] === option.value} />
-            <span>{option.label}</span>
-          </label>
-        ))}
-      </div>
-      {state.fieldErrors?.[question.id] && <p className="field-error">{state.fieldErrors[question.id]}</p>}
-    </fieldset>
-  ));
+  const send = (intent: "back" | "continue" | "complete") => {
+    if (intentRef.current) intentRef.current.value = intent;
+    formRef.current?.requestSubmit();
+  };
+
+  const questionRows = (from: number, to: number) =>
+    DIAGNOSTIC_QUESTIONS.slice(from, to).map((question, index) => (
+      <fieldset className="dx-diag__q" key={question.id}>
+        <legend className="dx-diag__legend">
+          <span className="dx-ws__num">{String(from + index + 1).padStart(2, "0")}</span> {question.text}
+        </legend>
+        <div className="dx-diag__opts">
+          {DIAGNOSTIC_OPTIONS.map((option) => (
+            <Chip key={option.value} selected={chosen[question.id] === option.value} onClick={() => setChosen((current) => ({ ...current, [question.id]: option.value }))}>
+              {option.label}
+            </Chip>
+          ))}
+        </div>
+        {state.fieldErrors?.[question.id] && (
+          <p className="dx-page__notice dx-page__notice--error" role="alert">
+            <Icon name="triangle-alert" size={16} />
+            {state.fieldErrors[question.id]}
+          </p>
+        )}
+      </fieldset>
+    ));
 
   return (
-    <form action={action} className="diagnostic-form" noValidate>
+    <form action={action} ref={formRef} noValidate>
       <input name="currentStep" type="hidden" value={step} />
-      <header className="diagnostic-step-header">
-        <span>Etapa {step} de 3</span>
-        <span>{state.status === "saved" ? "Rascunho salvo" : pending ? "Salvando…" : "Salvamento por etapa"}</span>
-      </header>
-
-      <section hidden={step !== 1}>
-        <p className="eyebrow">Ponto de partida</p>
-        <h1>Qual narrativa você quer construir?</h1>
-        <p className="diagnostic-intro">Seu objetivo orienta a leitura inicial. Ele pode mudar depois; aqui precisamos apenas de uma direção concreta.</p>
-        <label className="field-label" htmlFor="diagnostic-objective">Objetivo profissional atual</label>
-        <textarea className="text-field diagnostic-objective" id="diagnostic-objective" name="objective" minLength={8} maxLength={240} defaultValue={objective} placeholder="Ex.: consolidar meu posicionamento em IA aplicada e demonstrar resultados reais dos projetos em que atuo." />
-        {state.fieldErrors?.objective && <p className="field-error">{state.fieldErrors.objective}</p>}
-      </section>
-
-      <section hidden={step !== 2}>
-        <p className="eyebrow">Direção e repertório</p>
-        <h1>O quanto sua história já está clara?</h1>
-        <p className="diagnostic-intro">Responda pelo que você consegue explicar hoje, não pelo nível que gostaria de alcançar.</p>
-        {questionRows(0, 6)}
-      </section>
-
-      <section hidden={step !== 3}>
-        <p className="eyebrow">Prática e prontidão</p>
-        <h1>Como essa narrativa aparece nos seus registros?</h1>
-        <p className="diagnostic-intro">As duas primeiras respostas formam a consistência declarada. As demais orientam suas próximas ações.</p>
-        {questionRows(6, 10)}
-        <aside className="diagnostic-review">
-          <strong>Antes de concluir</strong>
-          <p>O resultado inicial é uma base declarada, não uma avaliação definitiva. Registros e evidências substituirão essas respostas quando houver dados suficientes.</p>
-        </aside>
-      </section>
-
-      {state.message && <p className={state.status === "error" ? "form-error" : "form-success"} role="status">{state.message}</p>}
-      <footer className="diagnostic-actions">
-        <button className="button-secondary" disabled={pending || step === 1} name="intent" value="back" type="submit">Voltar</button>
-        <button className="button-primary" disabled={pending} name="intent" value={step === 3 ? "complete" : "continue"} type="submit">
-          {pending ? "Salvando…" : step === 3 ? "Concluir diagnóstico" : "Salvar e continuar"}
-        </button>
-      </footer>
+      <input name="intent" type="hidden" defaultValue="continue" ref={intentRef} />
+      <input name="objective" type="hidden" value={goal} />
+      {Object.entries(chosen).map(([id, value]) => (
+        <input key={id} name={id} type="hidden" value={value} />
+      ))}
+      <StepFlow
+        step={step}
+        total={3}
+        headingLevel={2}
+        title={copy[step - 1].title}
+        description={copy[step - 1].description}
+        error={state.status === "error" ? state.message : undefined}
+        saving={pending}
+        onBack={() => send("back")}
+        onNext={() => send(step === 3 ? "complete" : "continue")}
+        nextVariant="brand"
+        nextLabel={step === 3 ? "Concluir diagnóstico" : "Salvar e continuar"}
+      >
+        {step === 1 && (
+          <Textarea
+            label="Objetivo profissional atual"
+            rows={4}
+            minLength={8}
+            maxLength={240}
+            value={goal}
+            onChange={(event) => setGoal(event.target.value)}
+            placeholder="Ex.: consolidar meu posicionamento em IA aplicada e demonstrar resultados reais dos projetos em que atuo."
+            hint="8 a 240 caracteres."
+            error={state.fieldErrors?.objective}
+          />
+        )}
+        {step === 2 && <div className="dx-form">{questionRows(0, 6)}</div>}
+        {step === 3 && (
+          <div className="dx-form">
+            {questionRows(6, 10)}
+            <p className="dx-form__hint">O resultado inicial é uma base declarada, não uma avaliação definitiva. Registros e evidências substituirão essas respostas quando houver dados suficientes.</p>
+          </div>
+        )}
+        {state.status === "saved" && state.message && (
+          <p className="dx-page__notice dx-page__notice--ok" role="status">
+            <Icon name="circle-check" size={16} />
+            {state.message}
+          </p>
+        )}
+      </StepFlow>
     </form>
   );
 }

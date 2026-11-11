@@ -1,3 +1,4 @@
+import { Card } from "@/components/ds";
 import { createClient } from "@/lib/supabase/server";
 
 import { DiagnosticForm } from "./diagnostic-form";
@@ -11,23 +12,22 @@ export default async function DiagnosticPage() {
   ]);
 
   return (
-    <main className="app-page diagnostic-page ds-surface">
-      <aside className="diagnostic-context">
-        <p className="eyebrow">Narrative Score</p>
-        <h2>{latest ? "Refazer diagnóstico" : "Diagnóstico inicial"}</h2>
-        <p>Dez respostas criam uma referência explicável para o Score. Credibilidade ainda não recebe nota nesta fase.</p>
-        <ol>
-          <li data-active={(draft?.current_step ?? 1) === 1}><span>01</span>Objetivo</li>
-          <li data-active={draft?.current_step === 2}><span>02</span>Clareza</li>
-          <li data-active={draft?.current_step === 3}><span>03</span>Prática</li>
-        </ol>
-      </aside>
-      <DiagnosticForm
-        initialStep={draft?.current_step ?? 1}
-        diagnosticId={draft?.id}
-        objective={draft?.professional_objective ?? profile?.main_objective ?? ""}
-        answers={(draft?.answers ?? {}) as Record<string, number>}
-      />
+    <main className="dx-home">
+      <header className="dx-home__head">
+        <div className="dx-home__greeting">
+          <p className="dx-page__eyebrow">Narrative Score</p>
+          <h1 className="dx-home__title">{latest ? "Refazer diagnóstico." : "Diagnóstico inicial."}</h1>
+          <p className="dx-home__text">Dez respostas criam uma referência explicável para o Score. Credibilidade ainda não recebe nota nesta fase.</p>
+        </div>
+      </header>
+      <Card padding={24} className="dx-home__block">
+        <DiagnosticForm
+          initialStep={draft?.current_step ?? 1}
+          diagnosticId={draft?.id}
+          objective={draft?.professional_objective ?? profile?.main_objective ?? ""}
+          answers={(draft?.answers ?? {}) as Record<string, number>}
+        />
+      </Card>
     </main>
   );
 }
